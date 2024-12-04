@@ -1,3 +1,31 @@
+### WEBSPELL | RM - Release: 2.1.5 (04.08.2024)
+---------------------------------------------------------------------
+
++ /admin/plugin_manager.php         -> 1200 Zeilen Code entfernt
+                                    -> einige Bugs entfernt
+                                    -> startpage, contact, imprint, privacy_policy, profile, myprofile Plugin Modul aktiviert
+                                       so ist es jetzt auch hier möglich Via-Navigation zu aktivieren und Widgeteinstellungen vorzunehmen. 
+                                       Ist für einige Templates mit Topbar Widget notwendig.
+
++ /admin/plugin_module.php          -> Modul Übersicht
+                                    -> Hier siehst du ob Module aktiv oder geschossen sind.
+                                    -> Auf welcher Seite werden Widgets dargestellt und auf welcher Position.
+                                    -> Löschen von Plugins auch hier möglich.
+
++ /admin/settings_templates.php     -> Agency und Sticky Navigation Einstellung.
+                                    -> Animierter Unterstrich bei Links aktivierbar.
+                                    -> alles mit einem Klick aktivierbar.
+                                    -> alle Templates für die neue Navigaton angepasst.
+
++ Pluginanpassungen                 -> Default-Navigation erweitert und angepasst für Agency und Sticky Navigation
+
++ Datenbank Änderung                -> plugins_forum_user_forum_groups in user_forum_groups geändert. Plugins angepasst. 
+
++ Profil Edit                       -> Profil öffentlich sichtbar machen? Einstellung vom Member selber einstellbar.  
+
++ Language Editor                   -> Mit diesem Editor ist es jetzt möglich im Admincenter die Sprachdateien zu bearbeiten.                                                  
+
+
 ### WEBSPELL | RM - Release: 2.1.4 (23.03.2024)
 ---------------------------------------------------------------------
 

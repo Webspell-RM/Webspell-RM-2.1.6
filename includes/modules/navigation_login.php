@@ -70,7 +70,7 @@ if($loggedin) {
             $icon='<a data-toggle="tooltip" data-placement="bottom" title="'.$index_language[ 'no_forum_post' ].'" href="index.php?site=forum"><span class="icon badge bg-light text-dark mt-0 position-relative">
                     <i class="bi bi-chat"></i></span></a>';
             if(!empty($gv['topics'])) $topic=explode("|", $gv[ 'topics' ]);
-                $calc = count($topic);
+                $calc = count((array)$topic);
                 if(is_array($topic)) {
                     $n=1;
                     foreach($topic as $topics) {

@@ -308,7 +308,7 @@ $transaction->addQuery("INSERT INTO `".PREFIX."modrewrite` (`ruleID`, `regex`, `
 (28, 'links/category/{catID}.html', 'index.php?site=links&action=show&linkcatID={catID}', 'a:1:{s:5:\"catID\";s:7:\"integer\";}', 'index\\.php\\?site=links[&|&amp;]*action=show[&|&amp;]*linkcatID=([0-9]+)', 'links/category/$3.html', 'links\\/category\\/([0-9]+?)\\.html', 'index.php?site=links&action=show&linkcatID=$1'),
 (29, 'linkus.html', 'index.php?site=linkus', 'a:0:{}', 'index\\.php\\?site=linkus', 'linkus.html', 'linkus\\.html', 'index.php?site=linkus'),
 (30, 'login.html', 'index.php?site=login', 'a:0:{}', 'index\\.php\\?site=login', 'login.html', 'login\\.html', 'index.php?site=login'),
-(31, 'logout.html', 'index.php?site=logout', 'a:0:{}', 'index\\.php\\?site=logout', 'logout.html', 'logout\\.html', 'index.php?site=logout'),
+(31, 'logout.html', 'logout.php', 'a:0:{}', 'logout\\.php', 'logout.html', 'logout\\.html', 'logout.php'),
 (32, 'lostpassword.html', 'index.php?site=lostpassword', 'a:0:{}', 'index\\.php\\?site=lostpassword', 'lostpassword.html', 'lostpassword\\.html', 'index.php?site=lostpassword'),
 (33, 'members.html', 'index.php?site=members', 'a:0:{}', 'index\\.php\\?site=members', 'members.html', 'members\\.html', 'index.php?site=members'),
 (34, 'members/{squadID}.html', 'index.php?site=members&action=show&squadID={squadID}', 'a:1:{s:7:\"squadID\";s:7:\"integer\";}', 'index\\.php\\?site=members[&|&amp;]*action=show[&|&amp;]*squadID=([0-9]+)', 'members/$3.html', 'members\\/([0-9]+?)\\.html', 'index.php?site=members&action=show&squadID=$1'),
@@ -371,29 +371,30 @@ $transaction->addQuery("INSERT INTO `".PREFIX."modrewrite` (`ruleID`, `regex`, `
 (93, 'rss.html', 'index.php?site=rss', 'a:0:{}', 'index\\.php\\?site=rss', 'rss.html', 'rss\\.html', 'index.php?site=rss'),
 (94, 'projectlist.html', 'index.php?site=projectlist', 'a:0:{}', 'index\\.php\\?site=projectlist', 'projectlist.html', 'projectlist\\.html', 'index.php?site=projectlist'),
 (95, 'projectlist/{catID}.html', 'index.php?site=projectlist&action=show&projectlistcatID={catID}', 'a:1:{s:5:\"catID\";s:7:\"integer\";}', 'index\\.php\\?site=projectlist[&|&amp;]*action=show[&|&amp;]*projectlistcatID=([0-9]+)', 'projectlist/$3.html', 'projectlist\\/([0-9]+?)\\.html', 'index.php?site=projectlist&action=show&projectlistcatID=$1'),
-(96, 'usergallery.html', 'index.php?site=usergallery', 'a:0:{}', 'index\\.php\\?site=usergallery', 'usergallery.html', 'usergallery\\.html', 'index.php?site=usergallery'),
-(97, 'usergallery/add.html', 'index.php?site=usergallery&action=add', 'a:0:{}', 'index\\.php\\?site=usergallery[&|&amp;]*action=add', 'usergallery/add.html', 'usergallery\\/add\\.html', 'index.php?site=usergallery&action=add'),
-(98, 'cashbox.html', 'index.php?site=cashbox', 'a:0:{}', 'index\\.php\\?site=cashbox', 'cashbox.html', 'cashbox\\.html', 'index.php?site=cashbox'),
-(99, 'calendar/event.html', 'index.php?site=calendar#event', 'a:0:{}', 'index\\.php\\?site=calendar#event', 'calendar/event.html', 'calendar\\/event\\.html', 'index.php?site=calendar#event'),
-(100, 'awaylist.html', 'index.php?site=awaylist', 'a:0:{}', 'index\\.php\\?site=awaylist', 'awaylist.html', 'awaylist\\.html', 'index.php?site=awaylist'),
-(101, 'awaylist/add.html', 'index.php?site=awaylist&action=add', 'a:0:{}', 'index\\.php\\?site=awaylist[&|&amp;]*action=add', 'awaylist/add.html', 'awaylist\\/add\\.html', 'index.php?site=awaylist&action=add'),
-(102, 'awaylist/edit/{id}.html', 'index.php?site=awaylist&action=edit&id={id}', 'a:1:{s:2:\"id\";s:7:\"integer\";}', 'index\\.php\\?site=awaylist[&|&amp;]*action=edit[&|&amp;]*id=([0-9]+)', 'awaylist/edit/$3.html', 'awaylist\\/edit\\/([0-9]+?)\\.html', 'index.php?site=awaylist&action=edit&id=$1'),
-(103, 'awaylist/show/{id}.html', 'index.php?site=awaylist&action=show&id={id}', 'a:1:{s:2:\"id\";s:7:\"integer\";}', 'index\\.php\\?site=awaylist[&|&amp;]*action=show[&|&amp;]*id=([0-9]+)', 'awaylist/show/$3.html', 'awaylist\\/show\\/([0-9]+?)\\.html', 'index.php?site=awaylist&action=show&id=$1'),
-(104, 'mc_status.html', 'index.php?site=mc_status', 'a:0:{}', 'index\\.php\\?site=mc_status', 'mc_status.html', 'mc_status\\.html', 'index.php?site=mc_status'),
-(105, 'planning.html', 'index.php?site=planning', 'a:0:{}', 'index\\.php\\?site=planning', 'planning.html', 'planning\\.html', 'index.php?site=planning'),
-(106, 'memberslist.html', 'index.php?site=memberslist', 'a:0:{}', 'index\\.php\\?site=memberslist', 'memberslist.html', 'memberslist\\.html', 'index.php?site=memberslist'),
-(107, 'cup.html', 'index.php?site=cup', 'a:0:{}', 'index\\.php\\?site=cup', 'cup.html', 'cup\\.html', 'index.php?site=cup'),
-(108, 'cup/teams.html', 'index.php?site=cup&action=teams', 'a:0:{}', 'index\\.php\\?site=cup[&|&amp;]*action=teams', 'cup/teams.html', 'cup\\/teams\\.html', 'index.php?site=cup&action=teams'),
-(109, 'newsletter.html', 'index.php?site=newsletter', 'a:0:{}', 'index\\.php\\?site=newsletter', 'newsletter.html', 'newsletter\\.html', 'index.php?site=newsletter'),
-(110, 'tsviewer.html', 'index.php?site=tsviewer', 'a:0:{}', 'index\\.php\\?site=tsviewer', 'tsviewer.html', 'tsviewer\\.html', 'index.php?site=tsviewer'),
-(111, 'gallery/category{groupID}.html', 'index.php?site=gallery&groupID={groupID}', 'a:1:{s:7:\"groupID\";s:7:\"integer\";}', 'index\\.php\\?site=gallery[&|&amp;]*groupID=([0-9]+)', 'gallery/category$3.html', 'gallery\\/category([0-9]+?)\\.html', 'index.php?site=gallery&groupID=$1'),
-(112, 'blog.html', 'index.php?site=blog', 'a:0:{}', 'index\\.php\\?site=blog', 'blog.html', 'blog\\.html', 'index.php?site=blog'),
-(113, 'blog/archiv.html', 'index.php?site=blog&action=archiv', 'a:0:{}', 'index\\.php\\?site=blog[&|&amp;]*action=archiv', 'blog/archiv.html', 'blog\\/archiv\\.html', 'index.php?site=blog&action=archiv'),
-(114, 'gallery/gallery{galleryID}.html', 'index.php?site=gallery&galleryID={galleryID}', 'a:1:{s:9:\"galleryID\";s:7:\"integer\";}', 'index\\.php\\?site=gallery[&|&amp;]*galleryID=([0-9]+)', 'gallery/gallery$3.html', 'gallery\\/gallery([0-9]+?)\\.html', 'index.php?site=gallery&galleryID=$1'),
-(115, 'blog/show/{blogID}.html', 'index.php?site=blog&action=show&blogID={blogID}', 'a:1:{s:6:\"blogID\";s:7:\"integer\";}', 'index\\.php\\?site=blog[&|&amp;]*action=show[&|&amp;]*blogID=([0-9]+)', 'blog/show/$3.html', 'blog\\/show\\/([0-9]+?)\\.html', 'index.php?site=blog&action=show&blogID=$1'),
-(116, 'blog/detail/{id}.html', 'index.php?site=blog&action=detail&user={id}', 'a:1:{s:2:\"id\";s:7:\"integer\";}', 'index\\.php\\?site=blog[&|&amp;]*action=detail[&|&amp;]*user=([0-9]+)', 'blog/detail/$3.html', 'blog\\/detail\\/([0-9]+?)\\.html', 'index.php?site=blog&action=detail&user=$1'),
-(117, 'blog/add.html', 'index.php?site=blog&action=new', 'a:0:{}', 'index\\.php\\?site=blog[&|&amp;]*action=new', 'blog/add.html', 'blog\\/add\\.html', 'index.php?site=blog&action=new'),
-(118, 'blog/edit/{blogID}.html', 'index.php?site=blog&action=edit&blogID={blogID}', 'a:1:{s:6:\"blogID\";s:7:\"integer\";}', 'index\\.php\\?site=blog[&|&amp;]*action=edit[&|&amp;]*blogID=([0-9]+)', 'blog/edit/$3.html', 'blog\\/edit\\/([0-9]+?)\\.html', 'index.php?site=blog&action=edit&blogID=$1')");
+(96, 'logout.html', 'index.php?site=logout', 'a:0:{}', 'index\\.php\\?site=logout', 'logout.html', 'logout\\.html', 'index.php?site=logout'),
+(97, 'usergallery.html', 'index.php?site=usergallery', 'a:0:{}', 'index\\.php\\?site=usergallery', 'usergallery.html', 'usergallery\\.html', 'index.php?site=usergallery'),
+(98, 'usergallery/add.html', 'index.php?site=usergallery&action=add', 'a:0:{}', 'index\\.php\\?site=usergallery[&|&amp;]*action=add', 'usergallery/add.html', 'usergallery\\/add\\.html', 'index.php?site=usergallery&action=add'),
+(99, 'cashbox.html', 'index.php?site=cashbox', 'a:0:{}', 'index\\.php\\?site=cashbox', 'cashbox.html', 'cashbox\\.html', 'index.php?site=cashbox'),
+(100, 'calendar/event.html', 'index.php?site=calendar#event', 'a:0:{}', 'index\\.php\\?site=calendar#event', 'calendar/event.html', 'calendar\\/event\\.html', 'index.php?site=calendar#event'),
+(101, 'awaylist.html', 'index.php?site=awaylist', 'a:0:{}', 'index\\.php\\?site=awaylist', 'awaylist.html', 'awaylist\\.html', 'index.php?site=awaylist'),
+(102, 'awaylist/add.html', 'index.php?site=awaylist&action=add', 'a:0:{}', 'index\\.php\\?site=awaylist[&|&amp;]*action=add', 'awaylist/add.html', 'awaylist\\/add\\.html', 'index.php?site=awaylist&action=add'),
+(103, 'awaylist/edit/{id}.html', 'index.php?site=awaylist&action=edit&id={id}', 'a:1:{s:2:\"id\";s:7:\"integer\";}', 'index\\.php\\?site=awaylist[&|&amp;]*action=edit[&|&amp;]*id=([0-9]+)', 'awaylist/edit/$3.html', 'awaylist\\/edit\\/([0-9]+?)\\.html', 'index.php?site=awaylist&action=edit&id=$1'),
+(104, 'awaylist/show/{id}.html', 'index.php?site=awaylist&action=show&id={id}', 'a:1:{s:2:\"id\";s:7:\"integer\";}', 'index\\.php\\?site=awaylist[&|&amp;]*action=show[&|&amp;]*id=([0-9]+)', 'awaylist/show/$3.html', 'awaylist\\/show\\/([0-9]+?)\\.html', 'index.php?site=awaylist&action=show&id=$1'),
+(105, 'mc_status.html', 'index.php?site=mc_status', 'a:0:{}', 'index\\.php\\?site=mc_status', 'mc_status.html', 'mc_status\\.html', 'index.php?site=mc_status'),
+(106, 'planning.html', 'index.php?site=planning', 'a:0:{}', 'index\\.php\\?site=planning', 'planning.html', 'planning\\.html', 'index.php?site=planning'),
+(107, 'memberslist.html', 'index.php?site=memberslist', 'a:0:{}', 'index\\.php\\?site=memberslist', 'memberslist.html', 'memberslist\\.html', 'index.php?site=memberslist'),
+(108, 'cup.html', 'index.php?site=cup', 'a:0:{}', 'index\\.php\\?site=cup', 'cup.html', 'cup\\.html', 'index.php?site=cup'),
+(109, 'cup/teams.html', 'index.php?site=cup&action=teams', 'a:0:{}', 'index\\.php\\?site=cup[&|&amp;]*action=teams', 'cup/teams.html', 'cup\\/teams\\.html', 'index.php?site=cup&action=teams'),
+(110, 'newsletter.html', 'index.php?site=newsletter', 'a:0:{}', 'index\\.php\\?site=newsletter', 'newsletter.html', 'newsletter\\.html', 'index.php?site=newsletter'),
+(111, 'tsviewer.html', 'index.php?site=tsviewer', 'a:0:{}', 'index\\.php\\?site=tsviewer', 'tsviewer.html', 'tsviewer\\.html', 'index.php?site=tsviewer'),
+(112, 'gallery/category{groupID}.html', 'index.php?site=gallery&groupID={groupID}', 'a:1:{s:7:\"groupID\";s:7:\"integer\";}', 'index\\.php\\?site=gallery[&|&amp;]*groupID=([0-9]+)', 'gallery/category$3.html', 'gallery\\/category([0-9]+?)\\.html', 'index.php?site=gallery&groupID=$1'),
+(113, 'blog.html', 'index.php?site=blog', 'a:0:{}', 'index\\.php\\?site=blog', 'blog.html', 'blog\\.html', 'index.php?site=blog'),
+(114, 'blog/archiv.html', 'index.php?site=blog&action=archiv', 'a:0:{}', 'index\\.php\\?site=blog[&|&amp;]*action=archiv', 'blog/archiv.html', 'blog\\/archiv\\.html', 'index.php?site=blog&action=archiv'),
+(115, 'gallery/gallery{galleryID}.html', 'index.php?site=gallery&galleryID={galleryID}', 'a:1:{s:9:\"galleryID\";s:7:\"integer\";}', 'index\\.php\\?site=gallery[&|&amp;]*galleryID=([0-9]+)', 'gallery/gallery$3.html', 'gallery\\/gallery([0-9]+?)\\.html', 'index.php?site=gallery&galleryID=$1'),
+(116, 'blog/show/{blogID}.html', 'index.php?site=blog&action=show&blogID={blogID}', 'a:1:{s:6:\"blogID\";s:7:\"integer\";}', 'index\\.php\\?site=blog[&|&amp;]*action=show[&|&amp;]*blogID=([0-9]+)', 'blog/show/$3.html', 'blog\\/show\\/([0-9]+?)\\.html', 'index.php?site=blog&action=show&blogID=$1'),
+(117, 'blog/detail/{id}.html', 'index.php?site=blog&action=detail&user={id}', 'a:1:{s:2:\"id\";s:7:\"integer\";}', 'index\\.php\\?site=blog[&|&amp;]*action=detail[&|&amp;]*user=([0-9]+)', 'blog/detail/$3.html', 'blog\\/detail\\/([0-9]+?)\\.html', 'index.php?site=blog&action=detail&user=$1'),
+(119, 'blog/add.html', 'index.php?site=blog&action=new', 'a:0:{}', 'index\\.php\\?site=blog[&|&amp;]*action=new', 'blog/add.html', 'blog\\/add\\.html', 'index.php?site=blog&action=new'),
+(120, 'blog/edit/{blogID}.html', 'index.php?site=blog&action=edit&blogID={blogID}', 'a:1:{s:6:\"blogID\";s:7:\"integer\";}', 'index\\.php\\?site=blog[&|&amp;]*action=edit[&|&amp;]*blogID=([0-9]+)', 'blog/edit/$3.html', 'blog\\/edit\\/([0-9]+?)\\.html', 'index.php?site=blog&action=edit&blogID=$1')");
 
 ##############################################################################################################################
 ##############################################################################################################################
@@ -429,7 +430,7 @@ $transaction->addQuery("INSERT INTO `".PREFIX."navigation_dashboard_categories` 
 (7, '{[de]}Webseiteninhalte{[en]}Website Content{[it]}Contenuto del sito web', 'bi bi-card-checklist', 'page', 0, 7),
 (8, '{[de]}Grafik - Video - Projekte{[en]}Grafik - Video - Projekte{[it]}Grafica - Video - Progetti', 'bi bi-image ', 'gallery', 0, 8),
 (9, '{[de]}Header - Slider{[en]}Header - Slider{[it]}Slider-Header', 'bi bi-fast-forward-btn', 'page', 0, 9),
-(10, '{[de]}Game - Voice Server Tools{[en]}Game - Voice Server Tools{[it]}Voce Server Tools', 'bi bi-controller', 'clanwars', 0, 10),
+(10, '{[de]}Game - Voice Server Tools{[en]}Game - Voice Server Tools{[it]}Voice Server Tools', 'bi bi-controller', 'clanwars', 0, 10),
 (11, '{[de]}Social Media{[en]}Social Media{[it]}Social Media', 'bi bi-steam', 'feedback', 0, 11),
 (12, '{[de]}Links - Download - Sponsoren{[en]}Links - Download - Sponsore{[it]}Link - Download - Sponsor', 'bi bi-link', 'any', 0, 12)");
 
@@ -1319,7 +1320,7 @@ $transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."user` (
   `banned` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ban_reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `topics` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `topics` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '|',
   `articles` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `demos` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `files` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1336,12 +1337,13 @@ $transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."user` (
   `videos` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `games` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `projectlist` text NOT NULL,
+  `profile_visibility` varchar(255) NOT NULL DEFAULT '0',
   PRIMARY KEY (`userID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;");
 
 
-$transaction->addQuery("INSERT INTO `".PREFIX."user` (`userID`, `registerdate`, `lastlogin`, `password`, `password_hash`, `password_pepper`, `nickname`, `email`, `email_hide`, `email_change`, `email_activate`, `firstname`, `lastname`, `gender`, `town`, `birthday`, `facebook`, `twitter`, `twitch`, `steam`, `instagram`, `youtube`, `discord`, `avatar`, `usertext`, `userpic`, `homepage`, `about`, `pmgot`, `pmsent`, `visits`, `banned`, `ban_reason`, `ip`, `topics`, `articles`, `demos`, `files`, `gallery_pictures`, `special_rank`, `mailonpm`, `userdescription`, `activated`, `language`, `date_format`, `time_format`, `newsletter`, `links`, `videos`, `games`, `projectlist`) VALUES
-(1, '".time()."', '".time()."', '', '".$adminhash."', '".$new_pepper."', '".$adminname."', '".$adminmail."', 1, '', '', '', '', 'select_gender', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, NULL, '', '', '|', '', '', '', '', 0, 0, '', '1', '', 'd.m.Y', 'H:i', 1, '', '', '', '')");
+$transaction->addQuery("INSERT INTO `".PREFIX."user` (`userID`, `registerdate`, `lastlogin`, `password`, `password_hash`, `password_pepper`, `nickname`, `email`, `email_hide`, `email_change`, `email_activate`, `firstname`, `lastname`, `gender`, `town`, `birthday`, `facebook`, `twitter`, `twitch`, `steam`, `instagram`, `youtube`, `discord`, `avatar`, `usertext`, `userpic`, `homepage`, `about`, `pmgot`, `pmsent`, `visits`, `banned`, `ban_reason`, `ip`, `topics`, `articles`, `demos`, `files`, `gallery_pictures`, `special_rank`, `mailonpm`, `userdescription`, `activated`, `language`, `date_format`, `time_format`, `newsletter`, `links`, `videos`, `games`, `projectlist`, `profile_visibility`) VALUES
+(1, '".time()."', '".time()."', '', '".$adminhash."', '".$new_pepper."', '".$adminname."', '".$adminmail."', 1, '', '', '', '', 'select_gender', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, NULL, '', '', '|', '', '', '', '', 0, 0, '', '1', '', 'd.m.Y', 'H:i', 1, '', '', '', '', 0)");
 
 $transaction->addQuery("DROP TABLE IF EXISTS `".PREFIX."user_groups`");
 $transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."user_groups` (
@@ -1365,7 +1367,18 @@ $transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."user_groups` (
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;");
 
 $transaction->addQuery("INSERT INTO `".PREFIX."user_groups` (`usgID`, `userID`, `news`, `news_writer`, `newsletter`, `polls`, `forum`, `moderator`, `clanwars`, `feedback`, `user`, `page`, `files`, `cash`, `gallery`, `super`) VALUES
-(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)"); 
+(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)");
+
+$transaction->addQuery("DROP TABLE IF EXISTS `".PREFIX."user_forum_groups`");
+$transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."user_forum_groups` (
+  `usfgID` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL DEFAULT '0',
+  `1` int(1) NOT NULL,
+  PRIMARY KEY (`usfgID`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;");
+
+$transaction->addQuery("INSERT INTO `".PREFIX."user_forum_groups` (`usfgID`, `userID`, `1`) VALUES
+(1, 1, 1)");  
 
 global $adminname;
 $transaction->addQuery("DROP TABLE IF EXISTS `" . PREFIX . "user_nickname`");
@@ -1392,6 +1405,7 @@ if ($transaction->successful()) {
         return array('status' => 'success', 'message' => '
           <div class="list-group-item list-group-item-success">&nbsp;Install successful for Webspell RM Database: <i>user</i> <i class="bi bi-check2"></i></div><br/>
           <div class="list-group-item list-group-item-success">&nbsp;Install successful for Webspell RM Database: <i>user_groups</i> <i class="bi bi-check2"></i></div><br/>
+          <div class="list-group-item list-group-item-success">&nbsp;Install successful for Webspell RM Database: <i>user_forum_groups</i> <i class="bi bi-check2"></i></div><br/>
           <div class="list-group-item list-group-item-success">&nbsp;Install successful for Webspell RM Database: <i>user_nickname</i> <i class="bi bi-check2"></i></div><br/>
           <div class="list-group-item list-group-item-success">&nbsp;Install successful for Webspell RM Database: <i>user_visitors</i> <i class="bi bi-check2"></i></div>');
     } else {

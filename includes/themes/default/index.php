@@ -91,10 +91,11 @@ header('X-UA-Compatible: IE=edge,chrome=1');
 <body>
     
     <div class="d-flex flex-column sticky-footer-wrapper"> <!-- flex -->
+        <?php echo get_lock_modul();?>
         <?php if (!in_array($site, $hide9)) {echo get_via_navigation_modul();}?> 
         <!-- Navigation Modul --> 
         <?php echo get_navigation_modul();?>    
-        <?php echo get_lock_modul();?>
+        
         <?php echo get_head_modul();?>
         <?php echo get_headelements();?>
         
@@ -104,7 +105,7 @@ header('X-UA-Compatible: IE=edge,chrome=1');
 
         <main class="flex-fill">  <!-- flex -->
         
-            <div class="container con1tent_style"> <!-- container -->
+            <div class="container content_style"> <!-- container -->
                 <div class="row"> <!-- row -->            
 
                     <!-- left column linke Spalte -->
@@ -181,7 +182,7 @@ header('X-UA-Compatible: IE=edge,chrome=1');
     <script defer src="./components/cookies/js/app.js"></script>
 
     <!-- Language recognition for DataTables -->
-    <script>const LangDataTables = '$_language->language';</script>
+    <? echo "<script>const LangDataTables = '$_language->language';</script>"; ?>
 <script type="text/javascript">
         // Example starter JavaScript for disabling form submissions if there are invalid fields
 (function () {

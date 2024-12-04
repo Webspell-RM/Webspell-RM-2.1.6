@@ -44,9 +44,331 @@ if (isset($_GET[ 'action' ])) {
     $action = '';
 }
 
-if(isset($_GET[ 'delete' ])) {
+########################################
+if (isset($_POST[ 'underscore_aktiv' ])) {    
+    
+    if (isset($_POST[ "underscore" ])) {
+        $underscore = 1;
+    } else {
+        $underscore = 0;
+    }
+    
+    $CAPCLASS = new \webspell\Captcha;
+    if ($CAPCLASS->checkCaptcha(0, $_POST[ 'captcha_hash' ])) {        
 
-    #$dir = $_GET['dir'];
+        safe_query(
+            "UPDATE " . PREFIX . "settings_themes SET underscore='" . $underscore . "' WHERE modulname = '".$_POST['themes_modulname']."'");
+
+        $errors = array();        
+
+        if (count($errors)) {
+            $errors = array_unique($errors);
+            echo generateErrorBoxFromArray($_language->module['errors_there'], $errors);
+        } else {
+            #redirect("admincenter.php?site=settings_templates", "", 0);
+        }
+    } else {
+        $_language->readModule('formvalidation', true);       
+       echo $_language->module[ 'transaction_invalid' ];
+    }
+}
+
+
+
+if (isset($_POST[ 'agency_aktiv' ])) {  
+$CAPCLASS = new \webspell\Captcha;
+    if ($CAPCLASS->checkCaptcha(0, $_POST[ 'captcha_hash' ])) {  
+    
+    if ($_POST[ "agency" ] == 0) {      
+
+        safe_query("UPDATE " . PREFIX . "settings_themes SET agency='0' WHERE modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_themes SET agency_nav='1' WHERE modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_themes SET sticky='0' WHERE modulname = '".$_POST['themes_modulname']."'");
+
+        safe_query("UPDATE " . PREFIX . "settings_module SET head_activated='1',activate='1' WHERE modulname= 'startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_module SET head_activated='1',activate='1' WHERE name= 'Startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+
+        safe_query("UPDATE " . PREFIX . "settings_module SET via_navigation='0',activate='1' WHERE modulname= 'startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_module SET via_navigation='0',activate='1' WHERE name= 'Startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_module SET activate='1' WHERE modulname= 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."'");
+
+        safe_query("UPDATE " . PREFIX . "settings_widgets SET position='1', description='1', activate= '1' WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget2' ");
+        safe_query("UPDATE " . PREFIX . "settings_widgets SET position='1', description='1', activate= '1' WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget3' "); 
+
+        $geti = safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget1'"); 
+        $rows = mysqli_num_rows($geti);
+            if($rows == '0') {
+                safe_query("INSERT INTO `" . PREFIX . "settings_widgets` (                    
+                    `position`, 
+                    `description`, 
+                    `modulname`,                    
+                    `themes_modulname`, 
+                    `widget`,
+                    `widgetname`, 
+                    `widgetdatei`, 
+                    `activate`,
+                    `number`, 
+                    `sort`
+                    ) VALUES (
+                    'page_head_widget', 
+                    'page_head_widget', 
+                    'carousel',                    
+                    '".$_POST['themes_modulname']."', 
+                    'widget1', 
+                    'Carousel Only', 
+                    'widget_carousel_only', 
+                    '0',
+                    '1', 
+                    '1'
+                    )"
+                );
+           }
+
+        safe_query("UPDATE " . PREFIX . "settings_widgets SET position='page_head_widget', description='page_head_widget', activate= '0' WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget1' ");    
+    
+    } elseif ($_POST[ "agency" ] == 1) {   
+
+        safe_query("UPDATE " . PREFIX . "settings_themes SET agency='1' WHERE modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_themes SET agency_nav='1' WHERE modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_themes SET sticky='0' WHERE modulname = '".$_POST['themes_modulname']."'");
+
+        safe_query("UPDATE " . PREFIX . "settings_module SET head_activated='1',activate='1' WHERE modulname= 'startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_module SET head_activated='1',activate='1' WHERE name= 'Startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+
+        safe_query("UPDATE " . PREFIX . "settings_module SET via_navigation='0',activate='1' WHERE modulname= 'startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_module SET via_navigation='0',activate='1' WHERE name= 'Startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_module SET activate='1' WHERE modulname= 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."'");
+        
+        safe_query("UPDATE " . PREFIX . "settings_widgets SET position='1', description='1', activate= '1' WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget1' ");
+        safe_query("UPDATE " . PREFIX . "settings_widgets SET position='1', description='1', activate= '1' WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget3' ");
+        
+        $geti = safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget2'"); 
+        $rows = mysqli_num_rows($geti);
+            if($rows == '0') {
+                safe_query("INSERT INTO `" . PREFIX . "settings_widgets` (                    
+                    `position`, 
+                    `description`, 
+                    `modulname`,                    
+                    `themes_modulname`, 
+                    `widget`,
+                    `widgetname`, 
+                    `widgetdatei`, 
+                    `activate`,
+                    `number`, 
+                    `sort`
+                    ) VALUES (
+                    'page_head_widget', 
+                    'page_head_widget', 
+                    'carousel',                    
+                    '".$_POST['themes_modulname']."',
+                    'widget2', 
+                    'Parallax Header', 
+                    'widget_parallax_header',
+                    '0',
+                    '1', 
+                    '1'
+                    )"
+                );
+           }
+
+        safe_query("UPDATE " . PREFIX . "settings_widgets SET position='page_head_widget', description='page_head_widget', activate= '0' WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget2' ");
+    } elseif ($_POST[ "agency" ] == 2) {   
+
+        safe_query("UPDATE " . PREFIX . "settings_themes SET agency='2' WHERE modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_themes SET agency_nav='1' WHERE modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_themes SET sticky='0' WHERE modulname = '".$_POST['themes_modulname']."'");
+
+        safe_query("UPDATE " . PREFIX . "settings_module SET head_activated='1',activate='1' WHERE modulname= 'startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_module SET head_activated='1',activate='1' WHERE name= 'Startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+
+        safe_query("UPDATE " . PREFIX . "settings_module SET via_navigation='0',activate='1' WHERE modulname= 'startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_module SET via_navigation='0',activate='1' WHERE name= 'Startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_module SET activate='1' WHERE modulname= 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."'");
+        
+        safe_query("UPDATE " . PREFIX . "settings_widgets SET position='1', description='1', activate= '1' WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget1' ");
+        safe_query("UPDATE " . PREFIX . "settings_widgets SET position='1', description='1', activate= '1' WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget2' ");
+        
+        $geti = safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget3'"); 
+        $rows = mysqli_num_rows($geti);
+            if($rows == '0') {
+                safe_query("INSERT INTO `" . PREFIX . "settings_widgets` (                    
+                    `position`, 
+                    `description`, 
+                    `modulname`,                    
+                    `themes_modulname`, 
+                    `widget`,
+                    `widgetname`, 
+                    `widgetdatei`, 
+                    `activate`,
+                    `number`, 
+                    `sort`
+                    ) VALUES (
+                    'page_head_widget', 
+                    'page_head_widget', 
+                    'carousel',                    
+                    '".$_POST['themes_modulname']."', 
+                    'widget3', 
+                    'Sticky Header', 
+                    'widget_sticky_header', 
+                    '0',
+                    '1', 
+                    '1'
+                    )"
+                );
+           }
+
+        safe_query("UPDATE " . PREFIX . "settings_widgets SET position='page_head_widget', description='page_head_widget', activate= '0' WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget3' ");    
+
+    } elseif ($_POST[ "agency" ] == 3) {      
+
+        safe_query("UPDATE " . PREFIX . "settings_themes SET agency='3' WHERE modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_themes SET agency_nav='0' WHERE modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_themes SET sticky='0' WHERE modulname = '".$_POST['themes_modulname']."'");
+
+        safe_query("UPDATE " . PREFIX . "settings_module SET head_activated='0',activate='1' WHERE modulname= 'startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_module SET head_activated='0',activate='1' WHERE name= 'Startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+
+        safe_query("UPDATE " . PREFIX . "settings_module SET via_navigation='0',activate='1' WHERE modulname= 'startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_module SET via_navigation='0',activate='1' WHERE name= 'Startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_module SET activate='1' WHERE modulname= 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."'");
+
+        safe_query("UPDATE " . PREFIX . "settings_widgets SET position='1', description='1', activate= '1' WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget1' ");
+        safe_query("UPDATE " . PREFIX . "settings_widgets SET position='1', description='1', activate= '1' WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget2' ");
+        safe_query("UPDATE " . PREFIX . "settings_widgets SET position='1', description='1', activate= '1' WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget3' ");
+    } 
+
+    safe_query(
+            "UPDATE
+                " . PREFIX . "plugins_carousel_settings
+            SET
+                
+                carousel_height='" . $_POST[ 'parallax_height' ] . "',
+                parallax_height='" . $_POST[ 'parallax_height' ] . "',
+                sticky_height='" . $_POST[ 'parallax_height' ] . "' "
+        );
+
+        $errors = array();
+
+        if (count($errors)) {
+            $errors = array_unique($errors);
+            echo generateErrorBoxFromArray($_language->module['errors_there'], $errors);
+        } else {
+            #redirect("admincenter.php?site=settings_templates", "", 3);
+        }
+    } else {
+        $_language->readModule('formvalidation', true);       
+       echo $_language->module[ 'transaction_invalid' ];
+    }
+}
+
+
+if (isset($_POST[ 'sticky_aktiv' ])) {
+    $CAPCLASS = new \webspell\Captcha;
+    if ($CAPCLASS->checkCaptcha(0, $_POST[ 'captcha_hash' ])) {
+
+    if ($_POST[ "sticky" ] == 0) {      
+
+        safe_query("UPDATE " . PREFIX . "settings_themes SET agency='3' WHERE modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_themes SET agency_nav='0' WHERE modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_themes SET sticky='0' WHERE modulname = '".$_POST['themes_modulname']."'");
+
+        safe_query("UPDATE " . PREFIX . "settings_module SET via_navigation='0' WHERE modulname= 'startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_module SET via_navigation='0' WHERE name= 'Startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_module SET activate='1' WHERE modulname= 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."'");
+
+        safe_query("UPDATE " . PREFIX . "settings_widgets SET position='1', description='1', activate= '1' WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget1' ");
+        safe_query("UPDATE " . PREFIX . "settings_widgets SET position='1', description='1', activate= '1' WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget2' ");
+        safe_query("UPDATE " . PREFIX . "settings_widgets SET position='1', description='1', activate= '1' WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget3' ");    
+    
+    } elseif ($_POST[ "sticky" ] == 1) {   
+
+        safe_query("UPDATE " . PREFIX . "settings_themes SET agency='3' WHERE modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_themes SET agency_nav='0' WHERE modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_themes SET sticky='1' WHERE modulname = '".$_POST['themes_modulname']."'");
+
+        safe_query("UPDATE " . PREFIX . "settings_module SET via_navigation='1',activate='1' WHERE modulname= 'startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_module SET via_navigation='1',activate='1' WHERE name= 'Startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_module SET activate='1' WHERE modulname= 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."'");
+        
+        safe_query("UPDATE " . PREFIX . "settings_widgets SET position='1', description='1', activate= '1' WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget1' ");
+        safe_query("UPDATE " . PREFIX . "settings_widgets SET position='1', description='1', activate= '1' WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget2' ");
+
+        $geti = safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget3'"); 
+        $rows = mysqli_num_rows($geti);
+            if($rows == '0') {
+                safe_query("INSERT INTO `" . PREFIX . "settings_widgets` (                    
+                    `position`, 
+                    `description`, 
+                    `modulname`,                    
+                    `themes_modulname`, 
+                    `widget`,
+                    `widgetname`, 
+                    `widgetdatei`, 
+                    `activate`,
+                    `number`, 
+                    `sort`
+                    ) VALUES (
+                    'via_navigation_widget', 
+                    'via_navigation_widget', 
+                    'carousel',                    
+                    '".$_POST['themes_modulname']."', 
+                    'widget3', 
+                    'Sticky Header', 
+                    'widget_sticky_header', 
+                    '0',
+                    '1', 
+                    '1'
+                    )"
+                );
+           }
+        safe_query("UPDATE " . PREFIX . "settings_widgets SET position='via_navigation_widget', description='via_navigation_widget', activate= '0' WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget3' ");
+
+    } elseif ($_POST[ "sticky" ] == 2) {      
+
+        safe_query("UPDATE " . PREFIX . "settings_themes SET agency='2' WHERE modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_themes SET agency_nav='0' WHERE modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_themes SET sticky='0' WHERE modulname = '".$_POST['themes_modulname']."'");
+
+        safe_query("UPDATE " . PREFIX . "settings_module SET head_activated='0',activate='1' WHERE modulname= 'startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_module SET head_activated='0',activate='1' WHERE name= 'Startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+
+        safe_query("UPDATE " . PREFIX . "settings_module SET via_navigation='0',activate='1' WHERE modulname= 'startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_module SET via_navigation='0',activate='1' WHERE name= 'Startpage' AND themes_modulname = '".$_POST['themes_modulname']."'");
+        safe_query("UPDATE " . PREFIX . "settings_module SET activate='1' WHERE modulname= 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."'");
+
+        safe_query("UPDATE " . PREFIX . "settings_widgets SET position='1', description='1', activate= '1' WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget2' ");
+        safe_query("UPDATE " . PREFIX . "settings_widgets SET position='1', description='1', activate= '1' WHERE modulname = 'carousel' AND themes_modulname = '".$_POST['themes_modulname']."' AND widget='widget3' ");
+    }
+
+    safe_query(
+            "UPDATE
+                " . PREFIX . "plugins_carousel_settings
+            SET
+                
+                carousel_height='" . $_POST[ 'parallax_height' ] . "',
+                parallax_height='" . $_POST[ 'parallax_height' ] . "',
+                sticky_height='" . $_POST[ 'parallax_height' ] . "' "
+        );
+
+        $errors = array();
+
+        if (count($errors)) {
+            $errors = array_unique($errors);
+            echo generateErrorBoxFromArray($_language->module['errors_there'], $errors);
+        } else {
+            #redirect("admincenter.php?site=settings_templates", "", 3);
+        }
+    } else {
+        $_language->readModule('formvalidation', true);       
+       echo $_language->module[ 'transaction_invalid' ];
+    }
+}
+
+
+##############################
+
+if(isset($_GET[ 'delete' ])) {
+    
     $dir = $_GET['modulname'];
     $name = $_GET['modulname'];
     // Name Tabelle | Where Klause | ID name
@@ -58,16 +380,7 @@ if(isset($_GET[ 'delete' ])) {
     recursiveRemoveDirectory('../includes/themes/'. $dir);
     safe_query("UPDATE `".PREFIX."settings_themes` SET active = 1 WHERE modulname = 'default'");   
     header('Location: ?site=settings_templates');
-    exit;  
-
-  /*$dir = $_GET[ 'modulname' ];
-  $name = str_replace("/", "", $dir);
-  require_once('../includes/themes/' . $_GET[ 'modulname' ] . '/uninstall.php');
-  recursiveRemoveDirectory('../includes/themes/'. $dir);
-  safe_query("UPDATE `".PREFIX."settings_themes` SET active = 1 WHERE modulname = 'default'");  
-  header('Location: ?site=settings_templates');
-  exit;*/
-
+    exit;
 
 } elseif (isset($_GET["delete_pic"])) {
 
@@ -75,16 +388,7 @@ if(isset($_GET[ 'delete' ])) {
     if ($CAPCLASS->checkCaptcha(0, $_GET['captcha_hash'])) {
         $themeID = (int)$_GET[ 'themeID' ];
         $filepath = "../includes/themes/".$dx['pfad']."/images/";
-        if (
-        safe_query(
-                "UPDATE
-                            `" . PREFIX . "settings_themes`
-                        SET
-                            `background_pic` = ''
-                        WHERE
-                            `themeID` = '" . $themeID . "'"
-            )    
-        ) {
+        if (safe_query("UPDATE `" . PREFIX . "settings_themes` SET `background_pic` = '' WHERE `themeID` = '" . $themeID . "'")) {
             if (file_exists($filepath . 'background_bg.jpg')) {
                 unlink($filepath . 'background_bg.jpg');
             }
@@ -119,26 +423,24 @@ if(isset($_GET[ 'delete' ])) {
 } elseif (isset($_POST[ 'save' ])) {
     $CAPCLASS = new \webspell\Captcha;
     if ($CAPCLASS->checkCaptcha(0, $_POST[ 'captcha_hash' ])) {
-
       
         $name = $_POST[ 'name' ];
         $pfad = $_POST[ 'pfad' ];
         $modulname = $_POST[ 'modulname' ];
         $version = $_POST[ 'version' ];
-        $themes_modulname = $_POST[ 'modulname' ];
-        
+        $themes_modulname = $_POST[ 'modulname' ];        
     
-    if(@$_POST['radio1']=="active") {
-        $active = 1;
-    } else {
-        $active = 0;
-    }
+        if(@$_POST['radio1']=="active") {
+            $active = 1;
+        } else {
+            $active = 0;
+        }
 
-/* Zielpfad definieren */
- $path = '../includes/themes/'.$pfad.'';
-if (!file_exists($path)) {
-    mkdir($path, 0777, true);
-}
+        /* Zielpfad definieren */
+         $path = '../includes/themes/'.$pfad.'';
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
 
 /* Quell- und Zielpfad definieren */
 /* Datei in den Zielpfad verschieben (kopieren) */
@@ -177,26 +479,26 @@ safe_query("INSERT INTO `" . PREFIX . "settings_widgets` (`id`, `position`, `des
 #@info: Base Modul Einstellung // # Die Startseite / Bereiche müssen angepasst werden
 safe_query("INSERT INTO `".PREFIX."settings_module` (`pluginID`, `name`, `modulname`, `themes_modulname`, `full_activated`, `custom_activated`, `via_navigation`, `head_activated`, `content_head_activated`, `content_foot_activated`, `head_section_activated`, `foot_section_activated`, `modul_display`, `activate`, `sidebar`, `plugin_settings`, `plugin_module`, `plugin_widget`, `widget1`, `widget2`, `widget3`) VALUES
 ('', 'Startpage', '', '$themes_modulname', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 1, 0, 0, 0, 0),
-('', '', 'startpage', '$themes_modulname', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 1, 0, 0, 0, 0),
-('', 'Profile', 'profile', '$themes_modulname', 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
-('', 'Login', 'login', '$themes_modulname', 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
-('', 'Lost Password', 'lostpassword', '$themes_modulname', 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
-('', 'Register', 'register', '$themes_modulname', 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
-('', 'Contact', 'contact', '$themes_modulname', 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
-('', 'Imprint', 'imprint', '$themes_modulname', 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
-('', 'Privacy Policy', 'privacy_policy', '$themes_modulname', 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
-('', 'Static', 'static', '$themes_modulname', 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
-('', 'Error_404', 'error_404', '$themes_modulname', 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
-('', 'My Profile', 'myprofile', '$themes_modulname', 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
-('', 'report', 'report', '$themes_modulname', 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
-('', 'Navigation Default', 'navigation_default', '$themes_modulname', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 1, 0, 1, 1, 0, 0),
-('', 'Footer', 'footer', '$themes_modulname', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 1, 0, 1, 1, 1, 1);");
+('', '', 'startpage', '$themes_modulname', 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 'activated', 0, 1, 0, 0, 0, 0),
+('', 'Report', 'report', '$themes_modulname', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 0, 0, 0, 0, 0),
+('', 'My Profile', 'myprofile', '$themes_modulname', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 0, 0, 0, 0, 0),
+('', 'Error_404', 'error_404', '$themes_modulname', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 0, 0, 0, 0, 0),
+('', 'Static', 'static', '$themes_modulname', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 0, 0, 0, 0, 0),
+('', 'Imprint', 'imprint', '$themes_modulname', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 0, 0, 0, 0, 0),
+('', 'Privacy Policy', 'privacy_policy', '$themes_modulname', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 0, 0, 0, 0, 0),
+('', 'Contact', 'contact', '$themes_modulname', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 0, 0, 0, 0, 0),
+('', 'Register', 'register', '$themes_modulname', 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 0, 0, 0, 0, 0),
+('', 'Lost Password', 'lostpassword', '$themes_modulname', 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 0, 0, 0, 0, 0),
+('', 'Login', 'login', '$themes_modulname', 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 0, 0, 0, 0, 1),
+('', 'Profile', 'profile', '$themes_modulname', 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 0, 0, 0, 0, 0),
+('', 'Navigationsstandard', 'navigation_default', '$themes_modulname', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 1, 0, 1, 1, 0, 0),
+('', 'Footer', 'footer', '$themes_modulname', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 1, 0, 1, 1, 1, 1)");
 
 safe_query("INSERT INTO `".PREFIX."settings_buttons` (`buttonID`, `name`, `modulname`, `active`, `version`, `button1`, `button2`, `button3`, `button4`, `button5`, `button6`, `button7`, `button8`, `button9`, `button10`, `button11`, `button12`, `button13`, `button14`, `button15`, `button16`, `button17`, `button18`, `button19`, `button20`, `button21`, `button22`, `button23`, `button24`, `button25`, `button26`, `button27`, `button28`, `button29`, `button30`, `button31`, `button32`, `button33`, `button34`, `button35`, `button36`, `button37`, `button38`, `button39`, `button40`, `button41`, `button42`, `btn_border_radius`) VALUES
 ('', '$name', '$modulname', '$active', '$version', 'rgb(254,130,29)', 'rgb(196,89,1)', 'rgb(255,255,255)', 'rgb(254,130,29)', 'rgb(196,89,1)', 'rgb(108,117,125)', 'rgb(90,98,104)', 'rgb(255,255,255)', 'rgb(108,117,125)', 'rgb(84,91,98)', 'rgb(40,167,69)', 'rgb(33,136,56)', 'rgb(255,255,255)', 'rgb(40,167,69)', 'rgb(30,126,52)', 'rgb(220,53,69)', 'rgb(200,35,51)', 'rgb(255,255,255)', 'rgb(220,53,69)', 'rgb(189,33,48)', 'rgb(255,193,7)', 'rgb(224,168,0)', 'rgb(33,37,41)', 'rgb(255,193,7)', 'rgb(211,158,0)', 'rgb(23,162,184)', 'rgb(19,132,150)', 'rgb(255,255,255)', 'rgb(23,162,184)', 'rgb(17,122,139)', 'rgb(248,249,250)', 'rgb(226,230,234)', 'rgb(33,37,41)', 'rgb(248,249,250)', 'rgb(218,224,229)', 'rgb(52,58,64)', 'rgb(35,39,43)', 'rgb(255,255,255)', 'rgb(52,58,64)', 'rgb(29,33,36)', 'rgb(254,130,29)', 'rgb(196,89,1)', '0px');");
 
 safe_query("INSERT INTO `".PREFIX."settings_themes` (`themeID`, `name`, `modulname`, `pfad`, `version`, `active`, `express_active`, `nav1`, `nav2`, `nav3`, `nav4`, `nav5`, `nav6`, `nav7`, `nav8`, `nav9`, `nav10`, `nav11`, `nav12`, `nav_text_alignment`, `body1`, `body2`, `body3`, `body4`, `body5`, `background_pic`, `border_radius`, `typo1`, `typo2`, `typo3`, `typo4`, `typo5`, `typo6`, `typo7`, `typo8`, `card1`, `card2`, `foot1`, `foot2`, `foot3`, `foot4`, `foot5`, `foot6`, `calendar1`, `calendar2`, `carousel1`, `carousel2`, `carousel3`, `carousel4`, `logo_pic`, `logotext1`, `logotext2`, `reg_pic`, `reg1`, `reg2`, `headlines`, `sort`) VALUES
-('', '$name', '$modulname', '$pfad', '$version', $active, 0, 'rgb(51,51,51)', '16px', 'rgb(221,221,221)', 'rgb(254,130,29)', 'rgb(254,130,29)', '2px', 'rgb(221,221,221)', 'rgb(196,89,1)', '', 'rgb(51,51,51)', 'rgb(221,221,221)', 'rgb(101,100,100)', 'ms-auto', 'Roboto', '13px', 'rgb(255,255,255)', 'rgb(85,85,85)', 'rgb(236,236,236)', '', '0px', '', '', '', 'rgb(254,130,29)', '', '', '', 'rgb(196,89,1)', 'rgb(255,255,255)', 'rgb(221,221,221)', 'rgb(51,51,51)', '', '', '', '', '', '', '', 'rgb(255,255,255)', 'rgb(254,130,29)', 'rgb(255,255,255)', 'rgb(254,130,29)', 'logo.png', '', '', 'login_bg.png', 'rgb(254,130,29)', 'rgb(255,255,255)', 'headlines_01.css', 1);");
+('', '$name', '$modulname', '$pfad', '$version', $active, 0, 'rgb(51,51,51)', '16px', 'rgb(221,221,221)', 'rgb(254,130,29)', 'rgb(254,130,29)', '2px', 'rgb(221,221,221)', 'rgb(196,89,1)', '', 'rgb(51,51,51)', 'rgb(221,221,221)', 'rgb(101,100,100)', 'ms-auto', 'Roboto', '13px', 'rgb(255,255,255)', 'rgb(85,85,85)', 'rgb(236,236,236)', '', '0px', '', '', '', 'rgb(254,130,29)', '', '', '', 'rgb(196,89,1)', 'rgb(255,255,255)', 'rgb(221,221,221)', 'rgb(85,85,85)', 'rgb(255,255,255)', 'rgb(255,255,255)', 'rgb(181,179,179)', 'rgb(254,130,29)', 'rgb(255,255,255)', '', '', 'rgb(255,255,255)', 'rgb(254,130,29)', 'rgb(255,255,255)', 'rgb(254,130,29)', 'logo.png', '', '', 'login_bg.png', 'rgb(254,130,29)', 'rgb(255,255,255)', 'headlines_01.css', 1);");
 
 safe_query("INSERT INTO `".PREFIX."navigation_website_sub` (`snavID`, `mnavID`, `name`, `modulname`, `url`, `sort`, `indropdown`, `themes_modulname`) VALUES
 ('', 6, '{[de]}Kontakt{[en]}Contact{[it]}Contatti', 'contact', 'index.php?site=contact', 1, 1, '$themes_modulname'),
@@ -269,15 +571,12 @@ safe_query("INSERT INTO `".PREFIX."navigation_website_sub` (`snavID`, `mnavID`, 
 
 } elseif (isset($_POST[ 'saveedit' ])) {
     $CAPCLASS = new \webspell\Captcha;
-    if ($CAPCLASS->checkCaptcha(0, $_POST[ 'captcha_hash' ])) {    	
-        #$name = $_POST[ 'name' ];
+    if ($CAPCLASS->checkCaptcha(0, $_POST[ 'captcha_hash' ])) {
         
         if(@$_POST['radio1']=="active") {
         $active = 1;
-        #$deactivated = 0;
         } else {
         $active = 0;
-        #$deactive = 0;
         }
 
         if(@$_POST['radio2']=="express_active") {
@@ -310,10 +609,12 @@ safe_query("INSERT INTO `".PREFIX."navigation_website_sub` (`snavID`, `mnavID`, 
             $headlines = 'headlines_10.css';   
         }
         
-    if($active == '1') {
-      $sql = safe_query("SELECT `themeID` FROM `".PREFIX."settings_themes` WHERE `active` = 1 LIMIT 1");
-      safe_query("UPDATE `".PREFIX."settings_themes` SET active = 0 WHERE `themeID` = themeID");
-    }
+        if($active == '1') {
+          $sql = safe_query("SELECT `themeID` FROM `".PREFIX."settings_themes` WHERE `active` = 1 LIMIT 1");
+          safe_query("UPDATE `".PREFIX."settings_themes` SET active = 0 WHERE `themeID` = themeID");
+        }
+
+        /*`active`= '" . $active . "',*/
 
         $themeID = (int)$_POST[ 'themeID' ];
         $id = $themeID;
@@ -333,8 +634,7 @@ safe_query("INSERT INTO `".PREFIX."navigation_website_sub` (`snavID`, `mnavID`, 
                 `" . PREFIX . "settings_themes`
             SET
                 `active`= '" . $active . "',
-                `express_active` = '" . $express_active . "',
-                
+                `express_active` = '" . $express_active . "',                
                 `version`='" . $_POST[ 'version' ] . "',
                 `nav1`='" . $_POST[ 'nav1' ] . "',
                 `nav2`='" . $_POST[ 'nav2' ] . "',
@@ -384,15 +684,13 @@ safe_query("INSERT INTO `".PREFIX."navigation_website_sub` (`snavID`, `mnavID`, 
         );
 
 
-$ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_buttons");
-    $dy = mysqli_fetch_array($ergebnis);
-safe_query(
+        $ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_buttons");
+        $dy = mysqli_fetch_array($ergebnis);
+        safe_query(
             "UPDATE
                 `" . PREFIX . "settings_buttons`
-            SET
-                
-                `active` = '" . $active . "',
-                
+            SET                
+                `active` = '" . $active . "',                
                 `version`='" . $_POST[ 'version' ] . "',
                 button1='" . $_POST[ 'button1' ] . "',
                 button2='" . $_POST[ 'button2' ] . "',
@@ -441,8 +739,8 @@ safe_query(
                 `modulname` = '".getinput($dx['modulname'])."'"
         );
 
-safe_query("DELETE FROM " . PREFIX . "settings_widgets WHERE themes_modulname='' ");
-safe_query("DELETE FROM " . PREFIX . "settings_module WHERE themes_modulname='' ");
+        safe_query("DELETE FROM " . PREFIX . "settings_widgets WHERE themes_modulname='' ");
+        safe_query("DELETE FROM " . PREFIX . "settings_module WHERE themes_modulname='' ");
 
 		$error = array();
         $sem = '/^#[a-fA-F0-9]{6}/';
@@ -633,8 +931,8 @@ safe_query("DELETE FROM " . PREFIX . "settings_module WHERE themes_modulname='' 
         }
 
 
-$filepath = "../includes/themes/".$dx['pfad']."/images/";
-$ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE themeID='$themeID'");
+    $filepath = "../includes/themes/".$dx['pfad']."/images/";
+    $ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE themeID='$themeID'");
     $dx = mysqli_fetch_array($ergebnis);
     $modulname = $dx[ 'modulname' ];
 
@@ -693,9 +991,9 @@ $ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE themeI
         }        
     
 
-} else {
+    } else {
 
-     safe_query(
+        safe_query(
             "UPDATE
                 `" . PREFIX . "settings_themes`
             SET                
@@ -723,7 +1021,7 @@ $ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE themeI
                 WHERE
                 `themeID` = '" . $themeID . "'"
         );
-    safe_query(
+        safe_query(
             "UPDATE
                 `" . PREFIX . "settings_buttons`
             SET
@@ -736,11 +1034,11 @@ $ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE themeI
                 `modulname` = '".getinput($dx['modulname'])."'"
         );
       
-}
+    }
 
 } else {
-        echo $_language->module[ 'transaction_invalid' ];
-    }
+    echo $_language->module[ 'transaction_invalid' ];
+}
 
 }
 
@@ -877,7 +1175,7 @@ echo'<div class="card">
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="admincenter.php?site=settings_templates">'.$_language->module['template'].'</a></li>
-    <li class="breadcrumb-item active" aria-current="page">'.getinput($ds['modulname']).'-'.$_language->module['edit_template'].'</li>
+    <li class="breadcrumb-item active" aria-current="page">'.getinput($ds['name']).'-'.$_language->module['template_design'].'</li>
   </ol>
 </nav>
 <div class="card-body">';   
@@ -908,7 +1206,7 @@ echo'<form class="form-horizontal" method="post" action="admincenter.php?site=se
   </div>
 
   <div class="mb-3 row">
-    <label class="col-md-2 control-label">'.$_language->module['current_banner'].':</label>
+    <label class="col-md-2 control-label">'.$_language->module['template_logo'].':</label>
     <div class="col-md-4 btn btn-info border border-secondary" style="margin: 5px;margin-left: 10px;">
       '.$themepic.'
     </div>
@@ -951,13 +1249,293 @@ echo'<form class="form-horizontal" method="post" action="admincenter.php?site=se
 
 
   <!-- ====================================================== -->
-<div class="card">
-  <div class="card-header">
-            '.$_language->module['template_design'].'
+
+    <div class="card-header">
+        '.$_language->module['template_design'].'
+    </div>
+
+        <span class="text-muted small"><em>&nbsp;'.$_language->module['template_design_info'].'</em></span>';
+
+######### Agency & Sticky Navigation #########################
+
+    $CAPCLASS = new \webspell\Captcha;
+    $CAPCLASS->createTransaction();
+    $hash = $CAPCLASS->getHash(); 
+
+
+
+    $thergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE active = '1'");
+    $dx = mysqli_fetch_array($thergebnis);
+
+    $dp = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE modulname = '".$dx['modulname']."'"));    
+
+
+    if ($dp[ 'underscore' ] == 1) {
+        $underscore = '<input class="form-check-input" type="checkbox" name="underscore" value="1" checked="checked" />';
+    } else {
+        $underscore = '<input class="form-check-input" type="checkbox" name="underscore" value="1" />';
+    }
+
+    if ($dp[ 'sticky' ] == 1) {
+        $sticky_nav = '<input class="form-check-input" type="radio" name="sticky" value="1" checked="checked" />';
+        $block_nav = '<input class="form-check-input" type="radio" name="sticky" value="2" />';
+    } else {
+        $sticky_nav = '<input class="form-check-input" type="radio" name="sticky" value="1" />';
+        $block_nav = '<input class="form-check-input" type="radio" name="sticky" value="2" checked="checked" />';
+    }
+
+    if ($dp['agency'] == 0) {
+        $carousel = '<input class="form-check-input" type="radio" name="agency" value="0" checked="checked" />';
+        $parallax = '<input class="form-check-input" type="radio" name="agency" value="1" />';
+        $sticky = '<input class="form-check-input" type="radio" name="agency" value="2" />';
+        $block = '<input class="form-check-input" type="radio" name="agency" value="3" />';
+    } elseif ($dp['agency'] == 1) {
+        $carousel = '<input class="form-check-input" type="radio" name="agency" value="0" />';
+        $parallax = '<input class="form-check-input" type="radio" name="agency" value="1" checked="checked" />';
+        $sticky = '<input class="form-check-input" type="radio" name="agency" value="2" />';
+        $block = '<input class="form-check-input" type="radio" name="agency" value="3" />';
+    } elseif ($dp['agency'] == 2) {
+        $carousel = '<input class="form-check-input" type="radio" name="agency" value="0" />';
+        $parallax = '<input class="form-check-input" type="radio" name="agency" value="1" />';
+        $sticky = '<input class="form-check-input" type="radio" name="agency" value="2" checked="checked" />';
+        $block = '<input class="form-check-input" type="radio" name="agency" value="3" />';
+    } elseif ($dp['agency'] == 3) {
+        $carousel = '<input class="form-check-input" type="radio" name="agency" value="0" />';
+        $parallax = '<input class="form-check-input" type="radio" name="agency" value="1" />';
+        $sticky = '<input class="form-check-input" type="radio" name="agency" value="2" />';
+        $block = '<input class="form-check-input" type="radio" name="agency" value="3" checked="checked" />';
+    }
+
+    $db = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_module WHERE modulname = 'startpage' AND themes_modulname = '".$dx['modulname']."'")); 
+
+    if ($db[ 'via_navigation' ] == 1) {
+        $via_navigation = '<input class="form-check-input" type="checkbox" name="via_navigation" value="1" checked="checked" />';
+    } else {
+        $via_navigation = '<input class="form-check-input" type="checkbox" name="via_navigation" value="1" />';
+    }
+
+
+    if ($db[ 'head_activated' ] == 1) {
+        $head_activated = '<input class="form-check-input" type="checkbox" name="head_activated" value="1" checked="checked" />';
+    } else {
+        $head_activated = '<input class="form-check-input" type="checkbox" name="head_activated" value="1" />';
+    }
+
+
+$ani_height_pic = '
+<option value="100vh">100vh</option>
+<option value="75vh">75vh</option>
+<option value="50vh">50vh</option>
+<option value="25vh">25vh</option>
+';
+
+ echo' <div class="accordion accordion-flush" id="accordionFlushExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingaaa">
+      <button class="accordion-button collapsed alert alert-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseaaa" aria-expanded="false" aria-controls="flush-collapseaaa">
+       '.$_language->module['navi_navigation_setting'].'
+      </button>
+    </h2>
+    <div id="flush-collapseaaa" class="accordion-collapse collapse" aria-labelledby="flush-headingaaa" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        <h4>'.$_language->module['navi_navigation_setting'].'</h4>';
+
+
+
+    echo'<div class="row">
+        <div class="col-4">
+            <div class="card">
+                
+                <div class="card-header">
+                    '.$_language->module['navigation'].' '.$_language->module['underlined'].'
+                </div>
+                <div class="card-body" style="height:420px">
+                    <h1 class="card-title pricing-card-title text-center">'.$_language->module['navigation'].' <small class="text-muted fw-light">'.$_language->module['underlined'].'</small></h1>
+                    <ul class="list-unstyled">
+                        <li class="text-center">'.$_language->module['underlined_text_1'].'</li>
+                        <li class="text-center">'.$_language->module['underlined_text_2'].'</li>
+                        <li class="text-center">'.$_language->module['underlined_text_3'].'</li>
+                        <li>&nbsp;</li>
+                        <li>
+                            <div class="row">
+                            <label class="col-sm-10 control-label">'.$_language->module['enable_animation'].':</label>
+                                <div class="col-sm-2 form-check form-switch">
+                                ' . $underscore . '
+                                </div>
+                            </div>                            
+                        </li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                    </ul>
+                    <input type="hidden" name="captcha_hash" value="'.$hash.'">
+                    <input type="hidden" name="themes_modulname" value="'.$dx['modulname'].'">
+                    <input class="w-100 btn btn-success" type="submit" name="underscore_aktiv" value="'.$_language->module['enable_animation'].'" />
+                </div>
+                
+            </div>
+        </div>';
+
+
+$dm_plugin_settings = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_module WHERE modulname = 'carousel' and themes_modulname = '".$dx['modulname']."'"));
+
+if (@$dm_plugin_settings[ 'modulname' ] != 'carousel') {   
+
+
+
+echo'<div class="col-8">
+
+        <div class="card">
+            <form class="form-horizontal" method="post">
+            <div class="card-header">
+                '.$_language->module['agency_sticky'].' '.$_language->module['navigation'].'
+            </div>
+            <div class="card-body" style="height:420px">
+                <h1 class="card-title pricing-card-title text-center">'.$_language->module['agency_sticky'].' <small class="text-muted fw-light"> '.$_language->module['navigation'].'</small></h1>
+                <div class="alert alert-danger text-center" role="alert">
+                    '.$_language->module['agency_sticky_error'].'
+                </div>
+            </div>
+        </div>
+    </div>';
+
+}else{
+
+
+  
+
+
+    $settings = safe_query("SELECT * FROM " . PREFIX . "plugins_carousel_settings");
+    $dk = mysqli_fetch_array($settings);
+
+    $parallax_height = $dk[ 'parallax_height' ];
+    $ani_parallax_height = str_replace('value="' . $dk[ 'parallax_height' ] . '"', 'value="' . $dk[ 'parallax_height' ] . '" selected="selected"', $ani_height_pic);
+
+
+
+    echo'    <div class="col-4">
+            <div class="card">
+                
+                <div class="card-header">
+                    '.$_language->module['agency'].' '.$_language->module['navigation'].'
+                </div>
+                <div class="card-body" style="height:420px">
+                    <h1 class="card-title pricing-card-title text-center">'.$_language->module['agency'].' <small class="text-muted fw-light"> '.$_language->module['navigation'].'</small></h1>
+                    <ul class="list-unstyled">
+                        <li class="text-center">'.$_language->module['agency_text_1'].'</li>
+                        <li class="text-center">'.$_language->module['agency_text_2'].'.</li>
+                        <li>
+                            <div class="row">
+                            <label class="col-sm-10 control-label">'.$_language->module['carousel_header_active'].':</label>
+                                <div class="col-sm-2 form-check form-switch">
+                                ' . $carousel . '
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                            <label class="col-sm-10 control-label">'.$_language->module['parallax_header_active'].':</label>
+                                <div class="col-sm-2 form-check form-switch">
+                                ' . $parallax . '
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                            <label class="col-sm-10 control-label">'.$_language->module['sticky_header_active'].':</label>
+                                <div class="col-sm-2 form-check form-switch">
+                                ' . $sticky . '
+                                </div>
+                            </div>
+                        </li>
+                        <li>&nbsp;</li>
+                        <li>
+                            <div class="row">
+                            <label class="col-sm-10 control-label">'.$_language->module['agency_navigation_from'].':</label>
+                                <div class="col-sm-2 form-check form-switch">
+                                ' . $block . '
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row" style="margin-top: 22px"><hr>
+                                <label class="col-sm-6 control-label">'.$_language->module['parallax_size'].':</label>
+                                <div class="col-sm-6">
+                                    <select id="ani_height" name="parallax_height" class="form-select" value="'.$parallax_height.'">'.$ani_parallax_height.'</select>
+                                    
+                                </div>
+                                <span class="text-muted small"><em><small>' . $_language->module[ 'size_info' ] . '</small></em></span>
+                            </div>
+                        </li>
+                    </ul>
+                    <input type="hidden" name="captcha_hash" value="'.$hash.'">
+                    <input type="hidden" name="themes_modulname" value="'.$dx['modulname'].'">
+                    <input class="w-100 btn btn-success" type="submit" name="agency_aktiv" value="'.$_language->module['agency_aktiv'].'" />
+                </div>
+                
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                
+                <div class="card-header">
+                    '.$_language->module['sticky'].' '.$_language->module['navigation'].'
+                </div>
+                <div class="card-body" style="height:420px">
+                    <h1 class="card-title pricing-card-title text-center">'.$_language->module['sticky'].' <small class="text-muted fw-light"> '.$_language->module['navigation'].'</small></h1>
+                    <ul class="list-unstyled">
+                        <li class="text-center">'.$_language->module['sticky_text_1'].' </li>
+                        <li class="text-center">'.$_language->module['sticky_text_2'].'</li>
+                        <li>
+                            <div class="row">
+                            <label class="col-sm-10 control-label">'.$_language->module['sticky_header_active'].':</label>
+                                <div class="col-sm-2 form-check form-switch">
+                                ' . $sticky_nav . '
+                                </div>
+                            </div>
+                        </li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                        <li><div class="mb-3 row" style="margin-top: 5px">
+                            <label class="col-sm-10 control-label">'.$_language->module['sticky_navigation_from'].':</label>
+                                <div class="col-sm-2 form-check form-switch">
+                                '.$block_nav.'
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row" style="margin-top: 22px"><hr>
+                                <label class="col-sm-6 control-label">'.$_language->module['parallax_size'].':</label>
+                                <div class="col-sm-6">
+                                    <select id="ani_height" name="parallax_height" class="form-select" value="'.$parallax_height.'">'.$ani_parallax_height.'</select>
+                                    
+                                </div>
+                                <span class="text-muted small"><em><small>' . $_language->module[ 'size_info' ] . '</small></em></span>
+                            </div>
+                        </li>
+                    </ul>            
+                    <input type="hidden" name="captcha_hash" value="'.$hash.'">
+                    <input type="hidden" name="themes_modulname" value="'.$dx['modulname'].'">
+                    <input class="w-100 btn btn-success" type="submit" name="sticky_aktiv" value="'.$_language->module['sticky_aktiv'].'" />
+                </div>
+                
+            </div>
         </div>
 
-        <span class="text-muted small"><em><small class="fontLight">&nbsp;'.$_language->module['template_design_info'].'</small></em></span>
-</div>';
+        ';
+    }
+    echo'</div></div></div></div>';
+
+######### Agency & Sticky Navigation END #########################
   
 if ($ds[ 'express_active' ] == '1') {
         $express_active = '
@@ -973,9 +1551,6 @@ if ($ds[ 'express_active' ] == '1') {
     <div id="Express_Settings" class="accordion-collapse collapse" aria-labelledby="Express_Settings" data-bs-parent="#accordionFlushExample">
       <div class="accordion-body">
         <h4>Express Settings</h4>
-
-
-
 
 <div class="row">
     <div class="col-md-6">
@@ -1127,9 +1702,9 @@ echo'
 
 <div class="mb-3 row">
     <label class="col-md-4 control-label">Navi Text Alignment:</label>
-    <div class="input-group col-md-7">
+    <div class="input-group col-md-7">';   
 
-';   $nav_text = "<option value='ms-auto'>" . $_language->module[ 'navi_right_align' ] . "</option>
+    $nav_text = "<option value='ms-auto'>" . $_language->module[ 'navi_right_align' ] . "</option>
                     <option value='me-auto'>" . $_language->module[ 'navi_left_align' ] . "</option>";
     $nav_text = str_replace(
         "value='" . $ds[ 'nav_text_alignment' ] . "'",
@@ -2372,9 +2947,9 @@ echo'<div class="row">
     <input type="text" value="' . $ds[ 'foot1' ] . '" class="form-control" name="foot1" /><span class="input-group-text input-group-addon"><i></i></span> 
     </div>
   </div>
-<!--
+
   <div class="mb-3 row">
-    <label class="col-md-4 control-label">copyright bg-color:</label>
+    <label class="col-md-4 control-label">Font a color:</label>
     <div id="cp62" class="input-group colorpicker-component col-md-7">
     <input type="text" value="' . $ds[ 'foot5' ] . '" class="form-control" name="foot5" /><span class="input-group-text input-group-addon"><i></i></span> 
      </div>
@@ -2386,11 +2961,11 @@ echo'<div class="row">
     <input type="text" value="' . $ds[ 'foot3' ] . '" class="form-control" name="foot3" /><span class="input-group-text input-group-addon"><i></i></span> 
     </div>
   </div>
--->
+
   </div>
   
     <div class="col-md-6">
-    <!--
+    
     <div class="mb-3 row">
     <label class="col-md-4 control-label">footer color:</label>
     <div id="cp68" class="input-group colorpicker-component col-md-7">
@@ -2412,7 +2987,7 @@ echo'<div class="row">
     <input type="text" value="' . $ds[ 'foot4' ] . '" class="form-control" name="foot4" /><span class="input-group-text input-group-addon"><i></i></span> 
      </div>
   </div>
--->
+
   
 
 </div>

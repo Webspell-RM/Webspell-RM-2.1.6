@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $language_array = Array(
 
@@ -25,6 +25,7 @@ $language_array = Array(
   'banner'                          => 'Banner',
   'banner_to_big'                   => 'Banner ist zu groß',
   'image_too_big'                   => 'Logo ist zu groß',
+  'template_logo'                   => 'Template Logo (Template Setting)',
   'current_banner'                  => 'Aktuelles Logo in der Navigation',
   'login_banner'                    => 'Aktuelles Hintergrundbild der Loginseite',
   'format_incorrect'                => 'Das Format des Banner war falsch. Bitte lade nur Banner im *.gif, *.jpg oder *.png Format hoch.',
@@ -103,5 +104,40 @@ $language_array = Array(
   'background_primare'              => 'Primäre Hintergrundfarbe',
   'background_secondar'             => 'Sekundäre Hintergrundfarbe',
   'close'                           => 'Schließen',
+
+
+  'settings_navigation'             => 'Navigation Einstellungen',
+  'carousel_size'                   => 'Höhe des Carousel Header',
+  'parallax_size'                   => 'Höhe des Header',
+  'sticky_size'                     => 'Höhe des Sticky Header',
+  'size_info'                       => 'Wie hoch soll der Header angezeigt werden, ausgerichtet nach dem Viewport?<br>(Angaben in vh! Beispiel: 25vh, 50vh, 75vh, 100vh..)',
+
+  'navigation'                      => 'Navigation',
+  'underlined'                      => 'unterstrichen',
+  'underlined_text_1'               => 'Animationsmöglichkeiten der Navigation',
+  'underlined_text_2'               => 'Du möchtest das deine Navigation Links einen animierten Unterstrich bekommen soll?',
+  'underlined_text_3'               => 'Dann aktiviere diese Funktion.',
+  'enable_animation'                => 'Animation aktivieren',
+
+  'agency_sticky'                   => 'Agency & Sticky',
+  'agency_sticky_error'             => 'Plugin Carousel nicht installiert, oder wurde im Plugin-Manager dem Template nicht zugewiesen!',
+
+  'agency'                          => 'Agency',
+  'agency_text_1'                   => 'Hier kannst du die Agency Navigation mit einem',
+  'agency_text_2'                   => 'Parallax Pic oder mit einem Sticky Pic aktivieren.',
+  'carousel_header_active'          => 'Carousel Header aktiv',
+  'parallax_header_active'          => 'Parallax Header aktiv',
+  'sticky_header_active'            => 'Sticky Header aktiv',
+  'agency_navigation_from'          => 'Agency Navigation aus',
+  'agency_aktiv'                    => 'Agency Navigation aktivieren',
+
+  'sticky'                          => 'Sticky',
+  'sticky_text_1'                   => 'Hier kannst du die Ticky Navigation mit einem',
+  'sticky_text_2'                   => 'Sticky Pic aktivieren.',
+  'sticky_navigation_from'          => 'Sticky Navigation aus',
+  'sticky_aktiv'                    => 'Sticky Navigation aktivieren',
+
+  'navi_navigation_setting'         => 'Navigation Darstellung',
+
   
 );
