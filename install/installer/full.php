@@ -426,7 +426,7 @@ $transaction->addQuery("INSERT INTO `".PREFIX."navigation_dashboard_categories` 
 (3, '{[de]}Benutzer Administration{[en]}User Administration{[it]}Amministrazione Utenti', 'bi bi-person', 'user', 0, 3),
 (4, '{[de]}Team Verwaltung{[en]}Team Administration{[it]}Amministrazione della squadra', 'bi bi-people', 'any', 0, 4),
 (5, '{[de]}Template - Layout{[en]}Template - Layout{[it]}Template - Disposizione', 'bi bi-layout-text-window-reverse', 'page', 0, 5),
-(6, '{[de]}Plugin Verwaltung{[en]}Plugin Administration{[it]}Gestione Plugin', 'bi bi-puzzle', 'page', 0, 6),
+(6, '{[de]}Plugin & Modul Verwaltung{[en]}Plugin & module management{[it]}Gestione plugin e moduli', 'bi bi-puzzle', 'page', 0, 6),
 (7, '{[de]}Webseiteninhalte{[en]}Website Content{[it]}Contenuto del sito web', 'bi bi-card-checklist', 'page', 0, 7),
 (8, '{[de]}Grafik - Video - Projekte{[en]}Grafik - Video - Projekte{[it]}Grafica - Video - Progetti', 'bi bi-image ', 'gallery', 0, 8),
 (9, '{[de]}Header - Slider{[en]}Header - Slider{[it]}Slider-Header', 'bi bi-fast-forward-btn', 'page', 0, 9),
@@ -457,23 +457,25 @@ $transaction->addQuery("INSERT INTO `".PREFIX."navigation_dashboard_links` (`lin
 (8, 1, '{[de]}Mod-Rewrite{[en]}Mod-Rewrite{[it]}Mod-Rewrite', 'ac_modrewrite', 'admincenter.php?site=modrewrite', 'page', 8),
 (9, 1, '{[de]}Datenbank{[en]}Database{[it]}Database', 'ac_database', 'admincenter.php?site=database', 'page', 9),
 (10, 1, '{[de]}Webspell-RM Update{[en]}Webspell-RM Update{[it]}Aggiornamento Webspell-RM', 'ac_update', 'admincenter.php?site=update', 'page', 10),
-(11, 3, '{[de]}Registrierte Benutzer{[en]}Registered Users{[it]}Utenti Registrati', 'ac_users', 'admincenter.php?site=users', 'user', 1),
+(11, 1, '{[de]}Spracheditor{[en]}Language Editor{[it]}Editor di Linguaggi', 'ac_editlang', 'admincenter.php?site=editlang', 'page', 11),
 (12, 2, '{[de]}Geblockte Inhalte{[en]}Blocked Content{[it]}Contenuti Bloccati', 'ac_spam_forum', 'admincenter.php?site=spam&amp;action=forum_spam', 'user', 1),
 (13, 2, '{[de]}Nutzer l&ouml;schen{[en]}Remove User{[it]}Banna Utente', 'ac_spam_user', 'admincenter.php?site=spam&amp;action=user', 'user', 2),
 (14, 2, '{[de]}Multi-Accounts{[en]}Multi-Accounts{[it]}Multi-Account', 'ac_spam_multi', 'admincenter.php?site=spam&amp;action=multi', 'user', 3),
 (15, 2, '{[de]}gebannte IPs{[en]}banned IPs{[it]}IP bannati', 'ac_spam_banned_ips', 'admincenter.php?site=banned_ips', 'user', 4),
-(16, 5, '{[de]}Webseiten Navigation{[en]}Webside Navigation{[it]}Menu Navigazione Web', 'ac_webside_navigation', 'admincenter.php?site=webside_navigation', 'page', 1),
-(17, 5, '{[de]}Templates Installer{[en]}Templates Installer{[it]}Installazione Temi', 'ac_template_installer', 'admincenter.php?site=template_installer', 'page', 2),
-(18, 5, '{[de]}Templates - Style{[en]}Templates - Style{[it]}Templates Grafici', 'ac_templates', 'admincenter.php?site=settings_templates', 'page', 3),
-(19, 5, '{[de]}Head Elements{[en]}Head Elements{[it]}Elementi Head', 'ac_headelements', 'admincenter.php?site=settings_headelements', 'page', 4),
-(20, 5, '{[de]}Startseite{[en]}Start Page{[it]}Pagina Principale', 'ac_startpage', 'admincenter.php?site=settings_startpage', 'page', 5),
-(21, 5, '{[de]}Statische Seiten{[en]}Static Pages{[it]}Pagine Statiche', 'ac_static', 'admincenter.php?site=settings_static', 'page', 6),
-(22, 5, '{[de]}Impressum{[en]}Imprint{[it]}Impronta Editoriale', 'ac_imprint', 'admincenter.php?site=settings_imprint', 'page', 7),
-(23, 5, '{[de]}Datenschutz-Bestimmungen{[en]}Privacy Policy{[it]}Informativa sulla Privacy', 'ac_privacy_policy', 'admincenter.php?site=settings_privacy_policy', 'page', 8),
-(24, 6, '{[de]}Plugin Manager{[en]}Plugin Manager{[it]}Gestione Plugin', 'ac_plugin_manager', 'admincenter.php?site=plugin_manager', 'page', 1),
-(25, 6, '{[de]}Plugin Installer{[en]}Plugin Installer{[it]}Installazione Plugin', 'ac_plugin_installer', 'admincenter.php?site=plugin_installer', 'page', 2),
-(26, 6, '{[de]}Widget Verwaltung{[en]}Widget Control{[it]}Gestione Widget', 'ac_plugin_widgets', 'admincenter.php?site=plugin_widgets', 'page', 3),
-(27, 7, '{[de]}Footer{[en]}Footer{[it]}Elementi Footer', 'footer', 'admincenter.php?site=admin_footer', 'page', 1)");
+(16, 3, '{[de]}Registrierte Benutzer{[en]}Registered Users{[it]}Utenti Registrati', 'ac_users', 'admincenter.php?site=users', 'user', 1),
+(17, 5, '{[de]}Webseiten Navigation{[en]}Webside Navigation{[it]}Menu Navigazione Web', 'ac_webside_navigation', 'admincenter.php?site=webside_navigation', 'page', 1),
+(18, 5, '{[de]}Templates Installer{[en]}Templates Installer{[it]}Installazione Temi', 'ac_template_installer', 'admincenter.php?site=template_installer', 'page', 2),
+(19, 5, '{[de]}Templates - Style{[en]}Templates - Style{[it]}Templates Grafici', 'ac_templates', 'admincenter.php?site=settings_templates', 'page', 3),
+(20, 5, '{[de]}Head Elements{[en]}Head Elements{[it]}Elementi Head', 'ac_headelements', 'admincenter.php?site=settings_headelements', 'page', 4),
+(21, 5, '{[de]}Startseite{[en]}Start Page{[it]}Pagina Principale', 'ac_startpage', 'admincenter.php?site=settings_startpage', 'page', 5),
+(22, 5, '{[de]}Statische Seiten{[en]}Static Pages{[it]}Pagine Statiche', 'ac_static', 'admincenter.php?site=settings_static', 'page', 6),
+(23, 5, '{[de]}Impressum{[en]}Imprint{[it]}Impronta Editoriale', 'ac_imprint', 'admincenter.php?site=settings_imprint', 'page', 7),
+(24, 5, '{[de]}Datenschutz-Bestimmungen{[en]}Privacy Policy{[it]}Informativa sulla Privacy', 'ac_privacy_policy', 'admincenter.php?site=settings_privacy_policy', 'page', 8),
+(25, 6, '{[de]}Plugin Manager{[en]}Plugin Manager{[it]}Gestione Plugin', 'ac_plugin_manager', 'admincenter.php?site=plugin_manager', 'page', 1),
+(26, 6, '{[de]}Plugin Installer{[en]}Plugin Installer{[it]}Installazione Plugin', 'ac_plugin_installer', 'admincenter.php?site=plugin_installer', 'page', 2),
+(27, 6, '{[de]}Widgets sortieren{[en]}Sort widgets{[it]}Ordina i widget', 'ac_plugin_widgets', 'admincenter.php?site=plugin_widgets', 'page', 3),
+(28, 6, '{[de]}Modul & Widget Übersicht{[en]}Module & Widget Overview{[it]}Panoramica del modulo e del widget', 'ac_modul_widgets', 'admincenter.php?site=plugin_module', 'page', 4),
+(29, 7, '{[de]}Footer{[en]}Footer{[it]}Elementi Footer', 'footer', 'admincenter.php?site=admin_footer', 'page', 1)";
 
 ##############################################################################################################################
 ##############################################################################################################################
@@ -933,13 +935,12 @@ $transaction->addQuery("INSERT INTO `".PREFIX."settings_module` (`pluginID`, `na
 (7, 'Imprint', 'imprint', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
 (8, 'Privacy Policy', 'privacy_policy', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
 (9, 'Contact', 'contact', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
-(10, 'Loginoverview', 'loginoverview', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
-(11, 'Register', 'register', 'default', 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
-(12, 'Lost Password', 'lostpassword', 'default', 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
-(13, 'Login', 'login', 'default', 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
-(14, 'Profile', 'profile', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
-(15, 'Navigation Default', 'navigation_default', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 1, 0, 1, 1, 0, 0),
-(16, 'Footer', 'footer', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 1, 0, 1, 1, 1, 1)");
+(10, 'Register', 'register', 'default', 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
+(11, 'Lost Password', 'lostpassword', 'default', 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
+(12, 'Login', 'login', 'default', 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
+(13, 'Profile', 'profile', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 0, 0, 0, 0, 0),
+(14, 'Navigation Default', 'navigation_default', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 1, 0, 1, 1, 0, 0),
+(15, 'Footer', 'footer', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 1, 0, 1, 1, 1, 1)");
 
 ##############################################################################################################################
 ##############################################################################################################################
@@ -1076,7 +1077,7 @@ $transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."settings_social_me
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;");
 
 $transaction->addQuery("INSERT INTO `".PREFIX."settings_social_media` (`socialID`, `twitch`, `facebook`, `twitter`, `youtube`, `rss`, `vine`, `flickr`, `linkedin`, `instagram`, `since`, `gametracker`, `discord`, `steam`) VALUES
-(1, 'https://www.twitch.tv/pulsradiocom', 'https://www.facebook.com/WebspellRM', 'https://twitter.com/webspell_rm', 'https://www.youtube.com/channel/UCE5yTn9ljzSnC_oMp9Jnckg', '-', '-', '-', '-', '-', '2023', '85.14.228.228:28960', '428995618971582473', '-')");
+(1, 'https://www.twitch.tv/pulsradiocom', 'https://www.facebook.com/WebspellRM', 'https://twitter.com/webspell_rm', 'https://www.youtube.com/channel/UCE5yTn9ljzSnC_oMp9Jnckg', '-', '-', '-', '-', '-', '2023', '85.14.228.228:28960', 'https://www.discord.gg/kErxPxb', '-')");
 
 ##############################################################################################################################
 ##############################################################################################################################
@@ -1199,14 +1200,18 @@ $transaction->addQuery("CREATE TABLE `" . PREFIX . "settings_themes` (
   `reg1` varchar(255) NOT NULL DEFAULT '',
   `reg2` varchar(255) NOT NULL DEFAULT '',
   `headlines` varchar(255) DEFAULT '0',
+  `agency` int(1) NOT NULL DEFAULT 0,
+  `agency_nav` int(1) NOT NULL DEFAULT 2,
+  `sticky` int(1) NOT NULL DEFAULT 0,
+  `underscore` int(1) NOT NULL DEFAULT 0,
   `sort` int(11) NOT NULL DEFAULT '0',
 PRIMARY KEY  (`themeID`)
 ) AUTO_INCREMENT=2
   DEFAULT CHARSET=utf8mb4");
 
 
-$transaction->addQuery("INSERT IGNORE INTO `" . PREFIX . "settings_themes` (`themeID`, `name`, `modulname`, `pfad`, `version`, `active`, `express_active`, `nav1`, `nav2`, `nav3`, `nav4`, `nav5`, `nav6`, `nav7`, `nav8`, `nav9`, `nav10`, `nav11`, `nav12`, `nav_text_alignment`, `body1`, `body2`, `body3`, `body4`, `body5`, `background_pic`, `border_radius`, `typo1`, `typo2`, `typo3`, `typo4`, `typo5`, `typo6`, `typo7`, `typo8`, `card1`, `card2`, `foot1`, `foot2`, `foot3`, `foot4`, `foot5`, `foot6`, `calendar1`, `calendar2`, `carousel1`, `carousel2`, `carousel3`, `carousel4`, `logo_pic`, `logotext1`, `logotext2`, `reg_pic`, `reg1`, `reg2`, `headlines`, `sort`) VALUES
-(1, 'Default', 'default', 'default', '0.2', 1, 0, 'rgb(51,51,51)', '16px', 'rgb(221,221,221)', 'rgb(254,130,29)', 'rgb(254,130,29)', '2px', 'rgb(221,221,221)', 'rgb(196,89,1)', '', 'rgb(51,51,51)', 'rgb(221,221,221)', 'rgb(101,100,100)', 'ms-auto', 'Roboto', '13px', 'rgb(255,255,255)', 'rgb(85,85,85)', 'rgb(236,236,236)', '', '0px', '', '', '', 'rgb(254,130,29)', '', '', '', 'rgb(196,89,1)', 'rgb(255,255,255)', 'rgb(221,221,221)', 'rgb(51,51,51)', '', '', '', '', '', '', '', 'rgb(255,255,255)', 'rgb(254,130,29)', 'rgb(255,255,255)', 'rgb(254,130,29)', 'logo.png', '', '', 'login_bg.png', 'rgb(254,130,29)', 'rgb(255,255,255)', 'headlines_01.css', 1)");
+$transaction->addQuery("INSERT IGNORE INTO `" . PREFIX . "settings_themes` (`themeID`, `name`, `modulname`, `pfad`, `version`, `active`, `express_active`, `nav1`, `nav2`, `nav3`, `nav4`, `nav5`, `nav6`, `nav7`, `nav8`, `nav9`, `nav10`, `nav11`, `nav12`, `nav_text_alignment`, `body1`, `body2`, `body3`, `body4`, `body5`, `background_pic`, `border_radius`, `typo1`, `typo2`, `typo3`, `typo4`, `typo5`, `typo6`, `typo7`, `typo8`, `card1`, `card2`, `foot1`, `foot2`, `foot3`, `foot4`, `foot5`, `foot6`, `calendar1`, `calendar2`, `carousel1`, `carousel2`, `carousel3`, `carousel4`, `logo_pic`, `logotext1`, `logotext2`, `reg_pic`, `reg1`, `reg2`, `headlines`, `agency`, `agency_nav`, `sticky`, `underscore`, `sort`) VALUES
+(1, 'Default', 'default', 'default', '0.2', 1, 0, 'rgb(51,51,51)', '16px', 'rgb(221,221,221)', 'rgb(254,130,29)', 'rgb(254,130,29)', '2px', 'rgb(221,221,221)', 'rgb(196,89,1)', '', 'rgb(51,51,51)', 'rgb(221,221,221)', 'rgb(101,100,100)', 'ms-auto', 'Roboto', '13px', 'rgb(255,255,255)', 'rgb(85,85,85)', 'rgb(236,236,236)', '', '0px', '', '', '', 'rgb(254,130,29)', '', '', '', 'rgb(196,89,1)', 'rgb(255,255,255)', 'rgb(221,221,221)', 'rgb(51,51,51)', '', '', '', '', '', '', '', 'rgb(255,255,255)', 'rgb(254,130,29)', 'rgb(255,255,255)', 'rgb(254,130,29)', 'logo.png', '', '', 'login_bg.png', 'rgb(254,130,29)', 'rgb(255,255,255)', 'headlines_01.css', 0, 2, 0, 0, 1)");
 
 ##############################################################################################################################
 ##############################################################################################################################
@@ -1337,13 +1342,13 @@ $transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."user` (
   `videos` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `games` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `projectlist` text NOT NULL,
-  `profile_visibility` varchar(255) NOT NULL DEFAULT '0',
+  `profile_visibility` varchar(255) NOT NULL DEFAULT '1',
   PRIMARY KEY (`userID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;");
 
 
 $transaction->addQuery("INSERT INTO `".PREFIX."user` (`userID`, `registerdate`, `lastlogin`, `password`, `password_hash`, `password_pepper`, `nickname`, `email`, `email_hide`, `email_change`, `email_activate`, `firstname`, `lastname`, `gender`, `town`, `birthday`, `facebook`, `twitter`, `twitch`, `steam`, `instagram`, `youtube`, `discord`, `avatar`, `usertext`, `userpic`, `homepage`, `about`, `pmgot`, `pmsent`, `visits`, `banned`, `ban_reason`, `ip`, `topics`, `articles`, `demos`, `files`, `gallery_pictures`, `special_rank`, `mailonpm`, `userdescription`, `activated`, `language`, `date_format`, `time_format`, `newsletter`, `links`, `videos`, `games`, `projectlist`, `profile_visibility`) VALUES
-(1, '".time()."', '".time()."', '', '".$adminhash."', '".$new_pepper."', '".$adminname."', '".$adminmail."', 1, '', '', '', '', 'select_gender', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, NULL, '', '', '|', '', '', '', '', 0, 0, '', '1', '', 'd.m.Y', 'H:i', 1, '', '', '', '', 0)");
+(1, '".time()."', '".time()."', '', '".$adminhash."', '".$new_pepper."', '".$adminname."', '".$adminmail."', 1, '', '', '', '', 'select_gender', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, NULL, '', '', '|', '', '', '', '', 0, 0, '', '1', '', 'd.m.Y', 'H:i', 1, '', '', '', '', 1)");
 
 $transaction->addQuery("DROP TABLE IF EXISTS `".PREFIX."user_groups`");
 $transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."user_groups` (
@@ -1448,9 +1453,9 @@ function update_rm_31($_database) {
 ##############################################################################################################################
 ##############################################################################################################################
  if ($transaction->successful()) {
-      return array('status' => 'success', 'message' => '&nbsp;Webspell-RM Installation Ver.: <span class="badge bg-success">2.1.4</span> / <b>Last Stand:</b> <span class="badge bg-success">25.03.2024</span><br>');
+      return array('status' => 'success', 'message' => '&nbsp;Webspell-RM Installation Ver.: <span class="badge bg-success">2.1.6</span> / <b>Last Stand:</b> <span class="badge bg-success">04.12.2024</span><br>');
   } else {
-      return array('status' => 'fail', 'message' => '-   Webspell-RM Installation Ver.: <b>2.1.4 / <b>Last Stand:</b> 02.01.2024<br/>' . $transaction->getError());
+      return array('status' => 'fail', 'message' => '-   Webspell-RM Installation Ver.: <b>2.1.6 / <b>Last Stand:</b> 04.12.2024<br/>' . $transaction->getError());
   }
 
 }

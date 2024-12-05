@@ -775,8 +775,9 @@ if($widget_nav) {
 
         
 if(isset($_GET['do'])) { $do=$_GET['do']; } else { $do=""; }
-if(isset($_GET['id'])) { $id=intval($_GET['id']); } else { $id=""; }
-if(isset($_GET['modulname'])) { $modulname=intval($_GET['modulname']); } else { $modulname=""; }
+if(isset($_GET['id'])) { $id=$_GET['id']; } else { $id=""; }
+if(isset($_GET['modulname'])) { $modulname=$_GET['modulname']; } else { $modulname=""; }
+
 if($id !="" && $modulname != "" && $do == "dea") {
     
     try {
@@ -1502,9 +1503,6 @@ return false;
 if(isset($_POST['saveedit'])) {
   @$modulname = $_POST[ 'modulname' ];
   $themes_modulname = $_POST[ 'themes_modulname' ];
-#echo "<pre>";
-#print_r($_POST);
-#echo "</pre>";
 
     try {
 
@@ -1555,7 +1553,7 @@ if(isset($_POST['saveedit'])) {
         ############################
 
         if($modulname == 'startpage'){
-          $geti = safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname = ''"); 
+          $geti = safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE name = 'Startpage'"); 
           $rows = mysqli_num_rows($geti);
             if($rows == '0') {
             safe_query(
@@ -1577,7 +1575,7 @@ if(isset($_POST['saveedit'])) {
                     `version`, 
                     `path`'
                     ) VALUES (
-                    '".$_POST['name']."', 
+                    'Startpage', 
                     '', 
                     '".$_POST['info']."', 
                     
@@ -1598,7 +1596,7 @@ if(isset($_POST['saveedit'])) {
             "UPDATE
                 `" . PREFIX . "settings_plugins`
             SET
-                `name` = '".$_POST['name']."', 
+                `name` = 'Startpage', 
                 `modulname` = '', 
                 `info` = '".$_POST['info']."', 
                 
@@ -1613,7 +1611,121 @@ if(isset($_POST['saveedit'])) {
                 `version` = '".$_POST['version']."', 
                 `path` = '".$_POST['path']."'
                   WHERE
-                `modulname` = ''"
+                `modulname` = 'modulname'"
+            );
+        }
+
+
+        if($name == 'Startpage'){
+          $geti = safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname = 'startpage'"); 
+          $rows = mysqli_num_rows($geti);
+            if($rows == '0') {
+            safe_query(
+                "INSERT INTO
+                    `" . PREFIX . "settings_plugins` (
+                    
+                    `name`, 
+                    `modulname`, 
+                    `info`, 
+                    
+                    `admin_file`, 
+                    `author`, 
+                    `website`, 
+                    `index_link`, 
+                    `widget_link1`,
+                    `widget_link2`, 
+                    `widget_link3`,  
+                    `hiddenfiles`, 
+                    `version`, 
+                    `path`'
+                    ) VALUES (
+                    'Startpage', 
+                    '', 
+                    '".$_POST['info']."', 
+                    
+                    '".$_POST['admin_file']."', 
+                    '".$_POST['author']."', 
+                    '".$_POST['website']."', 
+                    '".$_POST['index']."', 
+                    '".$_POST['widget_link1']."',
+                    '".$_POST['widget_link2']."', 
+                    '".$_POST['widget_link3']."',  
+                    '".$_POST['hiddenfiles']."', 
+                    '".$_POST['version']."', 
+                    '".$_POST['path']."'
+                )"
+            );
+            }
+            safe_query(
+            "UPDATE
+                `" . PREFIX . "settings_plugins`
+            SET
+                `name` = 'Startpage', 
+                `modulname` = '', 
+                `info` = '".$_POST['info']."', 
+                
+                `admin_file` = '".$_POST['admin_file']."', 
+                `author` = '".$_POST['author']."', 
+                `website` = '".$_POST['website']."', 
+                `index_link` = '".$_POST['index']."', 
+                `widget_link1` = '".$_POST['widget_link1']."',
+                `widget_link2` = '".$_POST['widget_link2']."', 
+                `widget_link3` = '".$_POST['widget_link3']."',  
+                `hiddenfiles` = '".$_POST['hiddenfiles']."', 
+                `version` = '".$_POST['version']."', 
+                `path` = '".$_POST['path']."'
+                  WHERE
+                `name` = 'Startpage'"
+            );
+        }
+
+
+##########################################################
+
+        
+
+        
+               if($modulname == 'startpage'){
+          $geti = safe_query("SELECT * FROM " . PREFIX . "settings_module WHERE modulname = ''"); 
+          $rows = mysqli_num_rows($geti);
+            if($rows == '0') {
+            safe_query(
+                "INSERT INTO
+                    `" . PREFIX . "settings_module` (
+                                       
+                    `sidebar`,
+                    `via_navigation`,
+                    `head_activated`,
+                    `content_head_activated`,
+                    `content_foot_activated`,
+                    `head_section_activated`,
+                    `foot_section_activated`
+                    ) VALUES (
+                    
+                    '" . $sidebar . "',
+                    '" . $via_navigation . "',
+                    '" . $head_activated . "',
+                    '" . $content_head_activated . "',
+                    '" . $content_foot_activated . "',
+                    '" . $head_section_activated . "',
+                    '" . $foot_section_activated . "'
+                )"
+            );
+        }
+        safe_query(
+            "UPDATE
+                `" . PREFIX . "settings_module`
+            SET
+                
+                `sidebar` = '" . @$_POST['sidebar'] . "',
+                `via_navigation` = '" . @$_POST['via_navigation'] . "',
+                `head_activated` = '" . @$_POST['head_activated'] . "',
+                `content_head_activated` = '" . @$_POST['content_head_activated'] . "',
+                `content_foot_activated` = '" . @$_POST['content_foot_activated'] . "',
+                `head_section_activated` = '" . @$_POST['head_section_activated'] . "',
+                `foot_section_activated` = '" . @$_POST['foot_section_activated'] . "'
+                  WHERE
+                `name` = 'Startpage'"
             );
         }
 
@@ -1666,6 +1778,7 @@ if(isset($_POST['saveedit'])) {
                 `modulname` = 'startpage' AND themes_modulname='".$themes_modulname."'"
         );
         }
+
 ############################## Forum ####################################
         if($modulname == 'forum' && $themes_modulname){
         global $themes_modulname;
@@ -2165,7 +2278,7 @@ echo''; #Keine Anzeige bei allen Plugins
     </div>
     <input type="hidden" name="captcha_hash" value="'.$hash.'" />
     <input type="hidden" name="pid" value="'.$ds['pluginID'].'" />
-    <!--<input type="hidden" name="activate" value="'.@$acti.'" />
+    <input type="hidden" name="activate" value="'.@$acti.'" />
     <input type="hidden" name="name" value="'.$ds['name'].'" />
     <input type="hidden" name="info" value="'.$ds['info'].'" />
     <input type="hidden" name="admin_file" value="'.$ds['admin_file'].'" />
@@ -2175,7 +2288,7 @@ echo''; #Keine Anzeige bei allen Plugins
     <input type="hidden" name="index" value="'.$ds['index_link'].'" />
     <input type="hidden" name="hiddenfiles" value="'.$ds['hiddenfiles'].'" />
     <input type="hidden" name="version" value="'.$ds['version'].'" />
-    <input type="hidden" name="path" value="'.$ds['path'].'" />-->
+    <input type="hidden" name="path" value="'.$ds['path'].'" />
     
 
     <input type="hidden" name="widgetname1" value="'.$ds['widgetname1'].'" />

@@ -46,7 +46,6 @@ if (isset($_POST[ 'save' ])) {
                 $displayed = '0';
             }
 
-            print_r($_POST[ "displayed" ]);
             safe_query(
                 "UPDATE
                     `" . PREFIX . "settings_static`
@@ -178,7 +177,6 @@ if (isset($_GET[ 'action' ]) && $_GET[ 'action' ] == "add") {
   </form></div></div>';
   
 } elseif (isset($_GET[ 'action' ]) && $_GET[ 'action' ] == "edit") {
-    $_language->readModule('bbcode', true, true);
 
     $staticID = $_GET[ 'staticID' ];
     $ergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_static` WHERE staticID='" . $staticID . "'");
@@ -217,7 +215,6 @@ if (isset($_GET[ 'action' ]) && $_GET[ 'action' ] == "add") {
     $hash = $CAPCLASS->getHash();
 
     $tags = \webspell\Tags::getTags('static', $staticID);
-    #$editor = $ds['displayed'];
 
      echo '<div class="card">
         <div class="card-header">

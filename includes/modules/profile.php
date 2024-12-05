@@ -871,6 +871,8 @@ else {
                 }else{
                     $pic='no-image.jpg';
                 }
+
+
     
                 $name = $df[ 'name' ];
     
@@ -879,7 +881,7 @@ else {
                     $banner .= '
                         <div class="col-md-4"><a href="index.php?site=squads&amp;action=show&amp;squadID=' . $dd[ 'squadID' ] .
                         '">
-                          <div class="profile-team-bg" style="background-image: url(./includes/plugins/squads/images/squadicons/' . $pic . ')">
+                          <div class="profile-team-bg" style="background-image: url(../includes/plugins/squads/images/squadicons/' . $pic . ')">
                              <h4 class="top">' . $name . '</h4>
                              <h4 class="bottom">' . $position . '</h4>
                           </div></a>
