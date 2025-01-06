@@ -401,7 +401,7 @@ class plugin_manager {
 					$fc = count((array($f)), COUNT_RECURSIVE);
 					if($fc>0) {
 					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
+					 		echo$css = '<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
 					  }
 					}
 				}
@@ -420,7 +420,7 @@ class plugin_manager {
 					$fc = count((array($f)), COUNT_RECURSIVE);
 					if($fc>0) {
 					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
+					 		echo$css = '<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
 					  }
 					}
 				}
@@ -443,7 +443,7 @@ class plugin_manager {
 					$fc = count((array($f)), COUNT_RECURSIVE);
 					if($fc>0) {
 					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
+					 		echo$css = '<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
 					  }
 					}
 				}
@@ -464,7 +464,7 @@ class plugin_manager {
 					$fc = count((array($f)), COUNT_RECURSIVE);
 					if($fc>0) {
 					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
+					 		echo$css = '<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
 					  }
 					}
 				}
@@ -485,7 +485,7 @@ class plugin_manager {
 					$fc = count((array($f)), COUNT_RECURSIVE);
 					if($fc>0) {
 					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
+					 		echo$css = '<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
 					  }
 					}
 				}
@@ -506,7 +506,7 @@ class plugin_manager {
 					$fc = count((array($f)), COUNT_RECURSIVE);
 					if($fc>0) {
 					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
+					 		echo$css = '<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
 					  }
 					}
 				}
@@ -527,7 +527,7 @@ class plugin_manager {
 					$fc = count((array($f)), COUNT_RECURSIVE);
 					if($fc>0) {
 					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
+					 		echo$css = '<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
 					  }
 					}
 				}
@@ -548,7 +548,7 @@ class plugin_manager {
 					$fc = count((array($f)), COUNT_RECURSIVE);
 					if($fc>0) {
 					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
+					 		echo$css = '<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
 					  }
 					}
 				}
@@ -569,7 +569,7 @@ class plugin_manager {
 					$fc = count((array($f)), COUNT_RECURSIVE);
 					if($fc>0) {
 					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
+					 		echo$css = '<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
 					  }
 					}
 				}
@@ -590,7 +590,7 @@ class plugin_manager {
 					$fc = count((array($f)), COUNT_RECURSIVE);
 					if($fc>0) {
 					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
+					 		echo$css = '<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
 					  }
 					}
 				}
@@ -611,7 +611,7 @@ class plugin_manager {
 					$fc = count((array($f)), COUNT_RECURSIVE);
 					if($fc>0) {
 					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
+					 		echo$css = '<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
 					  }
 					}
 				}
@@ -673,7 +673,7 @@ class plugin_manager {
 			    $fc = count((array($f)), COUNT_RECURSIVE);
 			    if($fc>0) {
 			     	for($b=0; $b<=$fc-2; $b++) {
-			     		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
+			     		echo$js = '<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
 			      }
 			    }
 				}
@@ -692,7 +692,7 @@ class plugin_manager {
 			    $fc = count((array($f)), COUNT_RECURSIVE);
 			    if($fc>0) {
 			     	for($b=0; $b<=$fc-2; $b++) {
-			     		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
+			     		echo$js = '<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
 			      }
 			    }
 				}
@@ -715,7 +715,7 @@ class plugin_manager {
 			    $fc = count((array($f)), COUNT_RECURSIVE);
 			    if($fc>0) {
 			     	for($b=0; $b<=$fc-2; $b++) {
-			     		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
+			     		echo$js = '<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
 			      }
 			    }
 				}
@@ -736,7 +736,7 @@ class plugin_manager {
 			    $fc = count((array($f)), COUNT_RECURSIVE);
 			    if($fc>0) {
 			     	for($b=0; $b<=$fc-2; $b++) {
-			     		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
+			     		echo$js = '<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
 			      }
 			    }
 				}
@@ -757,7 +757,7 @@ class plugin_manager {
 			    $fc = count((array($f)), COUNT_RECURSIVE);
 			    if($fc>0) {
 			     	for($b=0; $b<=$fc-2; $b++) {
-			     		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
+			     		echo$js = '<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
 			      }
 			    }
 				}
@@ -778,7 +778,7 @@ class plugin_manager {
 			    $fc = count((array($f)), COUNT_RECURSIVE);
 			    if($fc>0) {
 			     	for($b=0; $b<=$fc-2; $b++) {
-			     		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
+			     		echo$js = '<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
 			      }
 			    }
 				}
@@ -799,7 +799,7 @@ class plugin_manager {
 			    $fc = count((array($f)), COUNT_RECURSIVE);
 			    if($fc>0) {
 			     	for($b=0; $b<=$fc-2; $b++) {
-			     		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
+			     		echo$js = '<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
 			      }
 			    }
 				}
@@ -820,7 +820,7 @@ class plugin_manager {
 			    $fc = count((array($f)), COUNT_RECURSIVE);
 			    if($fc>0) {
 			     	for($b=0; $b<=$fc-2; $b++) {
-			     		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
+			     		echo$js = '<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
 			      }
 			    }
 				}
@@ -841,7 +841,7 @@ class plugin_manager {
 					$fc = count((array($f)), COUNT_RECURSIVE);
 					if($fc>0) {
 					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
+					 		echo$js = '<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
 					  }
 					}
 				}
@@ -862,7 +862,7 @@ class plugin_manager {
 					$fc = count((array($f)), COUNT_RECURSIVE);
 					if($fc>0) {
 					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
+					 		echo$js = '<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
 					  }
 					}
 				}
@@ -883,7 +883,7 @@ class plugin_manager {
 					$fc = count((array($f)), COUNT_RECURSIVE);
 					if($fc>0) {
 					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
+					 		echo$js = '<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
 					  }
 					}
 				}

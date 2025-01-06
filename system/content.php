@@ -413,9 +413,9 @@ function get_lock_modul() {
     if (@$closed != '1') { 
 
     } else {
-        echo'<div class="alert alert-danger" role="alert" style="margin-bottom: -5px;"><center>
-            Die Seite befindet sich im Wartungsmodus | The site is in maintenance mode | Il sito è in modalità manutenzione
-            </center></div>';   
+    echo'<div class="alert alert-danger" role="alert" style="margin-bottom: -5px;">
+            <center>Die Seite befindet sich im Wartungsmodus | The site is in maintenance mode | Il sito è in modalità manutenzione</center>
+        </div>';   
     }
 }
 
@@ -423,11 +423,11 @@ function get_lock_modul() {
 function get_editor() {
 global $userID;
     if (issuperadmin($userID)) {
-        echo'    <script src="./components/ckeditor/ckeditor.js"></script>
-    <script src="./components/ckeditor/config.js"></script>';
+        echo'<script src="./components/ckeditor/ckeditor.js"></script>
+<script src="./components/ckeditor/config.js"></script>';
     } else {
-        echo'    <script src="./components/ckeditor/ckeditor.js"></script>
-    <script src="./components/ckeditor/user_config.js"></script>';
+        echo'<script src="./components/ckeditor/ckeditor.js"></script>
+<script src="./components/ckeditor/user_config.js"></script>';
     } 
 }
 

@@ -56,27 +56,27 @@ header('X-UA-Compatible: IE=edge,chrome=1');
 
     <base href="<?php echo $rewriteBase; ?>">
 
-    <link type="application/rss+xml" rel="alternate" href="tmp/rss.xml" title="<?php echo $myclanname; ?> - RSS Feed">
-    <link type="text/css" rel="stylesheet" href="./components/cookies/css/cookieconsent.css" media="print" onload="this.media='all'">
-    <link type="text/css" rel="stylesheet" href="./components/cookies/css/iframemanager.css" media="print" onload="this.media='all'">
-    <?php
-        $lang = $_language->language; // Language Variable setzen         
-    /* Components & themes css */
-    echo $components_css;
-    echo $theme_css;
-    /* Components & themes css END*/
-    /* Plugin-Manager  css */
-    echo'    <!--Plugin css-->';
-    echo ($_pluginmanager->plugin_loadheadfile_css());
-    echo'    <!--Plugin css END-->'.chr(0x0D).chr(0x0A);
-    echo'    <!--Widget css-->'.chr(0x0D);
-    echo ($_pluginmanager->plugin_loadheadfile_widget_css());
-    echo'    <!--Widget css END-->'.chr(0x0D).chr(0x0A);
-    /* Plugin-Manager  css END*/
-    /* Module DB Abfrage */
-    echo get_hide();
-    /* Module DB Abfrage END */
-    ?>
+<link type="application/rss+xml" rel="alternate" href="tmp/rss.xml" title="<?php echo $myclanname; ?> - RSS Feed">
+<link type="text/css" rel="stylesheet" href="./components/cookies/css/cookieconsent.css" media="print" onload="this.media='all'">
+<link type="text/css" rel="stylesheet" href="./components/cookies/css/iframemanager.css" media="print" onload="this.media='all'">
+<?php
+$lang = $_language->language; // Language Variable setzen         
+/* Components & themes css */
+echo $components_css;
+echo $theme_css;
+/* Components & themes css END*/
+/* Plugin-Manager  css */
+echo'<!--Plugin css-->';
+echo ($_pluginmanager->plugin_loadheadfile_css());
+echo'<!--Plugin css END-->'.chr(0x0D).chr(0x0A);
+echo'<!--Widget css-->'.chr(0x0D);
+echo ($_pluginmanager->plugin_loadheadfile_widget_css());
+echo'<!--Widget css END-->'.chr(0x0D).chr(0x0A);
+/* Plugin-Manager  css END*/
+/* Module DB Abfrage */
+echo get_hide();
+/* Module DB Abfrage END */
+?>
 </head>
 <body>
     
@@ -150,31 +150,31 @@ header('X-UA-Compatible: IE=edge,chrome=1');
 
     <!-- recaptcha-->
     <script src='https://www.google.com/recaptcha/api.js'></script>
-    <?php
-        /*  Components & themes js */ 
-        echo $components_js;
-        echo $theme_js;
-        /*  Components & themes css / js  END */
-        /* Plugin-Manager  js */
-        echo'    <!--Plugin js-->';
-        echo ($_pluginmanager->plugin_loadheadfile_js());
-        echo'    <!--Plugin js END-->'.chr(0x0D).chr(0x0A);
-        echo'    <!--Widget js-->'.chr(0x0D);
-        echo ($_pluginmanager->plugin_loadheadfile_widget_js());
-        echo'    <!--Widget js END-->'.chr(0x0D).chr(0x0A);
-        /* Plugin-Manager  js END */
-        /* ckeditor */
-        echo get_editor();
-        /* ckeditor END*/
-    ?>
-    <!-- Cookies Abfrage -->
-    <script defer src="./components/cookies/js/iframemanager.js"></script>
-    <script defer src="./components/cookies/js/cookieconsent.js"></script>
-    <script defer src="./components/cookies/js/cookieconsent-init.js"></script>
-    <script defer src="./components/cookies/js/app.js"></script>
-    <!-- Language recognition for DataTables -->
-    <? echo "<script>const LangDataTables = '$_language->language';</script>"; ?>
-    <script type="text/javascript">
+<?php
+/*  Components & themes js */ 
+echo $components_js;
+echo $theme_js;
+/*  Components & themes css / js  END */
+/* Plugin-Manager  js */
+echo'<!--Plugin js-->';
+echo ($_pluginmanager->plugin_loadheadfile_js());
+echo'<!--Plugin js END-->'.chr(0x0D).chr(0x0A);
+echo'<!--Widget js-->'.chr(0x0D);
+echo ($_pluginmanager->plugin_loadheadfile_widget_js());
+echo'<!--Widget js END-->'.chr(0x0D).chr(0x0A);
+/* Plugin-Manager  js END */
+/* ckeditor */
+echo get_editor();
+/* ckeditor END*/
+?>
+<!-- Cookies Abfrage -->
+<script defer src="./components/cookies/js/iframemanager.js"></script>
+<script defer src="./components/cookies/js/cookieconsent.js"></script>
+<script defer src="./components/cookies/js/cookieconsent-init.js"></script>
+<script defer src="./components/cookies/js/app.js"></script>
+<!-- Language recognition for DataTables -->
+<? echo "<script>const LangDataTables = '$_language->language';</script>"; ?>
+<script type="text/javascript">
         // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function () {
       'use strict'
@@ -195,6 +195,6 @@ header('X-UA-Compatible: IE=edge,chrome=1');
           }, false)
         })
     })()
-    </script>
+</script>
 </body>
 </html>
