@@ -1,0 +1,34 @@
+{
+"items": [
+           {
+             "index": "greating ordner"
+
+
+           },
+           {
+            "index": "greating files",
+            "file1": "/install.php",
+            "file2": "/CHANGELOG.md", 
+            "file3": "/system/version.php",
+
+            "file4": "/system/settings.php",
+
+            
+            "file5": "/admin/settings.php",
+            "file6": "/admin/email.php",
+
+            "file7": "/includes/themes/base_files/index.php",
+            "file8": "/includes/themes/default/index.php",
+
+            "file9": "/languages/de/admin/settings.php",
+            "file10": "/languages/en/admin/settings.php",
+            "file11": "/languages/it/admin/settings.php"
+
+             
+           },
+           {
+            "index": "deleting files"
+
+           }
+         ]
+}

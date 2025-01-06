@@ -423,11 +423,11 @@ function get_lock_modul() {
 function get_editor() {
 global $userID;
     if (issuperadmin($userID)) {
-        echo'<script src="./components/ckeditor/ckeditor.js"></script>
-             <script src="./components/ckeditor/config.js"></script>';
+        echo'    <script src="./components/ckeditor/ckeditor.js"></script>
+    <script src="./components/ckeditor/config.js"></script>';
     } else {
-        echo'<script src="./components/ckeditor/ckeditor.js"></script>
-             <script src="./components/ckeditor/user_config.js"></script>';
+        echo'    <script src="./components/ckeditor/ckeditor.js"></script>
+    <script src="./components/ckeditor/user_config.js"></script>';
     } 
 }
 

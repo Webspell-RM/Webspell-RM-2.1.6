@@ -298,36 +298,36 @@ class plugin_manager {
       $getsite = $qs_arr['site'];
     }
 
+
     $css="\n";
-		$query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' ");
-    if($pluginadmin) { $pluginpath = "../"; } else { $pluginpath=""; }
+		$query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND modulname = '".$getsite."'");
+    if($pluginadmin) { $pluginpath = "../"; 
+  	} else { 
+  		$pluginpath=""; 
+  	}
 		
     while($res=mysqli_fetch_array($query)) {
-	  	$res2 = mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `modulname` = '".$res['modulname']."'"));
 
-			$themeergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_themes` WHERE active = '1'");
-      $db = mysqli_fetch_array($themeergebnis);
-
-      $ergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_module` WHERE modulname = '".$res['modulname']."' and themes_modulname='".$db['modulname']."'");
-      $dx = mysqli_fetch_array($ergebnis);
-
-			if(@$dx['activate'] == 1) {
-
-	      if($res['modulname'] == $getsite || $res2 == 1) {
-	       	if(is_dir($pluginpath.$res['path']."css/")) { $subf1 = "css/"; } else { $subf1=""; }
-	        $f = array();
-	        $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$res['path'].$subf1).'*.css');
-	        $fc = count((array($f)), COUNT_RECURSIVE);
-	        if($fc>0) {
-	         	for($b=0; $b<=$fc-2; $b++) {
-	           	$css .= '<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D).chr(0x0A);
-	         	}
+		      if($res['modulname'] == $getsite || $res == 1) {
+		       	if(is_dir($pluginpath.$res['path']."css/")) { 
+		       		$subf1 = "css/"; 
+		       	} else { 
+		       		$subf1=""; 
+		       	}
+		        $f = array();
+		        $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$res['path'].$subf1).'*.css');
+		        $fc = count((array($f)), COUNT_RECURSIVE);
+		        if($fc>0) {
+		         	for($b=0; $b<=$fc-2; $b++) {
+		           	$css .= '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D).chr(0x0A);
+		         	}
+						}
 					}
-				}
-			}
+
 		}
 	  return $css;
 	}
+
 
 	function plugin_loadheadfile_js($pluginadmin=false) {
     parse_str($_SERVER['QUERY_STRING'], $qs_arr);
@@ -337,36 +337,564 @@ class plugin_manager {
     }
 
     $js="\n";
-    $query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' ");
-    if($pluginadmin) { $pluginpath = "../"; } else { $pluginpath=""; }
+    $query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND modulname = '".$getsite."'");
+    if($pluginadmin) { $pluginpath = "../"; 
+  	} else { 
+  		$pluginpath=""; 
+  	}
 		
     while($res=mysqli_fetch_array($query)) {
-      $res2 = mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `modulname` = '".$res['modulname']."'"));
-
-      $themeergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_themes` WHERE active = '1'");
-      $db = mysqli_fetch_array($themeergebnis);
-
-      $ergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_module` WHERE modulname = '".$res['modulname']."' and themes_modulname='".$db['modulname']."' and `activate` = '1'");
-      $dx = mysqli_fetch_array($ergebnis);
-
-			if(@$dx['activate'] == 1) {
-
-        if($res['modulname'] == $getsite || $res2 == 1) {
-         	if(is_dir($pluginpath.$res['path']."js/")) { $subf2 = "js/"; } else { $subf2=""; }
-          $f = array();
-          $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$res['path'].$subf2).'*.js');
-          $fc = count((array($f)), COUNT_RECURSIVE);
-         	if($fc>0) {
-           	for($b=0; $b<=$fc-2; $b++) {
-             	$js .= '<script defer src="./'.$f[$b].'"></script>'.chr(0x0D).chr(0x0A);
-           	}
-	  			}
-	  		}
-			} 
-		}
+      
+	        if($res['modulname'] == $getsite || $res == 1) {
+	         	if(is_dir($pluginpath.$res['path']."js/")) { $subf2 = "js/"; } else { $subf2=""; }
+	          $f = array();
+	          $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$res['path'].$subf2).'*.js');
+	          $fc = count((array($f)), COUNT_RECURSIVE);
+	         	if($fc>0) {
+	           	for($b=0; $b<=$fc-2; $b++) {
+	             	$js .= '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D).chr(0x0A);
+	           	}
+		  			}
+		  		}
+		}		
 	  return $js;
 	}
+
+
+
+	################################################################################
+
+
+  function plugin_loadheadfile_widget_css() {
+    parse_str($_SERVER['QUERY_STRING'], $qs_arr);
+		$getsite = '';
+    if(isset($qs_arr['site'])) {
+      $getsite = $qs_arr['site'];
+    }
+
+    $themeergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_themes` WHERE active = '1'");
+    $db = mysqli_fetch_array($themeergebnis);
+    $gettemp = $db['modulname'];
+
+		$dv=mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_module WHERE modulname = '$getsite' AND themes_modulname = '$gettemp'"));
+		
+    	$via_navigation = $dv[ 'via_navigation' ];
+			$head_activated = $dv[ 'head_activated' ];
+			$content_head_activated = $dv[ 'content_head_activated' ];
+			$content_foot_activated = $dv[ 'content_foot_activated' ];
+			$head_section_activated = $dv[ 'head_section_activated' ];    							
+    	$foot_section_activated = $dv[ 'foot_section_activated' ];
+    	$sidebar = $dv[ 'sidebar' ];
 	
+		#Navigation Widget werden immer geladen
+
+			$css="\n";	
+		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
+			while($dx=mysqli_fetch_array($query)) {
+				if(@$dx['position'] == 'page_navigation_widget'){
+				$test=$dx['modulname'];
+				#print_r($dx);
+				$pluginpath='includes/plugins/';
+				if(is_dir($pluginpath.$test."/css/")) { $subf2 = "/css/"; } else { $subf2="/"; }
+					$f = array();
+					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.css');
+					$fc = count((array($f)), COUNT_RECURSIVE);
+					if($fc>0) {
+					 	for($b=0; $b<=$fc-2; $b++) {
+					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
+					  }
+					}
+				}
+			}
+
+			$css="\n";	
+		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
+			while($dx=mysqli_fetch_array($query)) {
+				if(@$dx['position'] == 'page_footer_widget'){
+				$test=$dx['modulname'];
+				#print_r($dx);
+				$pluginpath='includes/plugins/';
+				if(is_dir($pluginpath.$test."/css/")) { $subf2 = "/css/"; } else { $subf2="/"; }
+					$f = array();
+					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.css');
+					$fc = count((array($f)), COUNT_RECURSIVE);
+					if($fc>0) {
+					 	for($b=0; $b<=$fc-2; $b++) {
+					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
+					  }
+					}
+				}
+			}
+
+		#Navigation Widget werden immer geladen END
+		###########################################
+
+		if ($via_navigation== '1'){
+			$css="\n";	
+		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
+			while($dx=mysqli_fetch_array($query)) {
+				if(@$dx['position'] == 'via_navigation_widget'){
+				$test=$dx['modulname'];
+				#print_r($dx);
+				$pluginpath='includes/plugins/';
+				if(is_dir($pluginpath.$test."/css/")) { $subf2 = "/css/"; } else { $subf2="/"; }
+					$f = array();
+					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.css');
+					$fc = count((array($f)), COUNT_RECURSIVE);
+					if($fc>0) {
+					 	for($b=0; $b<=$fc-2; $b++) {
+					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
+					  }
+					}
+				}
+			}
+		}
+
+		if ($head_activated== '1'){
+			$css="\n";	
+		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
+			while($dx=mysqli_fetch_array($query)) {
+				if(@$dx['position'] == 'page_head_widget'){
+				$test=$dx['modulname'];
+				#print_r($dx);
+				$pluginpath='includes/plugins/';
+				if(is_dir($pluginpath.$test."/css/")) { $subf2 = "/css/"; } else { $subf2="/"; }
+					$f = array();
+					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.css');
+					$fc = count((array($f)), COUNT_RECURSIVE);
+					if($fc>0) {
+					 	for($b=0; $b<=$fc-2; $b++) {
+					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
+					  }
+					}
+				}
+			}
+		}
+
+		if ($head_section_activated== '1'){
+			$css="\n";	
+		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
+			while($dx=mysqli_fetch_array($query)) {
+				if(@$dx['position'] == 'head_section_widget'){
+				$test=$dx['modulname'];
+				#print_r($dx);
+				$pluginpath='includes/plugins/';
+				if(is_dir($pluginpath.$test."/css/")) { $subf2 = "/css/"; } else { $subf2="/"; }
+					$f = array();
+					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.css');
+					$fc = count((array($f)), COUNT_RECURSIVE);
+					if($fc>0) {
+					 	for($b=0; $b<=$fc-2; $b++) {
+					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
+					  }
+					}
+				}
+			}
+		}
+	    		
+		if ($foot_section_activated== '1'){
+			$css="\n";	
+		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
+			while($dx=mysqli_fetch_array($query)) {
+				if(@$dx['position'] == 'foot_section_widget'){
+				$test=$dx['modulname'];
+				#print_r($dx);
+				$pluginpath='includes/plugins/';
+				if(is_dir($pluginpath.$test."/css/")) { $subf2 = "/css/"; } else { $subf2="/"; }
+					$f = array();
+					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.css');
+					$fc = count((array($f)), COUNT_RECURSIVE);
+					if($fc>0) {
+					 	for($b=0; $b<=$fc-2; $b++) {
+					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
+					  }
+					}
+				}
+			}
+		}
+
+		if ($content_head_activated== '1'){
+			$css="\n";	
+		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
+			while($dx=mysqli_fetch_array($query)) {
+				if(@$dx['position'] == 'center_head_widget'){
+				$test=$dx['modulname'];
+				#print_r($dx);
+				$pluginpath='includes/plugins/';
+				if(is_dir($pluginpath.$test."/css/")) { $subf2 = "/css/"; } else { $subf2="/"; }
+					$f = array();
+					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.css');
+					$fc = count((array($f)), COUNT_RECURSIVE);
+					if($fc>0) {
+					 	for($b=0; $b<=$fc-2; $b++) {
+					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
+					  }
+					}
+				}
+			}
+		}
+
+		if ($content_foot_activated== '1'){
+			$css="\n";	
+		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
+			while($dx=mysqli_fetch_array($query)) {
+				if(@$dx['position'] == 'center_footer_widget'){
+				$test=$dx['modulname'];
+				#print_r($dx);
+				$pluginpath='includes/plugins/';
+				if(is_dir($pluginpath.$test."/css/")) { $subf2 = "/css/"; } else { $subf2="/"; }
+					$f = array();
+					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.css');
+					$fc = count((array($f)), COUNT_RECURSIVE);
+					if($fc>0) {
+					 	for($b=0; $b<=$fc-2; $b++) {
+					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
+					  }
+					}
+				}
+			}
+		}
+
+		if ($sidebar== 'full_activated'){
+			$css="\n";	
+		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
+			while($dx=mysqli_fetch_array($query)) {
+				if(@$dx['position'] == 'right_side_widget' || @$dx['position'] == 'left_side_widget'){
+				$test=$dx['modulname'];
+				#print_r($dx);
+				$pluginpath='includes/plugins/';
+				if(is_dir($pluginpath.$test."/css/")) { $subf2 = "/css/"; } else { $subf2="/"; }
+					$f = array();
+					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.css');
+					$fc = count((array($f)), COUNT_RECURSIVE);
+					if($fc>0) {
+					 	for($b=0; $b<=$fc-2; $b++) {
+					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
+					  }
+					}
+				}
+			}
+		}
+
+		if ($sidebar== 're_activated'){
+			$css="\n";	
+		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
+			while($dx=mysqli_fetch_array($query)) {
+				if(@$dx['position'] == 'right_side_widget'){
+				$test=$dx['modulname'];
+				#print_r($dx);
+				$pluginpath='includes/plugins/';
+				if(is_dir($pluginpath.$test."/css/")) { $subf2 = "/css/"; } else { $subf2="/"; }
+					$f = array();
+					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.css');
+					$fc = count((array($f)), COUNT_RECURSIVE);
+					if($fc>0) {
+					 	for($b=0; $b<=$fc-2; $b++) {
+					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
+					  }
+					}
+				}
+			}
+		}
+
+		if ($sidebar== 'le_activated'){
+			$css="\n";	
+		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
+			while($dx=mysqli_fetch_array($query)) {
+				if(@$dx['position'] == 'left_side_widget'){
+				$test=$dx['modulname'];
+				#print_r($dx);
+				$pluginpath='includes/plugins/';
+				if(is_dir($pluginpath.$test."/css/")) { $subf2 = "/css/"; } else { $subf2="/"; }
+					$f = array();
+					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.css');
+					$fc = count((array($f)), COUNT_RECURSIVE);
+					if($fc>0) {
+					 	for($b=0; $b<=$fc-2; $b++) {
+					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
+					  }
+					}
+				}
+			}
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	}
+
+
+######################################################################################################################
+	
+
+
+	function plugin_loadheadfile_widget_js() {
+    parse_str($_SERVER['QUERY_STRING'], $qs_arr);
+    $getsite = '';
+    if(isset($qs_arr['site'])) {
+      $getsite = $qs_arr['site'];
+    }
+
+    $themeergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_themes` WHERE active = '1'");
+    $db = mysqli_fetch_array($themeergebnis);
+    $gettemp = $db['modulname'];
+		$dm=mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_module WHERE modulname = '$getsite' AND themes_modulname = '$gettemp'"));
+		
+    $via_navigation = $dm[ 'via_navigation' ];
+    #$a_page_navigation_widget='page_navigation_widge';
+		$head_activated = $dm[ 'head_activated' ];
+		$content_head_activated = $dm[ 'content_head_activated' ];
+		$content_foot_activated = $dm[ 'content_foot_activated' ];
+		$head_section_activated = $dm[ 'head_section_activated' ];    							
+    $foot_section_activated = $dm[ 'foot_section_activated' ];
+    $sidebar = $dm[ 'sidebar' ];
+
+		#Navigation Widget werden immer geladen
+    	$js="\n";	
+		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
+			while($dx=mysqli_fetch_array($query)) {
+			if(@$dx['position'] == 'page_navigation_widget'){
+				$test=$dx['modulname'];
+				#print_r($dx);
+				$pluginpath='includes/plugins/';
+				if(is_dir($pluginpath.$test."/js/")) { $subf2 = "/js/"; } else { $subf2="/"; }
+			    $f = array();
+			    $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.js');
+			    $fc = count((array($f)), COUNT_RECURSIVE);
+			    if($fc>0) {
+			     	for($b=0; $b<=$fc-2; $b++) {
+			     		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
+			      }
+			    }
+				}
+			}
+
+			$js="\n";	
+		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
+			while($dx=mysqli_fetch_array($query)) {
+			if(@$dx['position'] == 'page_footer_widget'){
+				$test=$dx['modulname'];
+				#print_r($dx);
+				$pluginpath='includes/plugins/';
+				if(is_dir($pluginpath.$test."/js/")) { $subf2 = "/js/"; } else { $subf2="/"; }
+			    $f = array();
+			    $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.js');
+			    $fc = count((array($f)), COUNT_RECURSIVE);
+			    if($fc>0) {
+			     	for($b=0; $b<=$fc-2; $b++) {
+			     		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
+			      }
+			    }
+				}
+			}
+		
+		#Navigation Widget werden immer geladen END
+		###########################################
+
+		if ($via_navigation== '1'){				
+			$js="\n";	
+		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
+			while($dx=mysqli_fetch_array($query)) {
+			if(@$dx['position'] == 'via_navigation_widget'){
+				$test=$dx['modulname'];
+				#print_r($dx);
+				$pluginpath='includes/plugins/';
+				if(is_dir($pluginpath.$test."/js/")) { $subf2 = "/js/"; } else { $subf2="/"; }
+			    $f = array();
+			    $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.js');
+			    $fc = count((array($f)), COUNT_RECURSIVE);
+			    if($fc>0) {
+			     	for($b=0; $b<=$fc-2; $b++) {
+			     		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
+			      }
+			    }
+				}
+			}
+		}
+		
+		if ($head_activated== '1'){				
+			$js="\n";	
+		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
+			while($dx=mysqli_fetch_array($query)) {
+			if(@$dx['position'] == 'page_head_widget'){
+				$test=$dx['modulname'];
+				#print_r($dx);
+				$pluginpath='includes/plugins/';
+				if(is_dir($pluginpath.$test."/js/")) { $subf2 = "/js/"; } else { $subf2="/"; }
+			    $f = array();
+			    $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.js');
+			    $fc = count((array($f)), COUNT_RECURSIVE);
+			    if($fc>0) {
+			     	for($b=0; $b<=$fc-2; $b++) {
+			     		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
+			      }
+			    }
+				}
+			}
+		}
+
+		if ($head_section_activated== '1'){				
+			$js="\n";	
+		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
+			while($dx=mysqli_fetch_array($query)) {
+			if(@$dx['position'] == 'head_section_widget'){
+				$test=$dx['modulname'];
+				#print_r($dx);
+				$pluginpath='includes/plugins/';
+				if(is_dir($pluginpath.$test."/js/")) { $subf2 = "/js/"; } else { $subf2="/"; }
+			    $f = array();
+			    $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.js');
+			    $fc = count((array($f)), COUNT_RECURSIVE);
+			    if($fc>0) {
+			     	for($b=0; $b<=$fc-2; $b++) {
+			     		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
+			      }
+			    }
+				}
+			}
+		}
+
+		if ($foot_section_activated== '1'){				
+			$js="\n";	
+		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
+			while($dx=mysqli_fetch_array($query)) {
+			if(@$dx['position'] == 'foot_section_widget'){
+				$test=$dx['modulname'];
+				#print_r($dx);
+				$pluginpath='includes/plugins/';
+				if(is_dir($pluginpath.$test."/js/")) { $subf2 = "/js/"; } else { $subf2="/"; }
+			    $f = array();
+			    $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.js');
+			    $fc = count((array($f)), COUNT_RECURSIVE);
+			    if($fc>0) {
+			     	for($b=0; $b<=$fc-2; $b++) {
+			     		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
+			      }
+			    }
+				}
+			}
+		}
+
+		if ($content_head_activated== '1'){				
+			$js="\n";	
+		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
+			while($dx=mysqli_fetch_array($query)) {
+			if(@$dx['position'] == 'center_head_widget'){
+				$test=$dx['modulname'];
+				#print_r($dx);
+				$pluginpath='includes/plugins/';
+				if(is_dir($pluginpath.$test."/js/")) { $subf2 = "/js/"; } else { $subf2="/"; }
+			    $f = array();
+			    $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.js');
+			    $fc = count((array($f)), COUNT_RECURSIVE);
+			    if($fc>0) {
+			     	for($b=0; $b<=$fc-2; $b++) {
+			     		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
+			      }
+			    }
+				}
+			}
+		}
+
+		if ($content_foot_activated== '1'){				
+			$js="\n";	
+		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
+			while($dx=mysqli_fetch_array($query)) {
+			if(@$dx['position'] == 'center_footer_widget'){
+				$test=$dx['modulname'];
+				#print_r($dx);
+				$pluginpath='includes/plugins/';
+				if(is_dir($pluginpath.$test."/js/")) { $subf2 = "/js/"; } else { $subf2="/"; }
+			    $f = array();
+			    $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.js');
+			    $fc = count((array($f)), COUNT_RECURSIVE);
+			    if($fc>0) {
+			     	for($b=0; $b<=$fc-2; $b++) {
+			     		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
+			      }
+			    }
+				}
+			}
+		}
+
+		if ($sidebar== 'full_activated'){
+			$js="\n";	
+		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
+			while($dx=mysqli_fetch_array($query)) {
+				if(@$dx['position'] == 'right_side_widget' || @$dx['position'] == 'left_side_widget'){
+				$test=$dx['modulname'];
+				#print_r($dx);
+				$pluginpath='includes/plugins/';
+				if(is_dir($pluginpath.$test."/js/")) { $subf2 = "/js/"; } else { $subf2="/"; }
+					$f = array();
+					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.js');
+					$fc = count((array($f)), COUNT_RECURSIVE);
+					if($fc>0) {
+					 	for($b=0; $b<=$fc-2; $b++) {
+					 		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
+					  }
+					}
+				}
+			}
+		}
+
+		if ($sidebar== 're_activated'){
+			$js="\n";	
+		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
+			while($dx=mysqli_fetch_array($query)) {
+				if(@$dx['position'] == 'right_side_widget'){
+				$test=$dx['modulname'];
+				#print_r($dx);
+				$pluginpath='includes/plugins/';
+				if(is_dir($pluginpath.$test."/js/")) { $subf2 = "/js/"; } else { $subf2="/"; }
+					$f = array();
+					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.js');
+					$fc = count((array($f)), COUNT_RECURSIVE);
+					if($fc>0) {
+					 	for($b=0; $b<=$fc-2; $b++) {
+					 		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
+					  }
+					}
+				}
+			}
+		}
+
+		if ($sidebar== 'le_activated'){
+			$js="\n";	
+		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
+			while($dx=mysqli_fetch_array($query)) {
+				if(@$dx['position'] == 'left_side_widget'){
+				$test=$dx['modulname'];
+				#print_r($dx);
+				$pluginpath='includes/plugins/';
+				if(is_dir($pluginpath.$test."/js/")) { $subf2 = "/js/"; } else { $subf2="/"; }
+					$f = array();
+					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.js');
+					$fc = count((array($f)), COUNT_RECURSIVE);
+					if($fc>0) {
+					 	for($b=0; $b<=$fc-2; $b++) {
+					 		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
+					  }
+					}
+				}
+			}
+		}
+
+		
+	}		
+
+
+
 	//@info		get the page default language and check if the user / guests
 	//			change into his own language otherwise set default language to EN
 	//@name		set the name of the language file to load
