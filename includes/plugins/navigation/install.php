@@ -1,9 +1,10 @@
 ﻿<?php
-global $userID,$_database,$add_database_install,$add_database_insert,$str,$add_plugin_manager,$add_navigation,$navi_link,$add_dashboard_navigation,$dashnavi_link,$add_module_install,$themes_modulname,$version,$modulname;
+global $userID,$_database,$add_database_install,$add_database_insert;
+global $str,$modulname,$info,$navi_name,$admin_file,$activate,$author,$website,$index_link,$hiddenfiles,$version,$path,$widget_link1,$widget_link2,$widget_link3,$widgetname1,$widgetname2,$widgetname3,$head_activated,$content_head_activated,$content_foot_activated,$head_section_activated,$foot_section_activated,$modul_deactivated,$modul_display,$full_activated,$plugin_settings,$plugin_module,$plugin_widget,$widget1,$widget2,$widget3,$mnavID,$navi_link,$catID,$dashnavi_link,$themes_modulname;
 ##### Install für Plugin und Module ###################################################################################################
-$str                     =   "Navigation Default";          // name of the plugin
-$modulname               =   "navigation_default";          // name to uninstall
-$info		             =   "{[de]}Mit diesem Plugin könnt ihr euch die Default Navigation anzeigen lassen.{[en]}With this plugin you can display the default navigation. ";// description of the plugin
+$str                     =   "{[de]}Navigation{[en]}Navigation{[it]}Navigazione";          // name of the plugin
+$modulname               =   "navigation";     		// name to uninstall
+$info		             =   "{[de]}Mit diesem Plugin könnt ihr euch die Navigation anzeigen lassen.{[en]}With this plugin you can display navigation.{[it]}Con questo plugin puoi visualizzare la Barra di navigazione predefinita. ";// description of the plugin
 $navi_name               =   "";							// name of the Webside Navigation / Dashboard Navigation
 $admin_file              =   "";       						// administration file
 $activate                =   "1";                           // plugin activate 1 yes | 0 no
@@ -11,14 +12,14 @@ $author                  =   "T-Seven";                     // author
 $website                 =   "https://webspell-rm.de";      // authors website
 $index_link              =   "";     						// index file (without extension, also no .php)
 $hiddenfiles             =   "";                            // hiddenfiles (background working, no display anywhere)
-$version                 =   "0.1";    		                // current version, visit authors website for updates, fixes, ..
-$path                    =   "includes/plugins/navigation_default/";  // plugin files location
+$version                 =   "0.3";    		                // current version, visit authors website for updates, fixes, ..
+$path                    =   "includes/plugins/navigation/";  // plugin files location
 ##### Widget Setting ##################################################################################################################
-$widget_link1            =   "widget_navigation_default";   // widget_file (visible as module/box)
-$widget_link2            =   "";     						// widget_file (visible as module/box)
+$widget_link1            =   "widget_navigation";   		// widget_file (visible as module/box)
+$widget_link2            =   "";							// widget_file (visible as module/box)
 $widget_link3            =   "";                            // widget_file (visible as module/box)
-$widgetname1             =   "Navigation Default";          // widget_name (visible as module/box)
-$widgetname2             =   "";            				// widget_name (visible as module/box)
+$widgetname1             =   "Navigation";     				// widget_name (visible as module/box)
+$widgetname2             =   "";							// widget_name (visible as module/box)
 $widgetname3             =   "";                            // widget_name (visible as module/box)
 ##### Modul Setting activate yes/no ###################################################################################################
 $head_activated          =   "0";                           //Modul activate 1 yes | 0 no 
@@ -36,22 +37,31 @@ $widget1                 =   "1";                           //Modulsetting activ
 $widget2                 =   "0";                           //Modulsetting activate 1 yes | 0 no 
 $widget3                 =   "0";                           //Modulsetting activate 1 yes | 0 no 
 ##### Navigation Link #################################################################################################################
-$navi_link               =   "";                			// navi link file (index.php?site=...)
-$dashnavi_link           =   "";       						// dashboard_navigation link file  (admincenter.php?site==...)
+$mnavID                  =   "";                           	// navigation category
+$navi_link               =   "";                 			// navigation link file (index.php?site=...)
+$catID                   =   "";                           	// dashboard_navigation category
+$dashnavi_link           =   "";     						// dashboard_navigation link file  (admincenter.php?site==...)
 $themes_modulname        =   "default";
 #######################################################################################################################################
-if(!ispageadmin($userID)) { echo ("Access denied!"); return false; }		
-			
-		echo "<div class='card'>
-			<div class='card-header'>
-				$str Database Installation
-			</div>
-			<div class='card-body'>";
+if(!ispageadmin($userID)) { echo ("Access denied!"); return false; }
+$translate = new multiLanguage(detectCurrentLanguage());
+$translate->detectLanguages($str);
+$str = $translate->getTextByLanguage($str);   
+echo "<div class='card'><div class='card-header'>$str Database Installation</div><div class='card-body'>";
 #######################################################################################################################################
 
-add_module_install($add_module_install = "INSERT INTO `".PREFIX."settings_module` (`pluginID`, `name`, `modulname`, `themes_modulname`, `activate`, `sidebar`, `head_activated`, `content_head_activated`, `content_foot_activated`, `head_section_activated`, `foot_section_activated`, `modul_display`, `full_activated`, `plugin_settings`, `plugin_module`, `plugin_widget`, `widget1`, `widget2`, `widget3`) VALUES ('', '$str', '$modulname', 'default', '0', 'activated', '$head_activated', '$content_head_activated', '$content_foot_activated', '$head_section_activated', '$foot_section_activated', '$modul_display', '$full_activated', '$plugin_settings', '$plugin_module', '$plugin_widget', '$widget1', '$widget2', '$widget3')");
+get_add_module_install ();
+get_add_plugin_manager();
+#get_add_navigation();
+#get_add_dashboard_navigation ();
 
-add_plugin_manager($add_plugin_manager = "INSERT INTO `".PREFIX."settings_plugins` (`pluginID`, `name`, `modulname`, `info`, `admin_file`, `activate`, `author`, `website`, `index_link`, `hiddenfiles`, `version`, `path`, `widgetname1`, `widgetname2`, `widgetname3`, `widget_link1`, `widget_link2`, `widget_link3`, `modul_display`) VALUES ('', '$str', '$modulname', '$info', '$admin_file', '$activate', '$author', '$website', '$index_link', '$hiddenfiles', '$version', '$path', '$widgetname1', '$widgetname2', '$widgetname3', '$widget_link1', '$widget_link2', '$widget_link3', '$modul_display');");
+$name = "navigation_default";
+// Name Tabelle | Where Klause | ID name
+DeleteData("settings_plugins","modulname",$name);
+DeleteData("navigation_dashboard_links","modulname",$name);
+DeleteData("navigation_website_sub","modulname",$name);
+DeleteData("settings_module","modulname",$name);
+DeleteData("settings_widgets","modulname",$name);
 
 #######################################################################################################################################
 

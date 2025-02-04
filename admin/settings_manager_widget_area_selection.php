@@ -35,20 +35,11 @@
                 || $ds[ 'widget_link1' ] == 'widget_instagram_sidebar'
                 || $ds[ 'widget_link1' ] == 'widget_rss_sidebar') {
 
-        $widget1 = '<option value="1">'.$_language->module[ 'select_widget_area' ].' ...</option>
+        $widget1 = '<option value="1">'.$_language->module[ 'select_widget_area' ].'</option>
                     <option value="left_side_widget">'.$_language->module[ 'left_sidebar_activated' ].'</option>
                     <option value="right_side_widget">'.$_language->module[ 'right_sidebar_activated' ].'</option>';
 
-        }else if($ds[ 'widget_link1' ] == 'widget_navigation_default'
-				|| $ds[ 'widget_link1' ] == 'widget_navigation_default_two'
-                || $ds[ 'widget_link1' ] == 'widget_navigation_2one'
-                || $ds[ 'widget_link1' ] == 'widget_navigation_agency'
-                || $ds[ 'widget_link1' ] == 'navigation_nor_navbar'
-                || $ds[ 'widget_link1' ] == 'navigation_partner'
-                || $ds[ 'widget_link1' ] == 'widget_navigation_sticky'
-                || $ds[ 'widget_link1' ] == 'widget_navigation_vargul'
-                || $ds[ 'widget_link1' ] == 'widget_navigation_skewed'
-                || $ds[ 'widget_link1' ] == 'widget_navigation_2one') {    
+        }else if($ds[ 'widget_link1' ] == 'widget_navigation') {    
 
 		$widget1 = '<option value="1">'.$_language->module[ 'select_widget_area' ].'</option>
                 <option value="page_navigation_widget">'.$_language->module[ 'select_widget_navigation' ].'</option>';  
@@ -107,7 +98,7 @@
                                 
         }else{    
 
-        $widget1 = '<option value="1">'.$_language->module[ 'select_widget_area' ].' ...</option>
+        $widget1 = '<option value="1">'.$_language->module[ 'select_widget_area' ].'</option>
                     <option value="page_navigation_widget">'.$_language->module[ 'select_widget_navigation' ].'</option>
                     <option value="page_head_widget">'.$_language->module[ 'pagehead' ].'</option>
                     <option value="head_section_widget">'.$_language->module[ 'headsection' ].'</option>
@@ -128,13 +119,13 @@
                 || $ds[ 'widget_link2' ] == 'widget_useronline_sidebar'
                 || $ds[ 'widget_link2' ] == 'widget_tags_button_sidebar') {
 
-        $widget2 = '<option value="1">'.$_language->module[ 'select_widget_area' ].' ...</option>
+        $widget2 = '<option value="1">'.$_language->module[ 'select_widget_area' ].'</option>
                     <option value="left_side_widget">'.$_language->module[ 'left_sidebar_activated' ].'</option>
                     <option value="right_side_widget">'.$_language->module[ 'right_sidebar_activated' ].'</option>';
 
         }else if($ds[ 'widget_link2' ] == 'widget_socialmedia_vergul') {           
 
-        $widget2 = '<option value="1">'.$_language->module[ 'select_widget_area' ].' ...</option>
+        $widget2 = '<option value="1">'.$_language->module[ 'select_widget_area' ].'</option>
                 <option value=page_navigation_widget">'.$_language->module[ 'select_widget_navigation' ].'</option>';            
 
        }else if($ds[ 'widget_link2' ] == 'widget_about_content'
@@ -152,7 +143,7 @@
                 || $ds[ 'widget_link2' ] == 'widget_carousel_crossfade'
                 || $ds[ 'widget_link2' ] == 'widget_summary_article') {
 
-        $widget2 = '<option value="1">'.$_language->module[ 'select_widget_area' ].' ...</option>
+        $widget2 = '<option value="1">'.$_language->module[ 'select_widget_area' ].'</option>
                     <option value="page_head_widget">'.$_language->module[ 'pagehead' ].'</option>
                     <option value="head_section_widget">'.$_language->module[ 'headsection' ].'</option>
                     <option value="center_head_widget">'.$_language->module[ 'headcontent' ].'</option>                    
@@ -161,7 +152,7 @@
 
         }else if($ds[ 'widget_link2' ] == 'widget_easyfooter_content') {
             
-        $widget2 = '<option value="1">'.$_language->module[ 'select_widget_area' ].' ...</option>
+        $widget2 = '<option value="1">'.$_language->module[ 'select_widget_area' ].'</option>
                    <option value="page_footer_widget">'.$_language->module[ 'footpage' ].'</option>';
 
         }else if($ds[ 'widget_link2' ] == 'widget_sticky_header') {
@@ -181,7 +172,7 @@
                     <option value="via_navigation_widget">'.$_language->module[ 'via_navigation' ].'</option>';  
         }else{    
 
-        $widget2 = '<option value="1">'.$_language->module[ 'select_widget_area' ].' ...</option>
+        $widget2 = '<option value="1">'.$_language->module[ 'select_widget_area' ].'</option>
                     <option value="page_navigation_widget">'.$_language->module[ 'select_widget_navigation' ].'</option>
                     <option value="page_head_widget">'.$_language->module[ 'pagehead' ].'</option>
                     <option value="head_section_widget">'.$_language->module[ 'headsection' ].'</option>

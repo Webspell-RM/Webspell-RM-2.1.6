@@ -94,8 +94,8 @@ if (isset($_GET[ 'new_lang' ])) {
         $de_languages = '';
         $de_button = '';
     } else {
-        $de_languages = 'index.php?new_lang=de'. $querystring . '" data-toggle="tooltip" title="' . $index_language[ 'de' ] . '"';
-        $de_button = '<option value="'.$de_languages.'">' . $index_language[ 'de' ] . '</option>';
+        $de_languages = '<a href="index.php?new_lang=de'. $querystring . '" data-toggle="tooltip" title="' . $index_language[ 'de' ] . '"><img class="flag" src="images/languages/de.png" alt="de">' . $index_language[ 'de' ] . '</a>';        
+        
     };
 
     $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings WHERE en_lang='1'"));
@@ -103,8 +103,8 @@ if (isset($_GET[ 'new_lang' ])) {
         $en_languages = '';
         $en_button = '';
     } else {
-        $en_languages = 'index.php?new_lang=en'. $querystring . '" data-toggle="tooltip" title="' . $index_language[ 'en' ] . '"';
-        $en_button = '<option value="'.$en_languages.'">' . $index_language[ 'en' ] . '</option>';
+        $en_languages = '<a href="index.php?new_lang=en'. $querystring . '" data-toggle="tooltip" title="' . $index_language[ 'en' ] . '"><img class="flag" src="images/languages/en.png" alt="en">' . $index_language[ 'en' ] . '</a>';
+        
     };
 
     $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings WHERE it_lang='1'"));
@@ -112,19 +112,78 @@ if (isset($_GET[ 'new_lang' ])) {
         $it_languages = '';
         $it_button = '';
     } else {
-        $it_languages = 'index.php?new_lang=it'. $querystring . '" data-toggle="tooltip" title="' . $index_language[ 'it' ] . '"';
-        $it_button = '<option value="'.$it_languages.'">' . $index_language[ 'it' ] . '</option>';
-    };
-    
-    echo '<span class="nav-link" style="height: 100px">
-            <form>
-                <select class="form-select languages" size="1" name="auswahl" onChange="top.location.href=this.form.auswahl.options[this.form.auswahl.selectedIndex].value">
-                    <option selected>' . $index_language[ 'select_lang' ] . '</option>
-                    '.$de_button.'
-                    '.$en_button.'
-                    '.$it_button.'
-                </select>
-            </form>
-          </span>';
+        $it_languages = '<a href="index.php?new_lang=it'. $querystring . '" data-toggle="tooltip" title="' . $index_language[ 'it' ] . '"><img class="flag" src="images/languages/it.png" alt="it">' . $index_language[ 'it' ] . '</a>';
+        
+    };  
 
+
+if ($userID) {
+    $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "user WHERE userID='" . $userID . "'"));
+
+
+    $lang=$dx['language']; 
+
+
+    if($lang == 'de'){
+        $de_languages_ok = '<a href="index.php?new_lang=de'. $querystring . '" data-toggle="tooltip" title="' . $index_language[ 'de' ] . '"><img class="flag" src="images/languages/de.png" alt="de">' . $index_language[ 'de' ] . ' <i class="bi bi-check2 text-success" style="font-size: 2rem;"></i></a>';
+        $flag='<img class="flag" src="images/languages/de.png" alt="de">';
+    } elseif ($lang == 'en') {
+        $de_languages_ok = '<a href="index.php?new_lang=en'. $querystring . '" data-toggle="tooltip" title="' . $index_language[ 'en' ] . '"><img class="flag" src="images/languages/en.png" alt="en">' . $index_language[ 'en' ] . ' <i class="bi bi-check2 text-success" style="font-size: 2rem;"></i></a>';
+        $flag='<img class="flag" src="images/languages/en.png" alt="de">';
+    } else {
+        $de_languages_ok = '<a href="index.php?new_lang=it'. $querystring . '" data-toggle="tooltip" title="' . $index_language[ 'it' ] . '"><img class="flag" src="images/languages/it.png" alt="it">' . $index_language[ 'it' ] . ' <i class="bi bi-check2 text-success" style="font-size: 2rem;"></i></a>';
+        $flag='<img class="flag" src="images/languages/it.png" alt="de">';
+    }
+
+
+}else{
+    global $lang;
+
+    if($lang == "de"){
+        $de_languages_ok = '<a href="index.php?new_lang=de'. $querystring . ' data-toggle="tooltip" title="' . $index_language[ 'de' ] . '""><img class="flag" src="images/languages/de.png" alt="de">' . $index_language[ 'de' ] . ' <i class="bi bi-check2 text-success" style="font-size: 2rem;"></i></a>';
+        $flag='<img class="flag" src="images/languages/de.png" alt="de">';
+    } elseif ($lang == 'en') {
+        $de_languages_ok = '<a href="index.php?new_lang=en'. $querystring . '" data-toggle="tooltip" title="' . $index_language[ 'en' ] . '"><img class="flag" src="images/languages/en.png" alt="en">' . $index_language[ 'en' ] . ' <i class="bi bi-check2 text-success" style="font-size: 2rem;"></i></a>';
+        $flag='<img class="flag" src="images/languages/en.png" alt="de">';
+    } else {
+        $de_languages_ok = '<a href="index.php?new_lang=it'. $querystring . '" data-toggle="tooltip" title="' . $index_language[ 'it' ] . '"><img class="flag" src="images/languages/it.png" alt="it">' . $index_language[ 'it' ] . ' <i class="bi bi-check2 text-success" style="font-size: 2rem;"></i></a>';
+        $flag='<img class="flag" src="images/languages/it.png" alt="de">';
+    }
+
+    #print_r($lang);
+
+
+}
+
+
+$dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings WHERE de_lang='1' OR en_lang='1' OR it_lang='1'"));
+    if (@$dx[ 'de_lang' ] != '1' && @$dx[ 'en_lang' ] != '1' && @$dx[ 'it_lang' ] != '1') {
+        
+    } else {
+echo'<nav class="nav">
+    <ul class="navbar-nav">
+      <!-- Icon dropdown -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" href="#" id="navbarDropdown" role="button" aria-expanded="false">
+          '.$flag.'&nbsp;<i class="bi bi-chevron-down"></i>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="margin-top: 2px;">
+          <li>
+            '.$de_languages_ok.'
+          </li>
+          <li><hr class="dropdown-divider" /></li>
+          <li>
+            '.$de_languages.'
+          </li>
+          <li>
+            '.$en_languages.'
+          </li>
+          <li>
+            '.$it_languages.'
+          </li>          
+        </ul>
+      </li>
+    </ul>
+    </nav>';
+}
 }

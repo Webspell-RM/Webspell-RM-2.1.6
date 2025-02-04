@@ -313,6 +313,7 @@ $_language->readModule('plugin_installer', false, true);
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item" aria-current="page"><a href="admincenter.php?site=plugin_installer">' . $_language->module['plugin_installer'] . '</a></li>
+    <li class="breadcrumb-item active" aria-current="page">new & edit</li>
   </ol>
 </nav>
 
@@ -328,7 +329,7 @@ $_language->readModule('plugin_installer', false, true);
     
     <!-- END -->
     <!-- plugin_installer_content -->
-    <table id="plugini" class="table table-striped">
+    <div class="table-responsive"><table id="plugini" class="table table-striped">
       <thead>
         <tr>
           <th style="width: 22%"><b>'. $_language->module['preview'] .'</b></th>
@@ -341,6 +342,7 @@ $_language->readModule('plugin_installer', false, true);
         '.$output.'
         
        </table>
+      </div>
       </div>
       </div>
     ';

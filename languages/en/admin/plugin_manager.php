@@ -122,5 +122,7 @@ $language_array = array(
 <span style="color:#c0392b"><strong>{[it]}</strong></span>&nbsp;&nbsp;&nbsp;Description in Italiano.</div>',
    'no_plugin_name'                      => 'You must provide the Plugin name!',
    'no_modul_name'                       => 'You must provide the Module name!',
+   'indispensable_plugin'                => 'Indispensable Plugin!',
+   'plugin_active'                       => 'Plugin is active',
 );
 

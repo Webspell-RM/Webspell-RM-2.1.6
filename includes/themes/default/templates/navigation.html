@@ -19,29 +19,36 @@
     </li>
 <!-- END -->
 
+
+
+
+
+
 <!-- navigation_login_head -->
     <li class="dropdown">
 <!-- END -->
 <!-- navigation_login_loggedin -->
-      <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">$lang_overview <i class="bi bi-chevron-down"></i></a>
-        <ul>
-          <li><a class="dropdown-item" href="index.php?site=profile&id=$userID">$to_profil</a></li>
-<!-- END -->
-<!-- navigation_login_admin -->
-          <li><a class="dropdown-item" href="admin/admincenter.php" target="_blank">$lang_admincenter</a></li>
-<!-- END -->
-<!-- navigation_login_log_off -->        
-          <li><a class="dropdown-item" href="index.php?site=logout">$lang_log_off</a></li>
+        
+
+        $newmessages</li>
+    <li class="dropdown">$icon</li>
+    <li class="dropdown">   
+        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img id="avatar-big" style="height: 22px;width: 28px;border-radius: 5px;" src="../images/avatars/$l_avatar" data-toggle="tooltip" data-html="true" data-bs-placement="right" data-bs-original-title="$nickname" class=""><i class="bi bi-chevron-down"></i>
+        </a>
+        <ul style="margin-top: 4px;">
+            <li><a class="dropdown-item" href="index.php?site=profile&id=$userID">$to_profil</a></li>
+            $dashboard
+            <li><a class="dropdown-item" href="index.php?site=logout">$lang_log_off</a></li>
         </ul>
     </li>
-    <li>
-    
-        <nav class="nav">
-
-          $newmessages $icon
-          <a class="icon" data-toggle="tooltip" data-placement="bottom" title="$lang_log_off" href="index.php?site=logout"><span class="badge bg-danger" style="padding-right: -10px;"><i class="bi bi-box-arrow-right"></i></span></a>
-        </nav>
-    </li>  
+<!-- END -->
+<!-- navigation_login_admin -->
+          
+<!-- END -->
+<!-- navigation_login_log_off -->        
+          
+   
 <!-- END -->
 <!-- navigation_login_login --> 
     <li>           

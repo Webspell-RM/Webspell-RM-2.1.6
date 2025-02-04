@@ -73,6 +73,14 @@ $btn_border_radius = $ds["border_radius"];
 
 /*Footer*/
 $rm_foot_bg = substr($ds["foot1"], 4, -1);
+$rm_foot_color = substr($ds["foot6"], 4, -1);
+$rm_foot_color_h3 = substr($ds["foot3"], 4, -1);
+$rm_foot_link = substr($ds["foot5"], 4, -1);
+
+$rm_foot_border_top = substr($ds["foot4"], 4, -1);
+
+
+$rm_foot_cr_color = substr($ds["foot2"], 4, -1);
 
 /*Carousel*/
 $rm_carousel_h1 = substr($ds["carousel1"], 4, -1);
@@ -139,7 +147,38 @@ echo'
     --bs-rm-card-inner-border-radius: calc('.$card_border_radius.' - 1px);
 
 /*Footer*/
-    --bs-rm-foot-bg-rgb: '.$rm_foot_bg.';  
+    --bs-rm-foot-bg-rgb: '.$rm_foot_bg.';
+    --bs-rm-foot-color-rgb: '.$rm_foot_color.';
+    --bs-rm-foot-color-h3-rgb: '.$rm_foot_color_h3.';
+    --bs-rm-foot-border-top-rgb: '.$rm_foot_border_top.';
+    --bs-rm-foot-link-rgb: '.$rm_foot_link.';
+
+
+/*Footer Copyright*/
+--bs-rm-foot-cr-color-rgb: '.$rm_foot_cr_color.';
+
+
+/*----------Footer---------------*/
+/*.footer {
+    
+    
+    
+}
+
+.footer h3 {
+   
+    
+}
+
+.copyright {
+     background: '.$ds['foot5'].';
+     
+    
+}
+
+
+
+/*----------Footer---------------*/
 
 /*Login*/
    --bs-login_color-rgb: '.$reg_1.';

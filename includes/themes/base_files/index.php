@@ -41,7 +41,7 @@ header('X-UA-Compatible: IE=edge,chrome=1');
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-    <meta name="description" content="Kostenlose Homepage erstellen mit webSPELL-RM CMS: Einfach, schnell &amp; kostenlos! Vorlage und Plugins wählen und in wenigen Minuten mit der eigenen Website online gehen.">
+    <meta name="description" content="Kostenlose Homepage erstellen mit Webspell-RM CMS: Einfach, schnell &amp; kostenlos! Vorlage und Plugins wählen und in wenigen Minuten mit der eigenen Website online gehen.">
     <meta name="keywords" content="Clandesign, Webspell, Webspell-RM, Wespellanpassungen, Webdesign, Tutorials, Downloads, Webspell-rm, rm, addon, plugin, Templates Webspell Addons, plungin, mods, Webspellanpassungen, Modifikationen und Anpassungen und mehr!">
     <meta name="robots" content="all">
     <meta name="abstract" content="Anpasser an Webspell | RM">
@@ -57,9 +57,11 @@ header('X-UA-Compatible: IE=edge,chrome=1');
     <base href="<?php echo $rewriteBase; ?>">
 
     <link href="tmp/rss.xml" rel="alternate" type="application/rss+xml" title="<?php echo $myclanname; ?> - RSS Feed">
-    <link rel="stylesheet" href="../components/cookies/css/cookieconsent.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="../components/cookies/css/iframemanager.css" media="print" onload="this.media='all'">
-    <?php
+    <link rel="stylesheet" href="./components/cookies/css/cookieconsent.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="./components/cookies/css/iframemanager.css" media="print" onload="this.media='all'">
+    <?php    
+
+        $lang = $_language->language; // Language Variable setzen 
          
         /* Components & themes css */
         echo $components_css;
@@ -91,10 +93,11 @@ header('X-UA-Compatible: IE=edge,chrome=1');
 <body>
     
     <div class="d-flex flex-column sticky-footer-wrapper"> <!-- flex -->
+        <?php echo get_lock_modul();?>
         <?php if (!in_array($site, $hide9)) {echo get_via_navigation_modul();}?> 
         <!-- Navigation Modul --> 
         <?php echo get_navigation_modul();?>    
-        <?php echo get_lock_modul();?>
+        
         <?php echo get_head_modul();?>
         <?php echo get_headelements();?>
         
@@ -104,7 +107,7 @@ header('X-UA-Compatible: IE=edge,chrome=1');
 
         <main class="flex-fill">  <!-- flex -->
         
-            <div class="container con1tent_style"> <!-- container -->
+            <div class="container content_style"> <!-- container -->
                 <div class="row"> <!-- row -->            
 
                     <!-- left column linke Spalte -->
@@ -175,13 +178,13 @@ header('X-UA-Compatible: IE=edge,chrome=1');
     <script src='https://www.google.com/recaptcha/api.js'></script>
 
     <!-- Cookies Abfrage -->
-    <script defer src="../components/cookies/js/iframemanager.js"></script>
-    <script defer src="../components/cookies/js/cookieconsent.js"></script>
-    <script defer src="../components/cookies/js/cookieconsent-init.js"></script>
-    <script defer src="../components/cookies/js/app.js"></script>
+    <script defer src="./components/cookies/js/iframemanager.js"></script>
+    <script defer src="./components/cookies/js/cookieconsent.js"></script>
+    <script defer src="./components/cookies/js/cookieconsent-init.js"></script>
+    <script defer src="./components/cookies/js/app.js"></script>
 
     <!-- Language recognition for DataTables -->
-    <script>const LangDataTables = '$_language->language';</script>
+    <? echo "<script>const LangDataTables = '$_language->language';</script>"; ?>
 <script type="text/javascript">
         // Example starter JavaScript for disabling form submissions if there are invalid fields
 (function () {

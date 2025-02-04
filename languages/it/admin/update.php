@@ -43,6 +43,8 @@ $language_array = Array(
    'teh_file'                   => 'Il File',
    'successfully_deleted'       => 'è stato eliminato con successo!',
    'file_not_deleted'           => 'Impossibile eliminare il file!',
+   'step5'                      => 'Step 5: Aggiornamento Webspell RM',
+   'step6'                      => 'Step 6: File ../install.php',
    
 );
 

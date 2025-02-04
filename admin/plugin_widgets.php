@@ -1,3 +1,11 @@
+<script type="text/javascript">
+function checkedall()
+{
+  for (var i = 0; i < document.forms[0].elements.length; i++) {
+    document.forms[0].elements[i].checked = true;
+  }
+}
+</script>
 <?php
 /**
  *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*  
@@ -25,6 +33,18 @@
  *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
  */
 
+/*
+ * plugin_manager
+ * 
+ * @author: T-Seven | Webspell-RM.de
+ * @version: 1.0
+ * @package: plugin_manager
+ * @website: www.Webspell-RM.de
+ *
+ * Mit dem Plugin-Manager kann man Einstellungen vornehmen, die das Plugin und die dazugehörigen Widegt's betreffen.
+*/
+
+
 
 $_language->readModule('widgets', false, true);
 
@@ -37,6 +57,8 @@ if (!$accesslevel($userID) || mb_substr(basename($_SERVER[ 'REQUEST_URI' ]), 0, 
     die($_language->module[ 'access_denied' ]);
 }
 }
+
+
 
 $theme_active = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE active = '1'");
     $db = mysqli_fetch_array($theme_active);
@@ -58,7 +80,7 @@ if (isset($_POST[ 'sorting_navigation' ])) {
         }
     } else {
         echo $_language->module[ 'transaction_invalid' ];
-        redirect("admincenter.php?site=plugin_widgets", "", 0);
+        redirect("admincenter.php?site=plugin_widgets&action=widget_sort", "", 0);
     }
 
 }elseif (isset($_POST[ 'sorting_page_head' ])) {
@@ -74,7 +96,7 @@ if (isset($_POST[ 'sorting_navigation' ])) {
         }
     } else {
         echo $_language->module[ 'transaction_invalid' ];
-        redirect("admincenter.php?site=plugin_widgets", "", 0);
+        redirect("admincenter.php?site=plugin_widgets&action=widget_sort", "", 0);
     }
 
 }elseif (isset($_POST[ 'sorting_head_section' ])) {
@@ -90,7 +112,7 @@ if (isset($_POST[ 'sorting_navigation' ])) {
         }
     } else {
         echo $_language->module[ 'transaction_invalid' ];
-        redirect("admincenter.php?site=plugin_widgets", "", 0);
+        redirect("admincenter.php?site=plugin_widgets&action=widget_sort", "", 0);
     }
 
 }elseif (isset($_POST[ 'sorting_left_side' ])) {
@@ -106,7 +128,7 @@ if (isset($_POST[ 'sorting_navigation' ])) {
         }
     } else {
         echo $_language->module[ 'transaction_invalid' ];
-        redirect("admincenter.php?site=plugin_widgets", "", 0);
+        redirect("admincenter.php?site=plugin_widgets&action=widget_sort", "", 0);
     }
 
 }elseif (isset($_POST[ 'sorting_center_head' ])) {
@@ -122,7 +144,7 @@ if (isset($_POST[ 'sorting_navigation' ])) {
         }
     } else {
         echo $_language->module[ 'transaction_invalid' ];
-        redirect("admincenter.php?site=plugin_widgets", "", 0);
+        redirect("admincenter.php?site=plugin_widgets&action=widget_sort", "", 0);
     }
 
 }elseif (isset($_POST[ 'sorting_center_footer' ])) {
@@ -138,7 +160,7 @@ if (isset($_POST[ 'sorting_navigation' ])) {
         }
     } else {
         echo $_language->module[ 'transaction_invalid' ];
-        redirect("admincenter.php?site=plugin_widgets", "", 0);
+        redirect("admincenter.php?site=plugin_widgets&action=widget_sort", "", 0);
     }
 
 }elseif (isset($_POST[ 'sorting_right_side' ])) {
@@ -169,7 +191,7 @@ if (isset($_POST[ 'sorting_navigation' ])) {
         }
     } else {
         echo $_language->module[ 'transaction_invalid' ];
-        redirect("admincenter.php?site=plugin_widgets", "", 0);
+        redirect("admincenter.php?site=plugin_widgets&action=widget_sort", "", 0);
     }
 
 }elseif (isset($_POST[ 'sorting_page_footer' ])) {
@@ -185,27 +207,22 @@ if (isset($_POST[ 'sorting_navigation' ])) {
         }
     } else {
         echo $_language->module[ 'transaction_invalid' ];
-        redirect("admincenter.php?site=plugin_widgets", "", 0);
+        redirect("admincenter.php?site=plugin_widgets&action=widget_sort", "", 0);
     }
 
 }
 
-
-
-
-$themeergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE active = '1'");
+    $themeergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE active = '1'");
     $db = mysqli_fetch_array($themeergebnis);
 
-
-
-		echo'<div class="card">
+        echo'<div class="card">
         <div class="card-header">
             ' . $_language->module[ 'widget' ] . '
         </div>
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="admincenter.php?site=plugin_widgets">' . $_language->module['widget'] . '</a></li>
-    <li class="breadcrumb-item active" aria-current="page">new & edit</li>
+  <li class="breadcrumb-item"><a href="admincenter.php?site=plugin_widgets">' . $_language->module['widget'] . '</a></li>
+    <li class="breadcrumb-item active" aria-current="page">' . $_language->module['widget_sort'] . '</li>
   </ol>
 </nav>
 <div class="card-body">';
@@ -218,29 +235,25 @@ $thergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE acti
 <h4>'.$themes_modulname.'</h4></div>
     </div>
   </div>
-<hr>';	
-
-		
+<hr>';
+        
 echo'
 <div class="col-md-12">
-  <div class="row">
-    '; 
-
+  <div class="row">';
     
 $moduls = safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE position = 'page_navigation_widget' and themes_modulname= '".$db['modulname']."' ORDER BY sort");
 echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height: 250px;margin-bottom: 6px;" class="img-fluid" src="../images/plugins/page_navigation_widget.jpg"></div>
 <div class="col-md-10">
-<form method="post" action="admincenter.php?site=plugin_widgets">
+<form method="post" action="admincenter.php?site=plugin_widgets&action=widget_sort">
 <table class="table table-striped">
+    <thead>
+        <th style="width: 70%"><b>'.$_language->module[ 'plugin_name' ].'</b></th>
+        <th style="width: 20%"><b>'.$_language->module[ 'actions' ].'</b></th>
+        <th style="width: 10%"><b>'.$_language->module[ 'sort' ].'</b></th>
+    </thead>
+    <tbody>';
 
-<thead>
-            <th style="width: 80%"><b>'.$_language->module[ 'plugin_name' ].'</b></th>
-            <th style="width: 10%"><b>'.$_language->module[ 'actions' ].'</b></th>
-            <th style="width: 10%"><b>'.$_language->module[ 'sort' ].'</b></th>
-</thead>
-<tbody>';
-
-$CAPCLASS = new \webspell\Captcha;
+    $CAPCLASS = new \webspell\Captcha;
     $CAPCLASS->createTransaction();
     $hash = $CAPCLASS->getHash();
     while ($ds = mysqli_fetch_array($moduls)) {
@@ -250,7 +263,6 @@ $CAPCLASS = new \webspell\Captcha;
 
         $tmp = mysqli_fetch_assoc(safe_query("SELECT count(id) as cnt FROM " . PREFIX . "settings_widgets WHERE position = 'page_navigation_widget' and themes_modulname= '".$db['modulname']."'"));
         $anznavigation = $tmp[ 'cnt' ];
-
 
         $navigationlist = '<select name="sortnavigation[]">';
                 for ($n = 1; $n <= $anznavigation; $n++) {
@@ -262,22 +274,20 @@ $CAPCLASS = new \webspell\Captcha;
                     'value="' . $ds['id'] . '-' . $ds[ 'sort' ] . '" selected="selected"',
                     $navigationlist
                 );
-
             
         if(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif" alt="">';
         } else{
-           $pic='<img class="img-thumbnail" style="height: 200px" src="../images/plugins/no-image.jpg" alt="">';
+           $pic='<img class="img-thumbnail" style="height: 100px" src="../images/plugins/no-image.jpg" alt="">';
         }
 
-     echo'
-<tr>
+echo'<tr>
 <td>
 <table><tr><td>
 '.$pic.'
@@ -299,27 +309,20 @@ echo'<tr><td colspan="2">
 </table>
   </div>';
 
-
-
 echo'
 </div></div>
 <div class="col-md-12">
   <div class="row">';
-
-
-
-
     
 $moduls = safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE position = 'page_head_widget' and themes_modulname= '".$db['modulname']."' ORDER BY sort");
 echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height: 250px;margin-bottom: 6px;" class="img-fluid" src="../images/plugins/page_head_widget.jpg"></div>
 <div class="col-md-10"><table class="table table-striped">
-
-<thead>
-            <th style="width: 80%"><b>'.$_language->module[ 'plugin_name' ].'</b></th>
-            <th style="width: 10%"><b>'.$_language->module[ 'actions' ].'</b></th>
-            <th style="width: 10%"><b>'.$_language->module[ 'sort' ].'</b></th>
-</thead>
-<tbody>';
+    <thead>
+        <th style="width: 70%"><b>'.$_language->module[ 'plugin_name' ].'</b></th>
+        <th style="width: 20%"><b>'.$_language->module[ 'actions' ].'</b></th>
+        <th style="width: 10%"><b>'.$_language->module[ 'sort' ].'</b></th>
+    </thead>
+    <tbody>';
     while ($ds = mysqli_fetch_array($moduls)) {
 
     $xergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='".$ds['modulname']."'");
@@ -327,7 +330,6 @@ echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height:
     
         $tmp = mysqli_fetch_assoc(safe_query("SELECT count(id) as cnt FROM " . PREFIX . "settings_widgets WHERE position = 'page_head_widget' and themes_modulname= '".$db['modulname']."'"));
         $anzpage_head = $tmp[ 'cnt' ];
-
 
         $page_headlist = '<select name="sortpage_head[]">';
                 for ($n = 1; $n <= $anzpage_head; $n++) {
@@ -338,23 +340,21 @@ echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height:
                     'value="' . $ds['id'] . '-' . $ds[ 'sort' ] . '"',
                     'value="' . $ds['id'] . '-' . $ds[ 'sort' ] . '" selected="selected"',
                     $page_headlist
-                );
-            
+                );            
 
         if(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif" alt="">';
         } else{
-           $pic='<img class="img-thumbnail" style="height: 200px" src="../images/plugins/no-image.jpg" alt="">';
+           $pic='<img class="img-thumbnail" style="height: 100px" src="../images/plugins/no-image.jpg" alt="">';
         }
 
-      echo'
-<tr>
+echo'<tr>
 <td>
 <table><tr><td>
 '.$pic.'
@@ -377,23 +377,20 @@ echo'<tr><td colspan="2">
 </table>
   </div>';
 
-
 echo'
 </div></div>
 <div class="col-md-12">
   <div class="row">';
 
-
 $moduls = safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE position = 'head_section_widget' and themes_modulname= '".$db['modulname']."' ORDER BY sort");
 echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height: 250px;margin-bottom: 6px;" class="img-fluid" src="../images/plugins/head_section_widget.jpg"></div>
 <div class="col-md-10"><table class="table table-striped">
-
-<thead>
-            <th style="width: 80%"><b>'.$_language->module[ 'plugin_name' ].'</b></th>
-            <th style="width: 10%"><b>'.$_language->module[ 'actions' ].'</b></th>
-            <th style="width: 10%"><b>'.$_language->module[ 'sort' ].'</b></th>
-</thead>
-<tbody>';
+    <thead>
+        <th style="width: 70%"><b>'.$_language->module[ 'plugin_name' ].'</b></th>
+        <th style="width: 20%"><b>'.$_language->module[ 'actions' ].'</b></th>
+        <th style="width: 10%"><b>'.$_language->module[ 'sort' ].'</b></th>
+    </thead>
+    <tbody>';
     while ($ds = mysqli_fetch_array($moduls)) {
 
     $xergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='".$ds['modulname']."'");
@@ -401,7 +398,6 @@ echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height:
 
         $tmp = mysqli_fetch_assoc(safe_query("SELECT count(id) as cnt FROM " . PREFIX . "settings_widgets WHERE position = 'head_section_widget' and themes_modulname= '".$db['modulname']."'"));
         $anzhead_section = $tmp[ 'cnt' ];
-
 
         $head_sectionlist = '<select name="sorthead_section[]">';
                 for ($n = 1; $n <= $anzhead_section; $n++) {
@@ -415,19 +411,18 @@ echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height:
                 );
 
         if(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif" alt="">';
         } else{
-           $pic='<img class="img-thumbnail" style="height: 200px" src="../images/plugins/no-image.jpg" alt="">';
+           $pic='<img class="img-thumbnail" style="height: 100px" src="../images/plugins/no-image.jpg" alt="">';
         }
 
-     echo'
-<tr>
+echo'<tr>
 <td>
 <table><tr><td>
 '.$pic.'
@@ -450,23 +445,20 @@ echo'<tr><td colspan="2">
 </table>
   </div>';
 
-
   echo'
 </div></div>
 <div class="col-md-12">
   <div class="row">';
 
-
 $moduls = safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE position = 'left_side_widget' and themes_modulname= '".$db['modulname']."' ORDER BY sort");
 echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height: 250px;margin-bottom: 6px;" class="img-fluid" src="../images/plugins/left_side_widget.jpg"></div>
 <div class="col-md-10"><table class="table table-striped">
-
-<thead>
-            <th style="width: 80%"><b>'.$_language->module[ 'plugin_name' ].'</b></th>
-            <th style="width: 10%"><b>'.$_language->module[ 'actions' ].'</b></th>
-            <th style="width: 10%"><b>'.$_language->module[ 'sort' ].'</b></th>
-</thead>
-<tbody>';
+    <thead>
+        <th style="width: 70%"><b>'.$_language->module[ 'plugin_name' ].'</b></th>
+        <th style="width: 20%"><b>'.$_language->module[ 'actions' ].'</b></th>
+        <th style="width: 10%"><b>'.$_language->module[ 'sort' ].'</b></th>
+    </thead>
+    <tbody>';
     while ($ds = mysqli_fetch_array($moduls)) {
 
     $xergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='".$ds['modulname']."'");
@@ -474,7 +466,6 @@ echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height:
 
         $tmp = mysqli_fetch_assoc(safe_query("SELECT count(id) as cnt FROM " . PREFIX . "settings_widgets WHERE position = 'left_side_widget' and themes_modulname= '".$db['modulname']."'"));
         $anzleft_side = $tmp[ 'cnt' ];
-
 
         $left_sidelist = '<select name="sortleft_side[]">';
                 for ($n = 1; $n <= $anzleft_side; $n++) {
@@ -488,19 +479,18 @@ echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height:
                 );
 
         if(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif" alt="">';
         } else{
-           $pic='<img class="img-thumbnail" style="height: 200px" src="../images/plugins/no-image.jpg" alt="">';
+           $pic='<img class="img-thumbnail" style="height: 100px" src="../images/plugins/no-image.jpg" alt="">';
         }
 
-      echo'
-<tr>
+echo'<tr>
 <td>
 <table><tr><td>
 '.$pic.'
@@ -528,18 +518,15 @@ echo'<tr><td colspan="2">
 <div class="col-md-12">
   <div class="row">';
 
-
-
   $moduls = safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE position = 'center_head_widget' and themes_modulname= '".$db['modulname']."' ORDER BY sort");
 echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height: 250px;margin-bottom: 6px;" class="img-fluid" src="../images/plugins/center_head_widget.jpg"></div>
 <div class="col-md-10"><table class="table table-striped">
-
-<thead>
-            <th style="width: 80%"><b>'.$_language->module[ 'plugin_name' ].'</b></th>
-            <th style="width: 10%"><b>'.$_language->module[ 'actions' ].'</b></th>
-            <th style="width: 10%"><b>'.$_language->module[ 'sort' ].'</b></th>
-</thead>
-<tbody>';
+    <thead>
+        <th style="width: 70%"><b>'.$_language->module[ 'plugin_name' ].'</b></th>
+        <th style="width: 20%"><b>'.$_language->module[ 'actions' ].'</b></th>
+        <th style="width: 10%"><b>'.$_language->module[ 'sort' ].'</b></th>
+    </thead>
+    <tbody>';
     while ($ds = mysqli_fetch_array($moduls)) {
 
     $xergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='".$ds['modulname']."'");
@@ -547,7 +534,6 @@ echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height:
 
         $tmp = mysqli_fetch_assoc(safe_query("SELECT count(id) as cnt FROM " . PREFIX . "settings_widgets WHERE position = 'center_head_widget' and themes_modulname= '".$db['modulname']."'"));
         $anzcenter_head = $tmp[ 'cnt' ];
-
 
         $center_headlist = '<select name="sortcenter_head[]">';
                 for ($n = 1; $n <= $anzcenter_head; $n++) {
@@ -561,19 +547,18 @@ echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height:
                 );
 
         if(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif" alt="">';
         } else{
-           $pic='<img class="img-thumbnail" style="height: 200px" src="../images/plugins/no-image.jpg" alt="">';
+           $pic='<img class="img-thumbnail" style="height: 100px" src="../images/plugins/no-image.jpg" alt="">';
         }
 
-      echo'
-<tr>
+echo'<tr>
 <td>
 <table><tr><td>
 '.$pic.'
@@ -596,7 +581,6 @@ echo'<tr><td colspan="2">
 </table>
   </div>';
 
-
 echo'
 </div></div>
 <div class="col-md-12">
@@ -605,13 +589,12 @@ echo'
   $moduls = safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE position = 'center_footer_widget' and themes_modulname= '".$db['modulname']."' ORDER BY sort");
 echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height: 250px;margin-bottom: 6px;" class="img-fluid" src="../images/plugins/center_footer_widget.jpg"></div>
 <div class="col-md-10"><table class="table table-striped">
-
-<thead>
-            <th style="width: 80%"><b>'.$_language->module[ 'plugin_name' ].'</b></th>
-            <th style="width: 10%"><b>'.$_language->module[ 'actions' ].'</b></th>
-            <th style="width: 10%"><b>'.$_language->module[ 'sort' ].'</b></th>
-</thead>
-<tbody>';
+    <thead>
+        <th style="width: 70%"><b>'.$_language->module[ 'plugin_name' ].'</b></th>
+        <th style="width: 20%"><b>'.$_language->module[ 'actions' ].'</b></th>
+        <th style="width: 10%"><b>'.$_language->module[ 'sort' ].'</b></th>
+    </thead>
+    <tbody>';
     while ($ds = mysqli_fetch_array($moduls)) {
 
     $xergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='".$ds['modulname']."'");
@@ -619,7 +602,6 @@ echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height:
 
         $tmp = mysqli_fetch_assoc(safe_query("SELECT count(id) as cnt FROM " . PREFIX . "settings_widgets WHERE position = 'center_footer_widget' and themes_modulname= '".$db['modulname']."'"));
         $anzcenter_footer = $tmp[ 'cnt' ];
-
 
         $center_footerlist = '<select name="sortcenter_footer[]">';
                 for ($n = 1; $n <= $anzcenter_footer; $n++) {
@@ -633,19 +615,18 @@ echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height:
                 );
 
         if(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif" alt="">';
         } else{
-           $pic='<img class="img-thumbnail" style="height: 200px" src="../images/plugins/no-image.jpg" alt="">';
+           $pic='<img class="img-thumbnail" style="height: 100px" src="../images/plugins/no-image.jpg" alt="">';
         }
 
-      echo'
-<tr>
+echo'<tr>
 <td>
 <table><tr><td>
 '.$pic.'
@@ -672,19 +653,15 @@ echo'
 <div class="col-md-12">
   <div class="row">';
 
-
-
 $moduls = safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE position = 'right_side_widget' and themes_modulname= '".$db['modulname']."' ORDER BY sort");
 echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height: 250px;margin-bottom: 6px;" class="img-fluid" src="../images/plugins/right_side_widget.jpg"></div>
 <div class="col-md-10"><table class="table table-striped">
-
-<thead>
-            <th style="width: 80%"><b>'.$_language->module[ 'plugin_name' ].'</b></th>
-            <th style="width: 10%"><b>'.$_language->module[ 'actions' ].'</b></th>
-            <th style="width: 10%"><b>'.$_language->module[ 'sort' ].'</b></th>
-</thead>
-<tbody>';
-
+    <thead>
+        <th style="width: 70%"><b>'.$_language->module[ 'plugin_name' ].'</b></th>
+        <th style="width: 20%"><b>'.$_language->module[ 'actions' ].'</b></th>
+        <th style="width: 10%"><b>'.$_language->module[ 'sort' ].'</b></th>
+    </thead>
+    <tbody>';
     while ($ds = mysqli_fetch_array($moduls)) {
 
     $xergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='".$ds['modulname']."'");
@@ -692,7 +669,6 @@ echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height:
 
         $tmp = mysqli_fetch_assoc(safe_query("SELECT count(id) as cnt FROM " . PREFIX . "settings_widgets WHERE position = 'right_side_widget' and themes_modulname= '".$db['modulname']."'"));
         $anzright_side = $tmp[ 'cnt' ];
-
 
         $right_sidelist = '<select name="sortright_side[]">';
                 for ($n = 1; $n <= $anzright_side; $n++) {
@@ -706,19 +682,18 @@ echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height:
                 );
 
         if(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif" alt="">';
         } else{
-           $pic='<img class="img-thumbnail" style="height: 200px" src="../images/plugins/no-image.jpg" alt="">';
+           $pic='<img class="img-thumbnail" style="height: 100px" src="../images/plugins/no-image.jpg" alt="">';
         }
 
-      echo'
-<tr>
+echo'<tr>
 <td>
 <table><tr><td>
 '.$pic.'
@@ -741,23 +716,20 @@ echo'<tr><td colspan="2">
 </table>
   </div>';
 
-
 echo'
 </div></div>
 <div class="col-md-12">
   <div class="row">';
 
-
 $moduls = safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE position = 'foot_section_widget' and themes_modulname= '".$db['modulname']."' ORDER BY sort");
 echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height: 250px;margin-bottom: 6px;" class="img-fluid" src="../images/plugins/foot_section_widget.jpg"></div>
 <div class="col-md-10"><table class="table table-striped">
-
-<thead>
-            <th style="width: 80%"><b>'.$_language->module[ 'plugin_name' ].'</b></th>
-            <th style="width: 10%"><b>'.$_language->module[ 'actions' ].'</b></th>
-            <th style="width: 10%"><b>'.$_language->module[ 'sort' ].'</b></th>
-</thead>
-<tbody>';
+    <thead>
+        <th style="width: 70%"><b>'.$_language->module[ 'plugin_name' ].'</b></th>
+        <th style="width: 20%"><b>'.$_language->module[ 'actions' ].'</b></th>
+        <th style="width: 10%"><b>'.$_language->module[ 'sort' ].'</b></th>
+    </thead>
+    <tbody>';
     while ($ds = mysqli_fetch_array($moduls)) {
 
     $xergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='".$ds['modulname']."'");
@@ -765,7 +737,6 @@ echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height:
 
         $tmp = mysqli_fetch_assoc(safe_query("SELECT count(id) as cnt FROM " . PREFIX . "settings_widgets WHERE position = 'foot_section_widget' and themes_modulname= '".$db['modulname']."'"));
         $anzfoot_section = $tmp[ 'cnt' ];
-
 
         $foot_sectionlist = '<select name="sortfoot_section[]">';
                 for ($n = 1; $n <= $anzfoot_section; $n++) {
@@ -778,19 +749,18 @@ echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height:
                     $foot_sectionlist
                 );
         if(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif" alt="">';
         } else{
-           $pic='<img class="img-thumbnail" style="height: 200px" src="../images/plugins/no-image.jpg" alt="">';
+           $pic='<img class="img-thumbnail" style="height: 100px" src="../images/plugins/no-image.jpg" alt="">';
         }
 
-      echo'
-<tr>
+echo'<tr>
 <td>
 <table><tr><td>
 '.$pic.'
@@ -813,23 +783,20 @@ echo'<tr><td colspan="2">
 </table>
   </div>';
 
-
   echo'
 </div></div>
 <div class="col-md-12">
   <div class="row">';
 
-
   $moduls = safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE position = 'page_footer_widget' and themes_modulname= '".$db['modulname']."' ORDER BY sort");
 echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height: 250px;margin-bottom: 6px;" class="img-fluid" src="../images/plugins/page_footer_widget.jpg"></div>
 <div class="col-md-10"><table class="table table-striped">
-
-<thead>
-            <th style="width: 80%"><b>'.$_language->module[ 'plugin_name' ].'</b></th>
-            <th style="width: 10%"><b>'.$_language->module[ 'actions' ].'</b></th>
-            <th style="width: 10%"><b>'.$_language->module[ 'sort' ].'</b></th>
-</thead>
-<tbody>';
+    <thead>
+        <th style="width: 70%"><b>'.$_language->module[ 'plugin_name' ].'</b></th>
+        <th style="width: 20%"><b>'.$_language->module[ 'actions' ].'</b></th>
+        <th style="width: 10%"><b>'.$_language->module[ 'sort' ].'</b></th>
+    </thead>
+    <tbody>';
     while ($ds = mysqli_fetch_array($moduls)) {
 
     $xergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='".$ds['modulname']."'");
@@ -837,7 +804,6 @@ echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height:
 
         $tmp = mysqli_fetch_assoc(safe_query("SELECT count(id) as cnt FROM " . PREFIX . "settings_widgets WHERE position = 'page_footer_widget' and themes_modulname= '".$db['modulname']."'"));
         $anzpage_footer = $tmp[ 'cnt' ];
-
 
         $page_footerlist = '<select name="sortpage_footer[]">';
                 for ($n = 1; $n <= $anzpage_footer; $n++) {
@@ -851,19 +817,18 @@ echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height:
                 );
 
         if(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpg" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.jpeg" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.png" alt="">';
         } elseif(file_exists($filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif')){
-            $pic='<img class="img-thumbnail" style="height: 200px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif" alt="">';
+            $pic='<img class="img-thumbnail" style="height: 100px" src="'.$filepath.$ds[ 'modulname' ].'/images/'.$ds['widgetdatei'].'.gif" alt="">';
         } else{
-           $pic='<img class="img-thumbnail" style="height: 200px" src="../images/plugins/no-image.jpg" alt="">';
+           $pic='<img class="img-thumbnail" style="height: 100px" src="../images/plugins/no-image.jpg" alt="">';
         }
 
- echo'
-<tr>
+ echo'<tr>
 <td>
 <table><tr><td>
 '.$pic.'
@@ -877,7 +842,6 @@ echo'<div class="col-md-2 text-center"><img class="img-thumbnail" style="height:
 <td>' . $page_footerlist . '</td>
 </tr>
 
-
 '; }
 echo'<tr><td colspan="2">
             </td>
@@ -887,10 +851,7 @@ echo'<tr><td colspan="2">
 </table>
   </div>';
 
-
 echo'</div></div>';
-
-
 
 echo'.</div></div></div> ';
 
@@ -925,4 +886,6 @@ echo'.</div></div></div> ';
     </div>
 </div>
 
-';}
+';
+
+}

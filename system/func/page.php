@@ -103,7 +103,7 @@ function generateBoxFromArray($intro, $class, $errors, $dismissible = false)
     $message .= '</ul>';
     return generateAlert($message, $class, $dismissible);
 }
-
+/*
 function generateComponents($components, $type)
 {
     $return = '';
@@ -117,3 +117,4 @@ function generateComponents($components, $type)
 
     return $return;
 }
+*/

@@ -47,6 +47,7 @@ function show_var($var)
     }
 }
 
+#css & js vom template
 function headfiles($var, $path) {
     $css ="";
     $js="\n";
@@ -58,7 +59,7 @@ function headfiles($var, $path) {
             $fc = count((array($f)), COUNT_RECURSIVE);
             if($fc>0) {
                 for($b=0; $b<=$fc-2; $b++) {
-                    $css .= '<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D).chr(0x0A);
+                    $css .= '    <link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D).chr(0x0A);
                 }
             }
             return $css;
@@ -70,7 +71,7 @@ function headfiles($var, $path) {
             $fc = count($g, COUNT_RECURSIVE);
             if($fc>0) {
                 for($d=0; $d<=$fc-2; $d++) {
-                    $js .= '<script src="./'.$g[$d].'"></script>'.chr(0x0D).chr(0x0A);
+                    $js .= '     <script src="./'.$g[$d].'"></script>'.chr(0x0D).chr(0x0A);
                 }
             }
             return $js;
