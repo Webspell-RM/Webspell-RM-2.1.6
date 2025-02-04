@@ -59,7 +59,7 @@ function headfiles($var, $path) {
             $fc = count((array($f)), COUNT_RECURSIVE);
             if($fc>0) {
                 for($b=0; $b<=$fc-2; $b++) {
-                    $css .= '    <link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D).chr(0x0A);
+                    $css .= '<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D).chr(0x0A);
                 }
             }
             return $css;
@@ -71,7 +71,7 @@ function headfiles($var, $path) {
             $fc = count($g, COUNT_RECURSIVE);
             if($fc>0) {
                 for($d=0; $d<=$fc-2; $d++) {
-                    $js .= '     <script src="./'.$g[$d].'"></script>'.chr(0x0D).chr(0x0A);
+                    $js .= '<script src="./'.$g[$d].'"></script>'.chr(0x0D).chr(0x0A);
                 }
             }
             return $js;
@@ -388,6 +388,9 @@ if(file_exists('modrewrite.php')) { systeminc('modrewrite'); } else { systeminc(
 
 // -- index content  -- //
 if(file_exists('content.php')) { systeminc('content'); } else { systeminc('../system/content'); }
+
+// -- install_base  -- //
+if(file_exists('func/install_base.php')) { systeminc('func/install_base'); } else { systeminc('../system/func/install_base'); }
 
 $GLOBALS['_modRewrite'] = new \webspell\ModRewrite();
 if (!stristr($_SERVER['SCRIPT_NAME'], '/admin/') && $modRewrite) {

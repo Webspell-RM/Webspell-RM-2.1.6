@@ -68,24 +68,8 @@ class plugin_manager {
 				$ifiles = $tmp['index_link'];
 				$tfiles = explode(",",$ifiles);
 				if(in_array($var, $tfiles)) {
-
-					$ergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND `index_link` LIKE '%".$var."%'");
-					$dx = mysqli_fetch_array($ergebnis);
-
-					$themeergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE active = '1'");
-					$db = mysqli_fetch_array($themeergebnis);
-
-					$dm = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_module WHERE modulname = '".$dx['modulname']."' and themes_modulname = '".$db['modulname']."'"));
-
-					if (@$dm[ 'modulname' ] != $dx['modulname'] && @$dm['themes_modulname'] != $db['modulname'])  {
-
-						$where = " WHERE `activate`='0' AND `pluginID`='".$tmp['pluginID']."'";	
-						$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins ".$where);   	
-					}else{
-		
-						$where = " WHERE `activate`='1' AND `pluginID`='".$tmp['pluginID']."'";	
+						$where = " WHERE `pluginID`='".$tmp['pluginID']."'";	
 						$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins ".$where);
-					}
 				}
 			}
 			$w = safe_query("SELECT * FROM " . PREFIX . "settings_plugins ".$where);
@@ -99,7 +83,6 @@ class plugin_manager {
 				}
 			}
 
-
 		}
 		if(!isset($query)) { return false; }
 		try {
@@ -110,8 +93,7 @@ class plugin_manager {
 		} CATCH (EXCEPTION $e) {
 			return $e->message();	
 		}
-	}
-
+	}	
 	
 	function plugin_check($data, $site) {
 		$_language = new \webspell\Language;
@@ -171,89 +153,116 @@ class plugin_manager {
 			}	
 		}
 	
+####################################
+function plugin_widget_data($var, $id=0, $admin=false) {
+		if($id>0) {
+			parse_str($_SERVER['QUERY_STRING'], $qs_arr);
+			$getsite = 'startpage'; #Wird auf der Startseite angezeigt index.php
+	    if(isset($qs_arr['site'])) {
+	      $getsite = $qs_arr['site'];
+	    }
+
+	    if (@$getsite == 'contact' 
+        || @$getsite == 'imprint'
+        || @$getsite == 'privacy_policy'
+        || @$getsite == 'profile'
+        || @$getsite == 'myprofile'
+        || @$getsite == 'error_404'
+        || @$getsite == 'report'
+        || @$getsite == 'static'
+        || @$getsite == 'loginoverview'
+        || @$getsite == 'register'
+        || @$getsite == 'lostpassword'
+        || @$getsite == 'login'
+        || @$getsite == 'logout'
+        || @$getsite == 'footer'
+        || @$getsite == 'navigation'
+        || @$getsite == 'topbar') {
+				$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget_settings WHERE id='".intval($id)."'");
+			}elseif (@$getsite == 'forum_topic') {
+				$query = safe_query("SELECT * FROM " . PREFIX . "plugins_forum_settings_widgets WHERE id='".intval($id)."'");
+			} else {
+				$query = safe_query("SELECT * FROM " . PREFIX . "plugins_".$getsite."_settings_widgets WHERE id='".intval($id)."'");
+			}	
+
+		} else {
+			echo'leer';
+		}
+
+		if(!isset($query)) { return false; }
+		try {
+			if(mysqli_num_rows($query)) {
+				$row = mysqli_fetch_array($query);				
+					return $row;
+				}
+			} CATCH (EXCEPTION $e) {
+				return $e->message();	
+			}
+	}
 
 
 	//@info 		check if the plugin is activated and exists. 
 	//				True = include the sc_file from plugin directory
 	//				False = dont load this plugin
-	function plugin_widget1($id, $name=false) {
+
+	function plugin_widget($id, $name=false, $css=false) {
 		$pid = intval($id);
 		$_language = new \webspell\Language;
 		$_language->readModule('plugin');
 		if (!empty($pid)) {
 			$manager = new plugin_manager();
-			$row=$manager->plugin_data("", $pid);
-			
-			if (@$row['activate'] != "1") {
+			$row=$manager->plugin_widget_data("", $pid);
+
+			$query = safe_query("SELECT *
+			FROM  " . PREFIX . "settings_plugins
+			Where modulname = '".$row['modulname']."'
+			");
+			$ds = mysqli_fetch_array($query);
+
+			if (@$ds['activate'] != "1") {
 				if($this->_debug==="ON") {
 					return ('');
     			}
 				return false;
 			}
-			if(file_exists($row['path'].$row['widget_link1'].".php")) {
-				$plugin_path = $row['path'];
-				require($row['path'].$row['widget_link1'].".php");
+/*echo'<!--Widget '.$row['modulname'].' css & js-->'.chr(0x0D);
+			if(is_dir($ds['path']."css/")) { $subf1 = "css/";	} else { $subf1=""; }
+		  $f = array();
+		  $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $ds['path'].$subf1).'*.css');
+		  $fc = count((array($f)), COUNT_RECURSIVE);
+		  if($fc>0) {
+		   	for($b=0; $b<=$fc-2; $b++) {
+		     	echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D).chr(0x0A);
+		    }
+			}
+
+			if(is_dir($ds['path']."js/")) { $subf2 = "js/"; } else { $subf2=""; }
+	    $f = array();
+	    $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $ds['path'].$subf2).'*.js');
+	    $fc = count((array($f)), COUNT_RECURSIVE);
+	    if($fc>0) {
+	     	for($b=0; $b<=$fc-2; $b++) {
+	       	echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D).chr(0x0A);
+	     	}
+		  }	
+			echo'<!--Widget css END-->'.chr(0x0D).chr(0x0A);*/
+
+			if(file_exists($ds['path'].$row['widgetdatei'].".php")) {
+				$plugin_path = $ds['path'];
+				require($ds['path'].$row['widgetdatei'].".php");				
 				return false;
 			} else { 
 				if($this->_debug==="ON") {
 					return ('<span class="label label-danger">'.$_language->module['plugin_not_found'].'</span>');
 				}
 			}
+
+			
 		}	
 	}
 
-	function plugin_widget2($id, $name=false) {
-		$pid = intval($id);
-		$_language = new \webspell\Language;
-		$_language->readModule('plugin');
-		if (!empty($pid)) {
-			$manager = new plugin_manager();
-			$row=$manager->plugin_data("", $pid);
-			
-			if (@$row['activate'] != "1") {
-				if($this->_debug==="ON") {
-					return ('');
-    			}
-				return false;
-			}
-			if(file_exists($row['path'].$row['widget_link2'].".php")) {
-				$plugin_path = $row['path'];
-				require($row['path'].$row['widget_link2'].".php");
-				return false;
-			} else { 
-				if($this->_debug==="ON") {
-					return ('<span class="label label-danger">'.$_language->module['plugin_not_found'].'</span>');
-				}
-			}
-		}	
-	}
 
-	function plugin_widget3($id, $name=false) {
-		$pid = intval($id);
-		$_language = new \webspell\Language;
-		$_language->readModule('plugin');
-		if (!empty($pid)) {
-			$manager = new plugin_manager();
-			$row=$manager->plugin_data("", $pid);
-			
-			if (@$row['activate'] != "1") {
-				if($this->_debug==="ON") {
-					return ('');
-    			}
-				return false;
-			}
-			if(file_exists($row['path'].$row['widget_link3'].".php")) {
-				$plugin_path = $row['path'];
-				require($row['path'].$row['widget_link3'].".php");
-				return false;
-			} else { 
-				if($this->_debug==="ON") {
-					return ('<span class="label label-danger">'.$_language->module['plugin_not_found'].'</span>');
-				}
-			}
-		}	
-	}
-	
+#################################################	
 	//@info		search a plugin by name and return the ID
 	function pluginID_by_name($name) {
 		$request=safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND `name` LIKE '%".$name."%'");
@@ -298,31 +307,31 @@ class plugin_manager {
       $getsite = $qs_arr['site'];
     }
 
+		$ds=mysqli_fetch_array(safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE index_link LIKE '%$getsite%' AND `activate`='1'"));
+		@$modulname=$ds['modulname'];
 
     $css="\n";
-		$query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND modulname = '".$getsite."'");
+		$query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND modulname = '".$modulname."'");
     if($pluginadmin) { $pluginpath = "../"; 
   	} else { 
   		$pluginpath=""; 
-  	}
-		
+  	}		
     while($res=mysqli_fetch_array($query)) {
-
-		      if($res['modulname'] == $getsite || $res == 1) {
-		       	if(is_dir($pluginpath.$res['path']."css/")) { 
-		       		$subf1 = "css/"; 
-		       	} else { 
-		       		$subf1=""; 
-		       	}
-		        $f = array();
-		        $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$res['path'].$subf1).'*.css');
-		        $fc = count((array($f)), COUNT_RECURSIVE);
-		        if($fc>0) {
-		         	for($b=0; $b<=$fc-2; $b++) {
-		           	$css .= '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D).chr(0x0A);
-		         	}
-						}
-					}
+		  if($res['modulname'] == $modulname || $res == 1) {
+		   	if(is_dir($pluginpath.$res['path']."css/")) { 
+		   		$subf1 = "css/"; 
+		   	} else { 
+		   		$subf1=""; 
+		   	}
+		    $f = array();
+		    $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$res['path'].$subf1).'*.css');
+		    $fc = count((array($f)), COUNT_RECURSIVE);
+		    if($fc>0) {
+		     	for($b=0; $b<=$fc-2; $b++) {
+		       	$css .= '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D).chr(0x0A);
+		     	}
+				}
+			}
 
 		}
 	  return $css;
@@ -336,26 +345,31 @@ class plugin_manager {
       $getsite = $qs_arr['site'];
     }
 
+    $dk=mysqli_fetch_array(safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE index_link LIKE '%$getsite%' AND `activate`='1'"));
+		@$modulname=$dk['modulname'];
+
     $js="\n";
-    $query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND modulname = '".$getsite."'");
+    $query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND modulname = '".$modulname."'");
     if($pluginadmin) { $pluginpath = "../"; 
   	} else { 
   		$pluginpath=""; 
-  	}
-		
+  	}		
     while($res=mysqli_fetch_array($query)) {
-      
-	        if($res['modulname'] == $getsite || $res == 1) {
-	         	if(is_dir($pluginpath.$res['path']."js/")) { $subf2 = "js/"; } else { $subf2=""; }
-	          $f = array();
-	          $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$res['path'].$subf2).'*.js');
-	          $fc = count((array($f)), COUNT_RECURSIVE);
-	         	if($fc>0) {
-	           	for($b=0; $b<=$fc-2; $b++) {
-	             	$js .= '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D).chr(0x0A);
-	           	}
-		  			}
-		  		}
+      if($res['modulname'] == $modulname || $res == 1) {
+	      if(is_dir($pluginpath.$res['path']."js/")) { 
+	      	$subf2 = "js/"; 
+	      } else { 
+	      	$subf2=""; 
+	      }
+	      $f = array();
+	      $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$res['path'].$subf2).'*.js');
+	      $fc = count((array($f)), COUNT_RECURSIVE);
+	      if($fc>0) {
+	       	for($b=0; $b<=$fc-2; $b++) {
+	         	$js .= '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D).chr(0x0A);
+	       	}
+		  	}
+		  }
 		}		
 	  return $js;
 	}
@@ -367,561 +381,61 @@ class plugin_manager {
 
   function plugin_loadheadfile_widget_css() {
     parse_str($_SERVER['QUERY_STRING'], $qs_arr);
-		$getsite = '';
+    $getsite = 'startpage';
     if(isset($qs_arr['site'])) {
       $getsite = $qs_arr['site'];
     }
+    $pluginpath="includes/plugins/"; 
 
-    $themeergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_themes` WHERE active = '1'");
-    $db = mysqli_fetch_array($themeergebnis);
-    $gettemp = $db['modulname'];
-
-		$dv=mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_module WHERE modulname = '$getsite' AND themes_modulname = '$gettemp'"));
-		
-    	$via_navigation = $dv[ 'via_navigation' ];
-			$head_activated = $dv[ 'head_activated' ];
-			$content_head_activated = $dv[ 'content_head_activated' ];
-			$content_foot_activated = $dv[ 'content_foot_activated' ];
-			$head_section_activated = $dv[ 'head_section_activated' ];    							
-    	$foot_section_activated = $dv[ 'foot_section_activated' ];
-    	$sidebar = $dv[ 'sidebar' ];
-	
-		#Navigation Widget werden immer geladen
-
-			$css="\n";	
-		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
-			while($dx=mysqli_fetch_array($query)) {
-				if(@$dx['position'] == 'page_navigation_widget'){
-				$test=$dx['modulname'];
-				#print_r($dx);
-				$pluginpath='includes/plugins/';
-				if(is_dir($pluginpath.$test."/css/")) { $subf2 = "/css/"; } else { $subf2="/"; }
-					$f = array();
-					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.css');
-					$fc = count((array($f)), COUNT_RECURSIVE);
-					if($fc>0) {
-					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
-					  }
-					}
-				}
+    $css="\n";
+		$query = safe_query("SELECT * FROM " . PREFIX . "plugins_".$getsite."_settings_widgets");
+		while($res=mysqli_fetch_array($query)) {
+		  if(is_dir($pluginpath.$res['modulname']."/css/")) { 
+		  	$subf1 = "/css/"; 
+		  } else { 
+		  	$subf1=""; 
+		  }
+		  $f = array();
+		  $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$res['modulname'].$subf1).'*.css');
+		  $fc = count((array($f)), COUNT_RECURSIVE);
+		  if($fc>0) {
+		   	for($b=0; $b<=$fc-2; $b++) {
+		     	$css .= '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D).chr(0x0A);
+		   	}
 			}
-
-			$css="\n";	
-		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
-			while($dx=mysqli_fetch_array($query)) {
-				if(@$dx['position'] == 'page_footer_widget'){
-				$test=$dx['modulname'];
-				#print_r($dx);
-				$pluginpath='includes/plugins/';
-				if(is_dir($pluginpath.$test."/css/")) { $subf2 = "/css/"; } else { $subf2="/"; }
-					$f = array();
-					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.css');
-					$fc = count((array($f)), COUNT_RECURSIVE);
-					if($fc>0) {
-					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
-					  }
-					}
-				}
-			}
-
-		#Navigation Widget werden immer geladen END
-		###########################################
-
-		if ($via_navigation== '1'){
-			$css="\n";	
-		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
-			while($dx=mysqli_fetch_array($query)) {
-				if(@$dx['position'] == 'via_navigation_widget'){
-				$test=$dx['modulname'];
-				#print_r($dx);
-				$pluginpath='includes/plugins/';
-				if(is_dir($pluginpath.$test."/css/")) { $subf2 = "/css/"; } else { $subf2="/"; }
-					$f = array();
-					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.css');
-					$fc = count((array($f)), COUNT_RECURSIVE);
-					if($fc>0) {
-					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
-					  }
-					}
-				}
-			}
-		}
-
-		if ($head_activated== '1'){
-			$css="\n";	
-		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
-			while($dx=mysqli_fetch_array($query)) {
-				if(@$dx['position'] == 'page_head_widget'){
-				$test=$dx['modulname'];
-				#print_r($dx);
-				$pluginpath='includes/plugins/';
-				if(is_dir($pluginpath.$test."/css/")) { $subf2 = "/css/"; } else { $subf2="/"; }
-					$f = array();
-					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.css');
-					$fc = count((array($f)), COUNT_RECURSIVE);
-					if($fc>0) {
-					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
-					  }
-					}
-				}
-			}
-		}
-
-		if ($head_section_activated== '1'){
-			$css="\n";	
-		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
-			while($dx=mysqli_fetch_array($query)) {
-				if(@$dx['position'] == 'head_section_widget'){
-				$test=$dx['modulname'];
-				#print_r($dx);
-				$pluginpath='includes/plugins/';
-				if(is_dir($pluginpath.$test."/css/")) { $subf2 = "/css/"; } else { $subf2="/"; }
-					$f = array();
-					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.css');
-					$fc = count((array($f)), COUNT_RECURSIVE);
-					if($fc>0) {
-					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
-					  }
-					}
-				}
-			}
-		}
-	    		
-		if ($foot_section_activated== '1'){
-			$css="\n";	
-		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
-			while($dx=mysqli_fetch_array($query)) {
-				if(@$dx['position'] == 'foot_section_widget'){
-				$test=$dx['modulname'];
-				#print_r($dx);
-				$pluginpath='includes/plugins/';
-				if(is_dir($pluginpath.$test."/css/")) { $subf2 = "/css/"; } else { $subf2="/"; }
-					$f = array();
-					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.css');
-					$fc = count((array($f)), COUNT_RECURSIVE);
-					if($fc>0) {
-					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
-					  }
-					}
-				}
-			}
-		}
-
-		if ($content_head_activated== '1'){
-			$css="\n";	
-		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
-			while($dx=mysqli_fetch_array($query)) {
-				if(@$dx['position'] == 'center_head_widget'){
-				$test=$dx['modulname'];
-				#print_r($dx);
-				$pluginpath='includes/plugins/';
-				if(is_dir($pluginpath.$test."/css/")) { $subf2 = "/css/"; } else { $subf2="/"; }
-					$f = array();
-					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.css');
-					$fc = count((array($f)), COUNT_RECURSIVE);
-					if($fc>0) {
-					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
-					  }
-					}
-				}
-			}
-		}
-
-		if ($content_foot_activated== '1'){
-			$css="\n";	
-		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
-			while($dx=mysqli_fetch_array($query)) {
-				if(@$dx['position'] == 'center_footer_widget'){
-				$test=$dx['modulname'];
-				#print_r($dx);
-				$pluginpath='includes/plugins/';
-				if(is_dir($pluginpath.$test."/css/")) { $subf2 = "/css/"; } else { $subf2="/"; }
-					$f = array();
-					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.css');
-					$fc = count((array($f)), COUNT_RECURSIVE);
-					if($fc>0) {
-					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
-					  }
-					}
-				}
-			}
-		}
-
-		if ($sidebar== 'full_activated'){
-			$css="\n";	
-		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
-			while($dx=mysqli_fetch_array($query)) {
-				if(@$dx['position'] == 'right_side_widget' || @$dx['position'] == 'left_side_widget'){
-				$test=$dx['modulname'];
-				#print_r($dx);
-				$pluginpath='includes/plugins/';
-				if(is_dir($pluginpath.$test."/css/")) { $subf2 = "/css/"; } else { $subf2="/"; }
-					$f = array();
-					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.css');
-					$fc = count((array($f)), COUNT_RECURSIVE);
-					if($fc>0) {
-					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
-					  }
-					}
-				}
-			}
-		}
-
-		if ($sidebar== 're_activated'){
-			$css="\n";	
-		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
-			while($dx=mysqli_fetch_array($query)) {
-				if(@$dx['position'] == 'right_side_widget'){
-				$test=$dx['modulname'];
-				#print_r($dx);
-				$pluginpath='includes/plugins/';
-				if(is_dir($pluginpath.$test."/css/")) { $subf2 = "/css/"; } else { $subf2="/"; }
-					$f = array();
-					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.css');
-					$fc = count((array($f)), COUNT_RECURSIVE);
-					if($fc>0) {
-					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
-					  }
-					}
-				}
-			}
-		}
-
-		if ($sidebar== 'le_activated'){
-			$css="\n";	
-		  $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
-			while($dx=mysqli_fetch_array($query)) {
-				if(@$dx['position'] == 'left_side_widget'){
-				$test=$dx['modulname'];
-				#print_r($dx);
-				$pluginpath='includes/plugins/';
-				if(is_dir($pluginpath.$test."/css/")) { $subf2 = "/css/"; } else { $subf2="/"; }
-					$f = array();
-					$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.css');
-					$fc = count((array($f)), COUNT_RECURSIVE);
-					if($fc>0) {
-					 	for($b=0; $b<=$fc-2; $b++) {
-					 		echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D);
-					  }
-					}
-				}
-			}
-		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		}		
+	  return $css;
 	}
-
-
-######################################################################################################################
 	
 
-
-	function plugin_loadheadfile_widget_js() {
-    parse_str($_SERVER['QUERY_STRING'], $qs_arr);
-    $getsite = '';
+  function plugin_loadheadfile_widget_js() {
+  	parse_str($_SERVER['QUERY_STRING'], $qs_arr);
+    $getsite = 'startpage';
     if(isset($qs_arr['site'])) {
       $getsite = $qs_arr['site'];
     }
+    $pluginpath="includes/plugins/"; 
 
-    $themeergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_themes` WHERE active = '1'");
-    $db = mysqli_fetch_array($themeergebnis);
-    $gettemp = $db['modulname'];
-$dm=mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_module WHERE modulname = '$getsite' AND themes_modulname = '$gettemp'"));
-		
-    							$via_navigation = $dm[ 'via_navigation' ];
-    							#$a_page_navigation_widget='page_navigation_widge';
-									$head_activated = $dm[ 'head_activated' ];
-									$content_head_activated = $dm[ 'content_head_activated' ];
-									$content_foot_activated = $dm[ 'content_foot_activated' ];
-									$head_section_activated = $dm[ 'head_section_activated' ];    							
-    							$foot_section_activated = $dm[ 'foot_section_activated' ];
-    							$sidebar = $dm[ 'sidebar' ];
-
-		#Navigation Widget werden immer geladen
-		$dx=mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE position='page_navigation_widget'"));
-		if(@$dx['position'] == 'page_navigation_widget'){
-			$test=$dx['modulname'];
-			#print_r($dx);
-			$pluginpath='includes/plugins/';
-			$js="\n";	
-		  $query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND modulname = '".$test."'");
-		  $pluginpath='includes/plugins/';
-		  	while($res=mysqli_fetch_array($query)) {
-					if($res['modulname'] == $test || $res == 1) {
-						if(is_dir($pluginpath.$test."/js/")) { $subf2 = "/js/"; } else { $subf2="/"; }
-			      $f = array();
-			      $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.js');
-				    $fc = count((array($f)), COUNT_RECURSIVE);
-				    if($fc>0) {
-				     	for($b=0; $b<=$fc-2; $b++) {
-				     		echo$js .= '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
-				      }
-				    }
-		  		}
-		  	}
-		}else{
-			$test='';
-		}
-
-		$dx=mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE position='page_footer_widget'"));
-		if(@$dx['position'] == 'page_footer_widget'){
-			$test=$dx['modulname'];
-			#print_r($dx);
-			$pluginpath='includes/plugins/';
-			$js="\n";	
-		  $query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND modulname = '".$test."'");
-		  $pluginpath='includes/plugins/';
-		  	while($res=mysqli_fetch_array($query)) {
-					if($res['modulname'] == $test || $res == 1) {
-						if(is_dir($pluginpath.$test."/js/")) { $subf2 = "/js/"; } else { $subf2="/"; }
-			      $f = array();
-			      $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.js');
-					  $fc = count((array($f)), COUNT_RECURSIVE);
-					  if($fc>0) {
-					   	for($b=0; $b<=$fc-2; $b++) {
-					   		echo$js .= '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
-					    }
-					  }
-		  		}
-		  	}
-		}else{
-			$test='';
-		}
-		#Navigation Widget werden immer geladen END
-		###########################################
-
-		if ($via_navigation== '1'){
-
-				$dx=mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE position='via_navigation_widget'"));
-				if(@$dx['position'] == 'via_navigation_widget'){
-					$test=$dx['modulname'];
-					#print_r($dx);
-					$pluginpath='includes/plugins/';
-					$js="\n";	
-		    	$query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND modulname = '".$test."'");
-		    	$pluginpath='includes/plugins/';
-		    		while($res=mysqli_fetch_array($query)) {
-							if($res['modulname'] == $test || $res == 1) {
-								if(is_dir($pluginpath.$test."/js/")) { $subf2 = "/js/"; } else { $subf2="/"; }
-					      $f = array();
-					      $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.js');
-						    $fc = count((array($f)), COUNT_RECURSIVE);
-						    if($fc>0) {
-						     	for($b=0; $b<=$fc-2; $b++) {
-						     		echo$js .= '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
-						      }
-						    }
-		    			}
-		    		}
-				}else{
-					$test='';
-				}
-		}else{
-				$test='';
-		}	
-
-		if ($head_activated== '1'){
-
-				$dx=mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE position='page_head_widget'"));
-				if(@$dx['position'] == 'page_head_widget'){
-					$test=$dx['modulname'];
-					#print_r($dx);
-					$pluginpath='includes/plugins/';
-					$js="\n";	
-		    	$query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND modulname = '".$test."'");
-		    	$pluginpath='includes/plugins/';
-		    		while($res=mysqli_fetch_array($query)) {
-							if($res['modulname'] == $test || $res == 1) {
-								if(is_dir($pluginpath.$test."/js/")) { $subf2 = "/js/"; } else { $subf2="/"; }
-					      $f = array();
-					      $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.js');
-						    $fc = count((array($f)), COUNT_RECURSIVE);
-						    if($fc>0) {
-						     	for($b=0; $b<=$fc-2; $b++) {
-						     		echo$js .= '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
-						      }
-						    }
-		    			}
-		    		}
-				}else{
-					$test='';
-				}
-		}else{
-				$test='';
-		}	
-
-		if ($head_section_activated== '1'){
-
-				$dx=mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE position='head_section_widget'"));
-				if(@$dx['position'] == 'head_section_widget'){
-					$test=$dx['modulname'];
-					#print_r($dx);
-					$pluginpath='includes/plugins/';
-					$js="\n";	
-		    	$query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND modulname = '".$test."'");
-		    	$pluginpath='includes/plugins/';
-		    		while($res=mysqli_fetch_array($query)) {
-							if($res['modulname'] == $test || $res == 1) {
-								if(is_dir($pluginpath.$test."/js/")) { $subf2 = "/js/"; } else { $subf2="/"; }
-					      $f = array();
-					      $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.js');
-						    $fc = count((array($f)), COUNT_RECURSIVE);
-						    if($fc>0) {
-						     	for($b=0; $b<=$fc-2; $b++) {
-						     		echo$js .= '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
-						      }
-						    }
-		    			}
-		    		}
-				}else{
-					$test='';
-				}
-		}else{
-				$test='';
+    $js="\n";
+		$query = safe_query("SELECT * FROM " . PREFIX . "plugins_".$getsite."_settings_widgets");
+		while($res=mysqli_fetch_array($query)) {
+		  if(is_dir($pluginpath.$res['modulname']."/css/")) { 
+		  	$subf1 = "/js/"; 
+		  } else { 
+		  	$subf1=""; 
+		  }
+		  $f = array();
+		  $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$res['modulname'].$subf1).'*.js');
+		  $fc = count((array($f)), COUNT_RECURSIVE);
+		  if($fc>0) {
+		   	for($b=0; $b<=$fc-2; $b++) {
+		     	$js .= '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D).chr(0x0A);
+		   	}
+			}
 		}		
-		    		
-		/*if ($foot_section_activated== '1'){
+	  return $js;
+  }
 
-				$dx=mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE position='foot_section_widget'"));
-				if(@$dx['position'] == 'foot_section_widget'){
-					$test=$dx['modulname'];
-					#print_r($dx);
-					$pluginpath='includes/plugins/';
-					$js="\n";	
-		    	$query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND modulname = '".$test."'");
-		    	$pluginpath='includes/plugins/';
-		    		while($res=mysqli_fetch_array($query)) {
-							if($res['modulname'] == $test || $res == 1) {
-								if(is_dir($pluginpath.$test."/js/")) { $subf2 = "/js/"; } else { $subf2="/"; }
-					      $f = array();
-					      $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.js');
-						    $fc = count((array($f)), COUNT_RECURSIVE);
-						    if($fc>0) {
-						     	for($b=0; $b<=$fc-2; $b++) {
-						     		echo$js .= '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
-						      }
-						    }
-		    			}
-		    		}
-				}else{
-					$test='';
-				}
-		}else{
-				$test='';
-		}*/
-
-		if ($foot_section_activated== '1'){
-
-				
-				$js="\n";	
-		    $query=safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE themes_modulname = '$gettemp'");
-				while($dx=mysqli_fetch_array($query)) {
-
-					if(@$dx['position'] == 'foot_section_widget'){
-					$test=$dx['modulname'];
-					print_r($dx);
-					$pluginpath='includes/plugins/';
-					#echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$pluginpath.$test.'/css/'.$test.'.css" />'.chr(0x0D);
-					if(is_dir($pluginpath.$test."/js/")) { $subf2 = "/js/"; } else { $subf2="/"; }
-						    $f = array();
-						    $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.js');
-						    $fc = count((array($f)), COUNT_RECURSIVE);
-						    if($fc>0) {
-						     	for($b=0; $b<=$fc-2; $b++) {
-						     		echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
-						      }
-						    }
-
-					}
-		    		
-				}
-				
-		}
-
-		if ($content_head_activated== '1'){
-
-				$dx=mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE position='center_head_widget'"));
-				if(@$dx['position'] == 'center_head_widget'){
-					$test=$dx['modulname'];
-					#print_r($dx);
-					$pluginpath='includes/plugins/';
-					$js="\n";	
-		    	$query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND modulname = '".$test."'");
-		    	$pluginpath='includes/plugins/';
-		    		while($res=mysqli_fetch_array($query)) {
-							if($res['modulname'] == $test || $res == 1) {
-								if(is_dir($pluginpath.$test."/js/")) { $subf2 = "/js/"; } else { $subf2="/"; }
-					      $f = array();
-					      $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.js');
-						    $fc = count((array($f)), COUNT_RECURSIVE);
-						    if($fc>0) {
-						     	for($b=0; $b<=$fc-2; $b++) {
-						     		echo$js .= '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
-						      }
-						    }
-		    			}
-		    		}
-				}else{
-					$test='';
-				}
-		}else{
-				$test='';
-		}		
-
-		if ($content_foot_activated== '1'){
-
-				$dx=mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE position='center_footer_widget'"));
-				if(@$dx['position'] == 'center_footer_widget'){
-					$test=$dx['modulname'];
-					#print_r($dx);
-					$pluginpath='includes/plugins/';
-					$js="\n";	
-		    	$query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND modulname = '".$test."'");
-		    	$pluginpath='includes/plugins/';
-		    		while($res=mysqli_fetch_array($query)) {
-							if($res['modulname'] == $test || $res == 1) {
-								if(is_dir($pluginpath.$test."/js/")) { $subf2 = "/js/"; } else { $subf2="/"; }
-					      $f = array();
-					      $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$test.$subf2).'*.js');
-						    $fc = count((array($f)), COUNT_RECURSIVE);
-						    if($fc>0) {
-						     	for($b=0; $b<=$fc-2; $b++) {
-						     		echo$js .= '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D);
-						      }
-						    }
-		    			}
-		    		}
-				}else{
-					$test='';
-				}
-		}else{
-				$test='';
-		}		
-
-		
-	}		
 
 
 
@@ -984,555 +498,13 @@ $dm=mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_module W
 		}
 	}
 
-#######################################################################################################################################
-
-// Löscht in der Mysqli Datenbank eine Definierte Tabelle
-function table_exist($table){ 
-  safe_query("DROP TABLE IF EXISTS`" . PREFIX . "$table`");   // Tabelle Löschen
-} 
-
-
-// Loescht in der Mysqli Datenbank eine Definierte Spalte
-function DeleteData($name,$where,$data) {
-  if (mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "$name` WHERE $where='".$data."'")) >= 1 ) { 
-    safe_query("DELETE FROM `" . PREFIX . "$name` WHERE $where = '$data'");    // Tabelle Loeschen
-  } else {
-    #echo "Keine Spalte vorhanden mit den Namen $name."; // Meldung soll nicht angezeigt werden
-    echo "";
-  }
-}
-
-// Loescht in der Mysqli Datenbank eine Definierte Spalte
-function DeleteThemeData($name,$where,$data,$theme,$themedate) {
-  if (mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "$name` WHERE $where='".$data."' AND $theme='".$themedate."'")) >= 1 ) { 
-    safe_query("DELETE FROM `" . PREFIX . "$name` WHERE $where = '$data' AND $theme='$themedate'");    // Tabelle Loeschen
-  } else {
-    #echo "Keine Spalte vorhanden mit den Namen $name."; // Meldung soll nicht angezeigt werden
-    echo "";
-  }
-}
-
-// Loescht die Mysqli Datenbank xyz
-function DeleteTable($table) {
-  global $_database;
-	if (safe_query("DROP TABLE IF EXISTS`" . PREFIX . "$table`")) {
-	  //echo "<div class='alert alert-success'>String ausgef&uuml;hrt! <br />";
-	  //return true;
-	} else {
-	  echo "<div class='alert alert-danger'>String failed <br />";
-	  echo "String ausf&uuml;hren fehlgeschlagen!<br /></div>";
-	  return "<pre>DROP TABLE IF EXISTS `" . PREFIX . "".$table."</pre>";
-	  //return 'false';
-	}
-}
-
-// Umbenennen der Mysqli Datenbank muss weiter getestet werden
-
-
-// Umbenennen der Mysqli Datenbank muss weiter getestet werden END
-
-# Einträge in Datenbank settings_module
-function get_add_module_install () {
-
-		global $userID, $_database,$add_module_install, $str, $modulname, $head_activated, $content_head_activated, $content_foot_activated, $head_section_activated, $foot_section_activated, $modul_display, $full_activated, $plugin_settings, $plugin_module, $plugin_widget, $widget1, $widget2, $widget3;
-
-		add_module_install($add_module_install = "INSERT IGNORE INTO `".PREFIX."settings_module` (`pluginID`, `name`, `modulname`, `themes_modulname`, `activate`, `sidebar`, `head_activated`, `content_head_activated`, `content_foot_activated`, `head_section_activated`, `foot_section_activated`, `modul_display`, `full_activated`, `plugin_settings`, `plugin_module`, `plugin_widget`, `widget1`, `widget2`, `widget3`) VALUES ('', '$str', '$modulname', 'default', '1', 'activated', '$head_activated', '$content_head_activated', '$content_foot_activated', '$head_section_activated', '$foot_section_activated', '$modul_display', '$full_activated', '$plugin_settings', '$plugin_module', '$plugin_widget', '$widget1', '$widget2', '$widget3')");
-
-}
-function add_module_install() {
-    global $_database,$add_module_install,$str,$themes_modulname,$modulname;
-
-    		$translate = new multiLanguage(detectCurrentLanguage());
-        $translate->detectLanguages($str);
-        $str = $translate->getTextByLanguage($str);
-
-        if(mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "settings_module` WHERE modulname ='".$modulname."' AND themes_modulname ='".$themes_modulname."'"))>0) {
-                echo "<div class='alert alert-warning'><b>Moduleinträge:</b><br>".$str." Database entry already exists <br />";
-                echo "".$str." Datenbank Eintrag in <b>settings_module</b> Datenbank schon vorhanden <br />";
-				echo "".$str." La voce <b>settings_module</b> sono già presenti nel database<br /></div>";
-                echo "<hr>";
-        } else {
-            try {
-            if(mysqli_query($_database, $add_module_install)) { 
-                echo "<div class='alert alert-success'><b>Moduleinträge:</b><br>Entries for ".$str." have been successfully added to the <b>settings_module</b> database <br />";
-                echo "Einträge für ".$str." wurden der <b>settings_module</b> Datenbank erfolgreich hinzugef&uuml;gt<br />";
-				echo "Le voci relative a ".$str." sono state aggiunte con successo al database <b>settings_module</b><br /></div>";
-                echo "<hr>";
-            } else {
-                echo "<div class='alert alert-warning'>Database ".$str." entry already exists <br />";
-                echo "Datenbank ".$str." Eintrag in <b>settings_module</b> Datenbank schon vorhanden <br />";
-				echo "La voce ".$str." <b>settings_module</b> esiste già nel Database<br /></div>";
-                echo "<hr>";
-            }   
-        } CATCH (EXCEPTION $x) {
-                echo "<div class='alert alert-danger'><b>Moduleinträge:</b><br>Database ".$str." installation failed <br />";
-                echo "Send the following line to the support team:<br />";
-				echo "Invia la seguente riga al team di supporto:<br /><br /><br />";
-                echo "<pre>".$x->message()."</pre>      
-                      </div>";
-            }
-        }
-}
-
-# Einträge in Datenbank settings_themes
-function add_theme_install() {
-    global $_database,$add_theme_install,$str,$modulname;
-
-    		$translate = new multiLanguage(detectCurrentLanguage());
-        $translate->detectLanguages($str);
-        $str = $translate->getTextByLanguage($str);
-
-        if(mysqli_num_rows(safe_query("SELECT modulname FROM `" . PREFIX . "settings_themes` WHERE modulname ='".$modulname."'"))>0) {
-                echo "<div class='alert alert-warning'><b>Themeeinträge:</b><br>".$str." Database entry already exists <br />";
-                echo "".$str." Datenbank Eintrag schon vorhanden <br />";
-				echo "".$str." La voce esiste già nel database <br /></div>";
-                echo "<hr>";
-        } else {
-            try {
-            if(mysqli_query($_database, $add_theme_install)) { 
-                echo "<div class='alert alert-success'><b>Themeeinträge:</b><br>Entries for ".$str." have been successfully added to the <b>settings_themes</b> database <br />";
-                echo "Einträge für ".$str." wurden der <b>settings_themes</b> Datenbank erfolgreich hinzugef&uuml;gt<br />";
-				echo "Le voci per ".$str." sono stati aggiunti con successo al database <b>settings_themes</b><br /></div>";
-                echo "<hr>";
-            } else {
-                echo "<div class='alert alert-warning'>Database ".$str." entry already exists <br />";
-                echo "Datenbank ".$str." Eintrag schon vorhanden <br />";
-				echo "Database ".$str." La voce esiste già <br /></div>";
-                echo "<hr>";
-            }   
-        } CATCH (EXCEPTION $x) {
-                echo "<div class='alert alert-danger'><b>Themeeinträge:</b><br>Database ".$str." installation failed <br />";
-                echo "Send the following line to the support team:<br />";
-				echo "Invia la seguente riga al team di supporto:<br /><br /><br />";
-                echo "<pre>".$x->message()."</pre>      
-                      </div>";
-            }
-        }
-}
-
-# Einträge in Datenbank settings_buttons
-function add_button_install() {
-    global $_database,$add_button_install,$str,$modulname;
-
-    		$translate = new multiLanguage(detectCurrentLanguage());
-        $translate->detectLanguages($str);
-        $str = $translate->getTextByLanguage($str);
-
-        if(mysqli_num_rows(safe_query("SELECT modulname FROM `" . PREFIX . "settings_buttons` WHERE modulname ='".$modulname."'"))>0) {
-                echo "<div class='alert alert-warning'><b>Buttoneinträge:</b><br>".$str." Database entry already exists <br />";
-                echo "".$str." Datenbank Eintrag schon vorhanden <br />";
-				echo "".$str." La voce esiste già nel database <br /></div>";
-                echo "<hr>";
-        } else {
-            try {
-            if(mysqli_query($_database, $add_button_install)) { 
-                echo "<div class='alert alert-success'><b>Buttoneinträge:</b><br>Entries for ".$str." have been successfully added to the <b>settings_buttons</b> database <br />";
-                echo "Einträge für ".$str." wurden der <b>settings_buttons</b> Datenbank erfolgreich hinzugef&uuml;gt<br />";
-				echo "Le voci per ".$str." sono stati aggiunti con successo al database <b>settings_buttons</b><br /></div>";
-                echo "<hr>";
-            } else {
-                echo "<div class='alert alert-warning'>Database ".$str." entry already exists <br />";
-                echo "Datenbank ".$str." Eintrag schon vorhanden <br />";
-				echo "Database ".$str." La voce esiste già <br /></div>";
-                echo "<hr>";
-            }   
-        } CATCH (EXCEPTION $x) {
-                echo "<div class='alert alert-danger'><b>Buttoneinträge:</b><br>Database ".$str." installation failed <br />";
-                echo "Send the following line to the support team:<br />";
-				echo "Invia la seguente riga al team di supporto:<br /><br /><br />";
-                echo "<pre>".$x->message()."</pre>      
-                      </div>";
-            }
-        }
-} 
-
-# Einträge in Datenbank settings_widgets
-function add_widget_install() {
-    global $_database,$add_widget_install,$str,$themes_modulname;
-
-    		$translate = new multiLanguage(detectCurrentLanguage());
-        $translate->detectLanguages($str);
-        $str = $translate->getTextByLanguage($str);
-
-        if(mysqli_num_rows(safe_query("SELECT themes_modulname FROM `" . PREFIX . "settings_widgets` WHERE themes_modulname ='".$themes_modulname."'"))>0) {
-                echo "<div class='alert alert-warning'><b>Widgeteinträge:</b><br>".$str." Database entry already exists <br />";
-                echo "".$str." Datenbank Eintrag schon vorhanden <br />";
-				echo "".$str." La voce del database esiste già <br /></div>";
-                echo "<hr>";
-        } else {
-            try {
-            if(mysqli_query($_database, $add_widget_install)) { 
-                echo "<div class='alert alert-success'><b>Widgeteinträge:</b><br>Entries for ".$str." have been successfully added to the <b>settings_widgets</b> database <br />";
-                echo "Einträge für ".$str." wurden der <b>settings_widgets</b> Datenbank erfolgreich hinzugef&uuml;gt<br />";
-				echo "Le voci per ".$str." sono stati aggiunti con successo al database <b>settings_widget</b><br /></div>";
-                echo "<hr>";
-            } else {
-                echo "<div class='alert alert-warning'>Database ".$str." entry already exists <br />";
-                echo "Datenbank ".$str." Eintrag schon vorhanden <br />";
-				echo "Database ".$str." La voce esiste già <br /></div>";
-                echo "<hr>";
-            }   
-        } CATCH (EXCEPTION $x) {
-                echo "<div class='alert alert-danger'><b>Widgeteinträge:</b><br>Database ".$str." installation failed <br />";
-                echo "Send the following line to the support team:<br />";
-				echo "Invia la seguente riga al team di supporto:<br /><br /><br />";
-                echo "<pre>".$x->message()."</pre>      
-                      </div>";
-            }
-        }
-}  
-
-# Einträge in Datenbank
-function add_database_insert() {
-    global $_database,$add_database_insert,$str,$modulname,$version;
-
-    		$translate = new multiLanguage(detectCurrentLanguage());
-        $translate->detectLanguages($str);
-        $str = $translate->getTextByLanguage($str);
-
-        if(mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE modulname ='".$modulname."' AND version = '".$version."'"))>0) {
-                echo "<div class='alert alert-warning'><b>Datenbankeinträge:</b><br><b>Database ".$str.":</b><br>".$str." Database entry already exists <br />";
-                echo "Alle Einträge für die ".$str." Datenbank schon vorhanden <br />";
-				echo "Tutte le voci per il database ".$str." esistono già <br /></div>";
-                echo "<hr>";
-        } else {
-            try {
-            if(mysqli_query($_database, $add_database_insert)) { 
-                echo "<div class='alert alert-success'><b>Datenbankeinträge:</b><br>All entries for the plugin ".$str." have been successfully added to the database <br />";
-                echo "Alle Einträge für das Plugin ".$str." wurden der Datenbank erfolgreich hinzugef&uuml;gt <br />";
-				echo "Tutte le voci per il plugin ".$str." sono state aggiunte con successo al database <br /></div>";
-                echo "<hr>";
-            } else {
-                echo "<div class='alert alert-warning'><b>Datenbankeinträge:</b><br>All entries for the plugin ".$str." already available <br />";
-                echo "Alle Einträge für das Plugin ".$str." schon vorhanden <br />";
-				echo "Tutte le voci per il plugin ".$str." esistono già <br /></div>";
-                echo "<hr>";
-            }   
-        } CATCH (EXCEPTION $x) {
-                echo "<div class='alert alert-danger'><b>Datenbankeinträge:</b><br>Database ".$str." installation failed <br />";
-                echo "Send the following line to the support team:<br />";
-				echo "Invia la seguente riga al team di supporto:<br /><br /><br />";
-                echo "<pre>".$x->message()."</pre>      
-                      </div>";
-            }
-        }
-}
-
-# Einträge in Datenbank
-function add_database_install() {
-    global $_database,$add_database_install,$str,$modulname,$version;
-
-    		$translate = new multiLanguage(detectCurrentLanguage());
-        $translate->detectLanguages($str);
-        $str = $translate->getTextByLanguage($str);
-
-        if(mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE modulname ='".$modulname."' AND version = '".$version."'"))>0) {
-                echo "<div class='alert alert-warning'><b>Database ".$str.":</b><br>".$str." Database entry already exists <br />";
-                echo "".$str." Datenbank Eintrag schon vorhanden <br />";
-				echo "".$str." La voce del database esiste già <br /></div>";
-                echo "<hr>";
-        } else {
-            try {
-            if(mysqli_query($_database, $add_database_install)) { 
-                echo "<div class='alert alert-success'><b>Database ".$str.":</b><br>All database entries for the plugin ".$str." have been successfully installed <br />";
-                echo "Alle Datenbankeinträge für das Plugin ".$str." wurden  erfolgreich installiert <br />";
-				echo "Tutte le voci del database per il plugin ".$str." sono state installate con successo <br /></div>";
-                echo "<hr>";
-            } else {
-                echo "<div class='alert alert-warning'><b>Database ".$str.":</b><br>Database ".$str." entry already exists <br />";
-                echo "Datenbank ".$str." Eintrag schon vorhanden <br />";
-				echo "Database ".$str." La voce esiste già <br /></div>";
-                echo "<hr>";
-            }   
-        } CATCH (EXCEPTION $x) {
-                echo "<div class='alert alert-danger'><b>Database ".$str.":</b><br>Database ".$str." installation failed <br />";
-                echo "Send the following line to the support team:<br />";
-				echo "Invia la seguente riga al team di supporto:<br /><br /><br />";
-                echo "<pre>".$x->message()."</pre>      
-                      </div>";
-            }
-        }
-}
-
-# Add to Plugin-Manager
-function get_add_plugin_manager () {
-
-  	global $userID, $_database, $str, $modulname, $add_plugin_manager, $info, $admin_file, $activate, $author, $website, $index_link, $hiddenfiles, $version, $path, $widgetname1, $widgetname2, $widgetname3, $widget_link1, $widget_link2, $widget_link3, $modul_display;
-
-		add_plugin_manager($add_plugin_manager = "INSERT IGNORE INTO `".PREFIX."settings_plugins` (`pluginID`, `name`, `modulname`, `info`, `admin_file`, `activate`, `author`, `website`, `index_link`, `hiddenfiles`, `version`, `path`, `widgetname1`, `widgetname2`, `widgetname3`, `widget_link1`, `widget_link2`, `widget_link3`, `modul_display`) VALUES ('', '$str', '$modulname', '$info', '$admin_file', '$activate', '$author', '$website', '$index_link', '$hiddenfiles', '$version', '$path', '$widgetname1', '$widgetname2', '$widgetname3', '$widget_link1', '$widget_link2', '$widget_link3', '$modul_display')");
-}
-
-function add_plugin_manager() {
-    global $_database,$add_plugin_manager,$str,$modulname,$version;
-
-    		$translate = new multiLanguage(detectCurrentLanguage());
-        $translate->detectLanguages($str);
-        $str = $translate->getTextByLanguage($str);
-
-        if(mysqli_num_rows(safe_query("SELECT modulname,version FROM `" . PREFIX . "settings_plugins` WHERE modulname ='".$modulname."' AND version = '".$version."'"))>0) {
-                    echo "<div class='alert alert-warning'><b>Plugin Manager:</b><br>".$str." Plugin Manager entry already exists <br />";
-                    echo "".$str." Plugin Manager Eintrag schon vorhanden <br />";
-					echo "".$str." La voce Plugin Manager esiste già <br /></div>";
-                    echo "<hr>";
-        } else {
-            try {
-                if(safe_query($add_plugin_manager)) { 
-                    echo "<div class='alert alert-success'><b>Plugin Manager:</b><br>".$str." added to the plugin manager <br />";
-                    echo "".$str." wurde dem Plugin Manager hinzugef&uuml;gt <br />";
-					echo "".$str." è stato aggiunto al Gestore dei Plugin <br />";
-                    echo "<a href = '/admin/admincenter.php?site=plugin_manager' target='_blank'><b>LINK => Plugin Manager</b></a></div>";
-                } else {
-                    echo "<div class='alert alert-danger'><b>Plugin Manager:</b><br>Add to plugin manager failed <br />";
-                    echo "Zum Plugin Manager hinzuf&uuml;gen fehlgeschlagen <br />";
-					echo "Aggiunta al Plugin Manager non riuscita <br /></div>";
-                }   
-            } CATCH (EXCEPTION $x) {
-                    echo "<div class='alert alert-danger'><b>Plugin Manager:</b><br>".$str." installation failed <br />";
-                    echo "Send the following line to the support team:<br />";
-					echo "Invia la seguente riga al team di supporto:<br /><br /><br />";
-                    echo "<pre>".$x->message()."</pre>      
-                          </div>";
-            }
-        }
-}
-
-# Add to Plugin-Manager (wenn ein Plugin zwei Einträge benötigt)
-function add_plugin_manager_two() {
-    global $_database,$add_plugin_manager_two,$str_two,$modulname_two,$version;
-
-    		$translate = new multiLanguage(detectCurrentLanguage());
-        $translate->detectLanguages($str_two);
-        $str = $translate->getTextByLanguage($str_two);
-
-        if(mysqli_num_rows(safe_query("SELECT modulname,version FROM `" . PREFIX . "settings_plugins` WHERE modulname ='".$modulname_two."' AND version = '".$version."'"))>0) {
-                    echo "<div class='alert alert-warning'><b>Plugin Manager:</b><br>".$str." Plugin Manager entry already exists <br />";
-                    echo "".$str." Plugin Manager Eintrag schon vorhanden <br />";
-					echo "".$str_two." La voce Plugin Manager esiste già <br /></div>";
-                    echo "<hr>";
-        } else {
-            try {
-                if(safe_query($add_plugin_manager_two)) { 
-                    echo "<div class='alert alert-success'><b>Plugin Manager:</b><br>".$str." added to the plugin manager <br />";
-                    echo "".$str_two." wurde dem Plugin Manager hinzugef&uuml;gt <br />";
-					echo "".$str_two." è stato aggiunto al Gestore dei Plugin <br />";
-                    echo "<a href = '/admin/admincenter.php?site=plugin_manager' target='_blank'><b>LINK => Plugin Manager</b></a></div>";
-                } else {
-                    echo "<div class='alert alert-danger'><b>Plugin Manager:</b><br>Add to plugin manager failed <br />";
-                    echo "Zum Plugin Manager hinzuf&uuml;gen fehlgeschlagen <br />";
-					echo "Aggiunta al Plugin Manager non riuscita <br /></div>";
-                }   
-            } CATCH (EXCEPTION $x) {
-                    echo "<div class='alert alert-danger'><b>Plugin Manager:</b><br>".$str." installation failed <br />";
-                    echo "Send the following line to the support team:<br />";
-					echo "Invia la seguente riga al team di supporto:<br /><br /><br />";
-                    echo "<pre>".$x->message()."</pre>      
-                          </div>";
-            }
-        }
-}
-
-# Einträge in Datenbank navigation_website_sub
-function get_add_navigation () {
-
-		global $userID, $_database, $mnavID, $navi_name, $modulname, $add_navigation, $navi_link, $themes_modulname, $navi_cat_name;
-
-		if ($mnavID=="1"){
-		  $navi_cat_name = "{[de]}HAUPT{[en]}MAIN{[it]}PRINCIPALE";
-		  $sort = '1';
-		}elseif ($mnavID=="2"){
-		  $navi_cat_name = "{[de]}TEAM{[en]}TEAM{[it]}TEAM";
-		  $sort = '2';
-		}elseif ($mnavID=="3"){
-		  $navi_cat_name = "{[de]}GEMEINSCHAFT{[en]}COMMUNITY{[it]}COMMUNITY";
-		  $sort = '3';
-		}elseif ($mnavID=="4"){
-		  $navi_cat_name = "{[de]}MEDIEN{[en]}MEDIA{[it]}MEDIA";
-		  $sort = '4';
-		}elseif ($mnavID=="5"){
-		  $navi_cat_name = "{[de]}SOCIAL{[en]}SOCIAL[it]}SOCIAL";
-		  $sort = '5';  
-		}elseif ($mnavID=="6"){
-		  $navi_cat_name = "{[de]}SONSTIGES{[en]}MISCELLANEOUS[it]}VARIE";
-		  $sort = '6';
-		}else{
-		  $navi_cat_name = "mistake";
-		  $sort = '7';
-		}
-
-		$dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "navigation_website_main WHERE mnavID=$mnavID"));
-		if (@$dx[ 'mnavID' ] != $mnavID) {
-		add_navigation($add_navigation = "INSERT INTO `".PREFIX."navigation_website_main` (`mnavID`, `name`, `url`, `default`, `sort`, `isdropdown`, `windows`) VALUES
-		($mnavID, '$navi_cat_name', '#', 1, '$sort', 1, 1)");
-
-		add_navigation($add_navigation = "INSERT IGNORE INTO `".PREFIX."navigation_website_sub` (`mnavID`, `name`, `modulname`, `url`, `sort`, `indropdown`, `themes_modulname`) 
-		          VALUES ('$mnavID','$navi_name', '$modulname', 'index.php?site=$navi_link', '1', '1', '$themes_modulname')");
-
-		} else {
-
-		add_navigation($add_navigation = "INSERT IGNORE INTO `".PREFIX."navigation_website_sub` (`mnavID`, `name`, `modulname`, `url`, `sort`, `indropdown`, `themes_modulname`) 
-		          VALUES ('$mnavID','$navi_name', '$modulname', 'index.php?site=$navi_link', '1', '1', '$themes_modulname')");
-		}
-}
-
-function add_navigation() {
-    global $_database,$add_navigation,$navi_link,$str,$modulname,$themes_modulname;
-
-    		$translate = new multiLanguage(detectCurrentLanguage());
-        $translate->detectLanguages($str);
-        $str = $translate->getTextByLanguage($str);
-
-        if(mysqli_num_rows(safe_query("SELECT * FROM `".PREFIX."navigation_website_sub` WHERE modulname ='".$modulname."' AND themes_modulname ='".$themes_modulname."'"))>0) {
-                    echo "<div class='alert alert-warning'><b>Website Navigation:</b><br>".$str." Navigation entry already exists <br />";
-                    echo "".$str." Navigationseintrag schon vorhanden <br />";
-					echo "".$str." La voce di navigazione esiste già <br /></div>";
-                    
-        } else {
-            try {
-                if(safe_query($add_navigation)) { 
-                    echo "<div class='alert alert-success'><b>Website Navigation:</b><br>".$str." added to the Website Navigation <br />";
-                    echo "".$str." wurde der Website Navigation hinzugef&uuml;gt <br />";
-					echo "".$str." è stato aggiunto alla navigazione del sito <br />";
-                    echo "<a href = '/admin/admincenter.php?site=webside_navigation' target='_blank'><b>LINK => Website Navigation</b></a></div>";
-                } else {
-                    echo "<div class='alert alert-danger'><b>Website Navigation:</b><br>Add to Website Navigation failed <br />";
-                    echo "Zur Website Navigation hinzuf&uuml;gen fehlgeschlagen<br />";
-					echo "Aggiunta alla navigazione del sito non riuscita<br /></div>";
-                }   
-            } CATCH (EXCEPTION $x) {
-                    echo "<div class='alert alert-danger'><b>Website Navigation:</b><br>".$str." installation failed <br />";
-                    echo "Send the following line to the support team:<br />";
-					echo "Invia la seguente riga al team di supporto:<br /><br /><br />";
-                    echo "<pre>".$x->message()."</pre>      
-                          </div>";
-            }
-        }
-}
-
-function get_add_two_navigation () {
-
-		global $userID, $_database, $mnavID, $add_two_navigation,$two_navi_link,$str,$two_modulname,$themes_modulname,$two_navi_name,$modulname;
-
-		if ($mnavID=="1"){
-		  $navi_cat_name = "{[de]}HAUPT{[en]}MAIN{[it]}PRINCIPALE";
-		  $sort = '1';
-		}elseif ($mnavID=="2"){
-		  $navi_cat_name = "{[de]}TEAM{[en]}TEAM{[it]}TEAM";
-		  $sort = '2';
-		}elseif ($mnavID=="3"){
-		  $navi_cat_name = "{[de]}GEMEINSCHAFT{[en]}COMMUNITY{[it]}COMMUNITY";
-		  $sort = '3';
-		}elseif ($mnavID=="4"){
-		  $navi_cat_name = "{[de]}MEDIEN{[en]}MEDIA{[it]}MEDIA";
-		  $sort = '4';
-		}elseif ($mnavID=="5"){
-		  $navi_cat_name = "{[de]}SOCIAL{[en]}SOCIAL[it]}SOCIAL";
-		  $sort = '5';  
-		}elseif ($mnavID=="6"){
-		  $navi_cat_name = "{[de]}SONSTIGES{[en]}MISCELLANEOUS[it]}VARIE";
-		  $sort = '6';
-		}else{
-		  $navi_cat_name = "mistake";
-		  $sort = '7';
-		}
-
-		$dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "navigation_website_main WHERE mnavID=$mnavID"));
-		if (@$dx[ 'mnavID' ] != $mnavID) {
-		add_navigation($add_navigation = "INSERT INTO `".PREFIX."navigation_website_main` (`mnavID`, `name`, `url`, `default`, `sort`, `isdropdown`, `windows`) VALUES
-		($mnavID, '$navi_cat_name', '#', 1, '$sort', 1, 1)");
-
-		add_navigation($add_navigation = "INSERT IGNORE INTO `".PREFIX."navigation_website_sub` (`mnavID`, `name`, `modulname`, `url`, `sort`, `indropdown`, `themes_modulname`) 
-          VALUES ('1','$two_navi_name', '$two_modulname', 'index.php?site=$two_navi_link', '1', '1', '$themes_modulname')");
-
-		} else {
-
-		add_navigation($add_navigation = "INSERT IGNORE INTO `".PREFIX."navigation_website_sub` (`mnavID`, `name`, `modulname`, `url`, `sort`, `indropdown`, `themes_modulname`) 
-          VALUES ('1','$two_navi_name', '$two_modulname', 'index.php?site=$two_navi_link', '1', '1', '$themes_modulname')");
-		}
-}
-
-function add_two_navigation() {
-    global $_database,$add_two_navigation,$two_navi_link,$str,$two_modulname,$themes_modulname,$two_navi_name,$modulname;
-
-    		$translate = new multiLanguage(detectCurrentLanguage());
-        $translate->detectLanguages($str);
-        $str = $translate->getTextByLanguage($str);
-
-        if(mysqli_num_rows(safe_query("SELECT * FROM `".PREFIX."navigation_website_sub` WHERE modulname ='".$two_modulname."' AND themes_modulname ='".$themes_modulname."'"))>0) {
-                    echo "<div class='alert alert-warning'><b>Website Navigation 2:</b><br>".$str." Navigation entry already exists <br />";
-                    echo "".$str." Navigationseintrag schon vorhanden <br />";
-					echo "".$str." La voce di navigazione esiste già <br /></div>";
-                    
-        } else {
-            try {
-                if(safe_query($add_two_navigation)) { 
-                    echo "<div class='alert alert-success'><b>Website Navigation 2:</b><br>".$str." added to the Website Navigation <br />";
-                    echo "".$str." wurde der Website Navigation hinzugef&uuml;gt <br />";
-					echo "".$str." è stato aggiunto alla Barra di Navigazione del sito <br />";
-                    echo "<a href = '/admin/admincenter.php?site=webside_navigation' target='_blank'><b>LINK => Website Navigation</b></a></div>";
-                } else {
-                    echo "<div class='alert alert-danger'><b>Website Navigation 2:</b><br>Add to Website Navigation failed <br />";
-                    echo "Zur Website Navigation hinzuf&uuml;gen fehlgeschlagen<br />";
-					echo "Aggiunta alla Barra di Navigazione del sito non riuscita<br /></div>";
-                }   
-            } CATCH (EXCEPTION $x) {
-                    echo "<div class='alert alert-danger'><b>Website Navigation 2:</b><br>".$str." installation failed <br />";
-                    echo "Send the following line to the support team:<br />";
-					echo "Invia la seguente riga al team di supporto:<br /><br /><br />";
-                    echo "<pre>".$x->message()."</pre>      
-                          </div>";
-            }
-        }
-}
-# Einträge in Datenbank navigation_dashboard_links
-function get_add_dashboard_navigation () {
-
-		global $userID, $_database, $catID, $navi_name, $modulname, $add_dashboard_navigation, $dashnavi_link;
-
-		add_dashboard_navigation($add_dashboard_navigation = "INSERT INTO `".PREFIX."navigation_dashboard_links` (`catID`, `name`, `modulname`, `url`, `accesslevel`, `sort`) 
-		          VALUES ('$catID','$navi_name', '$modulname', 'admincenter.php?site=$dashnavi_link', 'page', '1')");
-}
-
-# Einträge in Datenbank navigation_dashboard_links
-function add_dashboard_navigation() {
-       global $_database,$add_dashboard_navigation,$dashnavi_link,$str,$modulname;
-
-       	$translate = new multiLanguage(detectCurrentLanguage());
-        $translate->detectLanguages($str);
-        $str = $translate->getTextByLanguage($str);
-
-        if(mysqli_num_rows(safe_query("SELECT * FROM `".PREFIX."navigation_dashboard_links` WHERE modulname ='".$modulname."'"))>0) {
-                    echo "<div class='alert alert-warning'><b>Dashboard Navigation:</b><br>".$str." Dashboard Navigation entry already exists <br />";
-                    echo "".$str." Dashboard Navigationseintrag schon vorhanden <br />";
-					echo "".$str." La voce di Navigazione della Dashboard esiste già <br /></div>";
-                    
-        } else {
-            try {
-                if(safe_query($add_dashboard_navigation)) { 
-                    echo "<div class='alert alert-success'><b>Dashboard Navigation:</b><br>".$str." added to the Dashboard Navigation <br />";
-                    echo "".$str." wurde der Dashboard Navigation hinzugef&uuml;gt <br />";
-					echo "".$str." è stato aggiunto alla Navigazione della Dashboard <br />";
-                    echo "<a href = '/admin/admincenter.php?site=dashboard_navigation' target='_blank'><b>LINK => Dashboard Navigation</b></a></div>";
-                } else {
-                    echo "<div class='alert alert-danger'><b>Dashboard Navigation:</b><br>Add to Dashboard Navigation failed <br />";
-                    echo "Zur Dashboard Navigation hinzuf&uuml;gen fehlgeschlagen<br />";
-					echo "Aggiunta alla Navigazione della Dashboard non riuscita<br /></div>";
-                }   
-            } CATCH (EXCEPTION $x) {
-                    echo "<div class='alert alert-danger'><b>Dashboard Navigation:</b><br>".$str." installation failed <br />";
-                    echo "Send the following line to the support team:<br />";
-					echo "Invia la seguente riga al team di supporto:<br /><br /><br />";
-                    echo "<pre>".$x->message()."</pre>      
-                          </div>";
-            }
-        }
-}
 
 /*Plugins manuell einbinden 
 get_widget('about_us','plugin_widget1'); #für das erste Plugin
 get_widget('about_us','plugin_widget2'); #für das zweite Plugin
 get_widget('about_us','plugin_widget3'); #für das dritte Plugin
 */
-function get_widget($modulname, $widgetnummer) {
+function get_widget($modulname, $widgetnumber) {
   $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='".$modulname."'"));
   if (@$dx[ 'modulname' ] != $modulname) {
     $test = '';
@@ -1542,7 +514,7 @@ function get_widget($modulname, $widgetnummer) {
               if($data_array) { 
             		$plugin = new plugin_manager();
             		$plugin->set_debug(DEBUG);
-            		echo $plugin->$widgetnummer($data_array['pluginID']);
+            		echo $plugin->$widgetnumber($data_array['pluginID']);
           		}                    
   };
 }

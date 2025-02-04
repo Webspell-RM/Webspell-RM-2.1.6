@@ -97,13 +97,14 @@ if(isset($_GET['deinstall'] )== 'plugin') {
   $dir = $_GET['dir'];
   $name = $_GET['modulname'];
   // Name Tabelle | Where Klause | ID name
-  DeleteData("settings_themes","modulname",$name);
-  DeleteData("settings_module","themes_modulname",$name);
-  DeleteData("settings_widgets","themes_modulname",$name);
-  DeleteData("settings_buttons","modulname",$name);
-  DeleteData("navigation_website_sub","themes_modulname",$name);
-  recursiveRemoveDirectory('../includes/themes'. $dir);
-  safe_query("UPDATE `".PREFIX."settings_themes` SET active = 1 WHERE modulname = 'default'");   
+  #DeleteData("settings_widgets","themes_modulname",$dir);
+  DeleteData("settings_buttons","modulname",$dir);
+  DeleteData("settings_expansion","modulname",$dir);
+  #DeleteData("settings_themes","modulname",$dir);
+  #DeleteData("settings_module","themes_modulname",$dir);
+  #DeleteData("navigation_website_sub","themes_modulname",$dir);
+  recursiveRemoveDirectory('../includes/expansion'. $dir);
+  safe_query("UPDATE `".PREFIX."settings_expansion` SET active = 1 WHERE modulname = 'default'");   
   header('Location: ?site=template_installer');
   exit;
 
@@ -135,9 +136,18 @@ if(isset($_GET['deinstall'] )== 'plugin') {
       </nav>
 
     <div class="card-body">';
+
   $dir = $_GET['dir'];
   $dir = str_replace('/','',$dir);
   $id = $_GET['id'];
+  #$name = $_GET['modulname'];
+  // Name Tabelle | Where Klause | ID name
+  #DeleteData("settings_widgets","themes_modulname",$dir);
+  DeleteData("settings_buttons","modulname",$dir);
+  DeleteData("settings_expansion","modulname",$dir);
+  #DeleteData("settings_themes","modulname",$dir);
+  #DeleteData("settings_module","themes_modulname",$dir);
+  #DeleteData("navigation_website_sub","themes_modulname",$dir);
   echo rmmodinstall('temp','install',$dir,$id,$getversion);
   echo'</div></div>';
 } elseif(!empty($_GET['re'])) {
@@ -157,11 +167,12 @@ if(isset($_GET['deinstall'] )== 'plugin') {
   $dir = $_GET['dir'];
   $dir = str_replace('/','',$dir);
   ############ Plugin und Modul Einstellung ###############
-  DeleteData("settings_widgets","themes_modulname",$dir);
+  #DeleteData("settings_widgets","themes_modulname",$dir);
   DeleteData("settings_buttons","modulname",$dir);
-  DeleteData("settings_themes","modulname",$dir);
-  DeleteData("settings_module","themes_modulname",$dir);
-  DeleteData("navigation_website_sub","themes_modulname",$dir);
+  DeleteData("settings_expansion","modulname",$dir);
+  #DeleteData("settings_themes","modulname",$dir);
+  #DeleteData("settings_module","themes_modulname",$dir);
+  #DeleteData("navigation_website_sub","themes_modulname",$dir);
   
   $id = $_GET['id'];
   echo rmmodinstall('temp','install',$dir,$id,$getversion);
@@ -224,11 +235,12 @@ else {
             $translate = new multiLanguage(detectCurrentLanguage());
             $translate->detectLanguages($result['item'.$plug]['plus_plugin']);
             $result['item'.$plug]['plus_plugin'] = $translate->getTextByLanguage($result['item'.$plug]['plus_plugin']);
-            $ergebnis = safe_query("SELECT * FROM `".PREFIX."settings_themes` WHERE `modulname`='".$result['item'.$plug]['modulname']."'");
+            $ergebnis = safe_query("SELECT * FROM `".PREFIX."settings_expansion` WHERE `modulname`='".$result['item'.$plug]['modulname']."'");
             if(mysqli_num_rows($ergebnis) == '1') {
               $row = mysqli_fetch_assoc($ergebnis);
                 if($row['version'] !== ''){
                   $installedversion = $row['version'];
+                  print_r($row['version']);
                 }
             }else{
               $installedversion = '<span class="badge text-bg-info">' . $_language->module['not_installed'] . '</span>';
@@ -262,7 +274,7 @@ else {
                       ' . $_language->module[ 'language' ]. ': '.$result['item'.$plug]['languages'].'</td>';
 
       include("../system/version.php");
-      if(is_dir("../includes/themes/".$result['item'.$plug]['path'])) {
+      if(is_dir("../includes/expansion/".$result['item'.$plug]['path'])) {
         $output .= '<td>';
           if($result['item'.$plug.'']['version_final'] === $installedversion) { 
               $output .='<a class="btn btn-success mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_3' ]. ' " style="width: 170px" href="?site=template_installer&re=install&id='.$plug.'&dir='.$result['item'.$plug]['path'].'">' . $_language->module['reinstall'] . '</a>

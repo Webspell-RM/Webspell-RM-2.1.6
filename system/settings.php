@@ -287,7 +287,7 @@ function systeminc($file) {
 
 // -- GLOBAL SETTINGS -- //
 $headlines = '';
-$dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE active = '1'"));
+$dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_expansion WHERE active = '1'"));
 @$font_family = $dx[ 'body1' ];
 @$headlines = $dx['headlines'];
 

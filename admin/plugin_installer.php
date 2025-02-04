@@ -119,6 +119,8 @@ if(isset($_GET['deinstall'] )== 'plugin') {
   DeleteData("navigation_website_sub","modulname",$dir);
   DeleteData("navigation_dashboard_links","modulname",$dir);
   DeleteData("settings_plugins","modulname",$dir);
+  DeleteData("settings_plugins_widget","modulname",$dir);
+  DeleteData("settings_widgets","modulname",$dir);
   $id = $_GET['id'];
   echo rmmodinstall('plugin','install',$dir,$id,$getversion);
   echo'</div></div>';
@@ -139,9 +141,12 @@ if(isset($_GET['deinstall'] )== 'plugin') {
   $dir = str_replace('/','',$dir);
   ############ Plugin und Modul Einstellung ###############
   DeleteData("settings_module","modulname",$dir);
+  DeleteData("settings_modul_widget_section","modulname",$dir);
   DeleteData("navigation_website_sub","modulname",$dir);
   DeleteData("navigation_dashboard_links","modulname",$dir);
   DeleteData("settings_plugins","modulname",$dir);
+  DeleteData("settings_plugins_widget","modulname",$dir);
+  DeleteData("settings_widgets","modulname",$dir);
   $id = $_GET['id'];
   echo rmmodinstall('plugin','install',$dir,$id,$getversion);
   echo'</div></div>'; 

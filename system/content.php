@@ -40,127 +40,6 @@ function get_sitetitle() {
     }
 }
 
-#function hide / r / l Spalte, head, foot, content_head und content foot
-function get_hide () { 
-    global $hide, $hide1, $hide2, $hide3, $hide4, $hide5, $hide6, $hide7, $hide8, $hide9, $themes_modulname;
-
-    $sql = safe_query("SELECT themes_modulname, modulname, head_activated FROM ".PREFIX."settings_module WHERE head_activated = '0' AND themes_modulname='$themes_modulname'");
-    if(mysqli_num_rows($sql)) {
-        while($row = mysqli_fetch_array($sql)) {
-            $hide[] = $row['modulname'];
-        }
-    }
-    else {
-        $hide = array();
-    }
-
-    $sql = safe_query("SELECT themes_modulname, modulname, sidebar FROM ".PREFIX."settings_module WHERE sidebar = 're_activated' AND themes_modulname='$themes_modulname'");
-    if(mysqli_num_rows($sql)) {
-        while($row = mysqli_fetch_array($sql)) {
-            $hide1[] = $row['modulname'];
-        }
-    }
-    else {
-        $hide1 = array();
-    }
-
-    $sql = safe_query("SELECT themes_modulname, modulname, sidebar FROM ".PREFIX."settings_module WHERE sidebar = 'le_activated' AND themes_modulname='$themes_modulname'");
-    if(mysqli_num_rows($sql)) {
-        while($row = mysqli_fetch_array($sql)) {
-            $hide2[] = $row['modulname'];
-        }
-    }
-    else {
-        $hide2 = array();
-    }
-
-    $sql = safe_query("SELECT themes_modulname, modulname, sidebar FROM ".PREFIX."settings_module WHERE sidebar = 'activated' AND themes_modulname='$themes_modulname'");
-    if(mysqli_num_rows($sql)) {
-        while($row = mysqli_fetch_array($sql)) {
-            $hide3[] = $row['modulname'];
-        }
-    }
-    else {
-        $hide3 = array();
-    }
-
-    $sql = safe_query("SELECT themes_modulname, modulname, content_head_activated FROM ".PREFIX."settings_module WHERE content_head_activated = '0' AND themes_modulname='$themes_modulname'");
-    if(mysqli_num_rows($sql)) {
-        while($row = mysqli_fetch_array($sql)) {
-            $hide4[] = $row['modulname'];
-        }
-    }
-    else {
-        $hide4 = array();
-    }
-
-    $sql = safe_query("SELECT themes_modulname, modulname, content_foot_activated FROM ".PREFIX."settings_module WHERE content_foot_activated = '0' AND themes_modulname='$themes_modulname'");
-    if(mysqli_num_rows($sql)) {
-        while($row = mysqli_fetch_array($sql)) {
-            $hide5[] = $row['modulname'];
-        }
-    }
-    else {
-        $hide5 = array();
-    }
-
-    $sql = safe_query("SELECT themes_modulname, modulname, head_section_activated FROM ".PREFIX."settings_module WHERE head_section_activated = '0' AND themes_modulname='$themes_modulname'");
-    if(mysqli_num_rows($sql)) {
-        while($row = mysqli_fetch_array($sql)) {
-            $hide6[] = $row['modulname'];
-        }
-    }
-    else {
-        $hide6 = array();
-    }
-
-    $sql = safe_query("SELECT themes_modulname, modulname, foot_section_activated FROM ".PREFIX."settings_module WHERE foot_section_activated = '0' AND themes_modulname='$themes_modulname'");
-    if(mysqli_num_rows($sql)) {
-        while($row = mysqli_fetch_array($sql)) {
-            $hide7[] = $row['modulname'];
-        }
-    }
-    else {
-        $hide7 = array();
-    }
-
-    $sql = safe_query("SELECT themes_modulname, modulname, custom_activated FROM ".PREFIX."settings_module WHERE custom_activated = '0' AND themes_modulname='$themes_modulname'");
-    if(mysqli_num_rows($sql)) {
-        while($row = mysqli_fetch_array($sql)) {
-            $hide8[] = $row['modulname'];
-        }
-    }
-    else {
-        $hide8 = array();
-    }
-
-    $sql = safe_query("SELECT themes_modulname, modulname, via_navigation FROM ".PREFIX."settings_module WHERE via_navigation = '0' AND themes_modulname='$themes_modulname'");
-    if(mysqli_num_rows($sql)) {
-        while($row = mysqli_fetch_array($sql)) {
-            $hide9[] = $row['modulname'];
-        }
-    }
-    else {
-        $hide9 = array();
-    }
-}
-
-# die Breite von content wird automatisch angepasst / linke - rechte Spalte activated oder deactivated
-
-function get_mainhide () { 
-    global $class_maincol, $site, $hide1, $hide2, $hide3;
-
-    if (in_array($site, $hide1)) {
-        echo "col-lg-9 col-sm-9 col-xs-12";
-    }elseif (in_array($site, $hide2)) {
-        echo "col-lg-9 col-sm-9 col-xs-12";
-    }elseif (in_array($site, $hide3)) {
-        echo "col-lg-12 col-sm-12 col-xs-12";
-    } else {
-        echo "col-lg-6 col-sm-9 col-xs-12";
-    }
-}  
-
 # content Ausgabe für die index.php
 function get_mainContent() { 
     
@@ -219,191 +98,137 @@ function get_mainContent() {
     }
 }
 
-#Ausgabe über der Navi
-function get_via_navigation_modul() {
+
+
+#Ausgabe Header Modul
+function get_header_modul() {
     $widget_menu = new widgets();
-    $widget_menu->registerWidget("via_navigation_widget");
+    $widget_menu->registerWidget("header_widget");
 }
 
 #Ausgabe Navi
 function get_navigation_modul(){
     GLOBAL $logo, $theme_name, $themes, $site, $_language, $loggedin, $url;
+    GLOBAL $site,$modulname;
     $widget_menu = new widgets();
-    $widget_menu->registerWidget("page_navigation_widget");
+    $widget_menu->registerWidget("navigation_widget");
 }
 
-#Ausgabe Head elements
-function get_head_modul() {
-    GLOBAL $hide, $site,$modulname;
-   
-    if (!in_array($site, $hide)) {
-        $widget_menu = new widgets();
-        $widget_menu->registerWidget("page_head_widget");
-    }
-}
-
-#Ausgabe Head elements
-function get_headelements() {
-    GLOBAL $hide, $site,$modulname;
-   
-    if (!in_array($site, $hide)) {
-        echo'';
-    } else {
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_headelements WHERE site='".$site."' AND modulname='".$site."' AND displayed='1'"));
-        if(@$dx[ 'modulname' ] != $site || @$dx[ 'site' ] == 'startpage') {
-        $head_elements = '';
-        } else {
-            if(@$dx[ 'headelementID' ] != '') {
-                $headelementID = $dx[ 'headelementID' ];
-            } else {
-                $headelementID = '';
-            } 
-            if(@$dx[ 'name' ] != '') {   
-                $name = $dx[ 'name' ];
-            } else {
-                $name = '';
-            }
-            if(@$dx[ 'info' ] != '') {  
-                $info = $dx[ 'info' ];
-            } else {
-                $info = '';
-            }
-
-            if(file_exists('./images/headelements/'.$headelementID.'.jpg')){
-                $pic='<style>
-                        .head-boxes {display: none;}
-                        </style>
-                        <figure class="overlay">
-                        <img src="./images/headelements/'.$headelementID.'.jpg" class="figure-img im1g-fluid rounded" alt="...">
-                        <figcaption class="figure-caption"><p class="animated fadeInUp noheadcol_title">'.$name.'</p>
-                        <p class="noheadcol_text">'.$info.'</p>
-                        <p class="noheadcol_link"><a href="#">Home</a> / '.$name.'</p></figcaption>
-                        </figure>';
-            } elseif(file_exists('./images/headelements/'.$headelementID.'.jpeg')){
-                $pic='<style>
-                        .head-boxes {display: none;}
-                        </style>
-                        <figure class="overlay">
-                        <img src="./images/headelements/'.$headelementID.'.jpeg" class="figure-img im1g-fluid rounded" alt="...">
-                        <figcaption class="figure-caption"><p class="animated fadeInUp noheadcol_title">'.$name.'</p>
-                        <p class="noheadcol_text">'.$info.'</p>
-                        <p class="noheadcol_link"><a href="#">Home</a> / '.$name.'</p></figcaption>
-                        </figure>';
-            } elseif(file_exists('./images/headelements/'.$headelementID.'.png')){
-                $pic='<style>
-                        .head-boxes {display: none;}
-                        </style>
-                        <figure class="overlay">
-                        <img src="./images/headelements/'.$headelementID.'.png" class="figure-img im1g-fluid rounded" alt="...">
-                        <figcaption class="figure-caption"><p class="animated fadeInUp noheadcol_title">'.$name.'</p>
-                        <p class="noheadcol_text">'.$info.'</p>
-                        <p class="noheadcol_link"><a href="#">Home</a> / '.$name.'</p></figcaption>
-                        </figure>';
-            } elseif(file_exists('./images/headelements/'.$headelementID.'.gif')){
-                $pic='<style>
-                        .head-boxes {display: none;}
-                        </style>
-                        <figure class="overlay">
-                        <img src="./images/headelements/'.$headelementID.'.gif" class="figure-img im1g-fluid rounded" alt="...">
-                        <figcaption class="figure-caption"><p class="animated fadeInUp noheadcol_title">'.$name.'</p>
-                        <p class="noheadcol_text">'.$info.'</p>
-                        <p class="noheadcol_link"><a href="#">Home</a> / '.$name.'</p></figcaption>
-                        </figure>';
-            } else{
-                $db = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_headelements WHERE site='".$site."' AND modulname='".$site."' AND displayed='0'"));
-                if(@$db[ 'name' ] == 'Startpage') {
-                    $pic='';
-                } else{
-                    $pic='<!--<style>
-                        .head-boxes {display: none;}
-                        </style>-->
-                        <div class="container-fluid noheadcol_no_pic">
-                            <div class="container">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <p class="noheadcol_title_no_pic">'.$name.'</p>
-                                    <p class="noheadcol_link_no_pic"><a href="#">Home</a> / '.$name.'</p>
-                                </div>
-                            </div>
-                        </div>';
-                }
-            }
-                $head_elements = $pic;
-        }
-        echo''.$head_elements.'';
-            
-    } 
-}
-
-#Ausgabe Foot
-function get_foot_modul(){
-    global $themes_modulname;
-
+#Ausgabe content Head
+function get_content_head_modul() {
     $widget_menu = new widgets();
-    $widget_menu->registerWidget("page_footer_widget");
+    $widget_menu->registerWidget("content_head_widget");
 }
+
 
 #Ausgabe Left Side
-function get_left_side() {
-    global $themes_modulname;
-    $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE description='left_side_widget' AND themes_modulname='$themes_modulname'"));
-    if (@$dx[ 'description' ] != 'left_side_widget') {
-        $left_page = '<div class="head-boxes">
-                        <span class="head-boxes-head">Info<small style="font-size: 10px;">(left side)</small></span>
-                        <h2 class="head-h2">
-                        <span class="head-boxes-title">Info<small style="font-size: 10px;">(left side)</small></span>
-                        </h2>
-                            <p class="head-boxes-foot">(left side)</p>
-                        </div>
-                        <div class="alert alert-danger" role="alert">Widget not found!</div>';
-        return $left_page;
+function get_left_side_modul() {
+    $qs_arr = array();
+    parse_str($_SERVER['QUERY_STRING'], $qs_arr);
+        
+    $getsite = 'startpage'; #Wird auf der Startseite angezeigt index.php
+    if(isset($qs_arr['site'])) {
+      $getsite = $qs_arr['site'];
+    }
+    if (@$getsite == 'contact' 
+        || @$getsite == 'imprint'
+        || @$getsite == 'privacy_policy'
+        || @$getsite == 'profile'
+        || @$getsite == 'myprofile'
+        || @$getsite == 'error_404'
+        || @$getsite == 'report'
+        || @$getsite == 'static'
+        || @$getsite == 'loginoverview'
+        || @$getsite == 'register'
+        || @$getsite == 'lostpassword'
+        || @$getsite == 'login'
+        || @$getsite == 'logout'
+        || @$getsite == 'footer'
+        || @$getsite == 'navigation'
+        || @$getsite == 'topbar') {
+
+    }elseif (@$getsite == 'forum_topic') { 
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins_forum_settings_widgets WHERE position='left_side_widget' OR position = 'full_activated'"));
+        if (@$dx[ 'position' ] == 'left_side_widget' || @$dx[ 'position' ] == 'full_activated') {
+            echo'<div id="leftcol" class="col-md-3">';
+            $left_page = $widget_menu = new widgets();
+            $widget_menu->registerWidget("left_side_widget");
+            $widget_menu->registerWidget("full_activated");
+            echo'</div>';
+        } else {
+        }   
     } else {
-        $left_page = $widget_menu = new widgets();
-        $widget_menu->registerWidget("left_side_widget");
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins_".$getsite."_settings_widgets WHERE position='left_side_widget' OR position = 'full_activated'"));
+        if (@$dx[ 'position' ] == 'left_side_widget' || @$dx[ 'position' ] == 'full_activated') {
+            echo'<div id="leftcol" class="col-md-3">';
+            $left_page = $widget_menu = new widgets();
+            $widget_menu->registerWidget("left_side_widget");
+            $widget_menu->registerWidget("full_activated");
+            echo'</div>';
+        } else {
+        }
     }
 }
 
 #Ausgabe Right Side
-function get_right_side() {
-    global $themes_modulname;
-    $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE description='right_side_widget' AND themes_modulname='$themes_modulname'"));
-    if (@$dx[ 'description' ] != 'right_side_widget') {
-        $right_page = '<div class="head-boxes">
-                        <span class="head-boxes-head">Info<small style="font-size: 10px;">(right side)</small></span>
-                        <h2 class="head-h2">
-                            <span class="head-boxes-title">Info<small style="font-size: 10px;">(right side)</small></span>
-                        </h2>
-                            <p class="head-boxes-foot">(right side)</p>
-                        </div>
-                        <div class="alert alert-danger" role="alert">Widget not found!</div>';
-        return $right_page;
-    } else {
-        $right_page = $widget_menu = new widgets();
-        $widget_menu->registerWidget("right_side_widget");
+function get_right_side_modul() {
+    $qs_arr = array();
+    parse_str($_SERVER['QUERY_STRING'], $qs_arr);
+        
+    $getsite = 'startpage'; #Wird auf der Startseite angezeigt index.php
+    if(isset($qs_arr['site'])) {
+      $getsite = $qs_arr['site'];
     }
-}
+    if (@$getsite == 'contact' 
+        || @$getsite == 'imprint'
+        || @$getsite == 'privacy_policy'
+        || @$getsite == 'profile'
+        || @$getsite == 'myprofile'
+        || @$getsite == 'error_404'
+        || @$getsite == 'report'
+        || @$getsite == 'static'
+        || @$getsite == 'loginoverview'
+        || @$getsite == 'register'
+        || @$getsite == 'lostpassword'
+        || @$getsite == 'login'
+        || @$getsite == 'logout'
+        || @$getsite == 'footer'
+        || @$getsite == 'navigation'
+        || @$getsite == 'topbar') {
 
-#Ausgabe center Head
-function get_center_head() {
-    $widget_menu = new widgets();
-    $widget_menu->registerWidget("center_head_widget");
-}
-
-#Ausgabe center Foot
-function get_center_footer() {
-    $widget_menu = new widgets();
-    $widget_menu->registerWidget("center_footer_widget");
-}
-
-#Ausgabe content Head
-function get_head_section() {
-    $widget_menu = new widgets();
-    $widget_menu->registerWidget("head_section_widget");
+    }elseif (@$getsite == 'forum_topic') { 
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins_forum_settings_widgets WHERE position='right_side_widget' OR position = 'full_activated'"));
+        if (@$dx[ 'position' ] == 'right_side_widget' || @$dx[ 'position' ] == 'full_activated') {
+            echo'<div id="rightcol" class="col-md-3">';
+            $right_page = $widget_menu = new widgets();
+            $widget_menu->registerWidget("right_side_widget");
+            $widget_menu->registerWidget("full_activated");
+            echo'</div>';
+        } else {
+        }  
+    } else {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins_".$getsite."_settings_widgets WHERE position='right_side_widget' OR position = 'full_activated'"));
+        if (@$dx[ 'position' ] == 'right_side_widget' || @$dx[ 'position' ] == 'full_activated') {
+            echo'<div id="rightcol" class="col-md-3">';
+            $right_page = $widget_menu = new widgets();
+            $widget_menu->registerWidget("right_side_widget");
+            $widget_menu->registerWidget("full_activated");
+            echo'</div>';
+        } else {
+        } 
+    }  
 }
 
 #Ausgabe content Foot
-function get_foot_section() {
+function get_content_foot_modul() {
     $widget_menu = new widgets();
-    $widget_menu->registerWidget("foot_section_widget");
+    $widget_menu->registerWidget("content_foot_widget");
+}
+
+#Ausgabe Footer Modul
+function get_footer_modul(){
+    $widget_menu = new widgets();
+    $widget_menu->registerWidget("footer_widget");
 }
 
 #Wartungsmodus wird anezeigt
@@ -413,9 +238,9 @@ function get_lock_modul() {
     if (@$closed != '1') { 
 
     } else {
-        echo'<div class="alert alert-danger" role="alert" style="margin-bottom: -5px;"><center>
-            Die Seite befindet sich im Wartungsmodus | The site is in maintenance mode | Il sito è in modalità manutenzione
-            </center></div>';   
+    echo'<div class="alert alert-danger" role="alert" style="margin-bottom: -5px;">
+            <center>Die Seite befindet sich im Wartungsmodus | The site is in maintenance mode | Il sito è in modalità manutenzione</center>
+        </div>';   
     }
 }
 
@@ -423,11 +248,11 @@ function get_lock_modul() {
 function get_editor() {
 global $userID;
     if (issuperadmin($userID)) {
-        echo'   <script src="./components/ckeditor/ckeditor.js"></script>
-             <script src="./components/ckeditor/config.js"></script>';
+        echo'<script src="./components/ckeditor/ckeditor.js"></script>
+<script src="./components/ckeditor/config.js"></script>';
     } else {
-        echo'   <script src="./components/ckeditor/ckeditor.js"></script>
-             <script src="./components/ckeditor/user_config.js"></script>';
+        echo'<script src="./components/ckeditor/ckeditor.js"></script>
+<script src="./components/ckeditor/user_config.js"></script>';
     } 
 }
 

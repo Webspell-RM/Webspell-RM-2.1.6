@@ -49,7 +49,6 @@ header('X-UA-Compatible: IE=edge,chrome=1');
     <meta name="author" content="webspell-rm.de">
     <meta name="revisit-After" content="1days">
     <meta name="distribution" content="global">
-    
     <link rel="SHORTCUT ICON" href="./includes/themes/<?php echo $theme_name; ?>/templates/favicon.ico">
  
     <!-- Head & Title include -->
@@ -57,110 +56,63 @@ header('X-UA-Compatible: IE=edge,chrome=1');
 
     <base href="<?php echo $rewriteBase; ?>">
 
-    <link href="tmp/rss.xml" rel="alternate" type="application/rss+xml" title="<?php echo $myclanname; ?> - RSS Feed">
-    <link rel="stylesheet" href="./components/cookies/css/cookieconsent.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="./components/cookies/css/iframemanager.css" media="print" onload="this.media='all'">
-    <?php    
+<link type="application/rss+xml" rel="alternate" href="tmp/rss.xml" title="<?php echo $myclanname; ?> - RSS Feed">
+<link type="text/css" rel="stylesheet" href="./components/cookies/css/cookieconsent.css" media="print" onload="this.media='all'">
+<link type="text/css" rel="stylesheet" href="./components/cookies/css/iframemanager.css" media="print" onload="this.media='all'">
+<?php
+$lang = $_language->language; // Language Variable setzen         
+/* Components & themes css */
+echo $components_css;
+echo $theme_css;
+/* Components & themes css END*/
+/* Plugin-Manager  css */
+echo'<!--Plugin css-->';
+echo ($_pluginmanager->plugin_loadheadfile_css());
+echo'<!--Plugin css END-->'.chr(0x0D).chr(0x0A);
+echo'<!--Widget css-->'.chr(0x0D);
+echo ($_pluginmanager->plugin_loadheadfile_widget_css());
+#echo get_plugin_loadheadfile_widget_css($css);
+echo'<!--Widget css END-->'.chr(0x0D).chr(0x0A);
+/* Plugin-Manager  css END*/
 
-        $lang = $_language->language; // Language Variable setzen 
-         
-        /* Components & themes css */
-        echo $components_css;
-        echo $theme_css;
-        /* Components & themes css END*/
-
-        /* Plugin-Manager  css */
-        echo ($_pluginmanager->plugin_loadheadfile_css());
-        /* Plugin-Manager  css END*/
-
-         /*  Components & themes js */ 
-        echo $components_js;
-        echo $theme_js;
-        /*  Components & themes css / js  END */
-    
-        /* Plugin-Manager  js */
-        echo ($_pluginmanager->plugin_loadheadfile_js());
-        /* Plugin-Manager  js END */
-
-        /* Module DB Abfrage */
-        echo get_hide();
-        /* Module DB Abfrage END */
-
-        /* ckeditor */
-        echo get_editor();
-        /* ckeditor END*/
-    ?>
+?>
 </head>
 <body>
-    
-    <div class="d-flex flex-column sticky-footer-wrapper"> <!-- flex -->
-        <?php echo get_lock_modul();?>
-        <?php if (!in_array($site, $hide9)) {echo get_via_navigation_modul();}?> 
-        <!-- Navigation Modul --> 
-        <?php echo get_navigation_modul();?>    
-        
-        <?php echo get_head_modul();?>
-        <?php echo get_headelements();?>
-        
-        <?php if (!in_array($site, $hide6)) {echo get_head_section();}?>
-       
-        <!-- content Center Head End-->
 
-        <main class="flex-fill">  <!-- flex -->
-        
-            <div class="container content_style"> <!-- container -->
-                <div class="row"> <!-- row -->            
-
-                    <!-- left column linke Spalte -->
-                    <?php if (!in_array($site, $hide3)) { ?>
-                    <?php if (!in_array($site, $hide1)) { ?>
+<div class="d-flex flex-column sticky-footer-wrapper"> <!-- flex -->
+<?php echo get_lock_modul();?>
+<!-- Header Modul-->
+<?php echo get_header_modul();?>
+<!-- Navigation Modul --> 
+<?php echo get_navigation_modul();?>
+<!-- Content Head Modul-->
+<?php echo get_content_head_modul();?>
+<!-- content Head Modul End-->
+    <main class="flex-fill">  <!-- flex -->
+        <div class="container"> <!-- container -->
+            <div class="row"> <!-- row -->
+                <!-- left column linke Spalte -->
+                               
+                <?php echo get_left_side_modul ();?>
+               
+                <!-- left column linke Spalte END -->
+                <!-- main content area -->
+                <div class="col">                
+                    <?php echo get_mainContent(); ?>             
+                </div>
+                <!-- main content area END -->
+                <!-- right column rechte Spalte -->
+               
+                    <?php echo get_right_side_modul ();?>
                 
-                    <div id="leftcol" class="col-md-3"> 
-                        <?php echo get_left_side ();?>
-                    </div>
-
-                    <?php } ?>
-                    <?php } ?>
-                    <!-- left column linke Spalte END -->
-
-                    <!-- main content area -->
-                    <div id="maincol" class="<?php echo get_mainhide(); ?>">
-                
-                        <!-- content Center Head -->
-                        <?php if (!in_array($site, $hide4)) {echo get_center_head();}?>
-                        <!-- content Center Head End-->
-                        <!-- Main Content -->
-                        <?php echo get_mainContent(); ?>
-                        <!-- Main Content End-->
-                        <!-- content Center Head -->    
-                        <?php if (!in_array($site, $hide5)) {echo get_center_footer();}?>
-                        <!-- content Center Head End-->
-                        
-                    </div>
-                    <!-- main content area END -->
-
-                    <!-- right column rechte Spalte -->
-                    <?php if (!in_array($site, $hide3)) { ?>
-                    <?php if (!in_array($site, $hide2)) { ?>
-                    
-                    <div id="rightcol" class="col-md-3">
-                        <?php echo get_right_side ();?>
-                    </div>
-
-                    <?php } ?>
-                    <?php } ?>
-                    <!-- right column rechte Spalte END -->
-                </div> <!-- row End -->
-            </div> <!-- container-content End -->
-        </main>
-        <!-- content Center Footer -->
-        <?php if (!in_array($site, $hide7)) {echo get_foot_section();}?>
-        <!-- content Center Footer END -->
-        <footer>
-            <!-- Foot Modul -->
-            <?php echo get_foot_modul(); ?>
-            <!-- Foot Modul END-->
-        </footer>
+                <!-- right column rechte Spalte END -->
+            </div> <!-- row End -->
+        </div> <!-- container-content End -->
+    </main>
+<!-- Content Foot Modul -->
+<?php echo get_content_foot_modul(); ?>
+<!-- Footer Modul -->
+<?php echo get_footer_modul(); ?>
     </div>  <!-- flex END -->
     <!-- scroll to top feature -->
     <div class="scroll-top-wrapper"> 
@@ -175,38 +127,53 @@ header('X-UA-Compatible: IE=edge,chrome=1');
         </span>
     </div>
 
-    <!-- Link muss noch geändert werden-->
+    <!-- recaptcha-->
     <script src='https://www.google.com/recaptcha/api.js'></script>
-
-    <!-- Cookies Abfrage -->
-    <script defer src="./components/cookies/js/iframemanager.js"></script>
-    <script defer src="./components/cookies/js/cookieconsent.js"></script>
-    <script defer src="./components/cookies/js/cookieconsent-init.js"></script>
-    <script defer src="./components/cookies/js/app.js"></script>
-
-    <!-- Language recognition for DataTables -->
-    <? echo "<script>const LangDataTables = '$_language->language';</script>"; ?>
+<?php
+/*  Components & themes js */ 
+echo $components_js;
+echo $theme_js;
+/*  Components & themes css / js  END */
+/* Plugin-Manager  js */
+echo'<!--Plugin js-->';
+echo ($_pluginmanager->plugin_loadheadfile_js());
+echo'<!--Plugin js END-->'.chr(0x0D).chr(0x0A);
+echo'<!--Widget js-->'.chr(0x0D);
+echo ($_pluginmanager->plugin_loadheadfile_widget_js());
+echo'<!--Widget js END-->'.chr(0x0D).chr(0x0A);
+/* Plugin-Manager  js END */
+/* ckeditor */
+echo get_editor();
+/* ckeditor END*/
+?>
+<!-- Cookies Abfrage -->
+<script defer src="./components/cookies/js/iframemanager.js"></script>
+<script defer src="./components/cookies/js/cookieconsent.js"></script>
+<script defer src="./components/cookies/js/cookieconsent-init.js"></script>
+<script defer src="./components/cookies/js/app.js"></script>
+<!-- Language recognition for DataTables -->
+<? echo "<script>const LangDataTables = '$_language->language';</script>"; ?>
 <script type="text/javascript">
         // Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-  'use strict'
+    (function () {
+      'use strict'
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation')
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.querySelectorAll('.needs-validation')
 
-  // Loop over them and prevent submission
-  Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-      form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
+      // Loop over them and prevent submission
+      Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
 
-        form.classList.add('was-validated')
-      }, false)
-    })
-})()
+            form.classList.add('was-validated')
+          }, false)
+        })
+    })()
 </script>
 </body>
 </html>
