@@ -47,7 +47,6 @@ function show_var($var)
     }
 }
 
-#css & js vom template
 function headfiles($var, $path) {
     $css ="";
     $js="\n";
