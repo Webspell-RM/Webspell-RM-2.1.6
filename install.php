@@ -35,147 +35,210 @@ function goBack() {
 
 
   $transaction = '';
-  
-  #$transaction .= dropfield('settings_widgets', 'navigation_default');
-  $transaction .= addtable("DELETE FROM `" . PREFIX . "settings_widgets` WHERE modulname='navigation_default'");
-  $transaction .= addtable("DELETE FROM `" . PREFIX . "settings_widgets` WHERE modulname='navigation'");
-
-  
-  safe_query("ALTER TABLE `".PREFIX."settings_widgets` ADD COLUMN IF NOT EXISTS number int(1) NOT NULL DEFAULT '0' AFTER `activate`");
-
-  $transaction .= addtable("INSERT IGNORE INTO `" . PREFIX . "settings_widgets` (`id`, `position`, `description`, `modulname`, `themes_modulname`, `widget`, `widgetname`, `widgetdatei`, `activate`, `number`, `sort`) VALUES
-('', 'page_navigation_widget', 'page_navigation_widget', 'navigation', 'default', 'widget1', 'Navigation', 'widget_navigation', 0, 1, 1)");
-
-  #$transaction .= dropfield('settings_plugins', 'navigation_default');
-  $transaction .= addtable("DELETE FROM `" . PREFIX . "settings_plugins` WHERE modulname='navigation_default'");
-  $transaction .= addtable("DELETE FROM `" . PREFIX . "settings_plugins` WHERE modulname='navigation'");
-  $transaction .= addtable("INSERT IGNORE INTO `" . PREFIX . "settings_plugins` (`pluginID`, `name`, `modulname`, `info`, `admin_file`, `activate`, `author`, `website`, `index_link`, `hiddenfiles`, `version`, `path`, `widgetname1`, `widgetname2`, `widgetname3`, `widget_link1`, `widget_link2`, `widget_link3`, `modul_display`) VALUES
-('', 'Navigation', 'navigation', '{[de]}Mit diesem Plugin könnt ihr euch die Navigation anzeigen lassen.{[en]}With this plugin you can display the navigation.{[it]}Con questo plugin puoi visualizzare la Barra di navigazione. ', '', 1, 'T-Seven', 'https://webspell-rm.de', '', '', '0.3', 'includes/plugins/navigation/', 'Navigation', '', '', 'widget_navigation', '', '', 1)");
-
-  #$transaction .= dropfield('settings_module', 'navigation_default');
-  $transaction .= addtable("DELETE FROM `" . PREFIX . "settings_module` WHERE modulname='navigation_default'");
-  $transaction .= addtable("DELETE FROM `" . PREFIX . "settings_module` WHERE modulname='navigation'");
-
-  safe_query("ALTER TABLE `".PREFIX."settings_module` ADD COLUMN IF NOT EXISTS custom_activated int(1) NOT NULL DEFAULT '0' AFTER `full_activated`"); 
-  safe_query("ALTER TABLE `".PREFIX."settings_module` ADD COLUMN IF NOT EXISTS via_navigation int(1) NOT NULL DEFAULT '0' AFTER `custom_activated`");
-
-
-
-  $transaction .= addtable("INSERT IGNORE INTO `" . PREFIX . "settings_module` (`pluginID`, `name`, `modulname`, `themes_modulname`, `full_activated`, `custom_activated`, `via_navigation`, `head_activated`, `content_head_activated`, `content_foot_activated`, `head_section_activated`, `foot_section_activated`, `modul_display`, `activate`, `sidebar`, `plugin_settings`, `plugin_module`, `plugin_widget`, `widget1`, `widget2`, `widget3`) VALUES ('', 'Navigation', 'navigation', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 1, 0, 1, 1, 0, 0)");
-
-
-
-$transaction .= renametable('plugins_forum_user_forum_groups','user_forum_groups');
-$transaction .= renametable('plugins_news','plugins_news_manager');
-$transaction .= renametable('plugins_news_comments','plugins_news_manager_comments');
-$transaction .= renametable('plugins_news_comments_recomment','plugins_news_manager_comments_recomment');
-$transaction .= renametable('plugins_news_rubrics','plugins_news_manager_rubrics');
-$transaction .= renametable('plugins_news_settings','plugins_news_manager_settings');
-$transaction .= renametable('plugins_upcoming','plugins_calendar');
-$transaction .= renametable('plugins_upcoming_announce','plugins_calendar_announce');
-
-
-#########################
-
-
-safe_query("UPDATE `".PREFIX."settings_plugins` SET modul_display = 1 WHERE `modul_display` = '0' AND modulname='report'");
-safe_query("UPDATE `".PREFIX."settings_plugins` SET modul_display = 1 WHERE `modul_display` = '0' AND modulname='myprofile'");
-safe_query("UPDATE `".PREFIX."settings_plugins` SET modul_display = 1 WHERE `modul_display` = '0' AND modulname='error_404'");
-safe_query("UPDATE `".PREFIX."settings_plugins` SET modul_display = 1 WHERE `modul_display` = '0' AND modulname='static'");
-safe_query("UPDATE `".PREFIX."settings_plugins` SET modul_display = 1 WHERE `modul_display` = '0' AND modulname='imprint'");
-safe_query("UPDATE `".PREFIX."settings_plugins` SET modul_display = 1 WHERE `modul_display` = '0' AND modulname='privacy_policy'");
-safe_query("UPDATE `".PREFIX."settings_plugins` SET modul_display = 1 WHERE `modul_display` = '0' AND modulname='contact'");
-safe_query("UPDATE `".PREFIX."settings_plugins` SET modul_display = 1 WHERE `modul_display` = '0' AND modulname='register'");
-safe_query("UPDATE `".PREFIX."settings_plugins` SET modul_display = 1 WHERE `modul_display` = '0' AND modulname='lostpassword'");
-safe_query("UPDATE `".PREFIX."settings_plugins` SET modul_display = 1 WHERE `modul_display` = '0' AND modulname='login'");
-safe_query("UPDATE `".PREFIX."settings_plugins` SET modul_display = 1 WHERE `modul_display` = '0' AND modulname='profile'");
-
-safe_query("UPDATE `".PREFIX."settings_module` SET modul_display = 1 WHERE `modul_display` = '0' AND modulname='report'");
-safe_query("UPDATE `".PREFIX."settings_module` SET modul_display = 1 WHERE `modul_display` = '0' AND modulname='myprofile'");
-safe_query("UPDATE `".PREFIX."settings_module` SET modul_display = 1 WHERE `modul_display` = '0' AND modulname='error_404'");
-safe_query("UPDATE `".PREFIX."settings_module` SET modul_display = 1 WHERE `modul_display` = '0' AND modulname='static'");
-safe_query("UPDATE `".PREFIX."settings_module` SET modul_display = 1 WHERE `modul_display` = '0' AND modulname='imprint'");
-safe_query("UPDATE `".PREFIX."settings_module` SET modul_display = 1 WHERE `modul_display` = '0' AND modulname='privacy_policy'");
-safe_query("UPDATE `".PREFIX."settings_module` SET modul_display = 1 WHERE `modul_display` = '0' AND modulname='contact'");
-safe_query("UPDATE `".PREFIX."settings_module` SET modul_display = 1 WHERE `modul_display` = '0' AND modulname='register'");
-safe_query("UPDATE `".PREFIX."settings_module` SET modul_display = 1 WHERE `modul_display` = '0' AND modulname='lostpassword'");
-safe_query("UPDATE `".PREFIX."settings_module` SET modul_display = 1 WHERE `modul_display` = '0' AND modulname='login'");
-safe_query("UPDATE `".PREFIX."settings_module` SET modul_display = 1 WHERE `modul_display` = '0' AND modulname='profile'");
-
-$transaction .= addtable("DELETE FROM `" . PREFIX . "settings_module` WHERE modulname='loginoverview' AND themes_modulname='default'");
-$transaction .= addfield('user', 'profile_visibility', 'varchar(255)', "NOT NULL DEFAULT '0'");
-
-
-
-$transaction .= addtable("DELETE FROM `" . PREFIX . "navigation_dashboard_categories` WHERE catID='6'");
-$transaction .= addtable("INSERT INTO `" . PREFIX . "navigation_dashboard_categories` (`catID`, `name`, `fa_name`, `accesslevel`, `default`, `sort`) VALUES
-(6, '{[de]}Plugin & Modul Verwaltung{[en]}Plugin & module management{[it]}Gestione plugin e moduli', 'bi bi-puzzle', 'page', 0, 6)");
-
-$transaction .= addtable("DELETE FROM `" . PREFIX . "navigation_dashboard_links` WHERE modulname='ac_plugin_widgets'");
-$transaction .= addtable("DELETE FROM `" . PREFIX . "navigation_dashboard_links` WHERE modulname='ac_modul_widgets'");
-$transaction .= addtable("DELETE FROM `" . PREFIX . "navigation_dashboard_links` WHERE modulname='ac_editlang'");
-$transaction .= addtable("INSERT INTO `" . PREFIX . "navigation_dashboard_links` (`linkID`, `catID`, `name`, `modulname`, `url`, `accesslevel`, `sort`) VALUES
-('', 6, '{[de]}Widgets sortieren{[en]}Sort widgets{[it]}Ordina i widget', 'ac_plugin_widgets', 'admincenter.php?site=plugin_widgets', 'page', 3),
-('', 6, '{[de]}Modul & Widget Übersicht{[en]}Module & Widget Overview{[it]}Panoramica del modulo e del widget', 'ac_modul_widgets', 'admincenter.php?site=plugin_module', 'page', 4),
-('', 1, '{[de]}Spracheditor{[en]}Language Editor{[it]}Editor di Linguaggi', 'ac_editlang', 'admincenter.php?site=editlang', 'page', 11)");
-
-
-$transaction .= addfield('settings_themes', 'agency', 'int(1)', 'NOT NULL DEFAULT 0 AFTER `headlines`');
-$transaction .= addfield('settings_themes', 'agency_nav', 'int(1)', 'NOT NULL DEFAULT 2 AFTER `agency`');
-$transaction .= addfield('settings_themes', 'sticky', 'int(1)', 'NOT NULL DEFAULT 0 AFTER `agency_nav`');
-$transaction .= addfield('settings_themes', 'carousel', 'int(1)', 'NOT NULL DEFAULT 0 AFTER `agency_nav`');
-$transaction .= addfield('settings_themes', 'underscore', 'int(1)', 'NOT NULL DEFAULT 0 AFTER `sticky`');
-
-$transaction .= addfield('settings', 'keywords', 'text', 'NOT NULL AFTER `birthday`');
-$transaction .= addfield('settings', 'description', 'text', 'NOT NULL AFTER `keywords`');
+ 
 
 
 $transaction .= addfield('settings', 'keywords', 'text', 'NOT NULL');
 $transaction .= addfield('settings', 'description', 'text', 'NOT NULL');
 
-safe_query("UPDATE `".PREFIX."settings` SET keywords = 'Clandesign, Webspell, Webspell-RM, Wespellanpassungen, Webdesign, Tutorials, Downloads, Webspell-rm, rm, addon, plugin, Templates Webspell Addons, plungin, mods, Webspellanpassungen, Modifikationen und Anpassungen und mehr!'");
+$transaction .= addtable("DELETE FROM `" . PREFIX . "navigation_dashboard_links` WHERE modulname='ac_headelements'");
+$transaction .= addtable("DELETE FROM `" . PREFIX . "navigation_dashboard_links` WHERE modulname='ac_modul_widgets'");
+$transaction .= addtable("DELETE FROM `" . PREFIX . "navigation_dashboard_links` WHERE modulname='ac_plugin_widgets'");
 
-safe_query("UPDATE `".PREFIX."settings` SET description = 'Kostenlose Homepage erstellen mit Webspell-RM CMS: Einfach, schnell & kostenlos! In wenigen Minuten mit der eigenen Website online gehen.'");
-
-
-safe_query("UPDATE `".PREFIX."settings_plugins` SET activate = '0' WHERE modulname='calendar'");
-safe_query("UPDATE `".PREFIX."settings_plugins` SET activate = '0' WHERE modulname='news_manager'");
-
-
-$transaction .= addtable("DELETE FROM `" . PREFIX . "settings_module` WHERE modulname='forum' AND themes_modulname='default'");
-
-$transaction .= addtable("INSERT IGNORE INTO `" . PREFIX . "settings_module` (`pluginID`, `name`, `modulname`, `themes_modulname`, `full_activated`, `custom_activated`, `via_navigation`, `head_activated`, `content_head_activated`, `content_foot_activated`, `head_section_activated`, `foot_section_activated`, `modul_display`, `activate`, `sidebar`, `plugin_settings`, `plugin_module`, `plugin_widget`, `widget1`, `widget2`, `widget3`) VALUES ('', 'Forum', 'forum', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 1, 1, 1, 1, 0, 0)");
-
-$transaction .= addtable("DELETE FROM `" . PREFIX . "settings_module` WHERE modulname='forum_topic' AND themes_modulname='default'");
-
-$transaction .= addtable("INSERT IGNORE INTO `" . PREFIX . "settings_module` (`pluginID`, `name`, `modulname`, `themes_modulname`, `full_activated`, `custom_activated`, `via_navigation`, `head_activated`, `content_head_activated`, `content_foot_activated`, `head_section_activated`, `foot_section_activated`, `modul_display`, `activate`, `sidebar`, `plugin_settings`, `plugin_module`, `plugin_widget`, `widget1`, `widget2`, `widget3`) VALUES ('', 'Forum Topic', 'forum_topic', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 1, 1, 1, 1, 0, 0)");
+$transaction .= droptable('settings_module');
+$transaction .= droptable('settings_widgets');
+$transaction .= droptable('settings_plugins');
+$transaction .= droptable('settings_themes');
 
 
-$transaction .= addtable("DELETE FROM `" . PREFIX . "navigation_website_sub` WHERE modulname=''");
-$transaction .= addtable("DELETE FROM `" . PREFIX . "navigation_website_sub` WHERE mnavID='0'");
+safe_query("DROP TABLE IF EXISTS `".PREFIX."plugins_startpage_settings_widgets`");
+safe_query("CREATE TABLE IF NOT EXISTS `".PREFIX."plugins_startpage_settings_widgets` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `position` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `modulname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `themes_modulname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `widgetname` varchar(255) NOT NULL DEFAULT '',
+  `widgetdatei` varchar(255) NOT NULL DEFAULT '',
+  `activated` int(1) DEFAULT 1,
+  `sort` int(11) DEFAULT 1,
+  PRIMARY KEY (`id`)
+) AUTO_INCREMENT=1
+  DEFAULT CHARSET=utf8 DEFAULT COLLATE utf8_unicode_ci");
 
-/*$transaction .= addtable("DELETE FROM `" . PREFIX . "settings_module` WHERE modulname='news_manager' AND themes_modulname='default'");
+$transaction .= addtable("INSERT IGNORE INTO `" . PREFIX . "plugins_startpage_settings_widgets` (`id`, `position`, `modulname`, `themes_modulname`, `widgetname`, `widgetdatei`, `activated`, `sort`) VALUES
+('1', 'navigation_widget', 'navigation', 'default', 'Navigation', 'widget_navigation', 1, 1),
+('2', 'footer_widget', 'footer', 'default', 'Footer Easy', 'widget_footer_easy', 1, 2)");
 
-$transaction .= addtable("INSERT IGNORE INTO `" . PREFIX . "settings_module` (`pluginID`, `name`, `modulname`, `themes_modulname`, `full_activated`, `custom_activated`, `via_navigation`, `head_activated`, `content_head_activated`, `content_foot_activated`, `head_section_activated`, `foot_section_activated`, `modul_display`, `activate`, `sidebar`, `plugin_settings`, `plugin_module`, `plugin_widget`, `widget1`, `widget2`, `widget3`) VALUES ('', 'News Manager', 'news_manager', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 1, 1, 1, 1, 1, 1)");
+safe_query("DROP TABLE IF EXISTS `".PREFIX."settings_expansion`");
+safe_query("CREATE TABLE IF NOT EXISTS `".PREFIX."settings_expansion` (
+  `themeID` NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `modulname` varchar(100) NOT NULL,
+  `pfad` varchar(255) DEFAULT '''0''',
+  `version` varchar(11) NOT NULL,
+  `active` int(11) DEFAULT NULL,
+  `express_active` int(11) NOT NULL DEFAULT 0,
+  `nav1` varchar(255) NOT NULL DEFAULT '',
+  `nav2` varchar(255) NOT NULL DEFAULT '',
+  `nav3` varchar(255) NOT NULL DEFAULT '',
+  `nav4` varchar(255) NOT NULL DEFAULT '',
+  `nav5` varchar(255) NOT NULL DEFAULT '',
+  `nav6` varchar(255) NOT NULL DEFAULT '',
+  `nav7` varchar(255) NOT NULL DEFAULT '',
+  `nav8` varchar(255) NOT NULL DEFAULT '',
+  `nav9` varchar(255) NOT NULL DEFAULT '',
+  `nav10` varchar(255) NOT NULL DEFAULT '',
+  `nav11` varchar(255) NOT NULL DEFAULT '',
+  `nav12` varchar(255) NOT NULL DEFAULT '',
+  `nav_text_alignment` varchar(255) DEFAULT '0',
+  `body1` text NOT NULL,
+  `body2` varchar(255) NOT NULL DEFAULT '',
+  `body3` varchar(255) NOT NULL DEFAULT '',
+  `body4` varchar(255) NOT NULL DEFAULT '',
+  `body5` varchar(255) NOT NULL DEFAULT '',
+  `background_pic` varchar(255) DEFAULT '0',
+  `border_radius` varchar(255) DEFAULT '0',
+  `typo1` varchar(255) NOT NULL DEFAULT '',
+  `typo2` varchar(255) NOT NULL DEFAULT '',
+  `typo3` varchar(255) NOT NULL DEFAULT '',
+  `typo4` varchar(255) NOT NULL DEFAULT '',
+  `typo5` varchar(255) NOT NULL DEFAULT '',
+  `typo6` varchar(255) NOT NULL DEFAULT '',
+  `typo7` varchar(255) NOT NULL DEFAULT '',
+  `typo8` varchar(255) NOT NULL DEFAULT '',
+  `card1` varchar(255) NOT NULL DEFAULT '',
+  `card2` varchar(255) NOT NULL DEFAULT '',
+  `foot1` varchar(255) NOT NULL DEFAULT '',
+  `foot2` varchar(255) NOT NULL DEFAULT '',
+  `foot3` varchar(255) NOT NULL DEFAULT '',
+  `foot4` varchar(255) NOT NULL DEFAULT '',
+  `foot5` varchar(255) NOT NULL DEFAULT '',
+  `foot6` varchar(255) NOT NULL DEFAULT '',
+  `calendar1` varchar(255) NOT NULL DEFAULT '',
+  `calendar2` varchar(255) NOT NULL DEFAULT '',
+  `carousel1` varchar(255) NOT NULL DEFAULT '',
+  `carousel2` varchar(255) NOT NULL DEFAULT '',
+  `carousel3` varchar(255) NOT NULL DEFAULT '',
+  `carousel4` varchar(255) NOT NULL DEFAULT '',
+  `logo_pic` varchar(255) DEFAULT '0',
+  `logotext1` varchar(255) NOT NULL DEFAULT '',
+  `logotext2` varchar(255) NOT NULL DEFAULT '',
+  `reg_pic` varchar(255) NOT NULL DEFAULT '',
+  `reg1` varchar(255) NOT NULL DEFAULT '',
+  `reg2` varchar(255) NOT NULL DEFAULT '',
+  `headlines` varchar(255) DEFAULT '0',
+  `agency` int(1) NOT NULL DEFAULT 0,
+  `agency_nav` int(1) NOT NULL DEFAULT 2,
+  `carousel` int(1) NOT NULL DEFAULT 0,
+  `sticky` int(1) NOT NULL DEFAULT 0,
+  `underscore` int(1) NOT NULL DEFAULT 0,
+  `sort` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`themeID`)
+) AUTO_INCREMENT=1
+  DEFAULT CHARSET=utf8 DEFAULT COLLATE utf8_unicode_ci");
 
-#$transaction .= addtable("DELETE FROM `" . PREFIX . "settings_plugins` WHERE modulname='news_manager'");
-*/
-/*$transaction .= addtable("INSERT IGNORE INTO `" . PREFIX . "settings_plugins` (`pluginID`, `name`, `modulname`, `info`, `admin_file`, `activate`, `author`, `website`, `index_link`, `hiddenfiles`, `version`, `path`, `le_activated`, `re_activated`, `all_activated`, `all_deactivated`, `head_activated`, `content_head_activated`, `content_foot_activated`, `head_section_activated`, `foot_section_activated`, `widgetname1`, `widgetname2`, `widgetname3`, `widget_link1`, `widget_link2`, `widget_link3`, `modul_deactivated`, `full_activated`, `modul_display`) VALUES ('', 'News Manager', 'news_manager', '{[de]}News Manager ist ein komplettes News-Management-Plugin für Webspell-RM. Es ermöglicht Ihnen das Hinzufügen, Verwalten und Anzeigen von Nachrichten auf Ihrer Webspell-RM-Seite, einschließlich Datumsarchiven, Nachrichtenkategorien, Nachrichtentags und mehreren Nachrichten-Widgets.{[en]}News Manager is a complete news management plugin for Webspell RM. It allows you to add, manage and view news on your Webspell RM page including date archives, news categories, news tags and multiple news widgets.{[it]}News Manager è un plug-in completo di gestione delle notizie per Webspell RM. Ti consente di aggiungere, gestire e visualizzare le notizie sulla tua pagina Webspell RM inclusi archivi di date, categorie di notizie, tag di notizie e più widget di notizie.', 'admin_news_manager', 0, 'T-Seven', 'https://webspell-rm.de', 'news_manager,news_archive,news_comments,news_contents', '', '0.1', 'includes/plugins/news_manager/', 0, 0, 0, 0, 0, 0, 0, 0, 0, 'News Content', 'News Headlines', 'News Headlines 2', 'widget_news_content', 'widget_news_headlines', 'widget_news_headlines_2', 0, 0, 1)");*/
+$transaction .= addtable("INSERT IGNORE INTO `" . PREFIX . "settings_expansion` (`themeID`, `name`, `modulname`, `pfad`, `version`, `active`, `express_active`, `nav1`, `nav2`, `nav3`, `nav4`, `nav5`, `nav6`, `nav7`, `nav8`, `nav9`, `nav10`, `nav11`, `nav12`, `nav_text_alignment`, `body1`, `body2`, `body3`, `body4`, `body5`, `background_pic`, `border_radius`, `typo1`, `typo2`, `typo3`, `typo4`, `typo5`, `typo6`, `typo7`, `typo8`, `card1`, `card2`, `foot1`, `foot2`, `foot3`, `foot4`, `foot5`, `foot6`, `calendar1`, `calendar2`, `carousel1`, `carousel2`, `carousel3`, `carousel4`, `logo_pic`, `logotext1`, `logotext2`, `reg_pic`, `reg1`, `reg2`, `headlines`, `agency`, `agency_nav`, `carousel`, `sticky`, `underscore`, `sort`) VALUES
+('1', 'Default', 'default', 'default', '0.3', 1, 0, 'rgb(51,51,51)', '16px', 'rgb(221,221,221)', 'rgb(254,130,29)', 'rgb(254,130,29)', '2px', 'rgb(221,221,221)', 'rgb(196,89,1)', '', 'rgb(51,51,51)', 'rgb(221,221,221)', 'rgb(101,100,100)', 'ms-auto', 'Roboto', '13px', 'rgb(255,255,255)', 'rgb(85,85,85)', 'rgb(236,236,236)', '', '0px', '', '', '', 'rgb(254,130,29)', '', '', '', 'rgb(196,89,1)', 'rgb(255,255,255)', 'rgb(221,221,221)', 'rgb(51,51,51)', '', 'rgb(255,255,255)', 'rgb(254,130,29)', 'rgb(255,255,255)', 'rgb(255,255,255)', '', '', 'rgb(255,255,255)', 'rgb(254,130,29)', 'rgb(255,255,255)', 'rgb(254,130,29)', 'default_logo.png', '', '', 'default_login_bg.jpg', 'rgb(254,130,29)', 'rgb(255,255,255)', 'headlines_03.css', 3, 0, 0, 0, 0, 1)");
+
+safe_query("DROP TABLE IF EXISTS `".PREFIX."settings_plugins`");
+safe_query("CREATE TABLE IF NOT EXISTS `".PREFIX."settings_plugins` (  
+  `pluginID` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `modulname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `info` text NOT NULL,
+  `admin_file` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `activate` int(1) NOT NULL DEFAULT 1,
+  `author` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `website` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `index_link` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `hiddenfiles` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `version` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `plugin_display` int(11) NOT NULL DEFAULT 1,
+  `widget_display` int(11) NOT NULL DEFAULT 1,
+  `sidebar` varchar(255) NOT NULL DEFAULT 'deactivated',
+  PRIMARY KEY (`pluginID`)
+) AUTO_INCREMENT=1
+  DEFAULT CHARSET=utf8 DEFAULT COLLATE utf8_unicode_ci");
+
+$transaction .= addtable("INSERT IGNORE INTO `" . PREFIX . "settings_plugins` (`pluginID`, `name`, `modulname`, `info`, `admin_file`, `activate`, `author`, `website`, `index_link`, `hiddenfiles`, `version`, `path`, `plugin_display`, `widget_display`, `sidebar`) VALUES
+(1, 'Startpage', 'startpage', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', '', '', '', '', 1, 1, 'full_activated'),
+(2, 'Privacy Policy', 'privacy_policy', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'privacy_policy', '', '', '', 0, 0, ''),
+(3, 'Imprint', 'imprint', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'imprint', '', '', '', 0, 0, ''),
+(4, 'Static', 'static', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'static', '', '', '', 0, 0, ''),
+(5, 'Error_404', 'error_404', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'error_404', '', '', '', 0, 0, ''),
+(6, 'Profile', 'profile', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'profile', '', '', '', 0, 0, ''),
+(7, 'Login', 'login', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'login', '', '', '', 0, 0, ''),
+(8, 'Lost Password', 'lostpassword', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'lostpassword', '', '', '', 0, 0, ''),
+(9, 'Contact', 'contact', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'contact', '', '', '', 0, 0, ''),
+(10, 'Register', 'register', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'register', '', '', '', 0, 0, ''),
+(11, 'My Profile', 'myprofile', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'myprofile', '', '', '', 0, 0, ''),
+(12, 'Report', 'report', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'report', '', '', '', 0, 0, ''),
+(13, 'Navigation', 'navigation', '{[de]}Mit diesem Plugin könnt ihr euch die Navigation anzeigen lassen.{[en]}With this plugin you can display the navigation.{[it]}Con questo plugin puoi visualizzare la Barra di navigazione. ', '', 1, 'T-Seven', 'https://webspell-rm.de', '', '', '0.3', 'includes/plugins/navigation/', 0, 0, ''),
+(14, 'Footer', 'footer', '{[de]}Mit diesem Plugin könnt ihr einen neuen Footer anzeigen lassen.{[en]}With this plugin you can have a new Footer displayed.{[it]}Con questo plugin puoi visualizzare un nuovo piè di pagina.', 'admin_footer', 1, 'T-Seven', 'https://webspell-rm.de', 'admin_footer', '', '0.1', 'includes/plugins/footer/', 0, 0, '')");
+
+safe_query("DROP TABLE IF EXISTS `".PREFIX."settings_plugins_widget`");
+safe_query("CREATE TABLE IF NOT EXISTS `".PREFIX."settings_plugins_widget` ( 
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `modulname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `widgetname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `widgetdatei` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `area` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`)
+) AUTO_INCREMENT=1
+  DEFAULT CHARSET=utf8 DEFAULT COLLATE utf8_unicode_ci");
+
+$transaction .= addtable("INSERT IGNORE INTO `" . PREFIX . "settings_plugins_widget` (`id`, `modulname`, `widgetname`, `widgetdatei`, `area`) VALUES
+(1, 'navigation', 'Navigation', 'widget_navigation', 2),
+(2, 'footer', 'Footer Default', 'widget_footer_default', 5),
+(3, 'footer', 'Footer Easy', 'widget_footer_easy', 5),
+(4, 'footer', 'Footer Plugin', 'widget_footer_plugin', 5)");
+
+safe_query("DROP TABLE IF EXISTS `".PREFIX."settings_plugins_widget_settings`");
+safe_query("CREATE TABLE IF NOT EXISTS `".PREFIX."settings_plugins_widget_settings` ( 
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `position` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `modulname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `themes_modulname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `widgetname` varchar(255) NOT NULL DEFAULT '',
+  `widgetdatei` varchar(255) NOT NULL DEFAULT '',
+  `activated` int(1) DEFAULT 1,
+  `sort` int(11) DEFAULT 0,
+  PRIMARY KEY (`id`)
+) AUTO_INCREMENT=1
+  DEFAULT CHARSET=utf8 DEFAULT COLLATE utf8_unicode_ci");
+
+$transaction .= addtable("INSERT IGNORE INTO `" . PREFIX . "settings_plugins_widget_settings` (`id`, `position`, `modulname`, `themes_modulname`, `widgetname`, `widgetdatei`, `activated`, `sort`) VALUES
+(1, 'navigation_widget', 'navigation', 'default', 'Navigation', 'widget_navigation', 1, 0),
+(2, 'footer_widget', 'footer', 'default', 'Footer Easy', 'widget_footer_easy', 1, 0)");
+
+safe_query("DROP TABLE IF EXISTS `".PREFIX."settings_themes`");
+safe_query("CREATE TABLE IF NOT EXISTS `".PREFIX."settings_themes` ( 
+  `themeID` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `modulname` varchar(100) NOT NULL,
+  `pfad` varchar(255) DEFAULT '''0''',
+  `version` varchar(11) NOT NULL,
+  `active` int(11) DEFAULT NULL,
+  PRIMARY KEY (`themeID`)
+) AUTO_INCREMENT=1
+  DEFAULT CHARSET=utf8 DEFAULT COLLATE utf8_unicode_ci");
+
+$transaction .= addtable("INSERT IGNORE INTO `" . PREFIX . "settings_themes` (`themeID`, `name`, `modulname`, `pfad`, `version`, `active`) VALUES
+(1, 'Default', 'default', 'default', '0.3', 1)");
 
 
-
-
-
-
-
-
-
+###################
 echo'<div class="card"> 
 <div class=\'card-header\'>
               Ordner die gelöscht werden!
             </div>   
     <div class="card-body"><div class="alert alert-success" role="alert">Die Ordner <br>
-    /includes/plugins/navigation_default/ <br>
+    /includes/themes/base_files/ <br>
+    /includes/themes/default/css/ <br>
+    /includes/themes/default/js/ <br>
+    /includes/themes/default/images/ <br>
+    /images/headelements/ <br>
     mit den dazugehörigen Dateien wurden gelöscht.</div>
 ';
 // Löscht deinen alten /components/fonts Ordner mit allen Dateien
@@ -221,11 +284,23 @@ echo'<div class="card">
 
     // Funktion ausfueren
     // Hierbei wird am besten der absolute Pfad des zu loeschenden Ordners angegeben
-    DeleteFolderFiles($_SERVER["DOCUMENT_ROOT"] . "/includes/plugins/navigation_default");
+    DeleteFolderFiles($_SERVER["DOCUMENT_ROOT"] . "/components/fontawesome");
+    DeleteFolderFiles($_SERVER["DOCUMENT_ROOT"] . "/images/squadicons");
+    DeleteFolderFiles($_SERVER["DOCUMENT_ROOT"] . "/components/fonts/themify");
+    DeleteFolderFiles($_SERVER["DOCUMENT_ROOT"] . "/images/games");
+    DeleteFolderFiles($_SERVER["DOCUMENT_ROOT"] . "/components/admin/css/fonts");
+    DeleteFolderFiles($_SERVER["DOCUMENT_ROOT"] . "/languages/pl");
+    DeleteFolderFiles($_SERVER["DOCUMENT_ROOT"] . "/components/popper.js");
+    DeleteFolderFiles($_SERVER["DOCUMENT_ROOT"] . "/components/tooltip.js");
+    DeleteFolderFiles($_SERVER["DOCUMENT_ROOT"] . "/components/webshim");
+
 
 
 
 echo'</div></div>'; 
+
+
+
 
 #######################################################################################################################################  
   if (!($transaction) == 'false') {
@@ -286,7 +361,7 @@ function dropfield($table,$field) {
 function addtable($table) {
   global $_database;
   if(safe_query("".$table."")) {
-    //echo "<div class='alert alert-success'>String ausgef&uuml;hrt!</div><br />";
+    //echo "<div class='alert alert-success'>String ausgef&uuml;hrt! <br />";
     //return true;
   } else {
     echo "<div class='alert alert-danger'>String failed <br />";
@@ -362,11 +437,9 @@ global $_database;
 
 function renametable($table,$newtable) {
   global $_database;
-  #Wurde am 29.12.2024 angepasst
-  # ALT!!! if(safe_query("RENAME TABLE IF EXISTS `" . PREFIX . "".$table."` TO ".PREFIX."$newtable")) {
-  if(mysqli_query($_database,"RENAME TABLE IF EXISTS `" . PREFIX . "".$table."` TO ".PREFIX."$newtable")) {
-    #echo "<div class='alert alert-success'>String ausgef&uuml;hrt!</div><br />";
-    #return true;
+  if(safe_query("RENAME TABLE IF EXISTS `" . PREFIX . "".$table."` TO ".PREFIX."$newtable")) {
+    //echo "<div class='alert alert-success'>String ausgef&uuml;hrt! <br />";
+    //return true;
   } else {
     echo "<div class='alert alert-danger'>String failed <br />";
     echo "String ausf&uuml;hren fehlgeschlagen!<br /></div>";
@@ -398,7 +471,7 @@ function insertintable($table, $wherefield, $wherevalue, $insertstring) {
       } 
     } CATCH (EXCEPTION $x) {
       echo "<div class='alert alert-danger'>String installation failed <br />";
-      echo "Send the following line to the support team:<br /></div>";
+      echo "Send the following line to the support team:<br /><br />";
       echo "<pre>".$x->message()."</pre>";
       return false;
     }

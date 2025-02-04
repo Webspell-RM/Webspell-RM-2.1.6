@@ -2,10 +2,10 @@
 "items": [
            {
              "index": "greating ordner",
-             "file1": "/includes/plugins/navigation/css",
-             "file2": "/includes/plugins/navigation/js",
-             "file3": "/includes/plugins/navigation/style",
-             "file4": "/includes/plugins/navigation/images"
+             "file1": "/includes/expansion",
+             "file2": "/includes/expansion/default",
+             "file3": "/includes/expansion/default/css",
+             "file4": "/includes/expansion/default/images"
 
 
            },
@@ -14,146 +14,62 @@
             "file1": "/install.php",
             "file2": "/CHANGELOG.md", 
             "file3": "/system/version.php",
+            "file4": "/system/content.php",
+            "file4": "/system/functions.php",
 
-            "file4": "/admin/editlang.php",
-            "file5": "/admin/plugin_installer.php",
-            "file6": "/admin/plugin_manager.php",
-            "file7": "/admin/plugin_module.php",
-            "file8": "/admin/plugin_widgets.php",
-            "file9": "/admin/settings_manager_widget_area_selection.php",
-            "file10": "/admin/settings_manager_widget_css_js_selection.php",
-            "file11": "/admin/settings_static.php",
-            "file12": "/admin/settings_templates.php",
-            "file13": "/admin/update.php",
-            "file14": "/admin/user_rights.php",
-            "file15": "/admin/users.php",
-            "file16": "/admin/visitor_statistic_image.php",  
+            "file4": "/system/plugin.php",
+            "file4": "/system/seo.php",
+            "file4": "/system/settings.php",
+            "file4": "/system/widget.php",
 
-            "file17": "/components/admin/css/page.css",
-            "file18": "/components/css/page.css",
-            "file19": "/components/css/styles.css.php",
-
-            "file20": "/includes/modules/profile.php",
-            "file21": "/includes/modules/myprofile.php",
-            "file22": "/includes/modules/language.php",
-            "file23": "/includes/modules/navigation_login.php",
-
-            "file24": "/includes/plugins/navigation/widget_navigation.php",
-            "file25": "/includes/plugins/navigation/css/styles.css",
-            "file26": "/includes/plugins/navigation/js/default.js",
-            "file27": "/includes/plugins/navigation/style/styles_agency.css",
-            "file28": "/includes/plugins/navigation/style/styles_sticky.css",
-            "file29": "/includes/plugins/navigation/style/underscore.css",
-
-            "file30": "/includes/themes/base_files/uninstall.php",
-            "file31": "/includes/themes/base_files/index.php",
-            "file32": "/includes/themes/base_files/templates/checklogin.html",
-            "file33": "/includes/themes/base_files/templates/contact.html",
-            "file34": "/includes/themes/base_files/templates/error_404.html",
-            "file35": "/includes/themes/base_files/templates/favicon.ico",
-            "file36": "/includes/themes/base_files/templates/imprint.html",
-            "file37": "/includes/themes/base_files/templates/logged.html",
-            "file38": "/includes/themes/base_files/templates/login.html",
-            "file39": "/includes/themes/base_files/templates/lostpassword.html",
-            "file40": "/includes/themes/base_files/templates/myprofile.html",
-            "file41": "/includes/themes/base_files/templates/navigation.html",
-            "file42": "/includes/themes/base_files/templates/privacy_policy.html",
-            "file43": "/includes/themes/base_files/templates/profile.html",
-            "file44": "/includes/themes/base_files/templates/register.html",
-            "file45": "/includes/themes/base_files/templates/startpage.html",
-            "file46": "/includes/themes/base_files/templates/static.html",
-            "file47": "/includes/themes/base_files/css/stylesheet.css",
-            "file48": "/includes/themes/base_files/images/logo.png",
-            "file49": "/includes/themes/base_files/images/base_files.jpg",
-            "file50": "/includes/themes/base_files/images/login_bg.jpg",
-            "file51": "/includes/themes/base_files/images/logo-signup.png",
-            "file52": "/includes/themes/base_files/images/no_background.png",
-
-            "file53": "/includes/themes/default/index.php",
-            "file54": "/includes/themes/default/templates/checklogin.html",
-            "file55": "/includes/themes/default/templates/contact.html",
-            "file56": "/includes/themes/default/templates/error_404.html",
-            "file57": "/includes/themes/default/templates/favicon.ico",
-            "file58": "/includes/themes/default/templates/imprint.html",
-            "file59": "/includes/themes/default/templates/logged.html",
-            "file60": "/includes/themes/default/templates/login.html",
-            "file61": "/includes/themes/default/templates/lostpassword.html",
-            "file62": "/includes/themes/default/templates/myprofile.html",
-            "file63": "/includes/themes/default/templates/navigation.html",
-            "file64": "/includes/themes/default/templates/privacy_policy.html",
-            "file65": "/includes/themes/default/templates/profile.html",
-            "file66": "/includes/themes/default/templates/register.html",
-            "file67": "/includes/themes/default/templates/startpage.html",
-            "file68": "/includes/themes/default/templates/static.html",
-            "file69": "/includes/themes/default/css/stylesheet.css",
-            "file70": "/includes/themes/default/images/logo.png",
-            "file71": "/includes/themes/default/images/default.jpg",
-            "file72": "/includes/themes/default/images/login_bg.jpg",
-            "file73": "/includes/themes/default/images/eye.svg",
-            "file74": "/includes/themes/default/images/logo-signup.png",
-            "file75": "/includes/themes/default/images/no_background.png",
-
-            "file76": "/install/installer/full.php",
-
-            "file77": "/languages/de/admin/widgets.php",
-            "file78": "/languages/en/admin/widgets.php",
-            "file79": "/languages/it/admin/widgets.php",
-
-            "file80": "/languages/de/admin/templates.php",
-            "file81": "/languages/en/admin/templates.php",
-            "file82": "/languages/it/admin/templates.php",
-
-            "file83": "/languages/de/myprofile.php",
-            "file84": "/languages/en/myprofile.php",
-            "file85": "/languages/it/myprofile.php",
-
-            "file86": "/languages/de/admin/plugin_manager.php",
-            "file87": "/languages/en/admin/plugin_manager.php",
-            "file88": "/languages/it/admin/plugin_manager.php",
-
-            "file89": "/languages/de/admin/editlang.php",
-            "file90": "/languages/en/admin/editlang.php",
-            "file91": "/languages/it/admin/editlang.php",
-
-            "file92": "/system/content.php",
-            "file93": "/system/func/feeds.php",
-            "file94": "/system/func/useraccess.php",
-
-            "file95": "/languages/de/profile.php",
-            "file96": "/languages/en/profile.php",
-            "file97": "/languages/it/profile.php",
-
-            "file98": "/includes/plugins/navigation/install.php",
-            "file99": "/includes/plugins/navigation/uninstall.php",
-            "file100": "/includes/plugins/navigation/images/widget_navigation_default.jpg",
-            "file101": "/languages/de/admin/update.php",
-            "file102": "/languages/en/admin/update.php",
-            "file103": "/languages/it/admin/update.php",
-
-
-            "file104": "/system/settings.php",
+            "file4": "/system/func/install_base.php",
+            "file4": "/system/func/installer.php",
 
             
-            "file105": "/admin/settings.php",
-            "file106": "/admin/email.php",
 
-            "file107": "/includes/themes/base_files/index.php",
-            "file108": "/includes/themes/default/index.php",
+            
+            "file5": "/admin/settings.php",
+            "file6": "/admin/email.php",
+            "file5": "/admin/settings_templates.php",
+            "file5": "/admin/plugin_installer.php",
+            "file5": "/admin/plugin_manager.php",
+            "file5": "/admin/template_installer.php",
 
-            "file109": "/languages/de/admin/settings.php",
-            "file110": "/languages/en/admin/settings.php",
-            "file111": "/languages/it/admin/settings.php",
 
-            "file112": "/components/admin/images/recapcha.png"
+            "file5": "/admin/template_installer.php",
+
+            "file7": "/includes/themes/base_files/index.php",
+            "file8": "/includes/themes/default/index.php",
+
+            "file8": "/includes/themes/default/templates/navigation.html",
+
+            "file9": "/languages/de/admin/settings.php",
+            "file10": "/languages/en/admin/settings.php",
+            "file11": "/languages/it/admin/settings.php",
+
+
+            "file11": "/includes/modules/language.php",
+            "file11": "/includes/modules/navigation.php",
+            "file11": "/includes/modules/navigation_login.php",
+
+
+            "file11": "/includes/expansion/default/css/stylesheet.css",
+            "file11": "/includes/expansion/default/images/default_login_bg.jpg",
+            "file11": "/includes/expansion/default/images/default_logo.png"
+
+
+
 
              
            },
            {
             "index": "deleting files",
-            "file1": "/includes/modules/language_flag.php",
-            "file2": "/includes/modules/language_select.php",
-            "file3": "/admin/settings_manager_navigation_selection.php",
-            "file4": "/install/installer/full1.php"
+
+            "file1": "/admin/plugin_module.php",
+            "file2": "/admin/plugin_widgets.php",
+            "file3": "/admin/settings_manager_widget_area_selection.php",
+            "file4": "/admin/settings_manager_widget_css_js_selection.php",
+            "file5": "/admin/settings_headelements",
 
            }
          ]
