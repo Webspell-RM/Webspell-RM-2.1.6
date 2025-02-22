@@ -257,6 +257,7 @@ echo'<div class="card">
     /includes/themes/default/images/ <br>
     /includes/themes/default/img/ <br>
     /images/headelements/ <br>
+    /images/plugins/ <br>
     mit den dazugehörigen Dateien wurden gelöscht.</div>
 ';
 // Löscht deinen alten /components/fonts Ordner mit allen Dateien
@@ -308,6 +309,7 @@ echo'<div class="card">
     DeleteFolderFiles($_SERVER["DOCUMENT_ROOT"] . "/includes/themes/default/images");
     DeleteFolderFiles($_SERVER["DOCUMENT_ROOT"] . "/includes/themes/default/img");
     DeleteFolderFiles($_SERVER["DOCUMENT_ROOT"] . "/images/headelements");
+    DeleteFolderFiles($_SERVER["DOCUMENT_ROOT"] . "/images/plugins");
 
 
 
