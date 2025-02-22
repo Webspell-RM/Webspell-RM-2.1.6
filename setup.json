@@ -15,47 +15,69 @@
             "file2": "/CHANGELOG.md", 
             "file3": "/system/version.php",
             "file4": "/system/content.php",
-            "file4": "/system/functions.php",
+            "file5": "/system/functions.php",
 
-            "file4": "/system/plugin.php",
-            "file4": "/system/seo.php",
-            "file4": "/system/settings.php",
-            "file4": "/system/widget.php",
+            "file6": "/system/plugin.php",
+            "file7": "/system/seo.php",
+            "file8": "/system/settings.php",
+            "file9": "/system/widget.php",
 
-            "file4": "/system/func/install_base.php",
-            "file4": "/system/func/installer.php",
+            "file10": "/system/func/install_base.php",
+            "file11": "/system/func/installer.php",
+
+            
+
+            
+            "file12": "/admin/settings.php",
+            "file13": "/admin/email.php",
+            "file14": "/admin/settings_themes.php",
+            "file15": "/admin/plugin_installer.php",
+            "file16": "/admin/plugin_manager.php",
+            "file17": "/admin/themes_installer.php",
 
             
 
-            
-            "file5": "/admin/settings.php",
-            "file6": "/admin/email.php",
-            "file5": "/admin/settings_templates.php",
-            "file5": "/admin/plugin_installer.php",
-            "file5": "/admin/plugin_manager.php",
-            "file5": "/admin/template_installer.php",
 
 
-            "file5": "/admin/template_installer.php",
+            "file18": "/includes/themes/default/index.php",
 
-            "file7": "/includes/themes/base_files/index.php",
-            "file8": "/includes/themes/default/index.php",
+            "file19": "/includes/themes/default/templates/navigation.html",
 
-            "file8": "/includes/themes/default/templates/navigation.html",
+            "file20": "/languages/de/admin/settings.php",
+            "file21": "/languages/en/admin/settings.php",
+            "file22": "/languages/it/admin/settings.php",
 
-            "file9": "/languages/de/admin/settings.php",
-            "file10": "/languages/en/admin/settings.php",
-            "file11": "/languages/it/admin/settings.php",
+            "file23": "/languages/de/admin/plugin_manager.php",
+            "file24": "/languages/en/admin/plugin_manager.php",
+            "file25": "/languages/it/admin/plugin_manager.php",
+
+            "file26": "/languages/de/admin/themes.php",
+            "file27": "/languages/en/admin/themes.php",
+            "file28": "/languages/it/admin/themes.php",
+
+            "file29": "/languages/de/admin/themes_installer.php",
+            "file30": "/languages/en/admin/themes_installer.php",
+            "file31": "/languages/it/admin/themes_installer.php",
 
 
-            "file11": "/includes/modules/language.php",
-            "file11": "/includes/modules/navigation.php",
-            "file11": "/includes/modules/navigation_login.php",
+            "file32": "/includes/modules/language.php",
+            "file33": "/includes/modules/navigation.php",
+            "file34": "/includes/modules/navigation_login.php",
 
 
-            "file11": "/includes/expansion/default/css/stylesheet.css",
-            "file11": "/includes/expansion/default/images/default_login_bg.jpg",
-            "file11": "/includes/expansion/default/images/default_logo.png"
+            "file35": "/includes/expansion/default/css/stylesheet.css",
+            "file36": "/includes/expansion/default/images/default_login_bg.jpg",
+            "file37": "/includes/expansion/default/images/default_logo.png",
+            "file38": "/includes/expansion/default/images/favicon.ico",
+            "file39": "/system/func/install_base.php",
+            "file40": "/includes/plugins/navigation/widget_navigation.php",
+
+            "file41": "/components/css/page.css",
+            "file42": "/components/css/styles.css.php",
+            "file43": "/components/scrolltotop/css/scrolltotop.css",
+            "file44": "/components/bootstrap/css/bootstrap-icons.min.css",
+            "file45": "/components/bootstrap/css/bootstrap.min.css",
+            "file46": "/components/bootstrap/css/bootstrap.min.css.map"
 
 
 
@@ -70,6 +92,16 @@
             "file3": "/admin/settings_manager_widget_area_selection.php",
             "file4": "/admin/settings_manager_widget_css_js_selection.php",
             "file5": "/admin/settings_headelements",
+            "file6": "/admin/settings_templates.php",
+            "file7": "/admin/template_installer.php",
+
+            "file8": "/languages/de/admin/templates.php",
+            "file9": "/languages/en/admin/templates.php",
+            "file10": "/languages/it/admin/templates.php",
+
+            "file11": "/languages/de/admin/template_installer.php",
+            "file12": "/languages/en/admin/template_installer.php",
+            "file13": "/languages/it/admin/template_installer.php"
 
            }
          ]

@@ -49,7 +49,7 @@ header('X-UA-Compatible: IE=edge,chrome=1');
     <meta name="author" content="webspell-rm.de">
     <meta name="revisit-After" content="1days">
     <meta name="distribution" content="global">
-    <link rel="SHORTCUT ICON" href="./includes/themes/<?php echo $theme_name; ?>/templates/favicon.ico">
+    <link rel="SHORTCUT ICON" href="./includes/expansion/<?php echo $theme_name; ?>/images/favicon.ico">
  
     <!-- Head & Title include -->
     <title><?= get_sitetitle(); ?></title>
@@ -74,8 +74,8 @@ echo ($_pluginmanager->plugin_loadheadfile_widget_css());
 #echo get_plugin_loadheadfile_widget_css($css);
 echo'<!--Widget css END-->'.chr(0x0D).chr(0x0A);
 /* Plugin-Manager  css END*/
-
 ?>
+<link type="text/css" rel="stylesheet" href="./includes/expansion/<?php echo $theme_name; ?>/css/stylesheet.css" />
 </head>
 <body>
 
@@ -152,7 +152,7 @@ echo get_editor();
 <script defer src="./components/cookies/js/cookieconsent-init.js"></script>
 <script defer src="./components/cookies/js/app.js"></script>
 <!-- Language recognition for DataTables -->
-<? echo "<script>const LangDataTables = '$_language->language';</script>"; ?>
+<script>const LangDataTables = <? echo "'$_language->language'"; ?></script>
 <script type="text/javascript">
         // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function () {

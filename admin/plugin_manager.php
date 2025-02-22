@@ -227,7 +227,7 @@ if (isset($_POST[ 'header_activ' ])) {
                         '".$k."', 
                         '', 
                         '1', 
-                        ''
+                        '1'
                         )"
                     );
 
@@ -309,7 +309,7 @@ if (isset($_POST[ 'navigation_activ' ])) {
                         '".$k."', 
                         '', 
                         '1', 
-                        ''
+                        '1'
                         )"
                     );
 
@@ -389,7 +389,7 @@ if (isset($_POST[ 'content_head_activ' ])) {
                         '".$k."', 
                         '', 
                         '1', 
-                        ''
+                        '1'
                         )"
                     );
 
@@ -450,8 +450,8 @@ if (isset($_POST[ 'sidebar_left_activ' ])) {
     $CAPCLASS = new \webspell\Captcha;
     if ($CAPCLASS->checkCaptcha(0, $_POST[ 'captcha_hash' ])) {
 
-        if (isset($_POST['sidebar_off_1'])) {            
-            foreach ($_POST['sidebar_off_1'] as $k => $v) {
+        if (isset($_POST['sidebar_left_off_1'])) {            
+            foreach ($_POST['sidebar_left_off_1'] as $k => $v) {
                 if($v=="left_side_widget"){
                     safe_query(
                     "INSERT INTO
@@ -470,15 +470,15 @@ if (isset($_POST[ 'sidebar_left_activ' ])) {
                         '".$k."', 
                         '', 
                         '1', 
-                        ''
+                        '1'
                         )"
                     );
 
-                    foreach ($_POST['sidebar_off_2'] as $k => $a) {
+                    foreach ($_POST['sidebar_left_off_2'] as $k => $a) {
                     safe_query("UPDATE " . PREFIX . "plugins_".$_POST['modulname']."_settings_widgets SET widgetdatei = '".$a."' WHERE widgetname='".$k."' ");
                     
                     }
-                    foreach ($_POST['sidebar_off_3'] as $k => $d) {
+                    foreach ($_POST['sidebar_left_off_3'] as $k => $d) {
                     safe_query("UPDATE " . PREFIX . "plugins_".$_POST['modulname']."_settings_widgets SET modulname = '".$d."' WHERE widgetname='".$k."' ");
                     
                     }  
@@ -531,8 +531,8 @@ if (isset($_POST[ 'sidebar_right_activ' ])) {
     $CAPCLASS = new \webspell\Captcha;
     if ($CAPCLASS->checkCaptcha(0, $_POST[ 'captcha_hash' ])) {
 
-        if (isset($_POST['sidebar_off_1'])) {            
-            foreach ($_POST['sidebar_off_1'] as $k => $v) {
+        if (isset($_POST['sidebar_right_off_1'])) {            
+            foreach ($_POST['sidebar_right_off_1'] as $k => $v) {
                 if($v=="right_side_widget"){
                     safe_query(
                     "INSERT INTO
@@ -551,15 +551,15 @@ if (isset($_POST[ 'sidebar_right_activ' ])) {
                         '".$k."', 
                         '', 
                         '1', 
-                        ''
+                        '1'
                         )"
                     );
 
-                    foreach ($_POST['sidebar_off_2'] as $k => $a) {
+                    foreach ($_POST['sidebar_right_off_2'] as $k => $a) {
                     safe_query("UPDATE " . PREFIX . "plugins_".$_POST['modulname']."_settings_widgets SET widgetdatei = '".$a."' WHERE widgetname='".$k."' ");
                     
                     }
-                    foreach ($_POST['sidebar_off_3'] as $k => $d) {
+                    foreach ($_POST['sidebar_right_off_3'] as $k => $d) {
                     safe_query("UPDATE " . PREFIX . "plugins_".$_POST['modulname']."_settings_widgets SET modulname = '".$d."' WHERE widgetname='".$k."' ");
                     
                     }  
@@ -636,7 +636,7 @@ if (isset($_POST[ 'sidebar_left_right_activ' ])) {
                         '".$k."', 
                         '', 
                         '1', 
-                        ''
+                        '1'
                         )"
                     );
 
@@ -720,7 +720,7 @@ if (isset($_POST[ 'content_foot_activ' ])) {
                         '".$k."', 
                         '', 
                         '1', 
-                        ''
+                        '1'
                         )"
                     );
 
@@ -800,7 +800,7 @@ if (isset($_POST[ 'footer_activ' ])) {
                         '".$k."', 
                         '', 
                         '1', 
-                        ''
+                        '1'
                         )"
                     );
 
@@ -891,13 +891,13 @@ echo '<div class="card">
             <table class="table table-striped table-bordered">              
             <thead>
                 <tr>                              
-                    <th class="text-bg-secondary p-3" style="width:15%">' . $_language->module['widgets' ] . '</th>
-                    <th class="text-bg-secondary p-3">' . $_language->module['area' ] . '</th>
+                    <th class="text-bg-secondary p-3" style="width:25%">' . $_language->module['widgets'] . '</th>
+                    <th class="text-bg-secondary p-3">' . $_language->module['area'] . '</th>
                 </tr>
             </thead>
             <tbody>
             <tr>
-                <td><span class="badge border border-success text-black bg-info" style="width: 150px">' . $_language->module['header1' ] . '</span>';
+                <td><span class="badge border border-success text-black bg-info" style="width: 100%">' . $_language->module['header1'] . '</span><br>';
                     $header_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '1'");
                     $i = 1;
                     while ($header_off = mysqli_fetch_array($header_plugins_widget)) {
@@ -916,7 +916,7 @@ echo '<div class="card">
                         }                           
                         $i++; 
                     }
-                echo'<input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="header_activ" value="' . $_language->module['widget_off_setting' ] . '" />
+                echo'<br><input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="header_activ" value="' . $_language->module['widget_off_setting'] . '" />
                 </td>
                 <td>     
                     ' . $_language->module['header'] . '
@@ -949,12 +949,12 @@ echo '<div class="card">
                         echo'<br>
                         <input type="hidden" name="captcha_hash" value="' . $hash . '">';
                     }
-                    echo'<input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="header_deactivated" value="' . $_language->module['widget_on_setting' ] . '" />
+                    echo'<input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="header_deactivated" value="' . $_language->module['widget_on_setting'] . '" />
                     </div>
                 </td>
             </tr>
             <tr>
-                <td><span class="badge border border-success text-black bg-info" style="width: 150px">' . $_language->module['navigation' ] . '</span>';
+                <td><span class="badge border border-success text-black bg-info" style="width: 100%">' . $_language->module['navigation'] . '</span><br>';
                     $navigation_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '2'");
                     $i = 1;
                     while ($navigation_off = mysqli_fetch_array($navigation_plugins_widget)) {
@@ -973,7 +973,7 @@ echo '<div class="card">
                         }                           
                         $i++; 
                     }
-                    echo'<input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="navigation_activ" value="' . $_language->module['widget_off_setting' ] . '" />
+                    echo'</br><input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="navigation_activ" value="' . $_language->module['widget_off_setting'] . '" />
                 </td>
                 <td>
                     ' . $_language->module['navigation'] . '
@@ -1006,12 +1006,12 @@ echo '<div class="card">
                         echo'<br>
                         <input type="hidden" name="captcha_hash" value="' . $hash . '">';
                     }
-                    echo'<input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="navigation_deactivated" value="' . $_language->module['widget_on_setting' ] . '" />
+                    echo'<input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="navigation_deactivated" value="' . $_language->module['widget_on_setting'] . '" />
                     </div>
                 </td>
             </tr>
             <tr>
-                <td><span class="badge border border-success text-black bg-info" style="width: 150px">' . $_language->module['content_head1' ] . '</span>';
+                <td><span class="badge border border-success text-black bg-info" style="width: 100%">' . $_language->module['content_head1'] . '</span><br>';
                     $content_head_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '3'");
                     $i = 1;
                     while ($content_head_off = mysqli_fetch_array($content_head_plugins_widget)) {
@@ -1030,7 +1030,7 @@ echo '<div class="card">
                         }                           
                         $i++; 
                     }
-                    echo'<input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="content_head_activ" value="' . $_language->module['widget_off_setting' ] . '" />
+                    echo'</br><input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="content_head_activ" value="' . $_language->module['widget_off_setting'] . '" />
                 </td>
                 <td>
                     ' . $_language->module['content_head'] . '
@@ -1063,56 +1063,56 @@ echo '<div class="card">
                         echo'<br>
                         <input type="hidden" name="captcha_hash" value="' . $hash . '">';
                     }
-                    echo'<input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="content_head_deactivated" value="' . $_language->module['widget_on_setting' ] . '" />
+                    echo'<input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="content_head_deactivated" value="' . $_language->module['widget_on_setting'] . '" />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <span class="badge border border-success text-black bg-info" style="width: 150px">' . $_language->module['left' ] . '</span>';
-                    $sidebar_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '4'");
+                    <span class="badge border border-success text-black bg-info" style="width: 100%">' . $_language->module['left'] . '</span><br>';
+                    $sidebar_left_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '4'");
                     $i = 1;
-                    while ($sidebar_off = mysqli_fetch_array($sidebar_plugins_widget)) {
-                        $modul_name=$sidebar_off['modulname'];
-                        $widgetname=$sidebar_off['widgetname'];
-                        $widgetdatei=$sidebar_off['widgetdatei'];
-                        $id=$sidebar_off['id'];
-                        $ysidebar_ergebnis = safe_query("SELECT * FROM " . PREFIX . "plugins_".$dw['modulname']."_settings_widgets WHERE themes_modulname= '".$dx['modulname']."' AND widgetname='".$widgetname."'");
-                        $ysidebar = mysqli_fetch_array($ysidebar_ergebnis);
-                        if (@$ysidebar['activated'] == '1') {
+                    while ($sidebar_left_off = mysqli_fetch_array($sidebar_left_plugins_widget)) {
+                        $modul_name=$sidebar_left_off['modulname'];
+                        $widgetname=$sidebar_left_off['widgetname'];
+                        $widgetdatei=$sidebar_left_off['widgetdatei'];
+                        $id=$sidebar_left_off['id'];
+                        $ysidebar_left_ergebnis = safe_query("SELECT * FROM " . PREFIX . "plugins_".$dw['modulname']."_settings_widgets WHERE themes_modulname= '".$dx['modulname']."' AND widgetname='".$widgetname."'");
+                        $ysidebar_left = mysqli_fetch_array($ysidebar_left_ergebnis);
+                        if (@$ysidebar_left['activated'] == '1') {
                         }else{
                             echo'<span class="badge border border-success text-black" style="width: 150px">'.$widgetname.'</span>&nbsp;&nbsp;&nbsp;
-                        <input class="form-check-input" type="checkbox" name="sidebar_off_1['.$widgetname.']" id="'.$id.'[]" value="left_side_widget" >
-                        <input type="hidden" name="sidebar_off_2['.$widgetname.']" id="'.$id.'[]" value="'.$widgetdatei.'" >
-                        <input type="hidden" name="sidebar_off_3['.$widgetname.']" id="'.$id.'[]" value="'.$modul_name.'" >';
+                        <input class="form-check-input" type="checkbox" name="sidebar_left_off_1['.$widgetname.']" id="'.$id.'[]" value="left_side_widget" >
+                        <input type="hidden" name="sidebar_left_off_2['.$widgetname.']" id="'.$id.'[]" value="'.$widgetdatei.'" >
+                        <input type="hidden" name="sidebar_left_off_3['.$widgetname.']" id="'.$id.'[]" value="'.$modul_name.'" >';
                         }                           
                         $i++; 
                     }
-                    echo'<input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="sidebar_left_activ" value="' . $_language->module['widget_off_setting' ] . '" />
+                    echo'</br><input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="sidebar_left_activ" value="' . $_language->module['widget_off_setting'] . '" />
                     <hr>
-                    <span class="badge border border-success text-black bg-info" style="width: 150px">' . $_language->module['right' ] . '</span>';
-                    $sidebar_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '4'");
+                    <span class="badge border border-success text-black bg-info" style="width: 100%">' . $_language->module['right'] . '</span><br>';
+                    $sidebar_right_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '4'");
                     $i = 1;
-                    while ($sidebar_off = mysqli_fetch_array($sidebar_plugins_widget)) {
-                        $modul_name=$sidebar_off['modulname'];
-                        $widgetname=$sidebar_off['widgetname'];
-                        $widgetdatei=$sidebar_off['widgetdatei'];
-                        $id=$sidebar_off['id'];
-                        $ysidebar_ergebnis = safe_query("SELECT * FROM " . PREFIX . "plugins_".$dw['modulname']."_settings_widgets WHERE themes_modulname= '".$dx['modulname']."' AND widgetname='".$widgetname."'");
-                        $ysidebar = mysqli_fetch_array($ysidebar_ergebnis);
-                        if (@$ysidebar['activated'] == '1') {
+                    while ($sidebar_right_off = mysqli_fetch_array($sidebar_right_plugins_widget)) {
+                        $modul_name=$sidebar_right_off['modulname'];
+                        $widgetname=$sidebar_right_off['widgetname'];
+                        $widgetdatei=$sidebar_right_off['widgetdatei'];
+                        $id=$sidebar_right_off['id'];
+                        $ysidebar_right_ergebnis = safe_query("SELECT * FROM " . PREFIX . "plugins_".$dw['modulname']."_settings_widgets WHERE themes_modulname= '".$dx['modulname']."' AND widgetname='".$widgetname."'");
+                        $ysidebar = mysqli_fetch_array($ysidebar_right_ergebnis);
+                        if (@$ysidebar_right['activated'] == '1') {
                         }else{
                             echo'<span class="badge border border-success text-black" style="width: 150px">'.$widgetname.'</span>&nbsp;&nbsp;&nbsp;
-                        <input class="form-check-input" type="checkbox" name="sidebar_off_1['.$widgetname.']" id="'.$id.'[]" value="right_side_widget" >
-                        <input type="hidden" name="sidebar_off_2['.$widgetname.']" id="'.$id.'[]" value="'.$widgetdatei.'" >
-                        <input type="hidden" name="sidebar_off_3['.$widgetname.']" id="'.$id.'[]" value="'.$modul_name.'" >';
+                        <input class="form-check-input" type="checkbox" name="sidebar_right_off_1['.$widgetname.']" id="'.$id.'[]" value="right_side_widget" >
+                        <input type="hidden" name="sidebar_right_off_2['.$widgetname.']" id="'.$id.'[]" value="'.$widgetdatei.'" >
+                        <input type="hidden" name="sidebar_right_off_3['.$widgetname.']" id="'.$id.'[]" value="'.$modul_name.'" >';
                         }                           
                         $i++; 
                     }
-                    echo'<input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="sidebar_right_activ" value="' . $_language->module['widget_off_setting' ] . '" />
+                    echo'<br><input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="sidebar_right_activ" value="' . $_language->module['widget_off_setting'] . '" />
                 </td>
                 <td>
                     <div class="col text-center">   
-                        ' . $_language->module['right_left_active' ] . '
+                        ' . $_language->module['right_left_active'] . '
                     </div>
                     <div class="container text-center" style="padding-top: 20px">
                         <div class="row">
@@ -1147,7 +1147,7 @@ echo '<div class="card">
                                     echo'<br>
                                     <input type="hidden" name="captcha_hash" value="' . $hash . '">';
                                 }
-                                echo'<input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="sidebar_left_deactivated" value="' . $_language->module['widget_on_setting' ] . '" />
+                                echo'<input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="sidebar_left_deactivated" value="' . $_language->module['widget_on_setting'] . '" />
                                 </div>
                             </div>
                             <div class="col-6 text-start style="padding: 5px">
@@ -1185,7 +1185,7 @@ echo '<div class="card">
                                     echo'<br>
                                     <input type="hidden" name="captcha_hash" value="' . $hash . '">';
                                 }
-                                echo'<input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="sidebar_right_deactivated" value="' . $_language->module['widget_on_setting' ] . '" />
+                                echo'<input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="sidebar_right_deactivated" value="' . $_language->module['widget_on_setting'] . '" />
                                 </div>
                             </div>
                         </div>
@@ -1193,7 +1193,7 @@ echo '<div class="card">
                 </td>
             </tr>
             <tr>
-                <td><span class="badge border border-success text-black bg-info" style="width: 150px">' . $_language->module['content_foot1' ] . '</span>';
+                <td><span class="badge border border-success text-black bg-info" style="width: 100%">' . $_language->module['content_foot1'] . '</span><br>';
                     $content_foot_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '3'");
                     $i = 1;
                     while ($content_foot_off = mysqli_fetch_array($content_foot_plugins_widget)) {
@@ -1212,7 +1212,7 @@ echo '<div class="card">
                         }                           
                         $i++; 
                     }
-                    echo'<input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="content_foot_activ" value="' . $_language->module['widget_off_setting' ] . '" />
+                    echo'</br><input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="content_foot_activ" value="' . $_language->module['widget_off_setting'] . '" />
                 </td>
                 <td>
                     ' . $_language->module['content_foot'] . '
@@ -1245,13 +1245,13 @@ echo '<div class="card">
                         echo'<br>
                         <input type="hidden" name="captcha_hash" value="' . $hash . '">';
                     }
-                    echo'<input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="content_foot_deactivated" value="' . $_language->module['widget_on_setting' ] . '" />
+                    echo'<input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="content_foot_deactivated" value="' . $_language->module['widget_on_setting'] . '" />
                     </div>
                 </td>
             </tr>
             <tr>
-                <td><span class="badge border border-success text-black bg-info" style="width: 150px">' . $_language->module['footer' ] . '</span>';
-                    $footer_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '5'");
+                <td><span class="badge border border-success text-black bg-info" style="width: 100%">' . $_language->module['footer'] . '</span><br>';
+                    $footer_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '6'");
                     $i = 1;
                     while ($footer_off = mysqli_fetch_array($footer_plugins_widget)) {
                         $modul_name=$footer_off['modulname'];
@@ -1269,7 +1269,7 @@ echo '<div class="card">
                         }               
                         $i++; 
                     }
-                    echo'<input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="footer_activ" value="' . $_language->module['widget_off_setting' ] . '" />
+                    echo'</br><input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="footer_activ" value="' . $_language->module['widget_off_setting'] . '" />
                 </td>
                 <td>     
                     ' . $_language->module['footer'] . '
@@ -1303,7 +1303,7 @@ echo '<div class="card">
                         <input type="hidden" name="captcha_hash" value="' . $hash . '">';
                     }
        
-                    echo'<input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="footer_deactivated" value="' . $_language->module['widget_on_setting' ] . '" />
+                    echo'<input class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="footer_deactivated" value="' . $_language->module['widget_on_setting'] . '" />
                     </div>
                 </td>
             </tr>';
@@ -1352,10 +1352,7 @@ echo '<div class="card">
         <div class="card-body">';
 
     $ergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `pluginID`='".$id."' LIMIT 1");
-    $ds = mysqli_fetch_array($ergebnis);       
-        
-    $ergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `pluginID`='".$id."' LIMIT 1");
-    $dx = mysqli_fetch_array($ergebnis);
+    $ds = mysqli_fetch_array($ergebnis);
 
     $translate = new multiLanguage(detectCurrentLanguage());
     $translate->detectLanguages($ds['name']);
@@ -1377,15 +1374,8 @@ echo '<div class="card">
     }    
     echo'<form class="form-horizontal" method="post" id="post" name="post" action="admincenter.php?site=plugin_manager&id='.$id.'&do=edit" enctype="multipart/form-data" onsubmit="return chkFormular();">';
 
-
-#Plugin-Grundeinstellungen Start
-
-	
-    $ergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `pluginID`='".$id."' LIMIT 1");
-    $dx = mysqli_fetch_array($ergebnis);
-
-    $themeergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE active = '1'");
-    $db = mysqli_fetch_array($themeergebnis);
+    #$themeergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE active = '1'");
+    #$db = mysqli_fetch_array($themeergebnis);
 
 
  
@@ -1410,7 +1400,7 @@ echo '<div class="card">
             </label>
             <div class="col-sm-7">
                 <p style="margin-top: 7px">'.$info.'</p>
-                <spanclass="text-muted small"><em>
+                <span class="text-muted small"><em>
                 <textarea class="form-control" name="info" rows="10" cols="" style="width: 100%;" placeholder="info">'.$ds['info'].'</textarea></em></span>
             </div>
         </div>
@@ -1462,6 +1452,27 @@ echo '<div class="card">
             <label class="col-sm-5 col-form-label" for="path">'.$_language->module['folder_file'].': <br><small>('.$_language->module['folder_file_slash'].')</small></label>
             <div class="col-sm-7"><span class="text-muted small"><em>
                 <input type="name" class="form-control" placeholder="includes/plugins/myplugin/"  value="'.$ds['path'].'" rows="5" name="path"></em></span>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label class="col-sm-5 col-form-label" for="path">Widgets: <br><small>(die mit dem Plugin mitgeliefert werden)</small></label>
+            <div class="col-sm-7"><span class="text-muted small"><em>
+            <div class="form-control">';
+                
+                $widgetsergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE modulname = '".$ds['modulname']."'");
+                $widget ='';
+                while ($df = mysqli_fetch_array($widgetsergebnis)) {
+                    $modulname=$df['modulname'];
+                    $widget .=$df['widgetname'].'<br>';
+                }
+                if($ds['modulname']==@$modulname) {
+                    $xwidget =$widget;
+                }else{
+                    $xwidget ='Kein Widget vorhanden!';
+                }
+
+            echo''.$xwidget.'</div></em></span>
             </div>
         </div>';
 
@@ -1620,7 +1631,7 @@ echo'<div class="card">
         </div>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="admincenter.php?site=plugin_manager">' . $_language->module[ 'plugin_manager' ] . '</a></li>
+            <li class="breadcrumb-item"><a href="admincenter.php?site=plugin_manager">' . $_language->module[ 'plugin_manager'] . '</a></li>
             <li class="breadcrumb-item active" aria-current="page">new & edit</li>
           </ol>
         </nav>

@@ -294,7 +294,7 @@ $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_expans
     $components = array(
         'css' => array(
             './components/bootstrap/css/bootstrap.min.css',
-            './components/bootstrap/css/bootstrap-icons.css',
+            './components/bootstrap/css/bootstrap-icons.min.css',
             './components/scrolltotop/css/scrolltotop.css',
             './components/datatables/css/jquery.dataTables.min.css',
             './components/ckeditor/plugins/codesnippet/lib/highlight/styles/school_book_output.css',
@@ -410,8 +410,15 @@ $new_chmod = 0666;
 $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE active = '1'"));
 @$logo = $dx[ 'logo' ];
 
-$row = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE active = '1'");
+/*$row = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE active = '1'");
 $tmp = mysqli_fetch_assoc(safe_query("SELECT count(themeID) as cnt FROM " . PREFIX . "settings_themes"));
+$anzpartners = $tmp[ 'cnt' ];
+while ($ds = mysqli_fetch_array($row)) {
+       $theme_name = $ds['pfad'];
+}*/
+
+$row = safe_query("SELECT * FROM " . PREFIX . "settings_expansion WHERE active = '1'");
+$tmp = mysqli_fetch_assoc(safe_query("SELECT count(themeID) as cnt FROM " . PREFIX . "settings_expansion"));
 $anzpartners = $tmp[ 'cnt' ];
 while ($ds = mysqli_fetch_array($row)) {
        $theme_name = $ds['pfad'];

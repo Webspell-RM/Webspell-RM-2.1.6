@@ -115,12 +115,10 @@ if(isset($_GET['deinstall'] )== 'plugin') {
   $dir = $_GET['dir'];
   $dir = str_replace('/','',$dir);
   ############ Plugin und Modul Einstellung ###############
-  DeleteData("settings_module","modulname",$dir);
   DeleteData("navigation_website_sub","modulname",$dir);
   DeleteData("navigation_dashboard_links","modulname",$dir);
   DeleteData("settings_plugins","modulname",$dir);
   DeleteData("settings_plugins_widget","modulname",$dir);
-  DeleteData("settings_widgets","modulname",$dir);
   $id = $_GET['id'];
   echo rmmodinstall('plugin','install',$dir,$id,$getversion);
   echo'</div></div>';
@@ -140,13 +138,10 @@ if(isset($_GET['deinstall'] )== 'plugin') {
   $dir = $_GET['dir'];
   $dir = str_replace('/','',$dir);
   ############ Plugin und Modul Einstellung ###############
-  DeleteData("settings_module","modulname",$dir);
-  DeleteData("settings_modul_widget_section","modulname",$dir);
   DeleteData("navigation_website_sub","modulname",$dir);
   DeleteData("navigation_dashboard_links","modulname",$dir);
   DeleteData("settings_plugins","modulname",$dir);
   DeleteData("settings_plugins_widget","modulname",$dir);
-  DeleteData("settings_widgets","modulname",$dir);
   $id = $_GET['id'];
   echo rmmodinstall('plugin','install',$dir,$id,$getversion);
   echo'</div></div>'; 
@@ -166,10 +161,10 @@ if(isset($_GET['deinstall'] )== 'plugin') {
   $dir = $_GET['dir'];
   $dir = str_replace('/','',$dir);
   ############ Plugin und Modul Einstellung ###############
-  /*DeleteData("settings_module","modulname",$dir);
   DeleteData("navigation_website_sub","modulname",$dir);
   DeleteData("navigation_dashboard_links","modulname",$dir);
-  DeleteData("settings_plugins","modulname",$dir);*/
+  DeleteData("settings_plugins","modulname",$dir);/*
+  DeleteData("settings_plugins_widget","modulname",$dir);*/
   $id = $_GET['id'];
   echo rmmodinstall('plugin','update',$dir,$id,$getversion);
   echo'</div></div>';
@@ -203,8 +198,8 @@ $imgurl = $dangerupdateserverurl.'/plugin/plugin-base_v.'.$getversion.'';
             $result['item'.$plug]['name'] = $translate->getTextByLanguage($result['item'.$plug]['name']);
 
             $translate = new multiLanguage(detectCurrentLanguage());
-            $translate->detectLanguages($result['item'.$plug]['description_de']);
-            $result['item'.$plug]['description_de'] = $translate->getTextByLanguage($result['item'.$plug]['description_de']);
+            $translate->detectLanguages($result['item'.$plug]['description']);
+            $result['item'.$plug]['description'] = $translate->getTextByLanguage($result['item'.$plug]['description']);
 
             $translate = new multiLanguage(detectCurrentLanguage());
             $translate->detectLanguages($result['item'.$plug]['plus_plugin']);
@@ -218,48 +213,52 @@ $imgurl = $dangerupdateserverurl.'/plugin/plugin-base_v.'.$getversion.'';
                 }
             }
 
-            if($result['item'.$plug]['version_final'] > $installedversion){
+            if($result['item'.$plug]['version'] > $installedversion){
               $installed_version = '<span class="badge text-bg-warning">'.$installedversion.'</span>';
-            }elseif($result['item'.$plug]['version_final'] == $installedversion){
+            }elseif($result['item'.$plug]['version'] == $installedversion){
               $installed_version = '<span class="badge text-bg-success">'.$installedversion.'</span>';
             }else{
               $installed_version = $installedversion;
             } 
             
             $output .= '  <tr>';
-            $output .= '<th>
-                        <div class="imageHold">
-                        <div><img class="featured-image img-thumbnail" style="z-index: 1;" src="'.$imgurl.''.$result['item'.$plug]['path'].$result['item'.$plug]['preview'].'" alt="{img}" /></div>
-                        </div>
-                        </th>';
             $output .= '<td><h5>'.$result['item'.$plug]['name'].'</h5>
-                        '.$result['item'.$plug]['description_de'].'';
+                        <div class="imageHold">
+                          <div><img class="featured-image img-thumbnail" style="z-index: 1;" src="'.$imgurl.''.$result['item'.$plug]['path'].$result['item'.$plug]['preview'].'" alt="{img}" /></div>
+                        </div>
+                        </td>';
+            $output .= '<td>'.$result['item'.$plug]['description'].'<hr>
+                          <table class="table table-borderless"><tr>';
 
-          if($result['item'.$plug]['required']=="") {
-            $output .= '';    
-          } else {
-            $output .= '<div class="alert alert-success" role="alert">' . $_language->module['plus_plugin'] . ':<br>'.$result['item'.$plug]['plus_plugin'].'</div>';
-          }
+                        if($result['item'.$plug]['widgets']=="") {
+                          $output .= '<td width="50%"></td>';    
+                        } else {
+                          $output .= '<td width="50%" class="table-success"><b>' . $_language->module['plus_widgets'] . ':</b><br>'.$result['item'.$plug]['widgets'].'</td>';
+                        }
 
-			      $output .= '</td>';
-	          $output .= '<td>' . $_language->module['plugin_ver'] . ' '.$result['item'.$plug]['version_final'].'<br />
+                        if($result['item'.$plug]['required']=="") {
+                          $output .= '<td></td>';    
+                        } else {
+                          $output .= '<td class="table-success"><b>' . $_language->module['plus_plugin'] . ':</b><br>'.$result['item'.$plug]['plus_plugin'].'</td>';
+                        }
 
-
-                    ' . $_language->module['inst_plugin_ver'] . ' '.$installed_version.'<br />
-                    ' . $_language->module['required'] . ' '.$result['item'.$plug]['req'].'<br />
-                    
-                    ' . $_language->module['plugin_update'] . ': '.$result['item'.$plug]['update'].'<br />
-                    Coding by: '.$result['item'.$plug]['author'].'<br />
-                    ' . $_language->module['plugin_lang'] . ': '.$result['item'.$plug]['languages'].'</td>';
+			      $output .= '</tr></table></td>';
+	          $output .= '<td>' . $_language->module['plugin_lang'] . ': '.$result['item'.$plug]['languages'].'<hr>
+                            ' . $_language->module['plugin_ver'] . ' '.$result['item'.$plug]['version'].'<br />
+                            ' . $_language->module['inst_plugin_ver'] . ' '.$installed_version.'<br />
+                            ' . $_language->module['required'] . ' '.$result['item'.$plug]['req'].'<br />
+                            
+                            ' . $_language->module['plugin_update'] . ': '.$result['item'.$plug]['update'].'<br />
+                            Coding by: '.$result['item'.$plug]['author'].'</td>';
     
       include("../system/version.php");
       if(is_dir("../includes/plugins/".$result['item'.$plug]['path'])) {
             $output .= '<td>';
 
-          if($result['item'.$plug.'']['version_final'] === $installedversion) { 
+          if($result['item'.$plug.'']['version'] === $installedversion) { 
             $output .='<a class="btn btn-success mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_3' ]. ' " style="width: 160px" href="?site=plugin_installer&re=install&id='.$plug.'&dir='.$result['item'.$plug]['path'].'">' . $_language->module['reinstall'] . '</a>';
           } else { 
-            $output .='<a class="btn btn-warning mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_4' ]. ' " style="width: 160px" href="?site=plugin_installer&id='.$plug.'&up=install&dir='.$result['item'.$plug]['path'].'">' . $_language->module['update'] . ' to Ver. '.$result['item'.$plug]['version_final'].'</a>';  
+            $output .='<a class="btn btn-warning mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_4' ]. ' " style="width: 160px" href="?site=plugin_installer&id='.$plug.'&up=install&dir='.$result['item'.$plug]['path'].'">' . $_language->module['update'] . ' to Ver. '.$result['item'.$plug]['version'].'</a>';  
           }
      
             $output .=' 

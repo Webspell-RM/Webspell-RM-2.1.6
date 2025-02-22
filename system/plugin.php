@@ -28,6 +28,13 @@
  *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
 */
 
+global $modRewrite;
+    if($modRewrite && !empty($GLOBALS['site']))
+        $_SERVER['QUERY_STRING'] = 'site='.$GLOBALS['site'];
+    elseif($modRewrite && empty($GLOBALS['site']))
+        $_SERVER['QUERY_STRING'] = 'site=startpage';
+
+
 class plugin_manager {
 	var $_debug;
 	
@@ -74,11 +81,12 @@ class plugin_manager {
 			}
 			$w = safe_query("SELECT * FROM " . PREFIX . "settings_plugins ".$where);
 			if(mysqli_num_rows($w)) {
-				$tmp = mysqli_fetch_array($w);
-				$afiles = $tmp['admin_file'];
+				$xtmp = mysqli_fetch_array($w);
+				$afiles = $xtmp['admin_file'];
 				$bfiles = explode(",",$afiles);
 				if(in_array($var, $bfiles)) {
-					$where = " WHERE `activate`='1' AND `pluginID`='".$tmp['pluginID']."'";	
+					#$where = " WHERE `activate`='1' AND `pluginID`='".$tmp['pluginID']."'";	
+					$where = " WHERE `pluginID`='".$xtmp['pluginID']."'";	
 					$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins ".$where);
 				}
 			}
@@ -388,7 +396,28 @@ function plugin_widget_data($var, $id=0, $admin=false) {
     $pluginpath="includes/plugins/"; 
 
     $css="\n";
-		$query = safe_query("SELECT * FROM " . PREFIX . "plugins_".$getsite."_settings_widgets");
+    if (@$getsite == 'contact' 
+        || @$getsite == 'imprint'
+        || @$getsite == 'privacy_policy'
+        || @$getsite == 'profile'
+        || @$getsite == 'myprofile'
+        || @$getsite == 'error_404'
+        || @$getsite == 'report'
+        || @$getsite == 'static'
+        || @$getsite == 'loginoverview'
+        || @$getsite == 'register'
+        || @$getsite == 'lostpassword'
+        || @$getsite == 'login'
+        || @$getsite == 'logout'
+        || @$getsite == 'footer'
+        || @$getsite == 'navigation'
+        || @$getsite == 'topbar') {
+			$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget_settings");
+		}elseif (@$getsite == 'forum_topic') {
+				$query = safe_query("SELECT * FROM " . PREFIX . "plugins_forum_settings_widgets");
+		}else{
+			$query = safe_query("SELECT * FROM " . PREFIX . "plugins_".$getsite."_settings_widgets");
+		}
 		while($res=mysqli_fetch_array($query)) {
 		  if(is_dir($pluginpath.$res['modulname']."/css/")) { 
 		  	$subf1 = "/css/"; 
@@ -417,7 +446,28 @@ function plugin_widget_data($var, $id=0, $admin=false) {
     $pluginpath="includes/plugins/"; 
 
     $js="\n";
-		$query = safe_query("SELECT * FROM " . PREFIX . "plugins_".$getsite."_settings_widgets");
+    if (@$getsite == 'contact' 
+        || @$getsite == 'imprint'
+        || @$getsite == 'privacy_policy'
+        || @$getsite == 'profile'
+        || @$getsite == 'myprofile'
+        || @$getsite == 'error_404'
+        || @$getsite == 'report'
+        || @$getsite == 'static'
+        || @$getsite == 'loginoverview'
+        || @$getsite == 'register'
+        || @$getsite == 'lostpassword'
+        || @$getsite == 'login'
+        || @$getsite == 'logout'
+        || @$getsite == 'footer'
+        || @$getsite == 'navigation'
+        || @$getsite == 'topbar') {
+			$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget_settings");
+		}elseif (@$getsite == 'forum_topic') {
+				$query = safe_query("SELECT * FROM " . PREFIX . "plugins_forum_settings_widgets");
+		}else{
+			$query = safe_query("SELECT * FROM " . PREFIX . "plugins_".$getsite."_settings_widgets");
+		}
 		while($res=mysqli_fetch_array($query)) {
 		  if(is_dir($pluginpath.$res['modulname']."/css/")) { 
 		  	$subf1 = "/js/"; 
@@ -461,19 +511,19 @@ function plugin_widget_data($var, $id=0, $admin=false) {
 	}
 	function plugin_adminLanguage($plugin, $file, $admin=false) {
 		try {
-					$res = safe_query("SELECT `default_language` FROM `".PREFIX."settings` WHERE 1");
-					$row = mysqli_fetch_array($res);
-					if(isset($_SESSION[ 'language' ])) { $lng=$_SESSION[ 'language' ]; } elseif(isset($_SESSION[ 'language' ])) { $lng=$_SESSION[ 'language' ];
-					} else { 
-						if(isset($row['default_language'])) { $lng=$row['default_language']; } else { $lng="en"; }
-					}
+			$res = safe_query("SELECT `default_language` FROM `".PREFIX."settings` WHERE 1");
+			$row = mysqli_fetch_array($res);
+			if(isset($_SESSION[ 'language' ])) { $lng=$_SESSION[ 'language' ]; } elseif(isset($_SESSION[ 'language' ])) { $lng=$_SESSION[ 'language' ];
+			} else { 
+				if(isset($row['default_language'])) { $lng=$row['default_language']; } else { $lng="en"; }
+			}
 			$p = "./".$file."";
 			if(isset($admin)) { $admin = "admin"; } else { $admin = ""; }
 			$arr =array(); 
 			include("$p/languages/$lng/$admin/$plugin.php");
 			foreach ($language_array as $key => $val) {
-                $arr[ $key ] = $val;
-            }
+        $arr[ $key ] = $val;
+      }
 			return $arr;
 		} CATCH (EXCEPTION $ex) {
 			return $ex->message();

@@ -168,17 +168,17 @@ function add_insert_table($table) {
 function add_insert_plugin($table) {
   global $_database,$modulname,$version,$str;
 
-    if(mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "settings_widgets` WHERE modulname ='".$modulname."'"))>0) {
-      echo "<div class='alert alert-warning'><b>Widgeteinträge:</b><br>".$str." Database entry already exists <br />";
+    if(mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE modulname ='".$modulname."'"))>0) {
+      echo "<div class='alert alert-warning'><b>Plugineinträge:</b><br>".$str." Database entry already exists <br />";
       echo "".$str." Datenbank Eintrag schon vorhanden <br />";
       echo "".$str." La voce del database esiste già <br /></div>";
       echo "<hr>";
     } else {
       try {
         if(safe_query("".$table."")) {
-          echo "<div class='alert alert-success'><b>Widgeteinträge:</b><br>Entries for ".$str." have been successfully added to the <b>settings_widgets</b> database <br />";
-          echo "Einträge für ".$str." wurden der <b>settings_widgets</b> Datenbank erfolgreich hinzugef&uuml;gt<br />";
-          echo "Le voci per ".$str." sono stati aggiunti con successo al database <b>settings_widget</b><br /></div>";
+          echo "<div class='alert alert-success'><b>Plugineinträge:</b><br>Entries for ".$str." have been successfully added to the <b>settings_plugins</b> database <br />";
+          echo "Einträge für ".$str." wurden der <b>settings_plugins</b> Datenbank erfolgreich hinzugef&uuml;gt<br />";
+          echo "Le voci per ".$str." sono stati aggiunti con successo al database <b>settings_plugins</b><br /></div>";
           echo "<hr>";
         } else {
           echo "<div class='alert alert-warning'>Database ".$str." entry already exists <br />";
@@ -187,7 +187,7 @@ function add_insert_plugin($table) {
           echo "<hr>";
         }   
       } CATCH (EXCEPTION $x) {
-        echo "<div class='alert alert-danger'><b>Widgeteinträge:</b><br>Database ".$str." installation failed <br />";
+        echo "<div class='alert alert-danger'><b>Plugineinträge:</b><br>Database ".$str." installation failed <br />";
         echo "Send the following line to the support team:<br />";
         echo "Invia la seguente riga al team di supporto:<br /><br /><br />";
         echo "<pre>".$x->message()."</pre>";     
@@ -211,7 +211,7 @@ function add_insert_plugins_widget($table) {
         if(safe_query("".$table."")) {
           echo "<div class='alert alert-success'><b>Plugin Widget Einträge:</b><br>Entries for ".$str." have been successfully added to the <b>settings_plugins_widget</b> database <br />";
           echo "Einträge für ".$str." wurden der <b>settings_plugins_widget</b> Datenbank erfolgreich hinzugef&uuml;gt<br />";
-          echo "Le voci per ".$str." sono stati aggiunti con successo al database <b>settings_widget</b><br /></div>";
+          echo "Le voci per ".$str." sono stati aggiunti con successo al database <b>settings_plugins_widget</b><br /></div>";
           echo "<hr>";
         } else {
           echo "<div class='alert alert-warning'>Database ".$str." entry already exists <br />";
@@ -229,135 +229,7 @@ function add_insert_plugins_widget($table) {
     }
 }
 
-#### add_insert_widgets #####################
 
-function add_insert_widgets($table) {
-  global $_database,$modulname,$version,$str;
-
-    if(mysqli_num_rows(safe_query("SELECT themes_modulname FROM `" . PREFIX . "settings_widgets` WHERE modulname ='".$modulname."'"))>0) {
-      echo "<div class='alert alert-warning'><b>Widgeteinträge:</b><br>".$str." Database entry already exists <br />";
-      echo "".$str." Datenbank Eintrag schon vorhanden <br />";
-      echo "".$str." La voce del database esiste già <br /></div>";
-      echo "<hr>";
-    } else {
-      try {
-        if(safe_query("".$table."")) {
-          echo "<div class='alert alert-success'><b>Widgeteinträge:</b><br>Entries for ".$str." have been successfully added to the <b>settings_widgets</b> database <br />";
-          echo "Einträge für ".$str." wurden der <b>settings_widgets</b> Datenbank erfolgreich hinzugef&uuml;gt<br />";
-          echo "Le voci per ".$str." sono stati aggiunti con successo al database <b>settings_widget</b><br /></div>";
-          echo "<hr>";
-        } else {
-          echo "<div class='alert alert-warning'>Database ".$str." entry already exists <br />";
-          echo "Datenbank ".$str." Eintrag schon vorhanden <br />";
-          echo "Database ".$str." La voce esiste già <br /></div>";
-          echo "<hr>";
-        }   
-      } CATCH (EXCEPTION $x) {
-        echo "<div class='alert alert-danger'><b>Widgeteinträge:</b><br>Database ".$str." installation failed <br />";
-        echo "Send the following line to the support team:<br />";
-        echo "Invia la seguente riga al team di supporto:<br /><br /><br />";
-        echo "<pre>".$x->message()."</pre>";     
-        echo"</div>";
-      }
-    }
-}
-
-#### add_insert_module #####################
-
-function add_insert_module($table) {
-  global $_database,$modulname,$version,$str;
-
-    if(mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "settings_module` WHERE modulname ='".$modulname."'"))>0) {
-      echo "<div class='alert alert-warning'><b>Moduleinträge:</b><br>".$str." Database entry already exists <br />";
-      echo "".$str." Datenbank Eintrag in <b>settings_module</b> Datenbank schon vorhanden <br />";
-      echo "".$str." La voce <b>settings_module</b> sono già presenti nel database<br /></div>";
-      echo "<hr>";
-    } else {
-      try {
-        if(safe_query("".$table."")) {
-          echo "<div class='alert alert-success'><b>Moduleinträge:</b><br>Entries for ".$str." have been successfully added to the <b>settings_module</b> database <br />";
-          echo "Einträge für ".$str." wurden der <b>settings_module</b> Datenbank erfolgreich hinzugef&uuml;gt<br />";
-          echo "Le voci relative a ".$str." sono state aggiunte con successo al database <b>settings_module</b><br /></div>";
-          echo "<hr>";
-        } else {
-          echo "<div class='alert alert-warning'>Database ".$str." entry already exists <br />";
-          echo "Datenbank ".$str." Eintrag in <b>settings_module</b> Datenbank schon vorhanden <br />";
-          echo "La voce ".$str." <b>settings_module</b> esiste già nel Database<br /></div>";
-          echo "<hr>";
-        }   
-      } CATCH (EXCEPTION $x) {
-        echo "<div class='alert alert-danger'><b>Moduleinträge:</b><br>Database ".$str." installation failed <br />";
-        echo "Send the following line to the support team:<br />";
-        echo "Invia la seguente riga al team di supporto:<br /><br /><br />";
-        echo "<pre>".$x->message()."</pre>";     
-        echo"</div>";
-      }
-    }
-}
-
-function add_insert_module_2($table) {
-  global $_database,$modulname_2,$version,$str;
-
-    if(mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "settings_module` WHERE modulname ='".$modulname_2."'"))>0) {
-      echo "<div class='alert alert-warning'><b>Moduleinträge:</b><br>".$str." Database entry already exists <br />";
-      echo "".$str." Datenbank Eintrag in <b>settings_module</b> Datenbank schon vorhanden <br />";
-      echo "".$str." La voce <b>settings_module</b> sono già presenti nel database<br /></div>";
-      echo "<hr>";
-    } else {
-      try {
-        if(safe_query("".$table."")) {
-          echo "<div class='alert alert-success'><b>Moduleinträge:</b><br>Entries for ".$str." have been successfully added to the <b>settings_module</b> database <br />";
-          echo "Einträge für ".$str." wurden der <b>settings_module</b> Datenbank erfolgreich hinzugef&uuml;gt<br />";
-          echo "Le voci relative a ".$str." sono state aggiunte con successo al database <b>settings_module</b><br /></div>";
-          echo "<hr>";
-        } else {
-          echo "<div class='alert alert-warning'>Database ".$str." entry already exists <br />";
-          echo "Datenbank ".$str." Eintrag in <b>settings_module</b> Datenbank schon vorhanden <br />";
-          echo "La voce ".$str." <b>settings_module</b> esiste già nel Database<br /></div>";
-          echo "<hr>";
-        }   
-      } CATCH (EXCEPTION $x) {
-        echo "<div class='alert alert-danger'><b>Moduleinträge:</b><br>Database ".$str." installation failed <br />";
-        echo "Send the following line to the support team:<br />";
-        echo "Invia la seguente riga al team di supporto:<br /><br /><br />";
-        echo "<pre>".$x->message()."</pre>";     
-        echo"</div>";
-      }
-    }
-}
-
-#### add_insert_module_widget #####################
-
-function add_insert_module_widget_section($table) {
-  global $_database,$modulname,$version,$str;
-
-    if(mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "settings_modul_widget_section` WHERE modulname ='".$modulname."'"))>0) {
-      echo "<div class='alert alert-warning'><b>Modul Widget Section Einträge:</b><br>".$str." Database entry already exists <br />";
-      echo "".$str." Datenbank Eintrag in <b>settings_module</b> Datenbank schon vorhanden <br />";
-      echo "".$str." La voce <b>settings_module</b> sono già presenti nel database<br /></div>";
-      echo "<hr>";
-    } else {
-      try {
-        if(safe_query("".$table."")) {
-          echo "<div class='alert alert-success'><b>Modul Widget Section Einträge:</b><br>Entries for ".$str." have been successfully added to the <b>settings_module</b> database <br />";
-          echo "Einträge für ".$str." wurden der <b>settings_module</b> Datenbank erfolgreich hinzugef&uuml;gt<br />";
-          echo "Le voci relative a ".$str." sono state aggiunte con successo al database <b>settings_module</b><br /></div>";
-          echo "<hr>";
-        } else {
-          echo "<div class='alert alert-warning'>Database ".$str." entry already exists <br />";
-          echo "Datenbank ".$str." Eintrag in <b>settings_module</b> Datenbank schon vorhanden <br />";
-          echo "La voce ".$str." <b>settings_module</b> esiste già nel Database<br /></div>";
-          echo "<hr>";
-        }   
-      } CATCH (EXCEPTION $x) {
-        echo "<div class='alert alert-danger'><b>Modul Widget Section Einträge:</b><br>Database ".$str." installation failed <br />";
-        echo "Send the following line to the support team:<br />";
-        echo "Invia la seguente riga al team di supporto:<br /><br /><br />";
-        echo "<pre>".$x->message()."</pre>";     
-        echo"</div>";
-      }
-    }
-}
 
 #### aadd_insert_navi_dashboard #####################
 
@@ -365,6 +237,35 @@ function add_insert_navi_dashboard($table) {
   global $_database,$modulname,$version,$str;
 
     if(mysqli_num_rows(safe_query("SELECT * FROM `".PREFIX."navigation_dashboard_links` WHERE modulname ='".$modulname."'"))>0) {
+      echo "<div class='alert alert-warning'><b>Dashboard Navigation:</b><br>".$str." Dashboard Navigation entry already exists <br />";
+      echo "".$str." Dashboard Navigationseintrag schon vorhanden <br />";
+      echo "".$str." La voce di Navigazione della Dashboard esiste già <br /></div>";
+    } else {
+      try {
+        if(safe_query("".$table."")) {
+          echo "<div class='alert alert-success'><b>Dashboard Navigation:</b><br>".$str." added to the Dashboard Navigation <br />";
+          echo "".$str." wurde der Dashboard Navigation hinzugef&uuml;gt <br />";
+          echo "".$str." è stato aggiunto alla Navigazione della Dashboard <br />";
+          echo "<a href = '/admin/admincenter.php?site=dashboard_navigation' target='_blank'><b>LINK => Dashboard Navigation</b></a></div>";
+        } else {
+          echo "<div class='alert alert-danger'><b>Dashboard Navigation:</b><br>Add to Dashboard Navigation failed <br />";
+          echo "Zur Dashboard Navigation hinzuf&uuml;gen fehlgeschlagen<br />";
+          echo "Aggiunta alla Navigazione della Dashboard non riuscita<br /></div>";
+        }   
+      } CATCH (EXCEPTION $x) {
+        echo "<div class='alert alert-danger'><b>Dashboard Navigation:</b><br>".$str." installation failed <br />";
+        echo "Send the following line to the support team:<br />";
+        echo "Invia la seguente riga al team di supporto:<br /><br /><br />";
+        echo "<pre>".$x->message()."</pre>";     
+        echo"</div>";
+      }
+    }
+}
+
+function add_insert_navi_dashboard_2($table) {
+  global $_database,$modulname_2,$version,$str;
+
+    if(mysqli_num_rows(safe_query("SELECT * FROM `".PREFIX."navigation_dashboard_links` WHERE modulname ='".$modulname_2."'"))>0) {
       echo "<div class='alert alert-warning'><b>Dashboard Navigation:</b><br>".$str." Dashboard Navigation entry already exists <br />";
       echo "".$str." Dashboard Navigationseintrag schon vorhanden <br />";
       echo "".$str." La voce di Navigazione della Dashboard esiste già <br /></div>";

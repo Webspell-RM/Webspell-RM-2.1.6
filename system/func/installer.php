@@ -43,7 +43,7 @@ function rmmodinstall($rubric,$modus,$dir,$id,$getversion){
   if($rubric == 'temp') {
     $plugin = $updateserverurl.'/theme/style-base_v.'.$getversion.'/';
     $pluginlist = $updateserverurl.'/theme/style-base_v.'.$getversion.'/list.json';
-    $instdir = 'themes';
+    $instdir = 'expansion';
     $contenthead = 'Themefiles';
   } else {
     $plugin = $updateserverurl.'/plugin/plugin-base_v.'.$getversion.'/';

@@ -233,18 +233,20 @@ if ($getavatar = getavatar($userID)) {
 					$site = str_replace($invalide, ' ', $site);
 					if (file_exists($site.'.php')) {
 						include($site.'.php');
-				} else {
-				// Load Plugins-Admin-File (if exists)
-					chdir("../");
-					$plugin = $load->plugin_data($site,0,true);
-					$plugin_path = @$plugin['path'];
-					if(file_exists($plugin_path."admin/".@$plugin['admin_file'].".php")) {
-						include($plugin_path."admin/".$plugin['admin_file'].".php");
 					} else {
-						chdir("admin");
-						echo'<div class="alert alert-danger" role="alert">'.$_language->module[ 'plugin_not_found' ].'</div>';
-						include('info.php');
-					}
+					// Load Plugins-Admin-File (if exists)
+						chdir("../");
+						$plugin = $load->plugin_data($site,0,true);
+						$plugin_path = @$plugin['path'];
+						@$ifiles = $plugin['admin_file'];
+						@$tfiles = explode(",",$ifiles);
+						if(file_exists($plugin_path."admin/".$site.".php")) {
+							include($plugin_path."admin/".$site.".php");
+						} else { 
+							chdir("admin");
+							echo'<div class="alert alert-danger" role="alert">'.$_language->module[ 'plugin_not_found' ].'</div>';
+							include('info.php');
+						}
 					}
 				} else {
 					include('info.php');
