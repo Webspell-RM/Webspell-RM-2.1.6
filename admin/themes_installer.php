@@ -229,8 +229,8 @@ else {
             $result['item'.$plug]['name'] = $translate->getTextByLanguage($result['item'.$plug]['name']);
 
             $translate = new multiLanguage(detectCurrentLanguage());
-            $translate->detectLanguages($result['item'.$plug]['description_de']);
-            $result['item'.$plug]['description_de'] = $translate->getTextByLanguage($result['item'.$plug]['description_de']);
+            $translate->detectLanguages($result['item'.$plug]['description']);
+            $result['item'.$plug]['description'] = $translate->getTextByLanguage($result['item'.$plug]['description']);
 
             $translate = new multiLanguage(detectCurrentLanguage());
             $translate->detectLanguages($result['item'.$plug]['plus_plugin']);
@@ -252,7 +252,7 @@ else {
               </div>';
             $output .= '<td><h5>'.$result['item'.$plug]['name'].'</h5>
                       
-                      '.$result['item'.$plug]['description_de'].'';
+                      '.$result['item'.$plug]['description'].'';
 
                       if($result['item'.$plug]['required']=="") {
                         $output .= '';    
@@ -263,7 +263,7 @@ else {
                                     </div>';
                       }
 
-            $output .= '<td>Themes Ver.: <span class="label label-success">'.$result['item'.$plug]['version_final'].'</span><br />
+            $output .= '<td>Themes Ver.: <span class="label label-success">'.$result['item'.$plug]['version'].'</span><br />
                       Inst. Themes Ver.: '.$installedversion.'
                       <span class="label label-warning">'.$result['item'.$plug]['version_beta'].'</span>
                       <span class="label label-danger">'.$result['item'.$plug]['version_test'].'</span><br />
@@ -275,13 +275,13 @@ else {
       include("../system/version.php");
       if(is_dir("../includes/expansion/".$result['item'.$plug]['path'])) {
         $output .= '<td>';
-          if($result['item'.$plug.'']['version_final'] === $installedversion) { 
+          if($result['item'.$plug.'']['version'] === $installedversion) { 
               $output .='<a class="btn btn-success mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_3' ]. ' " style="width: 170px" href="?site=themes_installer&re=install&id='.$plug.'&dir='.$result['item'.$plug]['path'].'">' . $_language->module['reinstall'] . '</a>
 
               <!--<a class="btn btn-warning mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_6' ]. ' " style="width: 170px" href="?site=themes_installer&id='.$plug.'&reup=install&dir='.$result['item'.$plug]['path'].'">RE ' . $_language->module['update'] . '</a>-->';
 
           } else { 
-              $output .='<a class="btn btn-warning mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_4' ]. ' " style="width: 170px" href="?site=themes_installer&id='.$plug.'&up=install&dir='.$result['item'.$plug]['path'].'">' . $_language->module['update'] . ' to Ver. '.$result['item'.$plug]['version_final'].'</a>';  
+              $output .='<a class="btn btn-warning mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_4' ]. ' " style="width: 170px" href="?site=themes_installer&id='.$plug.'&up=install&dir='.$result['item'.$plug]['path'].'">' . $_language->module['update'] . ' to Ver. '.$result['item'.$plug]['version'].'</a>';  
           }
 
       if (@$row[ 'modulname' ] != 'default') {
