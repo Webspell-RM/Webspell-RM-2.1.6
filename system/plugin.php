@@ -233,27 +233,6 @@ function plugin_widget_data($var, $id=0, $admin=false) {
     			}
 				return false;
 			}
-/*echo'<!--Widget '.$row['modulname'].' css & js-->'.chr(0x0D);
-			if(is_dir($ds['path']."css/")) { $subf1 = "css/";	} else { $subf1=""; }
-		  $f = array();
-		  $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $ds['path'].$subf1).'*.css');
-		  $fc = count((array($f)), COUNT_RECURSIVE);
-		  if($fc>0) {
-		   	for($b=0; $b<=$fc-2; $b++) {
-		     	echo$css = '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D).chr(0x0A);
-		    }
-			}
-
-			if(is_dir($ds['path']."js/")) { $subf2 = "js/"; } else { $subf2=""; }
-	    $f = array();
-	    $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $ds['path'].$subf2).'*.js');
-	    $fc = count((array($f)), COUNT_RECURSIVE);
-	    if($fc>0) {
-	     	for($b=0; $b<=$fc-2; $b++) {
-	       	echo$js = '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D).chr(0x0A);
-	     	}
-		  }	
-			echo'<!--Widget css END-->'.chr(0x0D).chr(0x0A);*/
 
 			if(file_exists($ds['path'].$row['widgetdatei'].".php")) {
 				$plugin_path = $ds['path'];
@@ -309,8 +288,15 @@ function plugin_widget_data($var, $id=0, $admin=false) {
 	//				if in any plugin (direct) or in the subfolders (css & js)
 	//				are file which must load into the <head> Tag
 	function plugin_loadheadfile_css($pluginadmin=false) {
+
+		$settings = safe_query("SELECT * FROM " . PREFIX . "settings");
+    $ds = mysqli_fetch_array($settings);
+
+
+
+
     parse_str($_SERVER['QUERY_STRING'], $qs_arr);
-    $getsite = '';
+    $getsite = $ds['startpage'];
     if(isset($qs_arr['site'])) {
       $getsite = $qs_arr['site'];
     }
@@ -323,8 +309,9 @@ function plugin_widget_data($var, $id=0, $admin=false) {
     if($pluginadmin) { $pluginpath = "../"; 
   	} else { 
   		$pluginpath=""; 
-  	}		
-    while($res=mysqli_fetch_array($query)) {
+  	}	
+
+  	while($res=mysqli_fetch_array($query)) {
 		  if($res['modulname'] == $modulname || $res == 1) {
 		   	if(is_dir($pluginpath.$res['path']."css/")) { 
 		   		$subf1 = "css/"; 
@@ -344,7 +331,6 @@ function plugin_widget_data($var, $id=0, $admin=false) {
 		}
 	  return $css;
 	}
-
 
 	function plugin_loadheadfile_js($pluginadmin=false) {
     parse_str($_SERVER['QUERY_STRING'], $qs_arr);
@@ -550,24 +536,20 @@ function plugin_widget_data($var, $id=0, $admin=false) {
 
 
 /*Plugins manuell einbinden 
-get_widget('about_us','plugin_widget1'); #für das erste Plugin
-get_widget('about_us','plugin_widget2'); #für das zweite Plugin
-get_widget('about_us','plugin_widget3'); #für das dritte Plugin
+get_widget('modulname','pluginwidget'); 
 */
-function get_widget($modulname, $widgetnumber) {
-  $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='".$modulname."'"));
-  if (@$dx[ 'modulname' ] != $modulname) {
-    $test = '';
-  } else {
-    $test = $query = safe_query("SELECT pluginID FROM `".PREFIX."settings_plugins` WHERE modulname='".$modulname."'");
-        	  $data_array = mysqli_fetch_array($query);
-              if($data_array) { 
-            		$plugin = new plugin_manager();
-            		$plugin->set_debug(DEBUG);
-            		echo $plugin->$widgetnumber($data_array['pluginID']);
-          		}                    
-  };
-}
+function get_widget($modulname,$widgetdatei) {
+ 
+	$query = safe_query("SELECT * FROM  " . PREFIX . "settings_plugins WHERE modulname = '".$modulname."'");
+	$ds = mysqli_fetch_array($query);
 
+	if(@file_exists($ds['path'].$widgetdatei.".php" ?? '')) {
+		$plugin_path = $ds['path'];
+		require($ds['path'].$widgetdatei.".php");				
+		return false;
+	} else { 
+		echo'';
+	}				
+}
 
 ?>

@@ -85,6 +85,31 @@ $language_array = array(
 <span style="color:#c0392b"><strong>{[it]}</strong></span>&nbsp;&nbsp;&nbsp;Descrizione in Italiano.</div>',
   'no_plugin_name'                      => 'Du musst einen Plugin Name angeben!',
   'no_modul_name'                       => 'Du musst einen Modul Name angeben!',
+
+
+  'new_plugin'                          => 'Neues Plugin',
+  'new_widget'                          => 'Neues Widget',
+  'add'                                 => 'Plugin hinzufügen',
+  'fields_star_required'                => 'Pflichtfelder',
+  'add_plugin'                          => 'Plugin hinzufügen',
+  'add_widget'=>'Widget hinzufügen',
+  'for_plugin'=>'Vom Plugin vorgegeben',
+  'widget_name'=>'Widget Name',
+  'widget_datei'=>'Widget Name',
+  'area'=>'Bereich',
+  'area_info'=>'Bereich definieren in dem man das Widget darstellen möchte',
+  'no_area'=>'Kein Bereich ausgewählt',
+  'widgetdatei_nophp'                    => 'Dateiname ohne .php',
+  'for_widgetname'=>'Vergeben sie dem Widget einen Name',
+  'widget_edit'=>'Widgeteinstellung ändern',
+  'edit_widget'=>'Widget ändern',
+
+
+  'failed_activated'                    => '<div class="alert alert-warning" role="alert">Plugin aktivierung fehlgeschlagen.</div>',    
+  'failed_deactivated'                  => '<div class="alert alert-warning" role="alert">Plugin deaktivieren fehlgeschlagen.</div>',    
+  'failed_delete'                       => '<div class="alert alert-warning" role="alert">Plugin entfernen fehlgeschlagen.</div>',    
+  'failed_edit'                         => '<div class="alert alert-warning" role="alert">Plugin konnte nicht aktualisiert werden.</div>',
+  'failed_save'                         => '<div class="alert alert-warning" role="alert">Plugin konnte nicht gespeichert werden.</div>',   
 );
   
   

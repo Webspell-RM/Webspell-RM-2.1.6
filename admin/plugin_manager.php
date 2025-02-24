@@ -140,6 +140,66 @@ return false;
 #Erstellt eine neue Plugin-Einstellung END
 
 
+#Erstellt eine neue Widget-Einstellung START
+if(isset($_POST['widget_add'])) {
+  
+  
+  
+  try { safe_query(
+            "INSERT INTO `" . PREFIX . "settings_plugins_widget` (
+                    `id`,
+                    `modulname`, 
+                    `widgetname`, 
+                    `widgetdatei`, 
+                    `area`
+                    ) VALUES (
+                    NULL,
+                    '".$_POST['modulname']."',
+                    '".$_POST['widgetname']."',
+                    '".$_POST['widgetdatei']."', 
+                    '".$_POST['area']."'
+                );
+            ");
+
+        echo $_language->module[ 'success_save' ]."<br /><br />";   
+        redirect("admincenter.php?site=plugin_manager&action=edit&id=".$_POST['id']."&do=edit", "", 1); return false;
+    } CATCH (Exception $e) {
+        echo $_language->module[ 'failed_save' ]."<br /><br />".$e->getMessage();   
+        redirect("admincenter.php?site=plugin_manager&action=edit&id=".$_POST['id']."&do=edit", "", 5); return false;
+    }
+return false;   
+}
+#Erstellt eine neue Widget-Einstellung END
+
+
+#edit Widget-Einstellung START
+if(isset($_POST['edit_widget'])) {
+  
+ #@$modulname = $_POST[ 'modulname' ];
+ # $themes_modulname = $_POST[ 'themes_modulname' ];
+#echo "<pre>";
+#print_r($_POST);
+#echo "</pre>";
+
+    try {
+
+      $modul = safe_query("UPDATE `" . PREFIX . "settings_plugins_widget` SET 
+      `modulname` = '".$_POST['modulname']."',
+      `widgetname` = '".$_POST['widgetname']."',       
+      `widgetdatei` = '".$_POST['widgetdatei']."', 
+      `area` = '".$_POST['area']."'
+
+      WHERE `id` = '".intval($_POST['id'])."'");
+
+        echo $_language->module[ 'success_edit' ]."<br /><br />";   
+        redirect("admincenter.php?site=plugin_manager&action=edit&id=".$_POST['xid']."&do=edit", "", 1); return false;
+    } CATCH (Exception $e) {
+        echo $_language->module[ 'failed_edit' ]."<br /><br />".$e->getMessage();   
+        redirect("admincenter.php?site=plugin_manager&action=edit&id=".$_POST['xid']."&do=edit", "", 5); return false;
+    }
+    return false;     
+}
+#edit Widget-Einstellung END
 
 #Editiert die komplette Einstellung START
 if(isset($_POST['saveedit'])) {
@@ -1367,6 +1427,8 @@ echo '<div class="card">
             <label class="col-md-1 control-label">' . $_language->module['options'] . ':</label>
             <div class="col-md-8">
                 <a class="btn btn-primary" href="admincenter.php?site='.$ds['admin_file'].'">'.$name.'</a>
+
+      <a href="admincenter.php?site=plugin_manager&action=widget_add&id='.$id.'" class="btn btn-primary" type="button">' . $_language->module[ 'new_widget' ] . '</a>
             </div>
         </div>';
     }else{
@@ -1454,17 +1516,26 @@ echo '<div class="card">
                 <input type="name" class="form-control" placeholder="includes/plugins/myplugin/"  value="'.$ds['path'].'" rows="5" name="path"></em></span>
             </div>
         </div>
-
+<hr>
         <div class="mb-3 row">
             <label class="col-sm-5 col-form-label" for="path">Widgets: <br><small>(die mit dem Plugin mitgeliefert werden)</small></label>
-            <div class="col-sm-7"><span class="text-muted small"><em>
-            <div class="form-control">';
+            
+            ';
                 
                 $widgetsergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE modulname = '".$ds['modulname']."'");
                 $widget ='';
                 while ($df = mysqli_fetch_array($widgetsergebnis)) {
                     $modulname=$df['modulname'];
-                    $widget .=$df['widgetname'].'<br>';
+                    $widget .='<div class="col-sm-12">
+                                <div class="mb-3 row">
+                                    <div class="col-sm-5"></div>                    
+                                    <div class="col-sm-5">
+                                        <div class="form-control">'.$df['widgetname'].'</div>
+                                    </div>
+                                    <div class="col-sm-2"><a href="admincenter.php?site=plugin_manager&action=edit_widget&id='.$id.'&widgetname='.$df['widgetname'].'" class="btn btn-warning" type="button">' . $_language->module[ 'edit_widget' ] . '</a>
+                                    </div>
+                                </div>
+                            </div>';
                 }
                 if($ds['modulname']==@$modulname) {
                     $xwidget =$widget;
@@ -1472,8 +1543,8 @@ echo '<div class="card">
                     $xwidget ='Kein Widget vorhanden!';
                 }
 
-            echo''.$xwidget.'</div></em></span>
-            </div>
+            echo''.$xwidget.'
+            
         </div>';
 
 #Plugin-Grundeinstellungen END
@@ -1482,8 +1553,10 @@ echo '<div class="card">
             <div class="mb-3 row">
                 <label class="col-sm- col-form-label" for="name"></label>
                 <div class="col-sm-6">
-                    <input type="hidden" name="pid" value="'.$ds['pluginID'].'" />
-                    <input type="hidden" name="themes_modulname" value="'.$themes_modulname.'" />
+                    <input type="hidden" name="captcha_hash" value="' . $hash . '">
+                <input type="hidden" name="themes_modulname" value="'.$dx['modulname'].'">
+                <input type="hidden" name="modulname" value="'.$ds['modulname'].'">
+                <input type="hidden" name="id" value="'.$_GET[ 'id' ].'">
                     <button class="btn btn-warning" type="submit" name="saveedit">'.$_language->module['edit_plugin_widget'].'</button>
                 </div>
             </div>
@@ -1494,6 +1567,227 @@ echo '<div class="card">
 </div>';
 
 return false;
+
+
+} elseif ($action == "widget_add") {
+
+    $id = $_GET[ 'id' ];
+
+$CAPCLASS = new \webspell\Captcha;
+    $CAPCLASS->createTransaction();
+    $hash = $CAPCLASS->getHash();
+
+echo '<div class="card">
+        <div class="card-header"><i class="bi bi-puzzle" style="font-size: 1rem;"></i> 
+            '.$_language->module['plugin_manager'].'
+        </div>
+            
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="admincenter.php?site=plugin_manager">' . $_language->module['plugin_manager'] . '</a></li>
+            <li class="breadcrumb-item active" aria-current="page">' . $_language->module['add_widget'] . '</li>
+          </ol>
+        </nav>
+
+
+        <div class="card-body">';
+
+        $ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE pluginID = '".$id."'");
+    $db = mysqli_fetch_array($ergebnis);
+  echo'<div class="mb-12 row">
+    <label class="col-md-1 control-label"><h4>Template:</h4></label>
+    <div class="col-md-3"><div class="alert alert-info" role="alert" style="padding: 0px 5px">
+<h4>'.$db['modulname'].'</h4></div>
+    </div>
+  </div>
+<hr>';
+
+
+$ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE modulname='".$db['modulname']."'");
+    $ds = mysqli_fetch_array($ergebnis);
+
+$widget_alle = '<option value="">' . $_language->module[ 'no_area' ] . '</option>
+<option value="1">Header</option>
+<option value="2">Navigation</option>
+<option value="3">Content Head & Content Foot</option>
+<option value="4">Sidebar Rechts / Links</option>
+<option value="6">Footer</option>';
+
+$widget = str_replace('value=""', 'value="" selected="selected"', $widget_alle);
+
+
+echo'<form class="form-horizontal" method="post" id="post" name="post" action="admincenter.php?site=plugin_manager" onsubmit="return chkFormular();" enctype="multipart/form-data">
+       
+  
+
+        <div class="mb-3 row">
+            <label class="col-sm-5 col-form-label" for="name">'.$_language->module['widget_name'].':<font color="#DD0000">*</font> <br><small>('.$_language->module['for_widgetname'].')</small></label>
+            <div class="col-sm-6"><span class="text-muted small"><em>
+                <input type="text"" class="form-control" name="widgetname" placeholder="widget name"></em></span>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label class="col-sm-5 col-form-label" for="name">'.$_language->module['modulname'].': <br><small>('.$_language->module['for_plugin'].')</small></label>
+            <div class="col-sm-6"><span class="text-muted small"><em>
+                <input type="name" class="form-control" name="modulname" value="'.$db['modulname'].'" disabled></em></span>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label class="col-sm-5 col-form-label" for="admin_file">'.$_language->module['widget_datei'].': <br><small>('.$_language->module['widgetdatei_nophp'].')</small></label>
+            <div class="col-sm-6"><span class="text-muted small"><em>
+                <input type="name" class="form-control" name="widgetdatei" placeholder="widget datei"></em></span>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label class="col-sm-5 col-form-label" for="admin_file">'.$_language->module['area'].': <br><small>('.$_language->module['area_info'].')</small></label>
+            <div class="col-sm-6"><span class="text-muted small"><em>
+                                    <select id="area" name="area" class="form-select">'.$widget.'</select></em></span>
+            </div>
+        </div>
+
+
+        <div class="col-sm-12">
+            <div class="mb-3 row">
+                <div class="col-sm-11">
+                    <font color="#DD0000">*</font>'.$_language->module['fields_star_required'] . '
+                </div>
+                <div class="col-sm-11">
+                    <input type="hidden" name="modulname" value="'.$db['modulname'].'" />
+                    <input type="hidden" name="id" value="'.$_GET[ 'id' ].'" />
+                    <button class="btn btn-success" type="submit" name="widget_add"  />' . $_language->module['add'] . '</button>
+                </div>
+            </div>
+        </div>
+
+
+
+
+';
+
+
+
+
+
+
+echo'</form></div></div>';
+
+} elseif ($action == "edit_widget") {
+
+
+    $id = $_GET[ 'id' ];
+    $widgetname = $_GET[ 'widgetname' ];
+
+$CAPCLASS = new \webspell\Captcha;
+    $CAPCLASS->createTransaction();
+    $hash = $CAPCLASS->getHash();
+
+echo '<div class="card">
+        <div class="card-header"><i class="bi bi-puzzle" style="font-size: 1rem;"></i> 
+            '.$_language->module['plugin_manager'].'
+        </div>
+            
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="admincenter.php?site=plugin_manager">' . $_language->module['plugin_manager'] . '</a></li>
+            <li class="breadcrumb-item active" aria-current="page">' . $_language->module['edit_widget'] . '</li>
+          </ol>
+        </nav>
+
+
+        <div class="card-body">';
+
+        $ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE pluginID = '".$id."'");
+    $db = mysqli_fetch_array($ergebnis);
+  echo'<div class="mb-12 row">
+    <label class="col-md-1 control-label"><h4>Template:</h4></label>
+    <div class="col-md-3"><div class="alert alert-info" role="alert" style="padding: 0px 5px">
+<h4>'.$db['modulname'].'</h4></div>
+    </div>
+  </div>
+<hr>';
+
+
+    $ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE widgetname='".$_GET[ 'widgetname' ]."'");
+    $ds = mysqli_fetch_array($ergebnis);
+
+$widget_alle = '<option value="">' . $_language->module[ 'no_area' ] . '</option>
+<option value="1">Header</option>
+<option value="2">Navigation</option>
+<option value="3">Content Head & Content Foot</option>
+<option value="4">Sidebar Rechts / Links</option>
+<option value="6">Footer</option>';
+
+$widget = str_replace('value="'.$ds['area'].'"', 'value="'.$ds['area'].'" selected="selected"', $widget_alle);
+
+
+echo'<form class="form-horizontal" method="post" id="post" name="post" action="admincenter.php?site=plugin_manager" onsubmit="return chkFormular();" enctype="multipart/form-data">
+       
+  
+
+        <div class="mb-3 row">
+            <label class="col-sm-5 col-form-label" for="name">'.$_language->module['widget_name'].':<font color="#DD0000">*</font> <br><small>('.$_language->module['for_widgetname'].')</small></label>
+            <div class="col-sm-6"><span class="text-muted small"><em>
+                <input type="text"" class="form-control" name="widgetname" value="'.$ds['widgetname'].'" placeholder="widget name"></em></span>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label class="col-sm-5 col-form-label" for="name">'.$_language->module['modulname'].': <br><small>('.$_language->module['for_plugin'].')</small></label>
+            <div class="col-sm-6"><span class="text-muted small"><em>
+                <input type="name" class="form-control" name="modulname" value="'.$db['modulname'].'" disabled></em></span>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label class="col-sm-5 col-form-label" for="admin_file">'.$_language->module['widget_datei'].': <br><small>('.$_language->module['widgetdatei_nophp'].')</small></label>
+            <div class="col-sm-6"><span class="text-muted small"><em>
+                <input type="name" class="form-control" name="widgetdatei" value="'.$ds['widgetdatei'].'" placeholder="widget datei"></em></span>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label class="col-sm-5 col-form-label" for="admin_file">'.$_language->module['area'].': <br><small>('.$_language->module['area_info'].')</small></label>
+            <div class="col-sm-6"><span class="text-muted small"><em>
+                                    <select id="area" name="area" class="form-select">'.$widget.'</select></em></span>
+            </div>
+        </div>
+
+
+
+
+
+
+
+       <div class="col-sm-12">
+            <div class="mb-3 row">
+                <div class="col-sm-11">
+                    <font color="#DD0000">*</font>'.$_language->module['fields_star_required'] . '
+                </div>
+                <div class="col-sm-11">
+                    <input type="hidden" name="modulname" value="'.$db['modulname'].'" />
+                    <input type="hidden" name="xid" value="'.$_GET[ 'id' ].'" />
+
+                    <input type="hidden" name="id" value="'.$ds['id'].'" />
+                    <button class="btn btn-warning" type="submit" name="edit_widget"  />' . $_language->module['edit_widget'] . '</button>
+                </div>
+            </div>
+        </div>
+
+
+
+
+';
+
+
+
+
+
+
+echo'</form></div></div>';
+
 
 } elseif ($action == "new") {
 ?><script>
@@ -1599,7 +1893,7 @@ echo '<div class="card">
             </div>
         </div>
         <div class="mb-3 row">
-            <label class="col-sm-5 col-form-label" for="path">'.$_language->module['folder_file'].': <br><small>('.$_language->module['folder_file_slash'].')</small></label>
+            <label class="col-sm-5 col-form-label" for="path">'.$_language->module['folder_file'].':  <font color="#DD0000">*</font> <br><small>('.$_language->module['folder_file_slash'].')</small></label>
             <div class="col-sm-6"><span class="text-muted small"><em>
                 <input type="name" class="form-control" placeholder="includes/plugins/myplugin/" rows="5" name="path"></em></span>
             </div>
@@ -1635,7 +1929,18 @@ echo'<div class="card">
             <li class="breadcrumb-item active" aria-current="page">new & edit</li>
           </ol>
         </nav>
-        <div class="card-body">';
+
+        
+
+
+        <div class="card-body">
+
+        <div class="mb-3 row">
+    <label class="col-md-1 control-label">' . $_language->module['options'] . ':</label>
+    <div class="col-md-8">
+      <a href="admincenter.php?site=plugin_manager&action=new" class="btn btn-primary" type="button">' . $_language->module[ 'new_plugin' ] . '</a>
+    </div>
+  </div>';
     $thergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE active = '1'");
     $db = mysqli_fetch_array($thergebnis);
   
