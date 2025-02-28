@@ -79,7 +79,13 @@
             "file45": "/components/bootstrap/css/bootstrap.min.css",
             "file46": "/components/bootstrap/css/bootstrap.min.css.map",
             
-            "file47": "/admin/info.php"
+            "file47": "/admin/info.php",
+
+            "file48": "/admin/update.php",
+
+            "file49": "/languages/de/admin/update.php",
+            "file50": "/languages/en/admin/update.php",
+            "file51": "/languages/it/admin/update.php"
 
 
 

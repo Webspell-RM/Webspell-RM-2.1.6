@@ -1595,7 +1595,7 @@ echo '<div class="card">
         $ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE pluginID = '".$id."'");
     $db = mysqli_fetch_array($ergebnis);
   echo'<div class="mb-12 row">
-    <label class="col-md-1 control-label"><h4>Template:</h4></label>
+    <label class="col-md-1 control-label"><h4>Plugin:</h4></label>
     <div class="col-md-3"><div class="alert alert-info" role="alert" style="padding: 0px 5px">
 <h4>'.$db['modulname'].'</h4></div>
     </div>
@@ -1702,7 +1702,7 @@ echo '<div class="card">
         $ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE pluginID = '".$id."'");
     $db = mysqli_fetch_array($ergebnis);
   echo'<div class="mb-12 row">
-    <label class="col-md-1 control-label"><h4>Template:</h4></label>
+    <label class="col-md-1 control-label"><h4>Plugin:</h4></label>
     <div class="col-md-3"><div class="alert alert-info" role="alert" style="padding: 0px 5px">
 <h4>'.$db['modulname'].'</h4></div>
     </div>
