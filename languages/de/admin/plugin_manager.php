@@ -3,60 +3,48 @@
 $language_array = array(
 
   'access_denied'                       => 'Zugriff verweigert',
-'modulname'                           => 'Modulname',
+  'modulname'                           => 'Modulname',
   'na'                                  => 'nicht verfügbar',
   'name'                                => 'Name',
   'new_modul'                           => 'Plugin hinzufügen',
   'new_plugin'                          => 'Neues Plugin',
-'option'                              => 'Option',
+  'option'                              => 'Option',
   'options'                             => 'Optionen',
   'plugin'                              => 'Plugin',
   'plugin_manager'                      => 'Plugin Manager',
-
-
-
-'description'                         => 'Beschreibung',
-
+  'description'                         => 'Beschreibung',
   'id'                                  => 'ID',
-'to_sort'                             => 'sortieren',
+  'to_sort'                             => 'sortieren',
   'transaction_invalid'                 => 'Transaktions ID ungültig',
-  
-'left'                          => 'Sidebar Links',
-  'right'                         => 'Sidebar Rechts',
-  'right_left_active'             => 'Sidebar Rechts & Sidebar Links',
-
-  'widget_off_setting'          => 'Widget dem Bereich zuweisen',
-  'widget_on_setting'          => 'Widget von diesem Bereich entfernen',
-  'main_area'          => 'Main Content Area',
-
-'header'                => 'Header &#8593;',
-'header1'                => 'Header',
-
-'navigation'                => 'Navigation',
-'content_head'        => 'Content head &#8593;',
-'content_head1'        => 'Content head',
-'content_foot'        => 'Content Foot &#8595;',
-'content_foot1'        => 'Content Foot',
-  'footer'                            => 'Footer &#8595;',
-  'area'=>'Bereich',
-  'widgets'=>'Widgets',
-
+  'left'                                => '<i class="bi bi-caret-left-fill"></i> Sidebar Links',
+  'right'                               => 'Sidebar Rechts <i class="bi bi-caret-right-fill"></i>',
+  'right_left_active'                   => 'Sidebar Rechts & Sidebar Links',
+  'widget_off_setting'                  => 'Widget dem Bereich zuweisen',
+  'widget_on_setting'                   => 'Widget von diesem Bereich entfernen',
+  'main_area'                           => 'Main Content Area',
+  'header'                              => 'Header <i class="bi bi-caret-up"></i>',
+  'header1'                             => 'Header <i class="bi bi-caret-up"></i>',
+  'navigation'                          => 'Navigation <i class="bi bi-menu-button"></i>',
+  'content_head'                        => 'Content head <i class="bi bi-caret-up-fill"></i>',
+  'content_head1'                       => 'Content head <i class="bi bi-caret-up-fill"></i>',
+  'content_foot'                        => 'Content Foot <i class="bi bi-caret-down-fill"></i>',
+  'content_foot1'                       => 'Content Foot <i class="bi bi-caret-down-fill"></i>',
+  'footer'                              => 'Footer <i class="bi bi-caret-down-fill"></i>',
+  'area'                                => 'Bereich',
+  'widgets'                             => 'Widgets',
   'status'                              => 'Status',
   'activate'                            => 'Plugin aktivieren',
-'tooltip_1'                           => 'Plugin wird aktiviert',
-'tooltip_2'                           => 'Plugin wird deaktiviert',
-'tooltip_3'                           => 'Widgets der Seite zuweisen',
-'tooltip_4'                           => 'Plugin-Einstellungen ändern',
-'edit'                                => 'Einstellung ändern',
-
-'deactivate'                          => 'Plugin deaktivieren',
-'widget_side'=>'Widget der Seite zuordnen',
-
-'success_activated'                   => '<div class="alert alert-success" role="alert">Plugin ist jetzt aktiviert.</div>',
+  'tooltip_1'                           => 'Plugin wird aktiviert',
+  'tooltip_2'                           => 'Plugin wird deaktiviert',
+  'tooltip_3'                           => 'Widgets der Seite zuweisen',
+  'tooltip_4'                           => 'Plugin-Einstellungen ändern',
+  'edit'                                => 'Einstellung ändern',
+  'deactivate'                          => 'Plugin deaktivieren',
+  'widget_side'                         => 'Widget der Seite zuordnen',
+  'success_activated'                   => '<div class="alert alert-success" role="alert">Plugin ist jetzt aktiviert.</div>',
   'success_deactivated'                 => '<div class="alert alert-info" role="alert">Plugin ist jetzt deaktiviert.</div>',
   'success_edit'                        => '<div class="alert alert-success" role="alert">Plugin erfolgreich aktualisiert.</div>',
   'success_save'                        => '<div class="alert alert-success" role="alert">Plugin erfolgreich gespeichert.</div>',
-
   'plugin_basic_setting'                => 'Plugin-Grundeinstellungen',
   'edit_plugin'                         => 'Plugin ändern',
   'admin_file'                          => 'Administration Datei',
@@ -71,45 +59,35 @@ $language_array = array(
   'folder_file_slash'                   => 'include/plugins/myplugin/ (endet mit einem slash/ )',
   'for_uninstall'                       => 'Zur Deinstallation',
   'edit_plugin_widget'                  => 'Änderungen im Plugin-Bereich speichern',
-  'multi_language_info_name'            => '<div class="alert alert-info" role="alert" style="margin-top: 12px">
-<b>Multi Sprachanwendung:</b><br>
-  In dem Plugin Name muss ein entsprechender Sprach-Tag hinterlegt werden, was wie folgt aussieht.<br>
-  <span style="color:#c0392b"><strong>{[de]}</strong></span>&nbsp;Plugin Name in deutscher Sprache.<br />
-<span style="color:#c0392b"><strong>{[en]}</strong></span>&nbsp;Plugin Name in English.<br />
-<span style="color:#c0392b"><strong>{[it]}</strong></span>&nbsp;&nbsp;&nbsp;Nome del Plugin in Italiano</div>',
-  'multi_language_info_description'     => '<div class="alert alert-info" role="alert" style="margin-top: 14px">
-<b>Multi Sprachanwendung:</b><br>
-  In der Beschreibung muss ein entsprechender Sprach-Tag hinterlegt werden, was wie folgt aussieht.<br>
-  <span style="color:#c0392b"><strong>{[de]}</strong></span>&nbsp;Beschreibung in deutscher Sprache.<br />
-<span style="color:#c0392b"><strong>{[en]}</strong></span>&nbsp;Description in English.<br />
-<span style="color:#c0392b"><strong>{[it]}</strong></span>&nbsp;&nbsp;&nbsp;Descrizione in Italiano.</div>',
+  'multi_language_info_name'            => '<div class="alert alert-info" role="alert" style="margin-top: 12px"><b>Multi Sprachanwendung:</b><br>In dem Plugin Name muss ein entsprechender Sprach-Tag hinterlegt werden, was wie folgt aussieht.<br>  <span style="color:#c0392b"><strong>{[de]}</strong></span>&nbsp;Plugin Name in deutscher Sprache.<br /><span style="color:#c0392b"><strong>{[en]}</strong></span>&nbsp;Plugin Name in English.<br /><span style="color:#c0392b"><strong>{[it]}</strong></span>&nbsp;&nbsp;&nbsp;Nome del Plugin in Italiano</div>',
+  'multi_language_info_description'     => '<div class="alert alert-info" role="alert" style="margin-top: 14px"><b>Multi Sprachanwendung:</b><br>In der Beschreibung muss ein entsprechender Sprach-Tag hinterlegt werden, was wie folgt aussieht.<br>  <span style="color:#c0392b"><strong>{[de]}</strong></span>&nbsp;Beschreibung in deutscher Sprache.<br /><span style="color:#c0392b"><strong>{[en]}</strong></span>&nbsp;Description in English.<br /><span style="color:#c0392b"><strong>{[it]}</strong></span>&nbsp;&nbsp;&nbsp;Descrizione in Italiano.</div>',
   'no_plugin_name'                      => 'Du musst einen Plugin Name angeben!',
   'no_modul_name'                       => 'Du musst einen Modul Name angeben!',
-
-
   'new_plugin'                          => 'Neues Plugin',
   'new_widget'                          => 'Neues Widget',
   'add'                                 => 'Plugin hinzufügen',
   'fields_star_required'                => 'Pflichtfelder',
   'add_plugin'                          => 'Plugin hinzufügen',
-  'add_widget'=>'Widget hinzufügen',
-  'for_plugin'=>'Vom Plugin vorgegeben',
-  'widget_name'=>'Widget Name',
-  'widget_datei'=>'Widget Name',
-  'area'=>'Bereich',
-  'area_info'=>'Bereich definieren in dem man das Widget darstellen möchte',
-  'no_area'=>'Kein Bereich ausgewählt',
-  'widgetdatei_nophp'                    => 'Dateiname ohne .php',
-  'for_widgetname'=>'Vergeben sie dem Widget einen Name',
-  'widget_edit'=>'Widgeteinstellung ändern',
-  'edit_widget'=>'Widget ändern',
-
-
+  'add_widget'                          => 'Widget hinzufügen',
+  'for_plugin'                          => 'Vom Plugin vorgegeben',
+  'widget_name'                         => 'Widget Name',
+  'widget_datei'                        => 'Widget Name',
+  'area'                                => 'Bereich',
+  'area_info'                           => 'Bereich definieren in dem man das Widget darstellen möchte',
+  'no_area'                             => 'Kein Bereich ausgewählt',
+  'widgetdatei_nophp'                   => 'Dateiname ohne .php',
+  'for_widgetname'                      => 'Vergeben sie dem Widget einen Name',
+  'widget_edit'                         => 'Widgeteinstellung ändern',
+  'edit_widget'                         => 'Widget ändern',
   'failed_activated'                    => '<div class="alert alert-warning" role="alert">Plugin aktivierung fehlgeschlagen.</div>',    
   'failed_deactivated'                  => '<div class="alert alert-warning" role="alert">Plugin deaktivieren fehlgeschlagen.</div>',    
   'failed_delete'                       => '<div class="alert alert-warning" role="alert">Plugin entfernen fehlgeschlagen.</div>',    
   'failed_edit'                         => '<div class="alert alert-warning" role="alert">Plugin konnte nicht aktualisiert werden.</div>',
   'failed_save'                         => '<div class="alert alert-warning" role="alert">Plugin konnte nicht gespeichert werden.</div>',   
+  'page'                                => 'Seite',
+  'no_widget_available'                 => 'Keine Widgets verfügbar!',
+  'widget_cannot_assigned'              => 'Widget kann nicht zugewiesen werden',
+  'save_plugin'                         => 'Modifica Plugin',
 );
   
   
