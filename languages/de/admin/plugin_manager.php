@@ -81,13 +81,24 @@ $language_array = array(
   'edit_widget'                         => 'Widget ändern',
   'failed_activated'                    => '<div class="alert alert-warning" role="alert">Plugin aktivierung fehlgeschlagen.</div>',    
   'failed_deactivated'                  => '<div class="alert alert-warning" role="alert">Plugin deaktivieren fehlgeschlagen.</div>',    
-  'failed_delete'                       => '<div class="alert alert-warning" role="alert">Plugin entfernen fehlgeschlagen.</div>',    
+  
   'failed_edit'                         => '<div class="alert alert-warning" role="alert">Plugin konnte nicht aktualisiert werden.</div>',
   'failed_save'                         => '<div class="alert alert-warning" role="alert">Plugin konnte nicht gespeichert werden.</div>',   
   'page'                                => 'Seite',
   'no_widget_available'                 => 'Keine Widgets verfügbar!',
   'widget_cannot_assigned'              => 'Widget kann nicht zugewiesen werden',
-  'save_plugin'                         => 'Modifica Plugin',
+  'save_plugin'                         => 'Plugin speichern',
+
+
+  'name'                                => 'Name',
+  'close'                               => 'Schließen',
+  'really_delete'                      => 'Möchten Sie dieses Widget wirklich entfernen?<br><br>Es werden nur die Einträge von diesem Widget entfernt',
+  'delete'                              => 'Widget entfernen',
+  'widget_delete'                              => 'Widget entfernen',
+
+  'tooltip_6'                           => 'Widget entfernen',
+  'success_delete'                      => '<div class="alert alert-warning" role="alert">Die Einträge für das Widget wurde entfernt.</div>',
+  'failed_delete'                       => '<div class="alert alert-danger" role="alert">Widget entfernen fehlgeschlagen.</div>',    
 );
   
   

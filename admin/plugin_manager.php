@@ -901,7 +901,59 @@ if (isset($_POST[ 'sortieren' ])) {
     } else {
         echo $_language->module[ 'transaction_invalid' ];
     }
-}   
+}
+
+if (isset($_GET[ "delete" ])) {
+    $CAPCLASS = new \webspell\Captcha();
+    if ($CAPCLASS->checkCaptcha(0, $_GET[ 'captcha_hash' ])) {
+        $id = $_GET[ 'id' ];
+
+        safe_query("DELETE FROM " . PREFIX . "settings_plugins_widget WHERE widgetname='" . $_GET[ 'widgetname' ] . "'");
+        safe_query("DELETE FROM " . PREFIX . "settings_plugins_widget_settings WHERE widgetname='" . $_GET[ 'widgetname' ] . "'");
+
+        safe_query("DELETE FROM " . PREFIX . "plugins_about_us_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'");
+        safe_query("DELETE FROM " . PREFIX . "plugins_articles_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'");
+        safe_query("DELETE FROM " . PREFIX . "plugins_blog_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'"); 
+        safe_query("DELETE FROM " . PREFIX . "plugins_calendar_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'");
+        safe_query("DELETE FROM " . PREFIX . "plugins_clan_rules_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'");
+        safe_query("DELETE FROM " . PREFIX . "plugins_counter_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'");
+        safe_query("DELETE FROM " . PREFIX . "plugins_discord_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'"); 
+        safe_query("DELETE FROM " . PREFIX . "plugins_facebook_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'"); 
+        safe_query("DELETE FROM " . PREFIX . "plugins_files_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'"); 
+        safe_query("DELETE FROM " . PREFIX . "plugins_forum_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'"); 
+        safe_query("DELETE FROM " . PREFIX . "plugins_gallery_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'"); 
+        safe_query("DELETE FROM " . PREFIX . "plugins_history_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'");
+        safe_query("DELETE FROM " . PREFIX . "plugins_links_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'");
+        safe_query("DELETE FROM " . PREFIX . "plugins_memberslist_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'");
+        safe_query("DELETE FROM " . PREFIX . "plugins_messenger_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'");
+        safe_query("DELETE FROM " . PREFIX . "plugins_newsletter_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'"); 
+        safe_query("DELETE FROM " . PREFIX . "plugins_news_manager_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'"); 
+        safe_query("DELETE FROM " . PREFIX . "plugins_partners_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'"); 
+        safe_query("DELETE FROM " . PREFIX . "plugins_portfolio_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'"); 
+        safe_query("DELETE FROM " . PREFIX . "plugins_projectlist_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'"); 
+        safe_query("DELETE FROM " . PREFIX . "plugins_search_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'"); 
+        safe_query("DELETE FROM " . PREFIX . "plugins_servers_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'");
+        safe_query("DELETE FROM " . PREFIX . "plugins_socialmedia_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'"); 
+        safe_query("DELETE FROM " . PREFIX . "plugins_sponsors_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'"); 
+        safe_query("DELETE FROM " . PREFIX . "plugins_squads_memberslist_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'");
+        safe_query("DELETE FROM " . PREFIX . "plugins_squads_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'");
+        safe_query("DELETE FROM " . PREFIX . "plugins_startpage_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'");
+        safe_query("DELETE FROM " . PREFIX . "plugins_streams_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'"); 
+        safe_query("DELETE FROM " . PREFIX . "plugins_tiktok_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'");
+        safe_query("DELETE FROM " . PREFIX . "plugins_twitter_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'");
+        safe_query("DELETE FROM " . PREFIX . "plugins_usergallery_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'"); 
+        safe_query("DELETE FROM " . PREFIX . "plugins_userlist_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'");
+        safe_query("DELETE FROM " . PREFIX . "plugins_whoisonline_settings_widgets WHERE widgetname='" . $_GET[ 'widgetname' ] . "'");
+
+        
+        
+        echo $_language->module[ 'success_delete' ];
+        redirect("admincenter.php?site=plugin_manager&action=edit&id=".$id."&do=edit", "", 1);
+    } else {
+        echo $_language->module[ 'failed_delete' ]."<br /><br />".$e->getMessage();
+        echo $_language->module[ 'transaction_invalid' ];
+    }
+}    
 
 if ($action == "widget_edit") {
 $id = $_GET[ 'id' ];  
@@ -1529,10 +1581,38 @@ echo '<div class="card">
                     $widget .='<div class="col-sm-12">
                                 <div class="mb-3 row">
                                     <div class="col-sm-5"></div>                    
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-4">
                                         <div class="form-control">'.$df['widgetname'].'</div>
                                     </div>
-                                    <div class="col-sm-2"><a href="admincenter.php?site=plugin_manager&action=edit_widget&id='.$id.'&widgetname='.$df['widgetname'].'" class="btn btn-warning" type="button"><i class="bi bi-pencil-square"></i> ' . $_language->module[ 'edit_widget' ] . '</a>
+                                    <div class="col-sm-3"><a href="admincenter.php?site=plugin_manager&action=edit_widget&id='.$id.'&widgetname='.$df['widgetname'].'" class="btn btn-warning" type="button"><i class="bi bi-pencil-square"></i> ' . $_language->module[ 'edit_widget' ] . '</a>
+                                   
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_6' ]. ' " data-href="admincenter.php?site=plugin_manager&amp;delete=true&amp;widgetname='.$df['widgetname'].'&amp;id='.$id.'&amp;captcha_hash=' . $hash . '">
+            ' . $_language->module['widget_delete'] . '
+            </button>
+            <!-- Button trigger modal END-->
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">' . $_language->module[ 'name' ] . ': '.$df['widgetname'].'</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="' . $_language->module[ 'close' ] . '"></button>
+                  </div>
+                  <div class="modal-body"><p>' . $_language->module['really_delete'] . '</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">' . $_language->module[ 'close' ] . '</button>
+                    <a class="btn btn-danger btn-ok">' . $_language->module['delete'] . '</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal END -->
+
                                     </div>
                                 </div>
                             </div>';
