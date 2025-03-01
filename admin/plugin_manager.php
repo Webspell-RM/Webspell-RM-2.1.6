@@ -116,8 +116,6 @@ if (!empty(@$db['active'] == 1) !== false) {
         } else {
             $acti = 0;
         }
-
-
         try {
             safe_query(
                 "INSERT INTO `" . PREFIX . "settings_plugins` (
@@ -167,9 +165,6 @@ if (!empty(@$db['active'] == 1) !== false) {
 
     #Erstellt eine neue Widget-Einstellung START
     if (isset($_POST['widget_add'])) {
-
-
-
         try {
             safe_query(
                 "INSERT INTO `" . PREFIX . "settings_plugins_widget` (
@@ -292,8 +287,6 @@ if (!empty(@$db['active'] == 1) !== false) {
         }
     }
 
-
-
     if (isset($_POST['header_activ'])) {
 
         $CAPCLASS = new \webspell\Captcha;
@@ -368,8 +361,6 @@ if (!empty(@$db['active'] == 1) !== false) {
             echo '' . $_language->module['transaction_invalid'] . '';
         }
     }
-
-
 
     if (isset($_POST['navigation_activ'])) {
 
@@ -497,7 +488,6 @@ if (!empty(@$db['active'] == 1) !== false) {
     }
     ###content_head#################################
 
-
     ###left sidebar#################################
     if (isset($_POST['sidebar_left_deactivated'])) {
 
@@ -573,7 +563,6 @@ if (!empty(@$db['active'] == 1) !== false) {
     }
     ###left sidebar#################################
 
-
     ###right sidebar#################################
     if (isset($_POST['sidebar_right_deactivated'])) {
 
@@ -648,7 +637,6 @@ if (!empty(@$db['active'] == 1) !== false) {
         }
     }
     ###right sidebar#################################
-
 
     ###left right sidebar#################################
     if (isset($_POST['sidebar_left_right_deactivated'])) {
@@ -729,8 +717,6 @@ if (!empty(@$db['active'] == 1) !== false) {
     }
     ###right sidebar#################################
 
-
-
     ###content_foot#################################
     if (isset($_POST['content_foot_deactivated'])) {
 
@@ -754,8 +740,6 @@ if (!empty(@$db['active'] == 1) !== false) {
             echo '' . $_language->module['transaction_invalid'] . '';
         }
     }
-
-
 
     if (isset($_POST['content_foot_activ'])) {
 
@@ -938,8 +922,6 @@ if (!empty(@$db['active'] == 1) !== false) {
             safe_query("DELETE FROM " . PREFIX . "plugins_userlist_settings_widgets WHERE widgetname='" . $_GET['widgetname'] . "'");
             safe_query("DELETE FROM " . PREFIX . "plugins_whoisonline_settings_widgets WHERE widgetname='" . $_GET['widgetname'] . "'");
 
-
-
             echo $_language->module['success_delete'];
             redirect("admincenter.php?site=plugin_manager&action=edit&id=" . $id . "&do=edit", "", 1);
         } else {
@@ -963,14 +945,12 @@ if (!empty(@$db['active'] == 1) !== false) {
         <div class="card-header"><i class="bi bi-puzzle" style="font-size: 1rem;"></i> 
             ' . $_language->module['plugin_manager'] . '
         </div>
-            
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="admincenter.php?site=plugin_manager">' . $_language->module['plugin_manager'] . '</a></li>
             <li class="breadcrumb-item active" aria-current="page">' . $_language->module['widget_side'] . '</li>
           </ol>
         </nav>
-
         <div class="card-body">';
 
         $thergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE active = '1'");
@@ -1419,17 +1399,10 @@ if (!empty(@$db['active'] == 1) !== false) {
                 <input type="hidden" name="themes_modulname" value="' . $dx['modulname'] . '">
                 <input type="hidden" name="modulname" value="' . $dw['modulname'] . '">
                 <input type="hidden" name="id" value="' . $_GET['id'] . '">
-
-                            
-            <input type="hidden" name="captcha_hash" value="' . $hash_2 . '" /><button class="btn btn-primary" type="submit" name="sortieren" /><i class="bi bi-sort-numeric-up-alt"></i> ' . $_language->module['to_sort'] . '</button>
+                <input type="hidden" name="captcha_hash" value="' . $hash_2 . '" /><button class="btn btn-primary" type="submit" name="sortieren" /><i class="bi bi-sort-numeric-up-alt"></i> ' . $_language->module['to_sort'] . '</button>
             </td><td></td></tr>
-
             </tbody></table>
-            
-
             </div></form>';
-
-
         echo '</div></div>';
         ###############################################
 
@@ -1444,15 +1417,12 @@ if (!empty(@$db['active'] == 1) !== false) {
         <div class="card-header"><i class="bi bi-puzzle" style="font-size: 1rem;"></i> 
             ' . $_language->module['plugin_manager'] . '
         </div>
-            
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="admincenter.php?site=plugin_manager">' . $_language->module['plugin_manager'] . '</a></li>
             <li class="breadcrumb-item active" aria-current="page">' . $_language->module['edit_plugin'] . '</li>
           </ol>
         </nav>
-
-
         <div class="card-body">';
 
         $ergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `pluginID`='" . $id . "' LIMIT 1");
@@ -1463,7 +1433,6 @@ if (!empty(@$db['active'] == 1) !== false) {
         $name = $translate->getTextByLanguage($ds['name']);
         $translate->detectLanguages($ds['info']);
         $info = $translate->getTextByLanguage($ds['info']);
-
 
         if (@$ds['admin_file'] != '') {
 
@@ -1482,12 +1451,8 @@ if (!empty(@$db['active'] == 1) !== false) {
         #$themeergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE active = '1'");
         #$db = mysqli_fetch_array($themeergebnis);
 
-
-
-
         echo '<b>' . $_language->module['plugin_basic_setting'] . ':</b>
         <hr>
-
         <div class="mb-3 row">
             <input type="hidden" name="pid" value="' . $ds['pluginID'] . '" />    
             <label class="col-sm-5 col-form-label" for="name">Plugin ' . $_language->module['name'] . ':<br>
@@ -1509,7 +1474,7 @@ if (!empty(@$db['active'] == 1) !== false) {
                 <textarea class="form-control" name="info" rows="10" cols="" style="width: 100%;" placeholder="info">' . $ds['info'] . '</textarea></em></span>
             </div>
         </div>
-      
+   
         <div class="mb-3 row">
             <label class="col-sm-5 col-form-label" for="author">' . $_language->module['author'] . ':</label>
             <div class="col-sm-7"><span class="text-muted small"><em>
@@ -1561,8 +1526,7 @@ if (!empty(@$db['active'] == 1) !== false) {
         </div>
 <hr>
         <div class="mb-3 row">
-            <label class="col-sm-5 col-form-label" for="path">Widgets: <br><small>(die mit dem Plugin mitgeliefert werden)</small></label>
-            
+            <label class="col-sm-5 col-form-label" for="path">Widgets: <br><small>(die mit dem Plugin mitgeliefert werden)</small></label>  
             ';
 
         $widgetsergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE modulname = '" . $ds['modulname'] . "'");
@@ -1579,12 +1543,10 @@ if (!empty(@$db['active'] == 1) !== false) {
                                    
 
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_5'] . ' " data-href="admincenter.php?site=plugin_manager&amp;delete=true&amp;widgetname=' . $df['widgetname'] . '&amp;id=' . $id . '&amp;captcha_hash=' . $hash . '"><i class="bi bi-trash3"></i>  
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_6'] . ' " data-href="admincenter.php?site=plugin_manager&amp;delete=true&amp;widgetname=' . $df['widgetname'] . '&amp;id=' . $id . '&amp;captcha_hash=' . $hash . '"><i class="bi bi-trash3"></i>  
             ' . $_language->module['widget_delete'] . '
             </button>
             <!-- Button trigger modal END-->
-
-
             <!-- Modal -->
             <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
               <div class="modal-dialog">
@@ -1597,7 +1559,7 @@ if (!empty(@$db['active'] == 1) !== false) {
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> ' . $_language->module['close'] . '</button>
-                    <a class="btn btn-danger btn-ok"><i class="bi bi-trash3"></i> ' . $_language->module['delete'] . '</a>
+                    <a class="btn btn-danger btn-ok"><i class="bi bi-trash3"></i> ' . $_language->module['widget_delete'] . '</a>
                   </div>
                 </div>
               </div>
@@ -1632,7 +1594,6 @@ if (!empty(@$db['active'] == 1) !== false) {
                 </div>
             </div>
         </div>
-    
         </form>
     </div>
 </div>';
@@ -1670,8 +1631,6 @@ if (!empty(@$db['active'] == 1) !== false) {
     </div>
   </div>
 <hr>';
-
-
         $ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE modulname='" . $db['modulname'] . "'");
         $ds = mysqli_fetch_array($ergebnis);
 
@@ -1683,12 +1642,7 @@ if (!empty(@$db['active'] == 1) !== false) {
 <option value="6">Footer</option>';
 
         $widget = str_replace('value=""', 'value="" selected="selected"', $widget_alle);
-
-
         echo '<form class="form-horizontal" method="post" id="post" name="post" action="admincenter.php?site=plugin_manager" onsubmit="return chkFormular();" enctype="multipart/form-data">
-       
-  
-
         <div class="mb-3 row">
             <label class="col-sm-5 col-form-label" for="name">' . $_language->module['widget_name'] . ':<font color="#DD0000">*</font> <br><small>(' . $_language->module['for_widgetname'] . ')</small></label>
             <div class="col-sm-6"><span class="text-muted small"><em>
@@ -1716,8 +1670,6 @@ if (!empty(@$db['active'] == 1) !== false) {
                                     <select id="area" name="area" class="form-select">' . $widget . '</select></em></span>
             </div>
         </div>
-
-
         <div class="col-sm-12">
             <div class="mb-3 row">
                 <div class="col-sm-11">
@@ -1729,21 +1681,10 @@ if (!empty(@$db['active'] == 1) !== false) {
                     <button class="btn btn-success" type="submit" name="widget_add"  /><i class="bi bi-plus-circle-fill"></i> ' . $_language->module['add_widget'] . '</button>
                 </div>
             </div>
-        </div>
-
-
-
-
-';
-
-
-
-
-
+        </div>';
 
         echo '</form></div></div>';
     } elseif ($action == "edit_widget") {
-
 
         $id = $_GET['id'];
         $widgetname = $_GET['widgetname'];
@@ -1763,8 +1704,6 @@ if (!empty(@$db['active'] == 1) !== false) {
             <li class="breadcrumb-item active" aria-current="page"><i class="bi bi-pencil-square"></i> ' . $_language->module['edit_widget'] . '</li>
           </ol>
         </nav>
-
-
         <div class="card-body">';
 
         $ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE pluginID = '" . $id . "'");
@@ -1776,7 +1715,6 @@ if (!empty(@$db['active'] == 1) !== false) {
     </div>
   </div>
 <hr>';
-
 
         $ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE widgetname='" . $_GET['widgetname'] . "'");
         $ds = mysqli_fetch_array($ergebnis);
@@ -1793,8 +1731,6 @@ if (!empty(@$db['active'] == 1) !== false) {
 
         echo '<form class="form-horizontal" method="post" id="post" name="post" action="admincenter.php?site=plugin_manager" onsubmit="return chkFormular();" enctype="multipart/form-data">
        
-  
-
         <div class="mb-3 row">
             <label class="col-sm-5 col-form-label" for="name">' . $_language->module['widget_name'] . ':<font color="#DD0000">*</font> <br><small>(' . $_language->module['for_widgetname'] . ')</small></label>
             <div class="col-sm-6"><span class="text-muted small"><em>
@@ -1822,13 +1758,6 @@ if (!empty(@$db['active'] == 1) !== false) {
                                     <select id="area" name="area" class="form-select">' . $widget . '</select></em></span>
             </div>
         </div>
-
-
-
-
-
-
-
        <div class="col-sm-12">
             <div class="mb-3 row">
                 <div class="col-sm-11">
@@ -1843,17 +1772,7 @@ if (!empty(@$db['active'] == 1) !== false) {
                 </div>
             </div>
         </div>
-
-
-
-
 ';
-
-
-
-
-
-
         echo '</form></div></div>';
     } elseif ($action == "new") {
 ?><script>
@@ -1981,8 +1900,6 @@ if (!empty(@$db['active'] == 1) !== false) {
     </div>
 </div>';
                     return false;
-
-
                     echo '</div></div>';
                 } else {
                     echo '<div class="card">
@@ -1995,12 +1912,7 @@ if (!empty(@$db['active'] == 1) !== false) {
             <li class="breadcrumb-item active" aria-current="page">new & edit</li>
           </ol>
         </nav>
-
-        
-
-
         <div class="card-body">
-
         <div class="mb-3 row">
     <label class="col-md-1 control-label">' . $_language->module['options'] . ':</label>
     <div class="col-md-8">
@@ -2064,8 +1976,6 @@ if (!empty(@$db['active'] == 1) !== false) {
                             || @$ds['modulname'] == 'navigation'
                             || @$ds['modulname'] == 'topbar'
                         ) {
-
-
                             echo '<td><div class="alert alert-danger" role="alert"><i class="bi bi-slash-circle"></i>
  ' . $_language->module['widget_cannot_assigned'] . '</div></td>';
                         } else {
