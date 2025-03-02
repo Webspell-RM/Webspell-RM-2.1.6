@@ -1480,7 +1480,7 @@ echo '<div class="card">
             <div class="col-md-8">
                 <a class="btn btn-primary" href="admincenter.php?site='.$ds['admin_file'].'">'.$name.'</a>
 
-      <a href="admincenter.php?site=plugin_manager&action=widget_add&id='.$id.'" class="btn btn-primary" type="button"><i class="bi bi-plus-circle-fill"></i> ' . $_language->module[ 'new_widget' ] . '</a>
+      <a href="admincenter.php?site=plugin_manager&action=widget_add&id='.$id.'" class="btn btn-primary" type="button"><i class="bi bi-plus-circle"></i> ' . $_language->module[ 'new_widget' ] . '</a>
             </div>
         </div>';
     }else{
@@ -1737,7 +1737,7 @@ echo'<form class="form-horizontal" method="post" id="post" name="post" action="a
                 <div class="col-sm-11">
                     <input type="hidden" name="modulname" value="'.$db['modulname'].'" />
                     <input type="hidden" name="id" value="'.$_GET[ 'id' ].'" />
-                    <button class="btn btn-success" type="submit" name="widget_add"  /><i class="bi bi-plus-circle-fill"></i> ' . $_language->module['add_widget'] . '</button>
+                    <button class="btn btn-success" type="submit" name="widget_add"  /><i class="bi bi-plus-circle"></i> ' . $_language->module['add_widget'] . '</button>
                 </div>
             </div>
         </div>
@@ -2018,7 +2018,7 @@ echo'<div class="card">
         <div class="mb-3 row">
     <label class="col-md-1 control-label">' . $_language->module['options'] . ':</label>
     <div class="col-md-8">
-      <a href="admincenter.php?site=plugin_manager&action=new" class="btn btn-primary" type="button"><i class="bi bi-plus-circle-fill"></i> ' . $_language->module[ 'new_plugin' ] . '</a>
+      <a href="admincenter.php?site=plugin_manager&action=new" class="btn btn-primary" type="button"><i class="bi bi-plus-circle"></i> ' . $_language->module[ 'new_plugin' ] . '</a>
     </div>
   </div>';
     $thergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE active = '1'");

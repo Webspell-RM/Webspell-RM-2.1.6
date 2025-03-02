@@ -162,7 +162,7 @@ if ($getavatar = getavatar($userID)) {
 
 	<!-- Custom Fonts -->
 	<!--<link href='../components/fontawesome/css/all.css' rel='stylesheet' type='text/css'>-->
-	<link href='../components/bootstrap/css/bootstrap-icons.css' rel='stylesheet' type='text/css'>
+	<link href='../components/bootstrap/css/bootstrap-icons.min.css' rel='stylesheet' type='text/css'>
 
 	<!-- colorpicker -->
 	<link href="../components/admin/css/bootstrap-colorpicker.min.css" rel="stylesheet">
