@@ -975,7 +975,7 @@ if (!empty(@$db['active'] == 1) !== false) {
             <table class="table table-striped table-bordered">              
             <thead>
                 <tr>                              
-                    <th class="text-bg-secondary p-3" style="width:25%">' . $_language->module['widgets'] . '</th>
+                    <th class="text-bg-secondary p-3" style="width:25%">' . $_language->module['widget_name'] . '</th>
                     <th class="text-bg-secondary p-3">' . $_language->module['area'] . '</th>
                 </tr>
             </thead>
