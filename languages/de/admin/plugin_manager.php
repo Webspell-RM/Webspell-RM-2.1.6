@@ -90,4 +90,5 @@ $language_array = array(
   'widget_side'                         => 'Widget der Seite zuordnen',
   'widget_name'                         => 'Widget Name',
   'widgetdatei_nophp'                   => 'Dateiname ohne .php',
+  'preview_widget'                      => 'Vorschau-Widget',
 );

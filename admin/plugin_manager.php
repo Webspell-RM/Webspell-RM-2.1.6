@@ -1536,7 +1536,9 @@ if (!empty(@$db['active'] == 1) !== false) {
             $modulname = $df['modulname'];
             $widget .= '<div class="col-sm-12">
                                 <div class="mb-3 row">
-                                    <div class="col-sm-5"></div>                    
+                                    <div class="col-sm-5 text-end">
+                                    <button type="button" class="btn btn-info" data-toggle="popover" data-bs-placement="left" data-img="../includes/plugins/'.$ds['modulname'].'/images/'.$df['widgetdatei'].'.jpg" title="Widget" >'.$_language->module['preview_widget'].'</button>
+                                    </div>                    
                                     <div class="col-sm-4">
                                         <div class="form-control">' . $df['widgetname'] . '</div>
                                     </div>
