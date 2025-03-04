@@ -51,6 +51,7 @@ $language_array = array(
    'multi_language_info_name'            => '<div class="alert alert-info" role="alert" style="margin-top: 12px"><b>Applicazione Multilingue:</b><br>Un tag di lingua corrispondente deve essere memorizzato nel nome del plugin, che assomiglia a questo.<br><span style="color:#c0392b"><strong>{[de]}</strong></span>&nbsp;Plugin Name in deutscher Sprache.<br /><span style="color:#c0392b"><strong>{[en]}</strong></span>&nbsp;Plugin name in English.<br /><span style="color:#c0392b"><strong>{[it]}</strong></span>&nbsp;&nbsp;&nbsp;Nome del plugin in Italiano.</div>',
    'na'                                  => 'Non disponibile',
    'name'                                => 'Nome Plugin',
+   'navigation'                          => 'Navigazione <i class="bi bi-menu-button"></i>',   
    'new_modul'                           => 'Aggiungi Plugin',
    'new_plugin'                          => 'Nuovo Plugin',
    'new_widget'                          => 'Nuovo widget',
