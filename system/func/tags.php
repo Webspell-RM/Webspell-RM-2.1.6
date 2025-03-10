@@ -125,7 +125,7 @@ class Tags
                 content,
                 headline
             FROM
-                " . PREFIX . "plugins_news
+                " . PREFIX . "plugins_news_manager
             
             WHERE
                 newsID = " . (int)$newsID
@@ -184,6 +184,8 @@ class Tags
 
             $_language = new \webspell\Language();
             $_language->readModule('tags');
+
+            print_r($_language);
             return array(
                 'date' => $ds['date'],
                 'type' => 'Artikel',

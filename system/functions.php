@@ -372,7 +372,8 @@ if(file_exists('func/spam.php')) { systeminc('func/spam'); } else { systeminc('.
 
 
 // -- Tags -- //
-if(file_exists('func/tags.php')) { systeminc('func/tags'); } else { systeminc('../system/func/tags'); }
+#if(file_exists('func/tags.php')) { systeminc('func/tags'); } else { systeminc('../system/func/tags'); }
+if(file_exists('includes/plugins/tags/tags_functions.php')) { systeminc('../includes/plugins/tags/tags_functions'); } else { systeminc('../includes/plugins/tags/tags_functions'); }
 
 
 // -- Upload -- //

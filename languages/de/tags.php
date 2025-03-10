@@ -22,7 +22,7 @@ $language_array = array(
     'keyword'             => 'Stichwort',
     'new_search'          => 'Neue Suche',
     'news'                => 'Neuigkeiten',
-    'news_li1nk'           => '<b>Link zur Neuigkeit</b>',
+    'news_link'           => '<b>Link zur Neuigkeit</b>',
     'no_result'           => 'Keine Einträge zu "%s" gefunden',
     'options'             => 'Optionen',
     'or'                  => 'Oder',
@@ -44,5 +44,6 @@ $language_array = array(
     'toptags'             => 'Top Tags',
     'static'              => 'Beitrag',
     'static_link'         => '<b>Link zu einem Beitrag</b>',
+    'links_link'          => '<b>Link zur Links</b>',
 );
 

@@ -85,7 +85,13 @@
 
             "file49": "/languages/de/admin/update.php",
             "file50": "/languages/en/admin/update.php",
-            "file51": "/languages/it/admin/update.php"
+            "file51": "/languages/it/admin/update.php",
+            "file52": "/admin/admincenter",
+            "file53": "/languages/de/index.php",
+            "file54": "/languages/de/tags.php",
+
+            "file55": "/components/bootstrap/js/bootstrap.bundle.min.js",
+            "file56": "/components/bootstrap/js/bootstrap.bundle.min.js.map"
 
 
 
@@ -109,7 +115,10 @@
 
             "file11": "/languages/de/admin/template_installer.php",
             "file12": "/languages/en/admin/template_installer.php",
-            "file13": "/languages/it/admin/template_installer.php"
+            "file13": "/languages/it/admin/template_installer.php",
+
+            "file14": "/includes/modules/tags.php",
+            "file15": "/system/func/tags.php"
 
            }
          ]

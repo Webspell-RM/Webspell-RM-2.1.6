@@ -54,55 +54,6 @@ function get_mainContent() {
                 
     if (!isset($_GET['site'])) {
         $site = $ds['startpage'];
-
-        ### CSS & JS Startseite Main Content Area
-/**
-        $css="\n";
-        $query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND modulname = '".$site."'");
-        while($res=mysqli_fetch_array($query)) {
-            if($res['modulname'] == $site) {
-                if(is_dir($res['path']."css/")) { 
-                    $subf1 = "css/"; 
-                } else { 
-                    $subf1=""; 
-                }
-                $f = array();
-                $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $res['path'].$subf1).'*.css');
-                $fc = count((array($f)), COUNT_RECURSIVE);
-                if($fc>0) {
-                    for($b=0; $b<=$fc-2; $b++) {
-                    $css .= '   <link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D).chr(0x0A);
-                    }
-                }
-            }
-
-        }
-        echo$css;
-
-        $js="\n";
-        $query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND modulname = '".$site."'");
-        while($res=mysqli_fetch_array($query)) {
-            if($res['modulname'] == $site) {
-                if(is_dir($res['path']."js/")) { 
-                    $subf1 = "js/"; 
-                } else { 
-                    $subf1=""; 
-                }
-                $f = array();
-                $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $res['path'].$subf1).'*.js');
-                $fc = count((array($f)), COUNT_RECURSIVE);
-                if($fc>0) {
-                    for($b=0; $b<=$fc-2; $b++) {
-                    $js .= '    <script defer src="./'.$f[$b].'"></script>'.chr(0x0D).chr(0x0A);
-                    }
-                }
-            }
-
-        }
-        echo$js;
-
-        ### CSS & JS Startseite Main Content Area END
-*/
     } else {
         $site = getinput($_GET['site']);
     }

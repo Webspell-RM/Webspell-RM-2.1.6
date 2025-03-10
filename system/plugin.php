@@ -85,7 +85,6 @@ class plugin_manager {
 				$afiles = $xtmp['admin_file'];
 				$bfiles = explode(",",$afiles);
 				if(in_array($var, $bfiles)) {
-					#$where = " WHERE `activate`='1' AND `pluginID`='".$tmp['pluginID']."'";	
 					$where = " WHERE `pluginID`='".$xtmp['pluginID']."'";	
 					$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins ".$where);
 				}
@@ -536,7 +535,7 @@ function plugin_widget_data($var, $id=0, $admin=false) {
 
 
 /*Plugins manuell einbinden 
-get_widget('modulname','pluginwidget'); 
+get_widget('modulname','widgetdatei'); 
 */
 function get_widget($modulname,$widgetdatei) {
  
