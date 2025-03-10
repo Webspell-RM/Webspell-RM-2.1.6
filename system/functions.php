@@ -180,16 +180,17 @@ function js_replace($string)
     return $output;
 }
 
-function percent($sub, $total, $dec)
+function percent($sub, $total, $dec = 2)
 {
-    if ($sub) {
-        $perc = $sub / $total * 100;
-        $perc = round($perc, $dec);
-        return $perc;
-    } else {
-        return 0;
+    // Controlla che $sub e $total siano numerici e che $total non sia zero
+    if (!is_numeric($sub) || !is_numeric($total) || $total == 0) {
+        return 0; // Evita divisioni per zero e valori non numerici
     }
+
+    $perc = ($sub / $total) * 100;
+    return round($perc, $dec);
 }
+
 
 // Wird angezeigt wenn sich die Seite im Wartungsmodus befindet
 function showlock($reason)
