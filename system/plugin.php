@@ -1,4 +1,5 @@
 <?php
+
 /**
  *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
  *                  Webspell-RM      /                        /   /                                          *
@@ -26,185 +27,195 @@
  * @copyright       2005-2011 by webspell.org / webspell.info                                                *
  *                                                                                                           *
  *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
-*/
+ */
 
 global $modRewrite;
-    if($modRewrite && !empty($GLOBALS['site']))
-        $_SERVER['QUERY_STRING'] = 'site='.$GLOBALS['site'];
-    elseif($modRewrite && empty($GLOBALS['site']))
-        $_SERVER['QUERY_STRING'] = 'site=startpage';
+if ($modRewrite && !empty($GLOBALS['site']))
+	$_SERVER['QUERY_STRING'] = 'site=' . $GLOBALS['site'];
+elseif ($modRewrite && empty($GLOBALS['site']))
+	$_SERVER['QUERY_STRING'] = 'site=startpage';
 
 
-class plugin_manager {
+class plugin_manager
+{
 	var $_debug;
-	
+
 	//@debug 		if debug mode ON show failure messages otherwise hide this
-	function set_debug($var) {
+	function set_debug($var)
+	{
 		$this->_debug = $var;
 	}
-	
+
 	//@info 		check if a plugin index-link file exists that i can called by
 	//				index.php?site=xxx
-	function is_plugin($var) {
-		try { 
-			$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE `activate`='1' AND `index_link` LIKE '%".$var."%'");
-			if(mysqli_num_rows($query)) {	
+	function is_plugin($var)
+	{
+		try {
+			$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE `activate`='1' AND `index_link` LIKE '%" . $var . "%'");
+			if (mysqli_num_rows($query)) {
 				return 1;
 			} else {
 				return 0;
 			}
-		} CATCH (EXCPETION $e) {
+		} catch (EXCPETION $e) {
 			return $e->message();
 		}
 	}
-	
+
 	//@info 		get the plugin data from database
-	function plugin_data($var, $id=0, $admin=false) {
-		if($id>0) {
-			$where = " WHERE `activate`='1' AND `pluginID`='".intval($id)."'";	
-			$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins ".$where);
+	function plugin_data($var, $id = 0, $admin = false)
+	{
+		if ($id > 0) {
+			$where = " WHERE `activate`='1' AND `pluginID`='" . intval($id) . "'";
+			$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins " . $where);
 		} else {
-			if($admin) {
-				$where = " WHERE `activate`='1' AND `admin_file` LIKE '%".$var."%'";
+			if ($admin) {
+				$where = " WHERE `activate`='1' AND `admin_file` LIKE '%" . $var . "%'";
 			} else {
-				$where = " WHERE `activate`='1' AND `index_link` LIKE '%".$var."%'";
+				$where = " WHERE `activate`='1' AND `index_link` LIKE '%" . $var . "%'";
 			}
-			$q = safe_query("SELECT * FROM " . PREFIX . "settings_plugins ".$where);
-			if(mysqli_num_rows($q)) {
+			$q = safe_query("SELECT * FROM " . PREFIX . "settings_plugins " . $where);
+			if (mysqli_num_rows($q)) {
 				$tmp = mysqli_fetch_array($q);
 				$ifiles = $tmp['index_link'];
-				$tfiles = explode(",",$ifiles);
-				if(in_array($var, $tfiles)) {
-						$where = " WHERE `pluginID`='".$tmp['pluginID']."'";	
-						$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins ".$where);
+				$tfiles = explode(",", $ifiles);
+				if (in_array($var, $tfiles)) {
+					$where = " WHERE `pluginID`='" . $tmp['pluginID'] . "'";
+					$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins " . $where);
 				}
 			}
-			$w = safe_query("SELECT * FROM " . PREFIX . "settings_plugins ".$where);
-			if(mysqli_num_rows($w)) {
+			$w = safe_query("SELECT * FROM " . PREFIX . "settings_plugins " . $where);
+			if (mysqli_num_rows($w)) {
 				$xtmp = mysqli_fetch_array($w);
 				$afiles = $xtmp['admin_file'];
-				$bfiles = explode(",",$afiles);
-				if(in_array($var, $bfiles)) {
-					$where = " WHERE `pluginID`='".$xtmp['pluginID']."'";	
-					$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins ".$where);
+				$bfiles = explode(",", $afiles);
+				if (in_array($var, $bfiles)) {
+					$where = " WHERE `pluginID`='" . $xtmp['pluginID'] . "'";
+					$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins " . $where);
 				}
 			}
-
 		}
-		if(!isset($query)) { return false; }
+		if (!isset($query)) {
+			return false;
+		}
 		try {
-			if(mysqli_num_rows($query)) {
+			if (mysqli_num_rows($query)) {
 				$row = mysqli_fetch_array($query);
 				return $row;
 			}
-		} CATCH (EXCEPTION $e) {
-			return $e->message();	
+		} catch (EXCEPTION $e) {
+			return $e->message();
 		}
-	}	
-	
-	function plugin_check($data, $site) {
+	}
+
+	function plugin_check($data, $site)
+	{
 		$_language = new \webspell\Language;
 		$_language->readModule('plugin');
 		$return = array();
-                whouseronline();
-		if(isset($data['activate'])==1) {
-			if(isset($site)) {
+		whouseronline();
+		if (isset($data['activate']) == 1) {
+			if (isset($site)) {
 				$ifiles = $data['index_link'];
-				$tfiles = explode(",",$ifiles);
-				if(in_array($site, $tfiles)) {
-					if(file_exists($data['path'].$site.".php")) {
+				$tfiles = explode(",", $ifiles);
+				if (in_array($site, $tfiles)) {
+					if (file_exists($data['path'] . $site . ".php")) {
 						$plugin_path = $data['path'];
-						$return['status']=1;
-						$return['data']=$data['path'].$site.".php";
+						$return['status'] = 1;
+						$return['data'] = $data['path'] . $site . ".php";
 						return $return;
-					} else { 
-						if(DEBUG==="ON") {
-							echo '<!-- <br /><span class="label label-danger">'.$_language->module[ 'plugin_not_found' ].'</span> -->';		
+					} else {
+						if (DEBUG === "ON") {
+							echo '<!-- <br /><span class="label label-danger">' . $_language->module['plugin_not_found'] . '</span> -->';
 						}
-						if (!file_exists(MODULE.$site . ".php")) {
-                        $site = "404";
-                    }
-                    	$return['status']=1;
-						$return['data']=MODULE.$site . ".php";
+						if (!file_exists(MODULE . $site . ".php")) {
+							$site = "404";
+						}
+						$return['status'] = 1;
+						$return['data'] = MODULE . $site . ".php";
 						return $return;
-					}	
+					}
 				}
 			} else {
-				if(file_exists($data['path'].$data['index_link'].".php")) {
+				if (file_exists($data['path'] . $data['index_link'] . ".php")) {
 					$plugin_path = $data['path'];
-					$return['status']=1;
-					$return['data']=$data['path'].$data['index_link'].".php";
+					$return['status'] = 1;
+					$return['data'] = $data['path'] . $data['index_link'] . ".php";
 					return $return;
-				} else { 
-					if(DEBUG==="ON") {
-						return '<!-- <br /><span class="label label-danger">'.$_language->module[ 'plugin_not_found' ].'</span> -->';		
+				} else {
+					if (DEBUG === "ON") {
+						return '<!-- <br /><span class="label label-danger">' . $_language->module['plugin_not_found'] . '</span> -->';
 					}
-					if (!file_exists(MODULE.$site . ".php")) {
-                        $site = "404";
-                    }
-                    $return['status']=1;
-					$return['data']= MODULE.$site.".php";
-					return $return;	
+					if (!file_exists(MODULE . $site . ".php")) {
+						$site = "404";
 					}
+					$return['status'] = 1;
+					$return['data'] = MODULE . $site . ".php";
+					return $return;
 				}
-			} else {
-				if(DEBUG==="ON") {
-					echo ('<!-- <br /><span class="label label-warning">'.$_language->module[ 'plugin_deactivated' ].'</span> -->');
-				}
-				if (!file_exists(MODULE.$site . ".php")) {
-                        $site = "404";
-                }
-                $return['status']=1;
-				$return['data']= MODULE.$site.".php";
-				return $return;	
-			}	
+			}
+		} else {
+			if (DEBUG === "ON") {
+				echo ('<!-- <br /><span class="label label-warning">' . $_language->module['plugin_deactivated'] . '</span> -->');
+			}
+			if (!file_exists(MODULE . $site . ".php")) {
+				$site = "404";
+			}
+			$return['status'] = 1;
+			$return['data'] = MODULE . $site . ".php";
+			return $return;
 		}
-	
-####################################
-function plugin_widget_data($var, $id=0, $admin=false) {
-		if($id>0) {
+	}
+
+	####################################
+	function plugin_widget_data($var, $id = 0, $admin = false)
+	{
+		if ($id > 0) {
 			parse_str($_SERVER['QUERY_STRING'], $qs_arr);
 			$getsite = 'startpage'; #Wird auf der Startseite angezeigt index.php
-	    if(isset($qs_arr['site'])) {
-	      $getsite = $qs_arr['site'];
-	    }
+			if (isset($qs_arr['site'])) {
+				$getsite = $qs_arr['site'];
+			}
 
-	    if (@$getsite == 'contact' 
-        || @$getsite == 'imprint'
-        || @$getsite == 'privacy_policy'
-        || @$getsite == 'profile'
-        || @$getsite == 'myprofile'
-        || @$getsite == 'error_404'
-        || @$getsite == 'report'
-        || @$getsite == 'static'
-        || @$getsite == 'loginoverview'
-        || @$getsite == 'register'
-        || @$getsite == 'lostpassword'
-        || @$getsite == 'login'
-        || @$getsite == 'logout'
-        || @$getsite == 'footer'
-        || @$getsite == 'navigation'
-        || @$getsite == 'topbar') {
-				$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget_settings WHERE id='".intval($id)."'");
-			}elseif (@$getsite == 'forum_topic') {
-				$query = safe_query("SELECT * FROM " . PREFIX . "plugins_forum_settings_widgets WHERE id='".intval($id)."'");
+			if (
+				@$getsite == 'contact'
+				|| @$getsite == 'imprint'
+				|| @$getsite == 'privacy_policy'
+				|| @$getsite == 'profile'
+				|| @$getsite == 'myprofile'
+				|| @$getsite == 'error_404'
+				|| @$getsite == 'report'
+				|| @$getsite == 'static'
+				|| @$getsite == 'loginoverview'
+				|| @$getsite == 'register'
+				|| @$getsite == 'lostpassword'
+				|| @$getsite == 'login'
+				|| @$getsite == 'logout'
+				|| @$getsite == 'footer'
+				|| @$getsite == 'navigation'
+				|| @$getsite == 'topbar'
+			) {
+				$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget_settings WHERE id='" . intval($id) . "'");
+			} elseif (@$getsite == 'forum_topic') {
+				$query = safe_query("SELECT * FROM " . PREFIX . "plugins_forum_settings_widgets WHERE id='" . intval($id) . "'");
 			} else {
-				$query = safe_query("SELECT * FROM " . PREFIX . "plugins_".$getsite."_settings_widgets WHERE id='".intval($id)."'");
-			}	
-
+				$query = safe_query("SELECT * FROM " . PREFIX . "plugins_" . $getsite . "_settings_widgets WHERE id='" . intval($id) . "'");
+			}
 		} else {
-			echo'leer';
+			echo 'leer';
 		}
 
-		if(!isset($query)) { return false; }
+		if (!isset($query)) {
+			return false;
+		}
 		try {
-			if(mysqli_num_rows($query)) {
-				$row = mysqli_fetch_array($query);				
-					return $row;
-				}
-			} CATCH (EXCEPTION $e) {
-				return $e->message();	
+			if (mysqli_num_rows($query)) {
+				$row = mysqli_fetch_array($query);
+				return $row;
 			}
+		} catch (EXCEPTION $e) {
+			return $e->message();
+		}
 	}
 
 
@@ -212,159 +223,179 @@ function plugin_widget_data($var, $id=0, $admin=false) {
 	//				True = include the sc_file from plugin directory
 	//				False = dont load this plugin
 
-	function plugin_widget($id, $name=false, $css=false) {
+	function plugin_widget($id, $name = false, $css = false)
+	{
 		$pid = intval($id);
 		$_language = new \webspell\Language;
 		$_language->readModule('plugin');
 		if (!empty($pid)) {
 			$manager = new plugin_manager();
-			$row=$manager->plugin_widget_data("", $pid);
+			$row = $manager->plugin_widget_data("", $pid);
 
 			$query = safe_query("SELECT *
 			FROM  " . PREFIX . "settings_plugins
-			Where modulname = '".$row['modulname']."'
+			Where modulname = '" . $row['modulname'] . "'
 			");
 			$ds = mysqli_fetch_array($query);
 
 			if (@$ds['activate'] != "1") {
-				if($this->_debug==="ON") {
+				if ($this->_debug === "ON") {
 					return ('');
-    			}
+				}
 				return false;
 			}
 
-			if(file_exists($ds['path'].$row['widgetdatei'].".php")) {
+			if (file_exists($ds['path'] . $row['widgetdatei'] . ".php")) {
 				$plugin_path = $ds['path'];
-				require($ds['path'].$row['widgetdatei'].".php");				
+				require($ds['path'] . $row['widgetdatei'] . ".php");
 				return false;
-			} else { 
-				if($this->_debug==="ON") {
-					return ('<span class="label label-danger">'.$_language->module['plugin_not_found'].'</span>');
+			} else {
+				if ($this->_debug === "ON") {
+					return ('<span class="label label-danger">' . $_language->module['plugin_not_found'] . '</span>');
 				}
 			}
-
-			
-		}	
+		}
 	}
 
 
-#################################################	
+	#################################################	
 	//@info		search a plugin by name and return the ID
-	function pluginID_by_name($name) {
-		$request=safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND `name` LIKE '%".$name."%'");
-		if(mysqli_num_rows($request)) {
-			$tmp=mysqli_fetch_array($request);
+	function pluginID_by_name($name)
+	{
+		$request = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND `name` LIKE '%" . $name . "%'");
+		if (mysqli_num_rows($request)) {
+			$tmp = mysqli_fetch_array($request);
 			return $tmp['pluginID'];
 		}
 		return 0;
 	}
-	
+
 	//@info		include a file which saved in hiddenfiles
-	function plugin_hf($id, $name) {
+	function plugin_hf($id, $name)
+	{
 		$pid = intval($id);
 		$_language = new \webspell\Language;
 		$_language->readModule('plugin');
-		if (!empty($pid) AND !empty($name)) {
+		if (!empty($pid) and !empty($name)) {
 			$manager = new plugin_manager();
-			$row=$manager->plugin_data("", $pid);
+			$row = $manager->plugin_data("", $pid);
 			$hfiles = $row['hiddenfiles'];
-			$tfiles = explode(",",$hfiles);
-			if(in_array($name, $tfiles)) {
-				if(file_exists($row['path'].$name.".php")) {
+			$tfiles = explode(",", $hfiles);
+			if (in_array($name, $tfiles)) {
+				if (file_exists($row['path'] . $name . ".php")) {
 					$plugin_path = $row['path'];
-					require_once($row['path'].$name.".php");
+					require_once($row['path'] . $name . ".php");
 					return false;
-				} else { 
-					if($this->_debug==="ON") {
-						return ('<span class="label label-danger">'.$_language->module['plugin_not_found'].'</span>');
+				} else {
+					if ($this->_debug === "ON") {
+						return ('<span class="label label-danger">' . $_language->module['plugin_not_found'] . '</span>');
 					}
-				} 
-			} 
-		}		
+				}
+			}
+		}
 	}
-	
+
 	//@info 		get the plugin directories from database and check 
 	//				if in any plugin (direct) or in the subfolders (css & js)
 	//				are file which must load into the <head> Tag
-	function plugin_loadheadfile_css($pluginadmin=false) {
+	function plugin_loadheadfile_css($pluginadmin = false)
+	{
 
 		$settings = safe_query("SELECT * FROM " . PREFIX . "settings");
-    $ds = mysqli_fetch_array($settings);
+		$ds = mysqli_fetch_array($settings);
 
 
 
 
-    parse_str($_SERVER['QUERY_STRING'], $qs_arr);
-    $getsite = $ds['startpage'];
-    if(isset($qs_arr['site'])) {
-      $getsite = $qs_arr['site'];
-    }
+		parse_str($_SERVER['QUERY_STRING'], $qs_arr);
+		$getsite = $ds['startpage'];
+		if (isset($qs_arr['site'])) {
+			$getsite = $qs_arr['site'];
+		}
 
-		$ds=mysqli_fetch_array(safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE index_link LIKE '%$getsite%' AND `activate`='1'"));
-		@$modulname=$ds['modulname'];
+		$ds = mysqli_fetch_array(safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE index_link LIKE '%$getsite%' AND `activate`='1'"));
+		@$modulname = $ds['modulname'];
 
-    $css="\n";
-		$query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND modulname = '".$modulname."'");
-    if($pluginadmin) { $pluginpath = "../"; 
-  	} else { 
-  		$pluginpath=""; 
-  	}	
+		$css = "\n";
+		$query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND modulname = '" . $modulname . "'");
+		if ($pluginadmin) {
+			$pluginpath = "../";
+		} else {
+			$pluginpath = "";
+		}
 
-  	while($res=mysqli_fetch_array($query)) {
-		  if($res['modulname'] == $modulname || $res == 1) {
-		   	if(is_dir($pluginpath.$res['path']."css/")) { 
-		   		$subf1 = "css/"; 
-		   	} else { 
-		   		$subf1=""; 
-		   	}
-		    $f = array();
-		    $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$res['path'].$subf1).'*.css');
-		    $fc = count((array($f)), COUNT_RECURSIVE);
-		    if($fc>0) {
-		     	for($b=0; $b<=$fc-2; $b++) {
-		       	$css .= '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D).chr(0x0A);
-		     	}
+		while ($res = mysqli_fetch_array($query)) {
+			if ($res['modulname'] == $modulname || $res == 1) {
+				if (is_dir($pluginpath . $res['path'] . "css/")) {
+					$subf1 = "css/";
+				} else {
+					$subf1 = "";
+				}
+				$f = array();
+				$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath . $res['path'] . $subf1) . '*.css');
+				$fc = count((array($f)), COUNT_RECURSIVE);
+				if ($fc > 0) {
+					global $loaded_css_files;
+					if (!isset($loaded_css_files)) {
+						$loaded_css_files = array();
+					}
+
+					for ($b = 0; $b < count($f); $b++) {
+						if (!in_array($f[$b], $loaded_css_files)) { // Controllo per evitare duplicati
+							$css .= '<link type="text/css" rel="stylesheet" href="./' . $f[$b] . '" />' . chr(0x0D) . chr(0x0A);
+							$loaded_css_files[] = $f[$b]; // Aggiunge il file alla lista dei caricati
+						}
+					}
 				}
 			}
-
 		}
-	  return $css;
+		return $css;
 	}
 
-	function plugin_loadheadfile_js($pluginadmin=false) {
-    parse_str($_SERVER['QUERY_STRING'], $qs_arr);
-    $getsite = '';
-    if(isset($qs_arr['site'])) {
-      $getsite = $qs_arr['site'];
-    }
+	function plugin_loadheadfile_js($pluginadmin = false)
+	{
+		parse_str($_SERVER['QUERY_STRING'], $qs_arr);
+		$getsite = '';
+		if (isset($qs_arr['site'])) {
+			$getsite = $qs_arr['site'];
+		}
 
-    $dk=mysqli_fetch_array(safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE index_link LIKE '%$getsite%' AND `activate`='1'"));
-		@$modulname=$dk['modulname'];
+		$dk = mysqli_fetch_array(safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE index_link LIKE '%$getsite%' AND `activate`='1'"));
+		@$modulname = $dk['modulname'];
 
-    $js="\n";
-    $query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND modulname = '".$modulname."'");
-    if($pluginadmin) { $pluginpath = "../"; 
-  	} else { 
-  		$pluginpath=""; 
-  	}		
-    while($res=mysqli_fetch_array($query)) {
-      if($res['modulname'] == $modulname || $res == 1) {
-	      if(is_dir($pluginpath.$res['path']."js/")) { 
-	      	$subf2 = "js/"; 
-	      } else { 
-	      	$subf2=""; 
-	      }
-	      $f = array();
-	      $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$res['path'].$subf2).'*.js');
-	      $fc = count((array($f)), COUNT_RECURSIVE);
-	      if($fc>0) {
-	       	for($b=0; $b<=$fc-2; $b++) {
-	         	$js .= '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D).chr(0x0A);
-	       	}
-		  	}
-		  }
-		}		
-	  return $js;
+		$js = "\n";
+		$query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND modulname = '" . $modulname . "'");
+		if ($pluginadmin) {
+			$pluginpath = "../";
+		} else {
+			$pluginpath = "";
+		}
+		while ($res = mysqli_fetch_array($query)) {
+			if ($res['modulname'] == $modulname || $res == 1) {
+				if (is_dir($pluginpath . $res['path'] . "js/")) {
+					$subf2 = "js/";
+				} else {
+					$subf2 = "";
+				}
+				$f = array();
+				$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath . $res['path'] . $subf2) . '*.js');
+				$fc = count((array($f)), COUNT_RECURSIVE);
+				if ($fc > 0) {
+					global $loaded_js_files;
+					if (!isset($loaded_js_files)) {
+						$loaded_js_files = array();
+					}
+
+					for ($b = 0; $b < count($f); $b++) {
+						if (!in_array($f[$b], $loaded_js_files)) { // Controllo per evitare duplicati
+							$js .= '<script defer src="./' . $f[$b] . '"></script>' . chr(0x0D) . chr(0x0A);
+							$loaded_js_files[] = $f[$b]; // Aggiunge il file alla lista dei caricati
+						}
+					}
+				}
+			}
+		}
+		return $js;
 	}
 
 
@@ -372,104 +403,126 @@ function plugin_widget_data($var, $id=0, $admin=false) {
 	################################################################################
 
 
-  function plugin_loadheadfile_widget_css() {
-    parse_str($_SERVER['QUERY_STRING'], $qs_arr);
-    $getsite = 'startpage';
-    if(isset($qs_arr['site'])) {
-      $getsite = $qs_arr['site'];
-    }
-    $pluginpath="includes/plugins/"; 
-
-    $css="\n";
-    if (@$getsite == 'contact' 
-        || @$getsite == 'imprint'
-        || @$getsite == 'privacy_policy'
-        || @$getsite == 'profile'
-        || @$getsite == 'myprofile'
-        || @$getsite == 'error_404'
-        || @$getsite == 'report'
-        || @$getsite == 'static'
-        || @$getsite == 'loginoverview'
-        || @$getsite == 'register'
-        || @$getsite == 'lostpassword'
-        || @$getsite == 'login'
-        || @$getsite == 'logout'
-        || @$getsite == 'footer'
-        || @$getsite == 'navigation'
-        || @$getsite == 'topbar') {
-			$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget_settings");
-		}elseif (@$getsite == 'forum_topic') {
-				$query = safe_query("SELECT * FROM " . PREFIX . "plugins_forum_settings_widgets");
-		}else{
-			$query = safe_query("SELECT * FROM " . PREFIX . "plugins_".$getsite."_settings_widgets");
+	function plugin_loadheadfile_widget_css()
+	{
+		parse_str($_SERVER['QUERY_STRING'], $qs_arr);
+		$getsite = 'startpage';
+		if (isset($qs_arr['site'])) {
+			$getsite = $qs_arr['site'];
 		}
-		while($res=mysqli_fetch_array($query)) {
-		  if(is_dir($pluginpath.$res['modulname']."/css/")) { 
-		  	$subf1 = "/css/"; 
-		  } else { 
-		  	$subf1=""; 
-		  }
-		  $f = array();
-		  $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$res['modulname'].$subf1).'*.css');
-		  $fc = count((array($f)), COUNT_RECURSIVE);
-		  if($fc>0) {
-		   	for($b=0; $b<=$fc-2; $b++) {
-		     	$css .= '	<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D).chr(0x0A);
-		   	}
+		$pluginpath = "includes/plugins/";
+
+		$css = "\n";
+		if (
+			@$getsite == 'contact'
+			|| @$getsite == 'imprint'
+			|| @$getsite == 'privacy_policy'
+			|| @$getsite == 'profile'
+			|| @$getsite == 'myprofile'
+			|| @$getsite == 'error_404'
+			|| @$getsite == 'report'
+			|| @$getsite == 'static'
+			|| @$getsite == 'loginoverview'
+			|| @$getsite == 'register'
+			|| @$getsite == 'lostpassword'
+			|| @$getsite == 'login'
+			|| @$getsite == 'logout'
+			|| @$getsite == 'footer'
+			|| @$getsite == 'navigation'
+			|| @$getsite == 'topbar'
+		) {
+			$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget_settings");
+		} elseif (@$getsite == 'forum_topic') {
+			$query = safe_query("SELECT * FROM " . PREFIX . "plugins_forum_settings_widgets");
+		} else {
+			$query = safe_query("SELECT * FROM " . PREFIX . "plugins_" . $getsite . "_settings_widgets");
+		}
+		while ($res = mysqli_fetch_array($query)) {
+			if (is_dir($pluginpath . $res['modulname'] . "/css/")) {
+				$subf1 = "/css/";
+			} else {
+				$subf1 = "";
 			}
-		}		
-	  return $css;
+			$f = array();
+			$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath . $res['modulname'] . $subf1) . '*.css');
+			$fc = count((array($f)), COUNT_RECURSIVE);
+			if ($fc > 0) {
+				global $loaded_css_files;
+				if (!isset($loaded_css_files)) {
+					$loaded_css_files = array();
+				}
+
+				for ($b = 0; $b < count($f); $b++) {
+					if (!in_array($f[$b], $loaded_css_files)) { // Controllo per evitare duplicati
+						$css .= '<link type="text/css" rel="stylesheet" href="./' . $f[$b] . '" />' . chr(0x0D) . chr(0x0A);
+						$loaded_css_files[] = $f[$b]; // Aggiunge il file alla lista dei caricati
+					}
+				}
+			}
+		}
+		return $css;
 	}
-	
 
-  function plugin_loadheadfile_widget_js() {
-  	parse_str($_SERVER['QUERY_STRING'], $qs_arr);
-    $getsite = 'startpage';
-    if(isset($qs_arr['site'])) {
-      $getsite = $qs_arr['site'];
-    }
-    $pluginpath="includes/plugins/"; 
 
-    $js="\n";
-    if (@$getsite == 'contact' 
-        || @$getsite == 'imprint'
-        || @$getsite == 'privacy_policy'
-        || @$getsite == 'profile'
-        || @$getsite == 'myprofile'
-        || @$getsite == 'error_404'
-        || @$getsite == 'report'
-        || @$getsite == 'static'
-        || @$getsite == 'loginoverview'
-        || @$getsite == 'register'
-        || @$getsite == 'lostpassword'
-        || @$getsite == 'login'
-        || @$getsite == 'logout'
-        || @$getsite == 'footer'
-        || @$getsite == 'navigation'
-        || @$getsite == 'topbar') {
-			$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget_settings");
-		}elseif (@$getsite == 'forum_topic') {
-				$query = safe_query("SELECT * FROM " . PREFIX . "plugins_forum_settings_widgets");
-		}else{
-			$query = safe_query("SELECT * FROM " . PREFIX . "plugins_".$getsite."_settings_widgets");
+	function plugin_loadheadfile_widget_js()
+	{
+		parse_str($_SERVER['QUERY_STRING'], $qs_arr);
+		$getsite = 'startpage';
+		if (isset($qs_arr['site'])) {
+			$getsite = $qs_arr['site'];
 		}
-		while($res=mysqli_fetch_array($query)) {
-		  if(is_dir($pluginpath.$res['modulname']."/css/")) { 
-		  	$subf1 = "/js/"; 
-		  } else { 
-		  	$subf1=""; 
-		  }
-		  $f = array();
-		  $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$res['modulname'].$subf1).'*.js');
-		  $fc = count((array($f)), COUNT_RECURSIVE);
-		  if($fc>0) {
-		   	for($b=0; $b<=$fc-2; $b++) {
-		     	$js .= '	<script defer src="./'.$f[$b].'"></script>'.chr(0x0D).chr(0x0A);
-		   	}
+		$pluginpath = "includes/plugins/";
+
+		$js = "\n";
+		if (
+			@$getsite == 'contact'
+			|| @$getsite == 'imprint'
+			|| @$getsite == 'privacy_policy'
+			|| @$getsite == 'profile'
+			|| @$getsite == 'myprofile'
+			|| @$getsite == 'error_404'
+			|| @$getsite == 'report'
+			|| @$getsite == 'static'
+			|| @$getsite == 'loginoverview'
+			|| @$getsite == 'register'
+			|| @$getsite == 'lostpassword'
+			|| @$getsite == 'login'
+			|| @$getsite == 'logout'
+			|| @$getsite == 'footer'
+			|| @$getsite == 'navigation'
+			|| @$getsite == 'topbar'
+		) {
+			$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget_settings");
+		} elseif (@$getsite == 'forum_topic') {
+			$query = safe_query("SELECT * FROM " . PREFIX . "plugins_forum_settings_widgets");
+		} else {
+			$query = safe_query("SELECT * FROM " . PREFIX . "plugins_" . $getsite . "_settings_widgets");
+		}
+		while ($res = mysqli_fetch_array($query)) {
+			if (is_dir($pluginpath . $res['modulname'] . "/css/")) {
+				$subf1 = "/js/";
+			} else {
+				$subf1 = "";
 			}
-		}		
-	  return $js;
-  }
+			$f = array();
+			$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath . $res['modulname'] . $subf1) . '*.js');
+			$fc = count((array($f)), COUNT_RECURSIVE);
+			if ($fc > 0) {
+				global $loaded_js_files;
+				if (!isset($loaded_js_files)) {
+					$loaded_js_files = array();
+				}
+
+				for ($b = 0; $b < count($f); $b++) {
+					if (!in_array($f[$b], $loaded_js_files)) { // Controllo per evitare duplicati
+						$js .= '<script defer src="./' . $f[$b] . '"></script>' . chr(0x0D) . chr(0x0A);
+						$loaded_js_files[] = $f[$b]; // Aggiunge il file alla lista dei caricati
+					}
+				}
+			}
+		}
+		return $js;
+	}
 
 
 
@@ -484,71 +537,93 @@ function plugin_widget_data($var, $id=0, $admin=false) {
 		$_lang = $pm->plugin_language("my-plugin", $plugin_path);
 	
 	*/
-	function plugin_language($name, $plugin_path) {
-		$res = safe_query("SELECT `default_language` FROM `".PREFIX."settings` WHERE 1");
+	function plugin_language($name, $plugin_path)
+	{
+		$res = safe_query("SELECT `default_language` FROM `" . PREFIX . "settings` WHERE 1");
 		$row = mysqli_fetch_array($res);
-		if(isset($_SESSION[ 'language' ])) { $lng=$_SESSION[ 'language' ]; } elseif(isset($_SESSION[ 'language' ])) { $lng=$_SESSION[ 'language' ];} 
-		else { if(isset($row['default_language'])) { $lng=$row['default_language']; } else { $lng="en"; } }
+		if (isset($_SESSION['language'])) {
+			$lng = $_SESSION['language'];
+		} elseif (isset($_SESSION['language'])) {
+			$lng = $_SESSION['language'];
+		} else {
+			if (isset($row['default_language'])) {
+				$lng = $row['default_language'];
+			} else {
+				$lng = "en";
+			}
+		}
 		$_lang = new webspell\Language();
 		$_lang->setLanguage($lng, false);
 		$_lang->readModule($name, true, false, $plugin_path);
 		return $_lang->module;
 	}
-	function plugin_adminLanguage($plugin, $file, $admin=false) {
+	function plugin_adminLanguage($plugin, $file, $admin = false)
+	{
 		try {
-			$res = safe_query("SELECT `default_language` FROM `".PREFIX."settings` WHERE 1");
+			$res = safe_query("SELECT `default_language` FROM `" . PREFIX . "settings` WHERE 1");
 			$row = mysqli_fetch_array($res);
-			if(isset($_SESSION[ 'language' ])) { $lng=$_SESSION[ 'language' ]; } elseif(isset($_SESSION[ 'language' ])) { $lng=$_SESSION[ 'language' ];
-			} else { 
-				if(isset($row['default_language'])) { $lng=$row['default_language']; } else { $lng="en"; }
+			if (isset($_SESSION['language'])) {
+				$lng = $_SESSION['language'];
+			} elseif (isset($_SESSION['language'])) {
+				$lng = $_SESSION['language'];
+			} else {
+				if (isset($row['default_language'])) {
+					$lng = $row['default_language'];
+				} else {
+					$lng = "en";
+				}
 			}
-			$p = "./".$file."";
-			if(isset($admin)) { $admin = "admin"; } else { $admin = ""; }
-			$arr =array(); 
+			$p = "./" . $file . "";
+			if (isset($admin)) {
+				$admin = "admin";
+			} else {
+				$admin = "";
+			}
+			$arr = array();
 			include("$p/languages/$lng/$admin/$plugin.php");
 			foreach ($language_array as $key => $val) {
-        $arr[ $key ] = $val;
-      }
+				$arr[$key] = $val;
+			}
 			return $arr;
-		} CATCH (EXCEPTION $ex) {
+		} catch (EXCEPTION $ex) {
 			return $ex->message();
 		}
 	}
-	
+
 	//@info		update website title for SEO
-	function plugin_updatetitle($site) {
+	function plugin_updatetitle($site)
+	{
 		try {
 			$pm = new plugin_manager();
-				if($pm->is_plugin($_GET['site'])==1) {
-					$arr = $pm->plugin_data($_GET['site']);
-					if(isset($arr['name'])) {
-						return settitle($arr['name']);
-					}
+			if ($pm->is_plugin($_GET['site']) == 1) {
+				$arr = $pm->plugin_data($_GET['site']);
+				if (isset($arr['name'])) {
+					return settitle($arr['name']);
 				}
-			} CATCH (EXCEPTION $x) {
-				if($this->_debug==="ON") {
-					return ('<span class="label label-danger">'.$x->message().'</span>');
-				}
+			}
+		} catch (EXCEPTION $x) {
+			if ($this->_debug === "ON") {
+				return ('<span class="label label-danger">' . $x->message() . '</span>');
 			}
 		}
 	}
+}
 
 
 /*Plugins manuell einbinden 
 get_widget('modulname','widgetdatei'); 
 */
-function get_widget($modulname,$widgetdatei) {
- 
-	$query = safe_query("SELECT * FROM  " . PREFIX . "settings_plugins WHERE modulname = '".$modulname."'");
+function get_widget($modulname, $widgetdatei)
+{
+
+	$query = safe_query("SELECT * FROM  " . PREFIX . "settings_plugins WHERE modulname = '" . $modulname . "'");
 	$ds = mysqli_fetch_array($query);
 
-	if(@file_exists($ds['path'].$widgetdatei.".php" ?? '')) {
+	if (@file_exists($ds['path'] . $widgetdatei . ".php" ?? '')) {
 		$plugin_path = $ds['path'];
-		require($ds['path'].$widgetdatei.".php");				
+		require($ds['path'] . $widgetdatei . ".php");
 		return false;
-	} else { 
-		echo'';
-	}				
+	} else {
+		echo '';
+	}
 }
-
-?>
