@@ -116,6 +116,24 @@ if (!empty(@$db['active'] == 1) !== false) {
         } else {
             $acti = 0;
         }
+
+        # Creazione della tabella dinamica se non esiste
+        $table_name = PREFIX . "plugins_" . $_POST['modulname'] . "_settings_widgets";
+        safe_query(
+            "CREATE TABLE IF NOT EXISTS `" . $table_name . "` (
+                `id` int(11) NOT NULL AUTO_INCREMENT,
+                `position` varchar(255) NOT NULL DEFAULT '',
+                `modulname` varchar(100) NOT NULL DEFAULT '',
+                `themes_modulname` varchar(255) NOT NULL DEFAULT '',
+                `widgetname` varchar(255) NOT NULL DEFAULT '',
+                `widgetdatei` varchar(255) NOT NULL DEFAULT '',
+                `activated` int(1) DEFAULT 1,
+                `sort` int(11) DEFAULT 1,
+                PRIMARY KEY (`id`)
+                ) AUTO_INCREMENT=1
+                  DEFAULT CHARSET=utf8 DEFAULT COLLATE utf8_unicode_ci;"
+        );
+
         try {
             safe_query(
                 "INSERT INTO `" . PREFIX . "settings_plugins` (
@@ -241,16 +259,16 @@ if (!empty(@$db['active'] == 1) !== false) {
             $ds = mysqli_fetch_array($ergebnis);
 
             $modul = safe_query("UPDATE `" . PREFIX . "settings_plugins` SET 
-      `name` = '" . $_POST['name'] . "',
-      `info` = '" . $_POST['info'] . "',       
-      `admin_file` = '" . $_POST['admin_file'] . "', 
-      `author` = '" . $_POST['author'] . "', 
-      `website` = '" . $_POST['website'] . "', 
-      `index_link` = '" . $_POST['index'] . "',
-      `version` = '" . $_POST['version'] . "', 
-      `path` = '" . $_POST['path'] . "'
-
-      WHERE `pluginID` = '" . intval($_POST['pid']) . "'");
+            `name` = '" . $_POST['name'] . "',
+            `info` = '" . $_POST['info'] . "',       
+            `admin_file` = '" . $_POST['admin_file'] . "', 
+            `author` = '" . $_POST['author'] . "', 
+            `website` = '" . $_POST['website'] . "', 
+            `index_link` = '" . $_POST['index'] . "',
+            `version` = '" . $_POST['version'] . "', 
+            `path` = '" . $_POST['path'] . "'
+	        
+            WHERE `pluginID` = '" . intval($_POST['pid']) . "'");
 
             echo $_language->module['success_edit'] . "<br /><br />";
             redirect("admincenter.php?site=plugin_manager", "", 1);
@@ -885,6 +903,7 @@ if (!empty(@$db['active'] == 1) !== false) {
         if ($CAPCLASS->checkCaptcha(0, $_GET['captcha_hash'])) {
             $id = $_GET['id'];
 
+
             safe_query("DELETE FROM " . PREFIX . "settings_plugins_widget WHERE widgetname='" . $_GET['widgetname'] . "'");
             safe_query("DELETE FROM " . PREFIX . "settings_plugins_widget_settings WHERE widgetname='" . $_GET['widgetname'] . "'");
 
@@ -975,14 +994,14 @@ if (!empty(@$db['active'] == 1) !== false) {
             <table class="table table-striped table-bordered">              
             <thead>
                 <tr>                              
-                    <th class="text-bg-secondary p-3" style="width:25%">' . $_language->module['widget_name'] . '</th>
-                    <th class="text-bg-secondary p-3">' . $_language->module['area'] . '</th>
+                    <th class="text-bg-secondary p-3" style="width:25%"><i class="bi bi-layout-text-sidebar-reverse"></i> ' . $_language->module['widget_name'] . '</th>
+                    <th class="text-bg-secondary p-3"><i class="bi bi-grid-3x2"></i> ' . $_language->module['area'] . '</th>
                 </tr>
             </thead>
             <tbody>
             <tr>
                 <td><span class="badge border border-success text-black bg-info" style="width: 100%">' . $_language->module['header1'] . '</span><br>';
-        $header_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '1'");
+        $header_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '1' ORDER BY widgetname ASC");
         $i = 1;
         while ($header_off = mysqli_fetch_array($header_plugins_widget)) {
             $modul_name = $header_off['modulname'];
@@ -1039,7 +1058,7 @@ if (!empty(@$db['active'] == 1) !== false) {
             </tr>
             <tr>
                 <td><span class="badge border border-success text-black bg-info" style="width: 100%">' . $_language->module['navigation'] . '</span><br>';
-        $navigation_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '2'");
+        $navigation_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '2' ORDER BY widgetname ASC");
         $i = 1;
         while ($navigation_off = mysqli_fetch_array($navigation_plugins_widget)) {
             $modul_name = $navigation_off['modulname'];
@@ -1096,7 +1115,7 @@ if (!empty(@$db['active'] == 1) !== false) {
             </tr>
             <tr>
                 <td><span class="badge border border-success text-black bg-info" style="width: 100%">' . $_language->module['content_head1'] . '</span><br>';
-        $content_head_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '3'");
+        $content_head_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '3' ORDER BY widgetname ASC");
         $i = 1;
         while ($content_head_off = mysqli_fetch_array($content_head_plugins_widget)) {
             $modul_name = $content_head_off['modulname'];
@@ -1153,7 +1172,7 @@ if (!empty(@$db['active'] == 1) !== false) {
             <tr>
                 <td>
                     <span class="badge border border-success text-black bg-info" style="width: 100%">' . $_language->module['left'] . '</span><br>';
-        $sidebar_left_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '4'");
+        $sidebar_left_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '4' ORDER BY widgetname ASC");
         $i = 1;
         while ($sidebar_left_off = mysqli_fetch_array($sidebar_left_plugins_widget)) {
             $modul_name = $sidebar_left_off['modulname'];
@@ -1174,7 +1193,7 @@ if (!empty(@$db['active'] == 1) !== false) {
         echo '</br><button class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="sidebar_left_activ"><i class="bi bi-plus-circle"></i> ' . $_language->module['widget_off_setting'] . '</button>
                     <hr>
                     <span class="badge border border-success text-black bg-info" style="width: 100%">' . $_language->module['right'] . '</span><br>';
-        $sidebar_right_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '4'");
+        $sidebar_right_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '4' ORDER BY widgetname ASC");
         $i = 1;
         while ($sidebar_right_off = mysqli_fetch_array($sidebar_right_plugins_widget)) {
             $modul_name = $sidebar_right_off['modulname'];
@@ -1278,7 +1297,7 @@ if (!empty(@$db['active'] == 1) !== false) {
             </tr>
             <tr>
                 <td><span class="badge border border-success text-black bg-info" style="width: 100%">' . $_language->module['content_foot1'] . '</span><br>';
-        $content_foot_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '3'");
+        $content_foot_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '3' ORDER BY widgetname ASC");
         $i = 1;
         while ($content_foot_off = mysqli_fetch_array($content_foot_plugins_widget)) {
             $modul_name = $content_foot_off['modulname'];
@@ -1335,7 +1354,7 @@ if (!empty(@$db['active'] == 1) !== false) {
             </tr>
             <tr>
                 <td><span class="badge border border-success text-black bg-info" style="width: 100%">' . $_language->module['footer'] . '</span><br>';
-        $footer_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '6'");
+        $footer_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '6' ORDER BY widgetname ASC");
         $i = 1;
         while ($footer_off = mysqli_fetch_array($footer_plugins_widget)) {
             $modul_name = $footer_off['modulname'];
@@ -1439,9 +1458,9 @@ if (!empty(@$db['active'] == 1) !== false) {
             echo '<div class="mb-3 row">
             <label class="col-md-1 control-label">' . $_language->module['options'] . ':</label>
             <div class="col-md-8">
-                <a class="btn btn-primary" href="admincenter.php?site=' . $ds['admin_file'] . '">' . $name . '</a>
+                <a class="btn btn-primary" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_7'] . ' " href="admincenter.php?site=' . $ds['admin_file'] . '"><i class="bi bi-gear"></i> ' . $name . '</a>
 
-      <a href="admincenter.php?site=plugin_manager&action=widget_add&id='.$id.'" class="btn btn-primary" type="button"><i class="bi bi-plus-circle"></i> ' . $_language->module[ 'new_widget' ] . '</a>
+      <a href="admincenter.php?site=plugin_manager&action=widget_add&id=' . $id . '" class="btn btn-primary" type="button"><i class="bi bi-plus-circle"></i> ' . $_language->module['new_widget'] . '</a>
 
             </div>
         </div>';
@@ -1527,7 +1546,7 @@ if (!empty(@$db['active'] == 1) !== false) {
         </div>
 <hr>
         <div class="mb-3 row">
-            <label class="col-sm-5 col-form-label" for="path">Widgets: <br><small>(die mit dem Plugin mitgeliefert werden)</small></label>  
+            <label class="col-sm-5 col-form-label" for="path">Widgets: <br><small>(' . $_language->module['widget_included_with_plugin'] . ')</small></label>  
             ';
 
         $widgetsergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE modulname = '" . $ds['modulname'] . "'");
@@ -1537,7 +1556,7 @@ if (!empty(@$db['active'] == 1) !== false) {
             $widget .= '<div class="col-sm-12">
                                 <div class="mb-3 row">
                                     <div class="col-sm-5 text-end">
-                                    <button type="button" class="btn btn-info" data-toggle="popover" data-bs-placement="left" data-img="../includes/plugins/'.$ds['modulname'].'/images/'.$df['widgetdatei'].'.jpg" title="Widget" >'.$_language->module['preview_widget'].'</button>
+                                    <button type="button" class="btn btn-info" data-toggle="popover" data-bs-placement="left" data-img="../includes/plugins/' . $ds['modulname'] . '/images/' . $df['widgetdatei'] . '.jpg" title="Widget" ><i class="bi bi-image"></i> ' . $_language->module['preview_widget'] . '</button>
                                     </div>                    
                                     <div class="col-sm-4">
                                         <div class="form-control">' . $df['widgetname'] . '</div>
@@ -1628,7 +1647,7 @@ if (!empty(@$db['active'] == 1) !== false) {
         $ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE pluginID = '" . $id . "'");
         $db = mysqli_fetch_array($ergebnis);
         echo '<div class="mb-12 row">
-    <label class="col-md-1 control-label"><h4>Plugin:</h4></label>
+    <label class="col-md-1 control-label"><h4><i class="bi bi-plugin"></i> Plugin:</h4></label>
     <div class="col-md-3"><div class="alert alert-info" role="alert" style="padding: 0px 5px">
 <h4>' . $db['modulname'] . '</h4></div>
     </div>
@@ -1680,8 +1699,8 @@ if (!empty(@$db['active'] == 1) !== false) {
                 </div>
                 <div class="col-sm-11">
 
-                    <input type="hidden" name="modulname" value="'.$db['modulname'].'" />
-                    <input type="hidden" name="id" value="'.$_GET[ 'id' ].'" />
+                    <input type="hidden" name="modulname" value="' . $db['modulname'] . '" />
+                    <input type="hidden" name="id" value="' . $_GET['id'] . '" />
                     <button class="btn btn-success" type="submit" name="widget_add"  /><i class="bi bi-plus-circle"></i> ' . $_language->module['add_widget'] . '</button>
 
                 </div>
@@ -1714,7 +1733,7 @@ if (!empty(@$db['active'] == 1) !== false) {
         $ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE pluginID = '" . $id . "'");
         $db = mysqli_fetch_array($ergebnis);
         echo '<div class="mb-12 row">
-    <label class="col-md-1 control-label"><h4>Plugin:</h4></label>
+    <label class="col-md-1 control-label"><h4><i class="bi bi-plugin"></i> Plugin:</h4></label>
     <div class="col-md-3"><div class="alert alert-info" role="alert" style="padding: 0px 5px">
 <h4>' . $db['modulname'] . '</h4></div>
     </div>
@@ -1922,7 +1941,7 @@ if (!empty(@$db['active'] == 1) !== false) {
     <label class="col-md-1 control-label">' . $_language->module['options'] . ':</label>
     <div class="col-md-8">
 
-      <a href="admincenter.php?site=plugin_manager&action=new" class="btn btn-primary" type="button"><i class="bi bi-plus-circle"></i> ' . $_language->module[ 'new_plugin' ] . '</a>
+      <a href="admincenter.php?site=plugin_manager&action=new" class="btn btn-primary" type="button"><i class="bi bi-plus-circle"></i> ' . $_language->module['new_plugin'] . '</a>
 
     </div>
   </div>';
