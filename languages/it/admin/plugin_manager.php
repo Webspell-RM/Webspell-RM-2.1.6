@@ -78,7 +78,7 @@ $language_array = array(
    'right'                               => 'Sidebar Destra <i class="bi bi-caret-right-fill"></i>',
    'right_left_active'                   => 'Sidebar Destra & Sidebar Sinistra',
    'save_plugin'                         => 'Salva plugin',
-   'status'                              => 'Stato',
+   'plugin_status'                       => 'Stato dei Plugin',
    'success_activated'                   => '<div class="alert alert-success" role="alert">Il plugin è ora attivato.</div>',
    'success_deactivated'                 => '<div class="alert alert-info" role="alert">Il plugin è ora disattivato.</div>',
    'success_delete'                      => '<div class="alert alert-warning" role="alert">Le voci per il widget sono state rimosse.</div>',
