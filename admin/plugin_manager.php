@@ -1957,9 +1957,9 @@ if (!empty(@$db['active'] == 1) !== false) {
             <th><strong>' . $_language->module['id'] . '</strong></th>
             <th width="10%"><strong>' . $_language->module['plugin'] . ' ' . $_language->module['name'] . '</strong></th>
             <th><strong>' . $_language->module['plugin'] . ' ' . $_language->module['description'] . '</strong></th>
-            <th width="15%"><strong>' . $_language->module['status'] . '</strong></th>
-            <th width="15%"><strong>' . $_language->module['option'] . '</strong></th>
-            <th width="17%"><strong>' . $_language->module['widget_side'] . '</strong></th>
+            <th width="15%"><strong>' . $_language->module['plugin_status'] . '</strong></th>
+            <th width="15%"><strong>' . $_language->module['plugin_setting'] . '</strong></th>
+            <th width="17%"><strong>' . $_language->module['widget side assignment'] . '</strong></th>
         </thead>';
                     $ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins where plugin_display='1'");
                     while ($ds = mysqli_fetch_array($ergebnis)) {
