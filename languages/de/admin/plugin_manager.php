@@ -3,6 +3,7 @@
 $language_array = array(
 
   'access_denied'                       => 'Zugriff verweigert',
+  'action'                              => 'Aktionen',
   'activate'                            => 'Plugin aktivieren',
   'activate_template'                   => 'Template aktivieren',
   'add'                                 => 'Plugin hinzufügen',
@@ -18,6 +19,8 @@ $language_array = array(
   'content_head'                        => 'Content head <i class="bi bi-caret-up-fill"></i>',
   'content_head1'                       => 'Content head <i class="bi bi-caret-up-fill"></i>',
   'deactivate'                          => 'Plugin deaktivieren',
+  'delete_plugin'                       => 'Plugin löschen',
+  'delete'                              => 'Löschen',
   'description'                         => 'Beschreibung',
   'edit'                                => 'Einstellung ändern',
   'edit_plugin'                         => 'Plugin ändern',
@@ -67,6 +70,7 @@ $language_array = array(
   'plugin_manager'                      => 'Plugin Manager',
   'preview_widget'                      => 'Vorschau-Widget',
   'really_delete'                       => 'Möchten Sie dieses Widget wirklich entfernen?<br><br>Es werden nur die Einträge von diesem Widget entfernt',
+  'really_delete_plugin'                => 'Möchten Sie dieses Plugin wirklich entfernen?<br><br>Alle Widgets für dieses Plugin werden ebenfalls entfernt.',
   'right'                               => 'Sidebar Rechts <i class="bi bi-caret-right-fill"></i>',
   'right_left_active'                   => 'Sidebar Rechts & Sidebar Links',
   'save_plugin'                         => 'Plugin speichern',
@@ -82,7 +86,8 @@ $language_array = array(
   'tooltip_3'                           => 'Widgets der Seite zuweisen',
   'tooltip_4'                           => 'Plugin-Einstellungen ändern',
   'tooltip_6'                           => 'Widget entfernen',
-  'tooltip_7'                           => 'Plugin-Einstellungen',   
+  'tooltip_7'                           => 'Plugin-Einstellungen',
+  'tooltip_8'                           => 'Löschen des Plugins und seiner Widgets',  
   'transaction_invalid'                 => 'Transaktions ID ungültig',
   'version_file'                        => 'Plugin-Version',
   'website'                             => 'Website des Plugin-Autors',
@@ -94,7 +99,7 @@ $language_array = array(
   'widget_name'                         => 'Widget Name',
   'widget_off_setting'                  => 'Widget dem Bereich zuweisen',
   'widget_on_setting'                   => 'Widget aus diesem Bereich entfernen',
-  'widget side assignment'              => 'Widget Seitenzuordnung',
+  'widget_side_assignment'              => 'Widget Seitenzuordnung',
   'widget_side'                         => 'Widget Zuordnung',
   'widgetdatei_nophp'                   => 'Widget Dateiname ohne .php',
 

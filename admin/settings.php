@@ -179,7 +179,7 @@ if(isset($_POST['submit'])) {
         $captcha_style
     );
 
-    $captcha_type = "<option value='0'>" . $_language->module[ 'captcha_text' ] . "</option><option value='2'>" .
+    $captcha_type = "<option value='0'>" . $_language->module[ 'captcha-text' ] . "</option><option value='2'>" .
         $_language->module[ 'captcha_autodetect' ] . "</option><option value='1'>" .
         $_language->module[ 'captcha_image' ] . "</option>";
     $captcha_type = str_replace(
@@ -242,13 +242,13 @@ if(isset($_POST['submit'])) {
 
 
 echo'<div class="card">
-        <div class="card-header">
+        <div class="card-header"><i class="bi bi-house-gear"></i>
             '. $_language->module[ 'settings' ] .'
             </div>
             <div class="card-body">';    
 echo'
-    <a href="admincenter.php?site=settings" class="btn btn-primary disabled" type="button">'.$_language->module[ 'settings' ] .'</a>
-    <a href="admincenter.php?site=settings&action=social_setting" class="btn btn-primary" type="button">'.$_language->module[ 'social_settings' ] .'</a>';
+    <a href="admincenter.php?site=settings" class="btn btn-primary disabled" type="button"><i class="bi bi-gear"></i> '.$_language->module[ 'settings' ] .'</a>
+    <a href="admincenter.php?site=settings&action=social_setting" class="btn btn-primary" type="button"><i class="bi bi-gear-wide-connected"></i> '.$_language->module[ 'social_settings' ] .'</a>';
 
 
 
@@ -261,7 +261,7 @@ echo'<div class="">
     <form class="form-horizontal" method="post" id="post" name="post" action="admincenter.php?site=settings" onsubmit="return chkFormular();">
 
         <div class="card">
-        <div class="card-header">
+        <div class="card-header"><i class="bi bi-gear"></i> 
             '.$_language->module[ 'settings' ].' 
         </div>
             <div class="card-body">
@@ -362,10 +362,10 @@ echo'<div class="">
                         $db = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings"));
 
                         if($db['closed']=='1'){
-                            $lock='danger';
+                            $lock='success';
                             $text_lock=$_language->module['off_pagelock']; 
                         }else{
-                            $lock='success';
+                            $lock='danger';
                             $text_lock=$_language->module['on_pagelock'];   
                         }
 
@@ -472,7 +472,7 @@ $settings = safe_query("SELECT * FROM " . PREFIX . "settings_recaptcha");
     echo'      
       
 <div class="card">
-    <div class="card-header">
+    <div class="card-header"><i class="bi bi-google"></i> 
         '.$_language->module['reCaptcha'].' 
     </div>
     <div class="card-body">
@@ -524,7 +524,7 @@ $settings = safe_query("SELECT * FROM " . PREFIX . "settings_recaptcha");
 <div class="row">
     <div class="col-md-8">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header"><i class="bi bi-three-dots"></i> 
                 '.$_language->module['other'].' 
             </div>
             <div class="card-body">
@@ -703,7 +703,7 @@ $settings = safe_query("SELECT * FROM " . PREFIX . "settings_recaptcha");
         <div class="col-md-4">
 
             <div class="card">
-                <div class="card-header">
+                <div class="card-header"><i class="bi bi-badge-cc"></i> 
                     '.$_language->module['captcha'].' 
                 </div>
                 <div class="card-body">
@@ -781,7 +781,7 @@ $settings = safe_query("SELECT * FROM " . PREFIX . "settings_recaptcha");
         <div class="mb-3 row">
             <div class="col-md-12"><br>
                 <input type="hidden" name="captcha_hash" value="'.$hash.'"> 
-                <button class="btn btn-warning" type="submit" name="submit">'.$_language->module['update'].' </button>
+                <button class="btn btn-warning" type="submit" name="submit"><i class="bi bi-box-arrow-down"></i> '.$_language->module['update'].' </button>
             </div>
         </div>
 
@@ -845,12 +845,12 @@ if (isset($_POST[ "saveedit" ])) {
 } else {
 
     echo'<div class="card">
-            <div class="card-header">
+            <div class="card-header"><i class="bi bi-gear-wide-connected"></i>
                 '. $_language->module[ 'social_settings' ] .'
                 </div>
             <div class="card-body">';    
 echo'
-    <a href="admincenter.php?site=settings" class="btn btn-primary" type="button">'.$_language->module[ 'settings' ] .'</a>
+    <a href="admincenter.php?site=settings" class="btn btn-primary" type="button"><i class="bi bi-house-gear"></i> '.$_language->module[ 'settings' ] .'</a>
     <a href="admincenter.php?site=settings&action=social_setting" class="btn btn-primary disabled" type="button">'.$_language->module[ 'social_settings' ] .'</a>';
 
   $ds =
@@ -863,7 +863,7 @@ echo'
     
     
 echo '<div class="card">
-        <div class="card-header">
+        <div class="card-header"><i class="bi bi-gear-wide-connected"></i> 
             '. $_language->module[ 'title_social_media' ] .'
         </div>
         <div class="card-body">
@@ -905,7 +905,7 @@ echo '<div class="card">
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header"><i class="bi bi-gear-wide-connected"></i> 
                         '. $_language->module[ 'title_social_media' ] .'
                     </div>
                     <div class="card-body">
@@ -960,7 +960,7 @@ echo '<div class="card">
             <div class="col-md-6">
 
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header"><i class="bi bi-gear-wide-connected"></i> 
                         '. $_language->module[ 'title_social_media' ] .'
                     </div>
                     <div class="card-body">
@@ -1021,7 +1021,7 @@ echo '<div class="card">
                 <div class="col-sm-11">
                     <input type="hidden" name="captcha_hash" value="'.$hash .'" />
                     <input type="hidden" name="socialID" value="'.$ds[ 'socialID' ] .'" />
-                    <input class="btn btn-warning" type="submit" name="saveedit" value="'.$_language->module['update'] .'" />
+					<button class="btn btn-warning" type="submit" name="saveedit"><i class="bi bi-box-arrow-down"></i> ' . $_language->module['update'] . '</button>
                 </div>
             </div>
         </form>

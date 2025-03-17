@@ -181,6 +181,61 @@ if (!empty(@$db['active'] == 1) !== false) {
     #Erstellt eine neue Plugin-Einstellung END
 
 
+    #Inizio della cancellazione del plugin e dei suoi widget
+
+    if (isset($_GET['action']) && $_GET['action'] == "delete_plugin" && isset($_GET['modulname'])) {
+        $plugin_name_query = safe_query("SELECT modulname FROM " . PREFIX . "settings_plugins WHERE modulname = '" . $_GET['modulname'] . "'");
+
+        if (mysqli_num_rows($plugin_name_query) > 0) {
+            $plugin_name = mysqli_fetch_assoc($plugin_name_query)['modulname'];
+
+            echo '<div class="alert alert-info"><strong><i class="bi bi-trash3"></i> ' . $_language->module['delete_plugin'] . ':</strong> ' . $plugin_name . '</div>';
+
+            // 1️⃣ Remove widgets from the general table
+            $delete_widgets = safe_query("DELETE FROM `" . PREFIX . "settings_plugins_widget` WHERE `modulname` = '$plugin_name'");
+            if ($delete_widgets) {
+                echo '<div class="alert alert-success"><strong><i class="bi bi-check-circle"></i> Success:</strong> Widgets removed from <b>settings_plugins_widget</b>.</div>';
+            } else {
+                //echo '<div class="alert alert-warning"><strong><i class="bi bi-exclamation-triangle"></i> Warning:</strong> No widgets found in <b>settings_plugins_widget</b> for plugin ' . $plugin_name . '.</div>';
+            }
+
+            // 2️⃣ Find and clean tables `PREFIX.plugins_*_settings_widgets`
+            $tables_query = safe_query("SHOW TABLES LIKE '" . PREFIX . "plugins_%_settings_widgets'");
+            while ($table = mysqli_fetch_array($tables_query)) {
+                $table_name = $table[0]; // Table name
+
+                // Check if the table has a `modulname` field
+                $check_column = safe_query("SHOW COLUMNS FROM `$table_name` LIKE 'modulname'");
+                if (mysqli_num_rows($check_column) > 0) {
+                    // Remove the corresponding row
+                    $delete_from_table = safe_query("DELETE FROM `$table_name` WHERE `modulname` = '$plugin_name'");
+                    if ($delete_from_table) {
+                        //  echo '<div class="alert alert-success"><strong><i class="bi bi-check-circle"></i> Success:</strong> Row with <b>modulname=' . $plugin_name . '</b> deleted from table <b>' . $table_name . '</b>.</div>';
+                    } else {
+                        //echo '<div class="alert alert-warning"><strong><i class="bi bi-exclamation-triangle"></i> Warning:</strong> No row with <b>modulname=' . $plugin_name . '</b> found in <b>' . $table_name . '</b>.</div>';
+                    }
+                } else {
+                    //echo '<div class="alert alert-secondary"><strong><i class="bi bi-exclamation-square"></i> Info:</strong> The table <b>' . $table_name . '</b> does not contain a <b>modulname</b> field and was not modified.</div>';
+                }
+            }
+
+            // 3️⃣ Remove the plugin from the main table
+            $delete_plugin = safe_query("DELETE FROM `" . PREFIX . "settings_plugins` WHERE `modulname` = '$plugin_name'");
+            if ($delete_plugin) {
+                // echo '<div class="alert alert-success"><strong><i class="bi bi-check-circle"></i> Success:</strong> Plugin <b>' . $plugin_name . '</b> deleted from <b>settings_plugins</b>.</div>';
+            } else {
+                // echo '<div class="alert alert-danger"><strong><i class="bi bi-x-circle"></i> Error:</strong> Unable to delete plugin <b>' . $plugin_name . '</b> from <b>settings_plugins</b>.</div>';
+            }
+
+            // Redirect after 3 seconds
+            echo '<script>setTimeout(function(){ window.location.href = "admincenter.php?site=plugin_manager"; }, 5000);</script>';
+        } else {
+            echo '<div class="alert alert-danger"><strong><i class="bi bi-x-circle"></i> Error:</strong> Plugin <b>' . $_GET['modulname'] . '</b> was not found in <b>settings_plugins</b>.</div>';
+        }
+    }
+
+    #Fine della cancellazione del plugin e dei suoi widget
+
     #Erstellt eine neue Widget-Einstellung START
     if (isset($_POST['widget_add'])) {
         try {
@@ -1171,7 +1226,7 @@ if (!empty(@$db['active'] == 1) !== false) {
             </tr>
             <tr>
                 <td>
-                    <span class="badge border border-success text-black bg-info" style="width: 100%">' . $_language->module['left'] . '</span><br>';
+                    <span class="badge border border-success text-black bg-info" style="width: 100%">' . $_language->module['left'] . '111</span><br>';
         $sidebar_left_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '4' ORDER BY widgetname ASC");
         $i = 1;
         while ($sidebar_left_off = mysqli_fetch_array($sidebar_left_plugins_widget)) {
@@ -1192,7 +1247,7 @@ if (!empty(@$db['active'] == 1) !== false) {
         }
         echo '</br><button class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="sidebar_left_activ"><i class="bi bi-plus-circle"></i> ' . $_language->module['widget_off_setting'] . '</button>
                     <hr>
-                    <span class="badge border border-success text-black bg-info" style="width: 100%">' . $_language->module['right'] . '</span><br>';
+                    <span class="badge border border-success text-black bg-info" style="width: 100%">' . $_language->module['right'] . '222</span><br>';
         $sidebar_right_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '4' ORDER BY widgetname ASC");
         $i = 1;
         while ($sidebar_right_off = mysqli_fetch_array($sidebar_right_plugins_widget)) {
@@ -1201,8 +1256,9 @@ if (!empty(@$db['active'] == 1) !== false) {
             $widgetdatei = $sidebar_right_off['widgetdatei'];
             $id = $sidebar_right_off['id'];
             $ysidebar_right_ergebnis = safe_query("SELECT * FROM " . PREFIX . "plugins_" . $dw['modulname'] . "_settings_widgets WHERE themes_modulname= '" . $dx['modulname'] . "' AND widgetname='" . $widgetname . "'");
-            $ysidebar = mysqli_fetch_array($ysidebar_right_ergebnis);
+            $ysidebar_right = mysqli_fetch_array($ysidebar_right_ergebnis);
             if (@$ysidebar_right['activated'] == '1') {
+                continue;
             } else {
                 echo '<span class="badge border border-success text-black" style="width: 150px">' . $widgetname . '</span>&nbsp;&nbsp;&nbsp;
                         <input class="form-check-input" type="checkbox" name="sidebar_right_off_1[' . $widgetname . ']" id="' . $id . '[]" value="right_side_widget" >
@@ -1957,9 +2013,11 @@ if (!empty(@$db['active'] == 1) !== false) {
             <th><strong>' . $_language->module['id'] . '</strong></th>
             <th width="10%"><strong>' . $_language->module['plugin'] . ' ' . $_language->module['name'] . '</strong></th>
             <th><strong>' . $_language->module['plugin'] . ' ' . $_language->module['description'] . '</strong></th>
-            <th width="15%"><strong>' . $_language->module['plugin_status'] . '</strong></th>
-            <th width="15%"><strong>' . $_language->module['plugin_setting'] . '</strong></th>
-            <th width="17%"><strong>' . $_language->module['widget side assignment'] . '</strong></th>
+            <th class="text-center" width="10%"><strong>' . $_language->module['plugin_status'] . '</strong></th>
+            <th class="text-center" width="12%"><strong>' . $_language->module['plugin_setting'] . '</strong></th>
+			<th class="text-center" width="12%"><strong>' . $_language->module['widget_side_assignment'] . '</strong></th>
+            <th class="text-center" width="12%"><strong>' . $_language->module['action'] . '</strong></th>
+
         </thead>';
                     $ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins where plugin_display='1'");
                     while ($ds = mysqli_fetch_array($ergebnis)) {
@@ -1980,8 +2038,8 @@ if (!empty(@$db['active'] == 1) !== false) {
                     <td>' . $ds['pluginID'] . '</td>
                     <td><b>' . $ds['name'] . '</b></td>
                     <td>' . $ds['info'] . '</td>
-                    <td>' . $actions . '</td>
-                    <td><a href="admincenter.php?site=plugin_manager&action=edit&id=' . $ds['pluginID'] . '&do=edit" class="btn btn-warning" style="margin-bottom: 10px;" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_4'] . '" type="button"><i class="bi bi-pencil-square"></i> ' . $_language->module['edit'] . '</a></td>';
+                    <td class="text-center">' . $actions . '</td>
+                    <td class="text-center"><a href="admincenter.php?site=plugin_manager&action=edit&id=' . $ds['pluginID'] . '&do=edit" class="btn btn-warning" style="margin-bottom: 10px;" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_4'] . '" type="button"><i class="bi bi-pencil-square"></i> ' . $_language->module['edit'] . '</a></td>';
 
 
                         if (
@@ -2002,11 +2060,74 @@ if (!empty(@$db['active'] == 1) !== false) {
                             || @$ds['modulname'] == 'navigation'
                             || @$ds['modulname'] == 'topbar'
                         ) {
-                            echo '<td><div class="alert alert-danger" role="alert"><i class="bi bi-slash-circle"></i>
- ' . $_language->module['widget_cannot_assigned'] . '</div></td>';
+                            echo '<td class="text-center"><div class="alert alert-danger" role="alert"><i class="bi bi-slash-circle"></i>
+                                 ' . $_language->module['widget_cannot_assigned'] . '</div></td>
+                                 <td class="text-center"><div class="alert alert-danger" role="alert"><i class="bi bi-slash-circle"></i>
+                                 ' . $_language->module['widget_cannot_assigned'] . '</div></td>';
                         } else {
-
-                            echo '<td><a href="admincenter.php?site=plugin_manager&action=widget_edit&id=' . $ds['pluginID'] . '&do=edit" class="btn btn-success" style="margin-bottom: 10px;" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_3'] . '" type="button"><i class="bi bi-plus-circle"></i> ' . $_language->module['widget_side'] . '</a></td>';
+                            echo '<td class="text-center"><a href="admincenter.php?site=plugin_manager&action=widget_edit&id=' . $ds['pluginID'] . '&do=edit" class="btn btn-success" style="margin-bottom: 10px;" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_3'] . '" type="button"><i class="bi bi-plus-circle"></i> ' . $_language->module['widget_side'] . '</a></td>
+							<td class="text-center">
+ 							<a href="admincenter.php?site=plugin_manager&action=delete_plugin&id=' . $ds['pluginID'] . '&modulname=' . $ds['modulname'] . '&do=delete" class="btn btn-danger mx-2" style="margin-bottom: 10px;" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_8'] . '" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-plugin="' .  $ds['modulname'] . '" title="' . $_language->module['tooltip_6'] . '"><i class="bi bi-trash3"></i> ' . $_language->module['delete_plugin'] . '</a></td>
+ 							<!-- Bootstrap Modal for Confirm Delete -->
+                            <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">' . $_language->module['modulname'] . ': <span id="modalPluginTitle"></span></h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ' . $_language->module['really_delete_plugin'] . '
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                <i class="bi bi-x-square"></i> ' . $_language->module['close'] . '
+                                            </button>
+                                            <a id="confirmDeleteBtn" href="#" class="btn btn-danger">
+                                                <i class="bi bi-trash3"></i> ' . $_language->module['delete'] . '
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <script>
+                            document.querySelectorAll("a[data-bs-target=\'#confirmDeleteModal\']").forEach(button => {
+                                button.addEventListener("click", function() {
+                                    // Prende il link corretto del pulsante "Delete"
+                                    var deleteBtn = document.getElementById("confirmDeleteBtn");
+                                    var deleteUrl = this.getAttribute("href");
+                            
+                                    // Estrai il nome del plugin dall\'URL
+                                    var urlParams = new URLSearchParams(deleteUrl.split("?")[1]);
+                                    var pluginName = urlParams.get("modulname");
+                            
+                                    // Funzione per formattare il nome del plugin
+                                    function formatPluginName(name) {
+                                        // 1️⃣ Separa le parole con "_"
+                                        name = name.replace(/_/g, " ");
+                            
+                                        // 2️⃣ Se il nome è in camelCase (es. "clanWar" → "Clan War")
+                                        name = name.replace(/([a-z])([A-Z])/g, "$1 $2");
+                            
+                                        // 3️⃣ Rende la prima lettera di ogni parola maiuscola
+                                        return name.replace(/\b\w/g, char => char.toUpperCase());
+                                    }
+                            
+                                    var formattedName = formatPluginName(pluginName);
+                            
+                                    // Debug in console (solo per verifica)
+                                    console.log("Original Plugin Name:", pluginName);
+                                    console.log("Formatted Plugin Name:", formattedName);
+                            
+                                    // Aggiorna il titolo del modale con il nome corretto del plugin
+                                    document.getElementById("modalPluginTitle").innerText = formattedName;
+                            
+                                    // Aggiorna il pulsante "Elimina" con l\'URL corretto
+                                    deleteBtn.setAttribute("href", deleteUrl);
+                                });
+                            });
+                            </script>';
                         }
 
                         echo '</tr>';

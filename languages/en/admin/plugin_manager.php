@@ -3,6 +3,7 @@
 $language_array = array(
 
   'access_denied'                       => 'Access denied',
+  'action'                              => 'Actions',    
   'activate'                            => 'Activate plugin',
   'activate_template'                   => 'Activate template',
   'add'                                 => 'Add plugin',
@@ -19,6 +20,8 @@ $language_array = array(
   'content_head1'                       => 'Content head <i class="bi bi-caret-up-fill"></i>',
   'deactivate'                          => 'Deactivate plugin',
   'description'                         => 'Description',
+  'delete_plugin'                       => 'Delete Plugin',
+  'delete'                              => 'Delete',
   'edit'                                => 'Change settings',
   'edit_plugin'                         => 'Edit plugin',
   'edit_plugin_widget'                  => 'Save changes in the plugin area',
@@ -68,6 +71,7 @@ $language_array = array(
   'plugin_status'                       => 'Plugin status',
   'preview_widget'                      => 'Preview widget',
   'really_delete'                       => 'Do you really want to remove this widget?<br><br>Only the entries for this widget will be removed',
+  'really_delete_plugin'                => 'Do you really want to remove this plugin?<br><br>All widgets for this plugin will also be removed',
   'right'                               => 'Right sidebar <i class="bi bi-caret-right-fill"></i>',
   'right_left_active'                   => 'Right sidebar & Left sidebar',
   'save_plugin'                         => 'Save plugin',
@@ -83,6 +87,7 @@ $language_array = array(
   'tooltip_4'                           => 'Change plugin settings',
   'tooltip_6'                           => 'Remove widget',
   'tooltip_7'                           => 'Plugin settings',
+  'tooltip_8'                           => 'Deleting the plugin and its widgets',
   'transaction_invalid'                 => 'Transaction ID invalid',
   'version_file'                        => 'Plugin version',
   'website'                             => 'Plugin author\'s website',
@@ -94,7 +99,7 @@ $language_array = array(
   'widget_name'                         => 'Widget name',
   'widget_off_setting'                  => 'Assign widget to the area',
   'widget_on_setting'                   => 'Remove widget from this area',
-  'widget side assignment'              => 'Widget side assignment',
+  'widget_side_assignment'              => 'Widget side assignment',
   'widget_side'                         => 'Widget assignment',
   'widgetdatei_nophp'                   => 'Widget file name without .php',
 );

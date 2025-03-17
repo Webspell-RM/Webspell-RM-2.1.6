@@ -3,6 +3,7 @@
 $language_array = array(
 
   'access_denied'                       => 'Accesso negato',
+  'action'                              => 'Azioni',  
   'activate'                            => 'Attiva plugin',
   'activate_template'                   => 'Attiva template',
   'add'                                 => 'Aggiungi plugin',
@@ -19,6 +20,8 @@ $language_array = array(
   'content_head1'                       => 'Contenuto testa <i class="bi bi-caret-up-fill"></i>',
   'deactivate'                          => 'Disattiva plugin',
   'description'                         => 'Descrizione',
+  'delete_plugin'                       => 'Cancella Plugin',
+  'delete'                              => 'Cancella',
   'edit'                                => 'Modifica impostazioni',
   'edit_plugin'                         => 'Modifica plugin',
   'edit_plugin_widget'                  => 'Salva modifiche nell\'area del plugin',
@@ -68,6 +71,7 @@ $language_array = array(
   'plugin_status'                       => 'Stato del plugin',
   'preview_widget'                      => 'Anteprima widget',
   'really_delete'                       => 'Vuoi davvero rimuovere questo widget?<br><br>Verranno rimossi solo gli inserimenti di questo widget',
+  'really_delete_plugin'                => 'Vuoi davvero rimuovere questo plugin?<br><br>Verranno rimossi anche tutti i widget di questo plugin',
   'right'                               => 'Sidebar destra <i class="bi bi-caret-right-fill"></i>',
   'right_left_active'                   => 'Sidebar destra & Sidebar sinistra',
   'save_plugin'                         => 'Salva plugin',
@@ -83,6 +87,7 @@ $language_array = array(
   'tooltip_4'                           => 'Modifica impostazioni del plugin',
   'tooltip_6'                           => 'Rimuovi widget',
   'tooltip_7'                           => 'Impostazioni del plugin',
+  'tooltip_8'                           => 'Cancellazione del plugin e dei suoi widget',  
   'transaction_invalid'                 => 'ID transazione non valido',
   'version_file'                        => 'Versione del plugin',
   'website'                             => 'Sito web dell\'autore del plugin',
@@ -94,7 +99,7 @@ $language_array = array(
   'widget_name'                         => 'Nome del widget',
   'widget_off_setting'                  => 'Assegna widget all\'area',
   'widget_on_setting'                   => 'Rimuovi widget da questa area',
-  'widget side assignment'              => 'Assegnazione lato widget',
+  'widget_side_assignment'              => 'Assegnazione lato widget',
   'widget_side'                         => 'Assegnazione widget',
   'widgetdatei_nophp'                   => 'Nome del file del widget senza .php',
 );
