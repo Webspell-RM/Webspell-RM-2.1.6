@@ -182,7 +182,6 @@ if (!empty(@$db['active'] == 1) !== false) {
 
 
     // Inizio della cancellazione del plugin e dei suoi widget
-
     if (isset($_GET['action']) && $_GET['action'] == "delete_plugin" && isset($_GET['modulname'])) {
         $modulname = $_GET['modulname']; // Non usare direttamente nella query senza escaping
 
@@ -194,10 +193,10 @@ if (!empty(@$db['active'] == 1) !== false) {
 
             echo '<div class="alert alert-info"><strong><i class="bi bi-trash3"></i> ' . $_language->module['delete_plugin'] . ':</strong> ' . htmlspecialchars($plugin_name, ENT_QUOTES, 'UTF-8') . '</div>';
 
-            // 1️⃣ Remove widgets from the general table
+            // 1️ Remove widgets from the general table
             $delete_widgets = safe_query("DELETE FROM `" . PREFIX . "settings_plugins_widget` WHERE `modulname` = '$plugin_name'");
 
-            // 2️⃣ Find and clean tables `PREFIX.plugins_*_settings_widgets`
+            // 2 Find and clean tables `PREFIX.plugins_*_settings_widgets`
             $tables_query = safe_query("SHOW TABLES LIKE '" . PREFIX . "plugins\_%\_settings_widgets'");
             while ($table = mysqli_fetch_array($tables_query)) {
                 $table_name = $table[0];
@@ -210,23 +209,23 @@ if (!empty(@$db['active'] == 1) !== false) {
                 }
             }
 
-            // 3️⃣ Remove the plugin from the main table
+            // 3 Remove the plugin from the main table
             $delete_plugin = safe_query("DELETE FROM `" . PREFIX . "settings_plugins` WHERE `modulname` = '$plugin_name'");
 
-            // 4️⃣ Redirects
+            // 4 Redirects
 
             flush(); // Forza l'output nel browser
-            echo '<script>
-    setTimeout(function(){ 
-        window.location.href = "admincenter.php?site=plugin_installer&deinstall=plugin&dir=/' . urlencode($plugin_name) . '/&modulname=' . urlencode($plugin_name) . '&redirect=true"; 
-    }, 1000);
-</script>';
+            echo
+			'<script>
+                setTimeout(function(){ 
+                    window.location.href = "admincenter.php?site=plugin_installer&deinstall=plugin&dir=/' . urlencode($plugin_name) . '/&modulname=' . urlencode($plugin_name) . '&redirect=true"; 
+                }, 2000);
+            </script>';
         } else {
             echo '<div class="alert alert-danger"><strong><i class="bi bi-x-circle"></i> Error:</strong> Plugin <b>' . htmlspecialchars($modulname, ENT_QUOTES, 'UTF-8') . '</b> was not found in <b>settings_plugins</b>.</div>';
         }
     }
-
-    // Inizio della cancellazione del plugin e dei suoi widget
+    // Fine della cancellazione del plugin e dei suoi widget
 
 
     #Erstellt eine neue Widget-Einstellung START
