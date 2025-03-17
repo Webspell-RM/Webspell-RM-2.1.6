@@ -181,60 +181,53 @@ if (!empty(@$db['active'] == 1) !== false) {
     #Erstellt eine neue Plugin-Einstellung END
 
 
-    #Inizio della cancellazione del plugin e dei suoi widget
+    // Inizio della cancellazione del plugin e dei suoi widget
 
     if (isset($_GET['action']) && $_GET['action'] == "delete_plugin" && isset($_GET['modulname'])) {
-        $plugin_name_query = safe_query("SELECT modulname FROM " . PREFIX . "settings_plugins WHERE modulname = '" . $_GET['modulname'] . "'");
+        $modulname = $_GET['modulname']; // Non usare direttamente nella query senza escaping
+
+        // Recupera il plugin dal database
+        $plugin_name_query = safe_query("SELECT modulname FROM " . PREFIX . "settings_plugins WHERE modulname = '" . $modulname . "'");
 
         if (mysqli_num_rows($plugin_name_query) > 0) {
             $plugin_name = mysqli_fetch_assoc($plugin_name_query)['modulname'];
 
-            echo '<div class="alert alert-info"><strong><i class="bi bi-trash3"></i> ' . $_language->module['delete_plugin'] . ':</strong> ' . $plugin_name . '</div>';
+            echo '<div class="alert alert-info"><strong><i class="bi bi-trash3"></i> ' . $_language->module['delete_plugin'] . ':</strong> ' . htmlspecialchars($plugin_name, ENT_QUOTES, 'UTF-8') . '</div>';
 
             // 1️⃣ Remove widgets from the general table
             $delete_widgets = safe_query("DELETE FROM `" . PREFIX . "settings_plugins_widget` WHERE `modulname` = '$plugin_name'");
-            if ($delete_widgets) {
-                echo '<div class="alert alert-success"><strong><i class="bi bi-check-circle"></i> Success:</strong> Widgets removed from <b>settings_plugins_widget</b>.</div>';
-            } else {
-                //echo '<div class="alert alert-warning"><strong><i class="bi bi-exclamation-triangle"></i> Warning:</strong> No widgets found in <b>settings_plugins_widget</b> for plugin ' . $plugin_name . '.</div>';
-            }
 
             // 2️⃣ Find and clean tables `PREFIX.plugins_*_settings_widgets`
-            $tables_query = safe_query("SHOW TABLES LIKE '" . PREFIX . "plugins_%_settings_widgets'");
+            $tables_query = safe_query("SHOW TABLES LIKE '" . PREFIX . "plugins\_%\_settings_widgets'");
             while ($table = mysqli_fetch_array($tables_query)) {
-                $table_name = $table[0]; // Table name
+                $table_name = $table[0];
 
                 // Check if the table has a `modulname` field
                 $check_column = safe_query("SHOW COLUMNS FROM `$table_name` LIKE 'modulname'");
                 if (mysqli_num_rows($check_column) > 0) {
                     // Remove the corresponding row
-                    $delete_from_table = safe_query("DELETE FROM `$table_name` WHERE `modulname` = '$plugin_name'");
-                    if ($delete_from_table) {
-                        //  echo '<div class="alert alert-success"><strong><i class="bi bi-check-circle"></i> Success:</strong> Row with <b>modulname=' . $plugin_name . '</b> deleted from table <b>' . $table_name . '</b>.</div>';
-                    } else {
-                        //echo '<div class="alert alert-warning"><strong><i class="bi bi-exclamation-triangle"></i> Warning:</strong> No row with <b>modulname=' . $plugin_name . '</b> found in <b>' . $table_name . '</b>.</div>';
-                    }
-                } else {
-                    //echo '<div class="alert alert-secondary"><strong><i class="bi bi-exclamation-square"></i> Info:</strong> The table <b>' . $table_name . '</b> does not contain a <b>modulname</b> field and was not modified.</div>';
+                    safe_query("DELETE FROM `$table_name` WHERE `modulname` = '$plugin_name'");
                 }
             }
 
             // 3️⃣ Remove the plugin from the main table
             $delete_plugin = safe_query("DELETE FROM `" . PREFIX . "settings_plugins` WHERE `modulname` = '$plugin_name'");
-            if ($delete_plugin) {
-                // echo '<div class="alert alert-success"><strong><i class="bi bi-check-circle"></i> Success:</strong> Plugin <b>' . $plugin_name . '</b> deleted from <b>settings_plugins</b>.</div>';
-            } else {
-                // echo '<div class="alert alert-danger"><strong><i class="bi bi-x-circle"></i> Error:</strong> Unable to delete plugin <b>' . $plugin_name . '</b> from <b>settings_plugins</b>.</div>';
-            }
 
-            // Redirect after 3 seconds
-            echo '<script>setTimeout(function(){ window.location.href = "admincenter.php?site=plugin_manager"; }, 5000);</script>';
+            // 4️⃣ Redirects
+
+            flush(); // Forza l'output nel browser
+            echo '<script>
+    setTimeout(function(){ 
+        window.location.href = "admincenter.php?site=plugin_installer&deinstall=plugin&dir=/' . urlencode($plugin_name) . '/&modulname=' . urlencode($plugin_name) . '&redirect=true"; 
+    }, 1000);
+</script>';
         } else {
-            echo '<div class="alert alert-danger"><strong><i class="bi bi-x-circle"></i> Error:</strong> Plugin <b>' . $_GET['modulname'] . '</b> was not found in <b>settings_plugins</b>.</div>';
+            echo '<div class="alert alert-danger"><strong><i class="bi bi-x-circle"></i> Error:</strong> Plugin <b>' . htmlspecialchars($modulname, ENT_QUOTES, 'UTF-8') . '</b> was not found in <b>settings_plugins</b>.</div>';
         }
     }
 
-    #Fine della cancellazione del plugin e dei suoi widget
+    // Inizio della cancellazione del plugin e dei suoi widget
+
 
     #Erstellt eine neue Widget-Einstellung START
     if (isset($_POST['widget_add'])) {

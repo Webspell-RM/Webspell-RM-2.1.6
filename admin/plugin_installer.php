@@ -102,6 +102,13 @@ if (!$getnew = $plugin) {
     $name = str_replace("/", "", $dir);
     require_once('../includes/plugins' . $dir . 'uninstall.php');
     recursiveRemoveDirectory('../includes/plugins' . $dir);
+
+    // Se il parametro redirect=true è presente, dopo la disinstallazione fa il redirect a plugin_manager
+    if (isset($_GET['redirect']) && $_GET['redirect'] == 'true') {
+      echo '<script>setTimeout(function(){ window.location.href = "admincenter.php?site=plugin_manager"; }, 3000);</script>';
+      exit; // Termina lo script per evitare che venga eseguito altro codice
+    }
+
     header('Location: ?site=plugin_installer');
     exit;
   } elseif (!empty($_GET['do'])) {
