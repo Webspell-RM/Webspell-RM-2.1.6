@@ -196,6 +196,37 @@ function add_insert_plugin($table) {
     }
 }
 
+function add_insert_plugin_2($table) {
+  global $_database,$modulname_2,$version,$str;
+
+    if(mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE modulname ='".$modulname_2."'"))>0) {
+      echo "<div class='alert alert-warning'><b>Plugineinträge:</b><br>".$str." Database entry already exists <br />";
+      echo "".$str." Datenbank Eintrag schon vorhanden <br />";
+      echo "".$str." La voce del database esiste già <br /></div>";
+      echo "<hr>";
+    } else {
+      try {
+        if(safe_query("".$table."")) {
+          echo "<div class='alert alert-success'><b>Plugineinträge:</b><br>Entries for ".$str." have been successfully added to the <b>settings_plugins</b> database <br />";
+          echo "Einträge für ".$str." wurden der <b>settings_plugins</b> Datenbank erfolgreich hinzugef&uuml;gt<br />";
+          echo "Le voci per ".$str." sono stati aggiunti con successo al database <b>settings_plugins</b><br /></div>";
+          echo "<hr>";
+        } else {
+          echo "<div class='alert alert-warning'>Database ".$str." entry already exists <br />";
+          echo "Datenbank ".$str." Eintrag schon vorhanden <br />";
+          echo "Database ".$str." La voce esiste già <br /></div>";
+          echo "<hr>";
+        }   
+      } CATCH (EXCEPTION $x) {
+        echo "<div class='alert alert-danger'><b>Plugineinträge:</b><br>Database ".$str." installation failed <br />";
+        echo "Send the following line to the support team:<br />";
+        echo "Invia la seguente riga al team di supporto:<br /><br /><br />";
+        echo "<pre>".$x->message()."</pre>";     
+        echo"</div>";
+      }
+    }
+}
+
 #### add_insert_plugins_widget #####################
 
 function add_insert_plugins_widget($table) {
