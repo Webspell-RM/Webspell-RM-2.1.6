@@ -1218,7 +1218,7 @@ if (!empty(@$db['active'] == 1) !== false) {
             </tr>
             <tr>
                 <td>
-                    <span class="badge border border-success text-black bg-info" style="width: 100%">' . $_language->module['left'] . '111</span><br>';
+                    <span class="badge border border-success text-black bg-info" style="width: 100%">' . $_language->module['left'] . '</span><br>';
         $sidebar_left_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '4' ORDER BY widgetname ASC");
         $i = 1;
         while ($sidebar_left_off = mysqli_fetch_array($sidebar_left_plugins_widget)) {
@@ -1239,7 +1239,7 @@ if (!empty(@$db['active'] == 1) !== false) {
         }
         echo '</br><button class="btn btn-success" style="font-size: 10px;margin-top:10px;" type="submit" name="sidebar_left_activ"><i class="bi bi-plus-circle"></i> ' . $_language->module['widget_off_setting'] . '</button>
                     <hr>
-                    <span class="badge border border-success text-black bg-info" style="width: 100%">' . $_language->module['right'] . '222</span><br>';
+                    <span class="badge border border-success text-black bg-info" style="width: 100%">' . $_language->module['right'] . '</span><br>';
         $sidebar_right_plugins_widget = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget WHERE area = '4' ORDER BY widgetname ASC");
         $i = 1;
         while ($sidebar_right_off = mysqli_fetch_array($sidebar_right_plugins_widget)) {
