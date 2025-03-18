@@ -167,7 +167,6 @@ $transaction .= add_table("CREATE TABLE IF NOT EXISTS`" . PREFIX . "settings_plu
   `plugin_display` int(11) NOT NULL DEFAULT 1,
   `widget_display` int(11) NOT NULL DEFAULT 1,
   `delete_display` int(1) NOT NULL DEFAULT 1,
-  `sidebar` varchar(255) NOT NULL DEFAULT 'deactivated'
   `sidebar` varchar(255) NOT NULL DEFAULT 'deactivated',
   PRIMARY KEY (`pluginID`)
 ) AUTO_INCREMENT=1
