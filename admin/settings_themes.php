@@ -68,8 +68,7 @@ if (isset($_POST[ 'underscore_aktiv' ])) {
             #redirect("admincenter.php?site=settings_themes", "", 0);
         }
     } else {
-        $_language->readModule('formvalidation', true);       
-       echo $_language->module[ 'transaction_invalid' ];
+        echo $_language->module[ 'transaction_invalid' ];
     }
 }
 
@@ -81,8 +80,6 @@ if(isset($_GET[ 'delete' ])) {
     $name = $_GET['modulname'];
     // Name Tabelle | Where Klause | ID name
     DeleteData("settings_expansion","modulname",$name);
-    #DeleteData("settings_module","themes_modulname",$name);
-    #DeleteData("settings_widgets","themes_modulname",$name);
     DeleteData("settings_buttons","modulname",$name);
     DeleteData("navigation_website_sub","themes_modulname",$name);
     recursiveRemoveDirectory('../includes/expansion/'. $dir);
@@ -296,10 +293,7 @@ if(isset($_GET[ 'delete' ])) {
                 `modulname` = '".getinput($dx['modulname'])."'"
         );
 
-        #safe_query("DELETE FROM " . PREFIX . "settings_widgets WHERE themes_modulname='' ");
-        #safe_query("DELETE FROM " . PREFIX . "settings_module WHERE themes_modulname='' ");
-
-		$error = array();
+        $error = array();
         $sem = '/^#[a-fA-F0-9]{6}/';
         
         if (count($error)) {
@@ -320,8 +314,6 @@ if(isset($_GET[ 'delete' ])) {
 
 		$filepath = "../includes/expansion/".$dx['pfad']."/images/";
 
-        //TODO: should be loaded from root language folder
-        $_language->readModule('formvalidation', true, true);
         $ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_expansion WHERE themeID='$themeID'");
         $dx = mysqli_fetch_array($ergebnis);
         $modulname = $dx[ 'modulname' ];
@@ -498,9 +490,6 @@ if(isset($_GET[ 'delete' ])) {
         $dx = mysqli_fetch_array($ergebnis);
         $modulname = $dx[ 'modulname' ];
 
-        //TODO: should be loaded from root language folder
-        $_language->readModule('formvalidation', true, true);
-
         $upload = new \webspell\HttpUpload('theme_pic');
 
         if ($upload->hasFile()) {
@@ -558,9 +547,6 @@ if(isset($_GET[ 'delete' ])) {
         $dx = mysqli_fetch_array($ergebnis);
         $modulname = $dx[ 'modulname' ];
 
-        //TODO: should be loaded from root language folder
-        $_language->readModule('formvalidation', true, true);
-
         $upload = new \webspell\HttpUpload('theme_pic');
 
         if ($upload->hasFile()) {
@@ -610,12 +596,7 @@ if(isset($_GET[ 'delete' ])) {
             } else {
                 echo generateErrorBox($upload->translateError());
             }
-        }        
-    
-
- 
-
- 
+        } 
 
 } else {
     echo $_language->module[ 'transaction_invalid' ];
@@ -703,9 +684,6 @@ echo'<form class="form-horizontal" method="post" action="admincenter.php?site=se
       <input type="text" class="form-control" name="version" value="'.getinput($ds['version']).'" /></em></span>
     </div>
   </div>
-
-
-
 
 <br>
  <hr>
@@ -2306,8 +2284,6 @@ if (isset($_POST[ 'addedit' ])) {
         echo $_language->module[ 'transaction_invalid' ];
     }
 }
-
-$_language->readModule('themes', false, true);
 
 if (isset($_GET[ 'action' ])) {
     $action = $_GET[ 'action' ];

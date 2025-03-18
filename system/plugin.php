@@ -438,6 +438,12 @@ class plugin_manager
 			$query = safe_query("SELECT * FROM " . PREFIX . "plugins_" . $getsite . "_settings_widgets");
 		}
 		while ($res = mysqli_fetch_array($query)) {
+
+		#Agency Header Navigation .css wird extra geladen
+		if ($res['widgetdatei'] == 'widget_agency_header') {        
+        	echo'<link type="text/css" rel="stylesheet" href="./includes/plugins/carousel/css/style/agency_header.css" />';
+    	}
+
 			if (is_dir($pluginpath . $res['modulname'] . "/css/")) {
 				$subf1 = "/css/";
 			} else {

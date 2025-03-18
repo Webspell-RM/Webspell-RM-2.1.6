@@ -91,7 +91,6 @@ $language_array = array(
   'transaction_invalid'                 => 'Transaktions ID ungültig',
   'version_file'                        => 'Plugin-Version',
   'website'                             => 'Website des Plugin-Autors',
-  'widget_cannot_assigned'              => 'Widget kann nicht zugewiesen werden',
   'widget_datei'                        => 'Widget Datei',
   'widget_delete'                       => 'Widget löschen',
   'widget_edit'                         => 'Widget bearbeiten',
@@ -101,7 +100,11 @@ $language_array = array(
   'widget_on_setting'                   => 'Widget aus diesem Bereich entfernen',
   'widget_side_assignment'              => 'Widget Seitenzuordnung',
   'widget_side'                         => 'Widget Zuordnung',
-  'widgetdatei_nophp'                   => 'Widget Dateiname ohne .php',
+  'widgetdatei_nophp'                   => 'Widget Dateiname ohne .php',  
+  'widget_cannot_assigned'              => 'Nicht möglich!',
+  'delete_cannot_assigned'              => 'Nicht möglich!',
+  'status_cannot_assigned'              => 'Nicht möglich!',
+  'plugin_cannot_assigned'              => 'Nicht möglich!'
 
 
 

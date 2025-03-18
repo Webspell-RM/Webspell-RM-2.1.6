@@ -2005,19 +2005,21 @@ if (!empty(@$db['active'] == 1) !== false) {
             <th><strong>' . $_language->module['id'] . '</strong></th>
             <th width="10%"><strong>' . $_language->module['plugin'] . ' ' . $_language->module['name'] . '</strong></th>
             <th><strong>' . $_language->module['plugin'] . ' ' . $_language->module['description'] . '</strong></th>
-            <th class="text-center" width="10%"><strong>' . $_language->module['plugin_status'] . '</strong></th>
+            <th class="text-center" width="12%"><strong>' . $_language->module['plugin_status'] . '</strong></th>
             <th class="text-center" width="12%"><strong>' . $_language->module['plugin_setting'] . '</strong></th>
-			<th class="text-center" width="12%"><strong>' . $_language->module['widget_side_assignment'] . '</strong></th>
+            <th class="text-center" width="12%"><strong>' . $_language->module['widget_side_assignment'] . '</strong></th>
             <th class="text-center" width="12%"><strong>' . $_language->module['action'] . '</strong></th>
 
         </thead>';
-                    $ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins where plugin_display='1'");
+                    $ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_plugins");
                     while ($ds = mysqli_fetch_array($ergebnis)) {
 
+                    $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE pluginID='" . $ds['pluginID'] . "'"));
+
                         if ($ds['activate'] == "1") {
-                            $actions = '<a href="admincenter.php?site=plugin_manager&id=' . $ds['pluginID'] . '&modulname=' . $ds['modulname'] . '&do=dea" class="btn btn-info" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_2'] . ' " type="button"><i class="bi bi-toggle-off"></i> ' . $_language->module['deactivate'] . '</a>';
+                            $actions = '<div class="d-grid gap-2"><a href="admincenter.php?site=plugin_manager&id=' . $ds['pluginID'] . '&modulname=' . $ds['modulname'] . '&do=dea" class="btn btn-info" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_2'] . ' " type="button"><i class="bi bi-toggle-off"></i> ' . $_language->module['deactivate'] . '</a></div>';
                         } else {
-                            $actions = '<a href="admincenter.php?site=plugin_manager&id=' . $ds['pluginID'] . '&modulname=' . $ds['modulname'] . '&do=act" class="btn btn-success" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_1'] . ' " type="button"><i class="bi bi-toggle-on"></i> ' . $_language->module['activate'] . '</a>';
+                            $actions = '<div class="d-grid gap-2"><a href="admincenter.php?site=plugin_manager&id=' . $ds['pluginID'] . '&modulname=' . $ds['modulname'] . '&do=act" class="btn btn-success" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_1'] . ' " type="button"><i class="bi bi-toggle-on"></i> ' . $_language->module['activate'] . '</a></div>';
                         }
 
                         $translate = new multiLanguage(detectCurrentLanguage());
@@ -2029,38 +2031,57 @@ if (!empty(@$db['active'] == 1) !== false) {
                         echo '<tr>
                     <td>' . $ds['pluginID'] . '</td>
                     <td><b>' . $ds['name'] . '</b></td>
-                    <td>' . $ds['info'] . '</td>
-                    <td class="text-center">' . $actions . '</td>
-                    <td class="text-center"><a href="admincenter.php?site=plugin_manager&action=edit&id=' . $ds['pluginID'] . '&do=edit" class="btn btn-warning" style="margin-bottom: 10px;" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_4'] . '" type="button"><i class="bi bi-pencil-square"></i> ' . $_language->module['edit'] . '</a></td>';
+                    <td>' . $ds['info'] . '</td>';
 
 
-                        if (
-                            @$ds['modulname'] == 'contact'
-                            || @$ds['modulname'] == 'imprint'
-                            || @$ds['modulname'] == 'privacy_policy'
-                            || @$ds['modulname'] == 'profile'
-                            || @$ds['modulname'] == 'myprofile'
-                            || @$ds['modulname'] == 'error_404'
-                            || @$ds['modulname'] == 'report'
-                            || @$ds['modulname'] == 'static'
-                            || @$ds['modulname'] == 'loginoverview'
-                            || @$ds['modulname'] == 'register'
-                            || @$ds['modulname'] == 'lostpassword'
-                            || @$ds['modulname'] == 'login'
-                            || @$ds['modulname'] == 'logout'
-                            || @$ds['modulname'] == 'footer'
-                            || @$ds['modulname'] == 'navigation'
-                            || @$ds['modulname'] == 'topbar'
-                        ) {
-                            echo '<td class="text-center"><div class="alert alert-danger" role="alert"><i class="bi bi-slash-circle"></i>
-                                 ' . $_language->module['widget_cannot_assigned'] . '</div></td>
-                                 <td class="text-center"><div class="alert alert-danger" role="alert"><i class="bi bi-slash-circle"></i>
-                                 ' . $_language->module['widget_cannot_assigned'] . '</div></td>';
+                    if ($dx['status_display'] == "1") {
+                    echo'<td class="text-center">'.$actions.'</div>';
+                    } else {
+                            
+                            echo '<td class="text-center">
+                                <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-danger" disabled><i class="bi bi-slash-circle"></i> ' . $_language->module['status_cannot_assigned'] . '</button>
+                                 </div></td>';
+                    }
+                    if ($dx['plugin_display'] == "1") {
+                    echo'
+                    <td class="text-center">
+                    <div class="d-grid gap-2">
+                    <a href="admincenter.php?site=plugin_manager&action=edit&id=' . $ds['pluginID'] . '&do=edit" class="btn btn-warning" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_4'] . '" type="button"><i class="bi bi-pencil-square"></i> ' . $_language->module['edit'] . '</a></div></td>';
+                    } else {
+                            
+                            echo '<td class="text-center">
+                            <div class="d-grid gap-2">
+                        <button type="button" class="btn btn-danger" disabled><i class="bi bi-slash-circle"></i> ' . $_language->module['plugin_cannot_assigned'] . '</button>
+                        </div></td>';
+                    }
+
+
+                    if ($dx['widget_display'] == "1") {    
+                            echo '<td class="text-center">
+                            <div class="d-grid gap-2">
+                            <a href="admincenter.php?site=plugin_manager&action=widget_edit&id=' . $ds['pluginID'] . '&do=edit" class="btn btn-success" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_3'] . '" type="button"><i class="bi bi-plus-circle"></i> ' . $_language->module['widget_side'] . '</a></div></td>';
                         } else {
-                            echo '<td class="text-center"><a href="admincenter.php?site=plugin_manager&action=widget_edit&id=' . $ds['pluginID'] . '&do=edit" class="btn btn-success" style="margin-bottom: 10px;" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_3'] . '" type="button"><i class="bi bi-plus-circle"></i> ' . $_language->module['widget_side'] . '</a></td>
-							<td class="text-center">
- 							<a href="admincenter.php?site=plugin_manager&action=delete_plugin&id=' . $ds['pluginID'] . '&modulname=' . $ds['modulname'] . '&do=delete" class="btn btn-danger mx-2" style="margin-bottom: 10px;" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_8'] . '" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-plugin="' .  $ds['modulname'] . '" title="' . $_language->module['tooltip_6'] . '"><i class="bi bi-trash3"></i> ' . $_language->module['delete_plugin'] . '</a></td>
- 							<!-- Bootstrap Modal for Confirm Delete -->
+                            
+                            echo '<td class="text-center">
+                            <div class="d-grid gap-2">
+                        <button type="button" class="btn btn-danger" disabled><i class="bi bi-slash-circle"></i> ' . $_language->module['widget_cannot_assigned'] . '</button>
+                        </div></td>';
+                        } 
+
+
+                        if ($dx['delete_display'] != "1") {  
+
+                            echo '<td class="text-center">
+                            <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-danger" disabled><i class="bi bi-slash-circle"></i> ' . $_language->module['delete_cannot_assigned'] . '</button>
+                            </div></td>';
+                        } else {
+
+                        echo'<td class="text-center">
+                            <div class="d-grid gap-2">
+                            <a href="admincenter.php?site=plugin_manager&action=delete_plugin&id=' . $ds['pluginID'] . '&modulname=' . $ds['modulname'] . '&do=delete" class="btn btn-danger" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_8'] . '" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-plugin="' .  $ds['modulname'] . '" title="' . $_language->module['tooltip_6'] . '"><i class="bi bi-trash3"></i> ' . $_language->module['delete_plugin'] . '</a></div></td>
+                            <!-- Bootstrap Modal for Confirm Delete -->
                             <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">

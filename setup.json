@@ -92,7 +92,18 @@
 
             "file55": "/components/bootstrap/js/bootstrap.bundle.min.js",
             "file56": "/components/bootstrap/js/bootstrap.bundle.min.js.map",
-            "file57": "/components/jquery/jquery.min.js"
+            "file57": "/components/jquery/jquery.min.js",
+
+            "file58": "/admin/database.php",
+            "file59": "/languages/de/admin/database.php",
+            "file60": "/languages/en/admin/database.php",
+            "file61": "/languages/it/admin/database.php",
+
+            "file62": "/admin/dashboard_navigation.php",
+            "file63": "/admin/lock.php",
+            "file64": "/admin/overview.php",
+            "file65": "/admin/page_statistic.php",           
+            "file66": "/admin/visitor_statistic.php"
 
 
 
@@ -119,7 +130,10 @@
             "file13": "/languages/it/admin/template_installer.php",
 
             "file14": "/includes/modules/tags.php",
-            "file15": "/system/func/tags.php"
+            "file15": "/system/func/tags.php",
+            "file16": "/languages/de/tags.php",
+            "file17": "/languages/en/tags.php",
+            "file18": "/languages/it/tags.php"
 
            }
          ]

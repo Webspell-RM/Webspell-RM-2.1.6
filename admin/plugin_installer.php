@@ -266,16 +266,16 @@ if (!$getnew = $plugin) {
           $output .= '<td>';
 
           if ($result['item' . $plug . '']['version'] === $installedversion) {
-            $output .= '<a class="btn btn-success mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_3'] . ' " style="width: 160px" href="?site=plugin_installer&re=install&id=' . $plug . '&dir=' . $result['item' . $plug]['path'] . '"><i class="bi bi-arrow-repeat"></i> ' . $_language->module['reinstall'] . '</a>';
+            $output .= '<div class="d-grid gap-2"><a class="btn btn-success mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_3'] . ' " href="?site=plugin_installer&re=install&id=' . $plug . '&dir=' . $result['item' . $plug]['path'] . '"><i class="bi bi-arrow-repeat"></i> ' . $_language->module['reinstall'] . '</a></div>';
           } else {
-            $output .= '<a class="btn btn-warning mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_4'] . ' " style="width: 160px" href="?site=plugin_installer&id=' . $plug . '&up=install&dir=' . $result['item' . $plug]['path'] . '"><i class="bi bi-cloud-arrow-down"></i> ' . $_language->module['update'] . ' to Ver. ' . $result['item' . $plug]['version'] . '</a>';
+            $output .= '<div class="d-grid gap-2"><a class="btn btn-warning mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_4'] . ' " href="?site=plugin_installer&id=' . $plug . '&up=install&dir=' . $result['item' . $plug]['path'] . '"><i class="bi bi-cloud-arrow-down"></i> ' . $_language->module['update'] . ' to Ver. ' . $result['item' . $plug]['version'] . '</a></div>';
           }
 
           $output .= ' 
               <!-- Button trigger modal -->
-              <button type="button" class="btn btn-danger mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_2'] . ' " style="width: 160px" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="admincenter.php?site=plugin_installer&deinstall=plugin&dir=' . $result['item' . $plug]['path'] . '&modulname=' . $result['item' . $plug]['modulname'] . '"><i class="bi bi-trash3"></i> 
+              <div class="d-grid gap-2"><button type="button" class="btn btn-danger mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_2'] . ' " data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="admincenter.php?site=plugin_installer&deinstall=plugin&dir=' . $result['item' . $plug]['path'] . '&modulname=' . $result['item' . $plug]['modulname'] . '"><i class="bi bi-trash3"></i> 
               ' . $_language->module['plugin_deinstallieren'] . '
-              </button></th>';
+              </button></div></th>';
           echo '
               <!-- Button trigger modal END-->            
 
@@ -300,13 +300,13 @@ if (!$getnew = $plugin) {
 
           if ($result['item' . $plug]['req'] == $version) {
             if (@$result['item' . $plug]['aktive'] == '0') {
-              $output .= '<td><button class="btn btn-info" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_5'] . ' " style="width: 160px"><i class="bi bi-layout-sidebar"></i> ' . $_language->module['no_install'] . '</button></td>';
+              $output .= '<td><div class="d-grid gap-2"><button class="btn btn-info" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_5'] . ' " style="width: 160px"><i class="bi bi-layout-sidebar"></i> ' . $_language->module['no_install'] . '</button></div></td>';
             } else {
-              $output .= '<td><a class="btn btn-success" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_6'] . ' " style="width: 160px" href="?site=plugin_installer&do=install&id=' . $plug . '&dir=' . $result['item' . $plug]['path'] . '"><i class="bi bi-plus-circle"></i> ' . $_language->module['installation'] . '</a></td>';
+              $output .= '<td><div class="d-grid gap-2"><a class="btn btn-success" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_6'] . ' " href="?site=plugin_installer&do=install&id=' . $plug . '&dir=' . $result['item' . $plug]['path'] . '"><i class="bi bi-plus-circle"></i> ' . $_language->module['installation'] . '</a></div></td>';
             }
             $output .= '  </tr>';
           } else {
-            $output .= '<td><button class="btn btn-info" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_1'] . ' " style="width: 160px"><i class="bi bi-ban"></i> ' . $_language->module['incompatible'] . '</button> ' . $_language->module['no_ver'] . '</td>';
+            $output .= '<td><div class="d-grid gap-2"><button class="btn btn-info" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_1'] . ' " ><i class="bi bi-ban"></i> ' . $_language->module['incompatible'] . '</button> ' . $_language->module['no_ver'] . '</div></td>';
             $output .= '  </tr>';
           }
         }
@@ -346,8 +346,8 @@ if (!$getnew = $plugin) {
         <tr>
           <th style="width: 22%"><b>' . $_language->module['preview'] . '</b></th>
           <th style="width: 48%"><b>' . $_language->module['description'] . '</b></th>
-          <th style="width: 18%"><b>' . $_language->module['version'] . '</b></th>
-          <th><b>' . $_language->module['options'] . '</b></th>
+          <th style="width: 12%"><b>' . $_language->module['version'] . '</b></th>
+          <th style="width: 12%"><b>' . $_language->module['options'] . '</b></th>
         </tr>
       </thead>
       <tbody>
