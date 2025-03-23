@@ -284,7 +284,7 @@ if (!$getnew = $plugin) {
                       <div class="modal-content">
                           <div class="modal-header">
                              <h5 class="modal-title" id="modalLabel"><i class="bi bi-trash3"></i> ' . $_language->module['plugin_deinstallieren'] . '</h5>
-                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<i class="bi bi-x-circle"></i> ' . $_language->module['close'] . '"></button>
+                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                           </div>
                           <div class="modal-body">
                              <p><i class="bi bi-info-circle"></i> ' . $_language->module['delete_info'] . '</p>

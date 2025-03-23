@@ -38,7 +38,8 @@ $transaction = '';
 
 $transaction .= droptable('settings_module');
 $transaction .= droptable('settings_widgets');
-$transaction .= droptable('settings_plugins');
+#$transaction .= droptable('settings_plugins');
+#$transaction .= add_table("DROP TABLE IF EXISTS `" . PREFIX . "settings_plugins` WHERE widgetname1='Navigation'");
 $transaction .= droptable('settings_themes');
 $transaction .= droptable('settings_headelements'); 
 
@@ -150,7 +151,7 @@ $transaction .= add_table("INSERT IGNORE INTO `" . PREFIX . "plugins_startpage_s
 
 
 
-$transaction .= add_table("CREATE TABLE IF NOT EXISTS`" . PREFIX . "settings_plugins` (  
+/*$transaction .= add_table("CREATE TABLE IF NOT EXISTS`" . PREFIX . "settings_plugins` (  
   `pluginID` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `modulname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -170,21 +171,54 @@ $transaction .= add_table("CREATE TABLE IF NOT EXISTS`" . PREFIX . "settings_plu
   `sidebar` varchar(255) NOT NULL DEFAULT 'deactivated',
   PRIMARY KEY (`pluginID`)
 ) AUTO_INCREMENT=1
-  DEFAULT CHARSET=utf8 DEFAULT COLLATE utf8_unicode_ci");
+  DEFAULT CHARSET=utf8 DEFAULT COLLATE utf8_unicode_ci");*/
+
+
+  $transaction .= addfield('settings_plugins', 'status_display', 'int(1)', 'NOT NULL DEFAULT \'1\' AFTER `path`');
+  $transaction .= addfield('settings_plugins', 'plugin_display', 'int(11)', 'NOT NULL DEFAULT \'1\' AFTER `status_display`');
+  $transaction .= addfield('settings_plugins', 'widget_display', 'int(11)', 'NOT NULL DEFAULT \'1\' AFTER `plugin_display`');
+  $transaction .= addfield('settings_plugins', 'delete_display', 'int(1)', 'NOT NULL DEFAULT \'1\' AFTER `widget_display`');
+  $transaction .= addfield('settings_plugins', 'sidebar', 'varchar(255)', 'NOT NULL DEFAULT \'deactivated\' AFTER `delete_display`');
+
+
+  $transaction .= dropfield('settings_plugins', 'widgetname1'); 
+  $transaction .= dropfield('settings_plugins', 'widgetname2'); 
+  $transaction .= dropfield('settings_plugins', 'widgetname3');
+  $transaction .= dropfield('settings_plugins', 'widget_link1'); 
+  $transaction .= dropfield('settings_plugins', 'widget_link2'); 
+  $transaction .= dropfield('settings_plugins', 'widget_link3');
+  $transaction .= dropfield('settings_plugins', 'modul_display');
+
+  $transaction .= add_table("DELETE FROM `" . PREFIX . "settings_plugins` WHERE modulname=''");
+  $transaction .= add_table("DELETE FROM `" . PREFIX . "settings_plugins` WHERE modulname='startpage'");
+  $transaction .= add_table("DELETE FROM `" . PREFIX . "settings_plugins` WHERE modulname='privacy_policy'");
+  $transaction .= add_table("DELETE FROM `" . PREFIX . "settings_plugins` WHERE modulname='imprint'");
+  $transaction .= add_table("DELETE FROM `" . PREFIX . "settings_plugins` WHERE modulname='static'");
+  $transaction .= add_table("DELETE FROM `" . PREFIX . "settings_plugins` WHERE modulname='error_404'");
+  $transaction .= add_table("DELETE FROM `" . PREFIX . "settings_plugins` WHERE modulname='profile'");
+  $transaction .= add_table("DELETE FROM `" . PREFIX . "settings_plugins` WHERE modulname='login'");
+  $transaction .= add_table("DELETE FROM `" . PREFIX . "settings_plugins` WHERE modulname='lostpassword'");
+  $transaction .= add_table("DELETE FROM `" . PREFIX . "settings_plugins` WHERE modulname='contact'");
+  $transaction .= add_table("DELETE FROM `" . PREFIX . "settings_plugins` WHERE modulname='register'");
+  $transaction .= add_table("DELETE FROM `" . PREFIX . "settings_plugins` WHERE modulname='myprofile'");
+  $transaction .= add_table("DELETE FROM `" . PREFIX . "settings_plugins` WHERE modulname='report'");
+  $transaction .= add_table("DELETE FROM `" . PREFIX . "settings_plugins` WHERE modulname='navigation'");
+  $transaction .= add_table("DELETE FROM `" . PREFIX . "settings_plugins` WHERE modulname='footer'"); 
+
 
 $transaction .= add_table("INSERT IGNORE INTO `" . PREFIX . "settings_plugins` (`pluginID`, `name`, `modulname`, `info`, `admin_file`, `activate`, `author`, `website`, `index_link`, `hiddenfiles`, `version`, `path`, `status_display`, `plugin_display`, `widget_display`, `delete_display`, `sidebar`) VALUES
 (1, 'Startpage', 'startpage', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', '', '', '', '', 0, 0, 1, 0, 'full_activated'),
 (2, 'Privacy Policy', 'privacy_policy', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'privacy_policy', '', '', '', 0, 0, 1, 0, 'deactivated'),
-(3, 'Imprint', 'imprint', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'imprint', '', '', '', 0, 0, 1, 0, ''),
-(4, 'Static', 'static', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'static', '', '', '', 1, 0, 1, 0, ''),
-(5, 'Error_404', 'error_404', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'error_404', '', '', '', 1, 0, 1, 0, ''),
-(6, 'Profile', 'profile', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'profile', '', '', '', 1, 0, 1, 0, ''),
-(7, 'Login', 'login', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'login', '', '', '', 1, 0, 1, 0, ''),
-(8, 'Lost Password', 'lostpassword', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'lostpassword', '', '', '', 1, 0, 1, 0, ''),
-(9, 'Contact', 'contact', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'contact', '', '', '', 1, 0, 1, 0, ''),
-(10, 'Register', 'register', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'register', '', '', '', 1, 0, 1, 0, ''),
-(11, 'My Profile', 'myprofile', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'myprofile', '', '', '', 1, 0, 1, 0, ''),
-(12, 'Report', 'report', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'report', '', '', '', 1, 0, 1, 0, ''),
+(3, 'Imprint', 'imprint', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'imprint', '', '', '', 0, 0, 1, 0, 'deactivated'),
+(4, 'Static', 'static', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'static', '', '', '', 1, 0, 1, 0, 'deactivated'),
+(5, 'Error_404', 'error_404', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'error_404', '', '', '', 1, 0, 1, 0, 'deactivated'),
+(6, 'Profile', 'profile', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'profile', '', '', '', 1, 0, 1, 0, 'deactivated'),
+(7, 'Login', 'login', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'login', '', '', '', 1, 0, 1, 0, 'deactivated'),
+(8, 'Lost Password', 'lostpassword', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'lostpassword', '', '', '', 1, 0, 1, 0, 'deactivated'),
+(9, 'Contact', 'contact', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'contact', '', '', '', 1, 0, 1, 0, 'deactivated'),
+(10, 'Register', 'register', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'register', '', '', '', 1, 0, 1, 0, 'deactivated'),
+(11, 'My Profile', 'myprofile', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'myprofile', '', '', '', 1, 0, 1, 0, 'deactivated'),
+(12, 'Report', 'report', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'report', '', '', '', 1, 0, 1, 0, 'deactivated'),
 (13, 'Navigation', 'navigation', '{[de]}Mit diesem Plugin könnt ihr euch die Navigation anzeigen lassen.{[en]}With this plugin you can display navigation.{[it]}Con questo plugin puoi visualizzare la Barra di navigazione predefinita.', '', 1, 'T-Seven', 'https://webspell-rm.de', '', '', '0.3', 'includes/plugins/navigation/', 1, 1, 0, 1, 'deactivated'),
 (14, 'Footer', 'footer', '{[de]}Mit diesem Plugin könnt ihr einen neuen Footer anzeigen lassen.{[en]}With this plugin you can have a new Footer displayed.{[it]}Con questo plugin puoi visualizzare un nuovo piè di pagina.', 'admin_footer', 1, 'T-Seven', 'https://webspell-rm.de', '', '', '0.1', 'includes/plugins/footer/', 1, 1, 0, 1, 'deactivated')");
 

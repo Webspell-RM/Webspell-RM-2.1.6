@@ -111,7 +111,9 @@
             "file69": "/languages/it/admin/plugin_installer.php.php",
 
             "file70": "/system/func/user.php",
-            "file71": "/includes/modules/profile.php"
+            "file71": "/includes/modules/profile.php",
+            "file72": "/system/func/tags.php",
+            "file73": "/includes/expansion/default/images/no_background.png"
 
 
 
@@ -138,10 +140,9 @@
             "file13": "/languages/it/admin/template_installer.php",
 
             "file14": "/includes/modules/tags.php",
-            "file15": "/system/func/tags.php",
-            "file16": "/languages/de/tags.php",
-            "file17": "/languages/en/tags.php",
-            "file18": "/languages/it/tags.php"
+            "file15": "/languages/de/tags.php",
+            "file16": "/languages/en/tags.php",
+            "file17": "/languages/it/tags.php"
 
            }
          ]
