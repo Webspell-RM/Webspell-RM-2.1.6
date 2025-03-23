@@ -790,11 +790,12 @@ else {
     
             $specialrank = '';
             $specialtype = "";
+            #Probleme mit mysql 8
             $getrank = safe_query(
                 "SELECT IF
-                    (u.special_rank = 0, 0, CONCAT_WS('__', r.rank, r.pic)) as RANK
+                    (u.special_rank = 0, 0, CONCAT_WS('__', r.rank, r.pic)) as `RANK`
                 FROM
-                    " . PREFIX . "user u LEFT JOIN " . PREFIX . "plugins_forum_ranks r ON u.special_rank = r.rankID
+                    `" . PREFIX . "user` u LEFT JOIN `" . PREFIX . "plugins_forum_ranks` r ON u.special_rank = r.rankID
                 WHERE
                     userID='" . $ds[ 'userID' ] . "'"
             );
@@ -804,9 +805,7 @@ else {
                 $specialrank  = '<br/>';
                 $tmp_rank = explode("__", $rank_data[ 'RANK' ], 2);
                 
-                #if (!empty($tmp_rank[1]) && file_exists("/includes/plugins/forum/images/icons/ranks/" . $tmp_rank[1])) {
                 if (!empty($tmp_rank[1]) && file_exists("includes/plugins/forum/images/icons/ranks/" . $tmp_rank[1]) && deleteduser($ds[ 'userID' ]) == '0') {
-                    #$special_rank .= '<br/>';
                     $specialrank .= "<img src='/includes/plugins/forum/images/icons/ranks/" . $tmp_rank[1] . "' alt = 'rank' />";
                 }
                 $specialrank .= '<br/>';

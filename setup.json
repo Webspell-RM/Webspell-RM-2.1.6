@@ -86,7 +86,7 @@
             "file49": "/languages/de/admin/update.php",
             "file50": "/languages/en/admin/update.php",
             "file51": "/languages/it/admin/update.php",
-            "file52": "/admin/admincenter",
+            "file52": "/admin/admincenter.php",
             "file53": "/languages/de/index.php",
             "file54": "/languages/de/tags.php",
 
@@ -103,7 +103,15 @@
             "file63": "/admin/lock.php",
             "file64": "/admin/overview.php",
             "file65": "/admin/page_statistic.php",           
-            "file66": "/admin/visitor_statistic.php"
+            "file66": "/admin/visitor_statistic.php",
+
+            
+            "file67": "/languages/de/admin/plugin_installer.php.php",
+            "file68": "/languages/en/admin/plugin_installer.php.php",
+            "file69": "/languages/it/admin/plugin_installer.php.php",
+
+            "file70": "/system/func/user.php",
+            "file71": "/includes/modules/profile.php"
 
 
 
