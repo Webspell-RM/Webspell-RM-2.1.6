@@ -14,6 +14,10 @@ $language_array = array(
   'area_info'                           => 'Definisci l\'area in cui visualizzare il widget',
   'author'                              => 'Autore del plugin',
   'close'                               => 'Chiudi',
+  'content_down1'                       => 'Contenuto Centro Sotto Area Principale <i class="bi bi-arrow-bar-down"></i>',
+  'content_down'                        => 'Contenuto Centro Sotto Area Principale <i class="bi bi-arrow-bar-down"></i>',
+  'content_up1'                         => 'Contenuto Centro Sopra Area Principale <i class="bi bi-arrow-bar-up"></i>',
+  'content_up'                          => 'Contenuto Centro Sopra Area Principale <i class="bi bi-arrow-bar-up"></i>',
   'content_foot'                        => 'Contenuto piede <i class="bi bi-caret-down-fill"></i>',
   'content_foot1'                       => 'Contenuto piede <i class="bi bi-caret-down-fill"></i>',
   'content_head'                        => 'Contenuto testa <i class="bi bi-caret-up-fill"></i>',
@@ -102,4 +106,9 @@ $language_array = array(
   'widget_side_assignment'              => 'Assegnazione lato widget',
   'widget_side'                         => 'Assegnazione widget',
   'widgetdatei_nophp'                   => 'Nome del file del widget senza .php',
+  'widget_cannot_assigned'              => 'Non è disponibile!',
+  'delete_cannot_assigned'              => 'Non è disponibile!',
+  'status_cannot_assigned'              => 'Non è disponibile!',
+  'plugin_cannot_assigned'              => 'Non è disponibile!',
+
 );

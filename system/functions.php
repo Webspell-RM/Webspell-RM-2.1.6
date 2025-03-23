@@ -650,4 +650,10 @@ function usergrpexists($fgrID)
 {
     return (mysqli_num_rows(safe_query("SELECT `fgrID` FROM `" . PREFIX . "plugins_forum_groups` WHERE `fgrID` = " . (int)$fgrID)) > 0);
 }
+
+// Funzione per gestire se non esiste la tabella delle impostazioni del plugin
+function tableExists($table) {
+    $result = safe_query("SHOW TABLES LIKE '" . $table . "'");
+    return mysqli_num_rows($result) > 0;
+}
 ?>

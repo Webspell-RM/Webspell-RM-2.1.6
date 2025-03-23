@@ -194,6 +194,14 @@ class plugin_manager
 				|| @$getsite == 'footer'
 				|| @$getsite == 'navigation'
 				|| @$getsite == 'topbar'
+				|| @$getsite == 'news_comments'
+				|| @$getsite == 'articles_comments'
+				|| @$getsite == 'blog_comments'
+				|| @$getsite == 'gallery_comments'
+				|| @$getsite == 'news_comments'
+				|| @$getsite == 'news_recomments'
+				|| @$getsite == 'polls_comments'
+				|| @$getsite == 'videos_comments'
 			) {
 				$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget_settings WHERE id='" . intval($id) . "'");
 			} elseif (@$getsite == 'forum_topic') {
@@ -430,19 +438,33 @@ class plugin_manager
 			|| @$getsite == 'footer'
 			|| @$getsite == 'navigation'
 			|| @$getsite == 'topbar'
+			|| @$getsite == 'news_comments'
+			|| @$getsite == 'articles_comments'
+			|| @$getsite == 'blog_comments'
+			|| @$getsite == 'gallery_comments'
+			|| @$getsite == 'news_comments'
+			|| @$getsite == 'news_recomments'
+			|| @$getsite == 'polls_comments'
+			|| @$getsite == 'videos_comments'
 		) {
 			$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget_settings");
 		} elseif (@$getsite == 'forum_topic') {
 			$query = safe_query("SELECT * FROM " . PREFIX . "plugins_forum_settings_widgets");
-		} else {
+		} elseif (tableExists(PREFIX . "plugins_" . $getsite . "_settings_widgets")) {
 			$query = safe_query("SELECT * FROM " . PREFIX . "plugins_" . $getsite . "_settings_widgets");
+		} else {
+			header("Location: ./index.php?site=error_404");
+			exit;
 		}
+
+
+
 		while ($res = mysqli_fetch_array($query)) {
 
-		#Agency Header Navigation .css wird extra geladen
-		if ($res['widgetdatei'] == 'widget_agency_header') {        
-        	echo'<link type="text/css" rel="stylesheet" href="./includes/plugins/carousel/css/style/agency_header.css" />';
-    	}
+			#Agency Header Navigation .css wird extra geladen
+			if ($res['widgetdatei'] == 'widget_agency_header') {
+				echo '<link type="text/css" rel="stylesheet" href="./includes/plugins/carousel/css/style/agency_header.css" />';
+			}
 
 			if (is_dir($pluginpath . $res['modulname'] . "/css/")) {
 				$subf1 = "/css/";
@@ -497,6 +519,14 @@ class plugin_manager
 			|| @$getsite == 'footer'
 			|| @$getsite == 'navigation'
 			|| @$getsite == 'topbar'
+			|| @$getsite == 'news_comments'
+			|| @$getsite == 'articles_comments'
+			|| @$getsite == 'blog_comments'
+			|| @$getsite == 'gallery_comments'
+			|| @$getsite == 'news_comments'
+			|| @$getsite == 'news_recomments'
+			|| @$getsite == 'polls_comments'
+			|| @$getsite == 'videos_comments'
 		) {
 			$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins_widget_settings");
 		} elseif (@$getsite == 'forum_topic') {
