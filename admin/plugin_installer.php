@@ -271,12 +271,20 @@ if (!$getnew = $plugin) {
             $output .= '<div class="d-grid gap-2"><a class="btn btn-warning mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_4'] . ' " href="?site=plugin_installer&id=' . $plug . '&up=install&dir=' . $result['item' . $plug]['path'] . '"><i class="bi bi-cloud-arrow-down"></i> ' . $_language->module['update'] . ' to Ver. ' . $result['item' . $plug]['version'] . '</a></div>';
           }
 
-          $output .= ' 
+          if (
+            @$row[ 'modulname' ] == 'footer'
+            || @$row[ 'modulname' ] == 'navigation') {
+
+
+            $output .= '';
+          } else { 
+
+            $output .= ' 
               <!-- Button trigger modal -->
               <div class="d-grid gap-2"><button type="button" class="btn btn-danger mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module['tooltip_2'] . ' " data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="admincenter.php?site=plugin_installer&deinstall=plugin&dir=' . $result['item' . $plug]['path'] . '&modulname=' . $result['item' . $plug]['modulname'] . '"><i class="bi bi-trash3"></i> 
               ' . $_language->module['plugin_deinstallieren'] . '
               </button></div></th>';
-          echo '
+            echo '
               <!-- Button trigger modal END-->            
 
               <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -296,6 +304,9 @@ if (!$getnew = $plugin) {
                       </div>
                   </div>
               </div>';
+
+          }
+          
         } else {
 
           if ($result['item' . $plug]['req'] == $version) {
