@@ -425,7 +425,7 @@ $transaction->addQuery("INSERT INTO `".PREFIX."navigation_dashboard_categories` 
 (3, '{[de]}Benutzer Administration{[en]}User Administration{[it]}Amministrazione Utenti', 'bi bi-person', 'user', 0, 3),
 (4, '{[de]}Team Verwaltung{[en]}Team Administration{[it]}Amministrazione della squadra', 'bi bi-people', 'any', 0, 4),
 (5, '{[de]}Template - Layout{[en]}Template - Layout{[it]}Template - Disposizione', 'bi bi-layout-text-window-reverse', 'page', 0, 5),
-(6, '{[de]}Plugin & Modul Verwaltung{[en]}Plugin & module management{[it]}Gestione plugin e moduli', 'bi bi-puzzle', 'page', 0, 6),
+(6, '{[de]}Plugin & Widget Verwaltung{[en]}Plugin and Widget Management{[it]}Gestione plugin e widget', 'bi bi-puzzle', 'page', 0, 6),
 (7, '{[de]}Webseiteninhalte{[en]}Website Content{[it]}Contenuto del sito web', 'bi bi-card-checklist', 'page', 0, 7),
 (8, '{[de]}Grafik - Video - Projekte{[en]}Grafik - Video - Projekte{[it]}Grafica - Video - Progetti', 'bi bi-image ', 'gallery', 0, 8),
 (9, '{[de]}Header - Slider{[en]}Header - Slider{[it]}Slider-Header', 'bi bi-fast-forward-btn', 'page', 0, 9),
@@ -456,25 +456,22 @@ $transaction->addQuery("INSERT INTO `".PREFIX."navigation_dashboard_links` (`lin
 (8, 1, '{[de]}Mod-Rewrite{[en]}Mod-Rewrite{[it]}Mod-Rewrite', 'ac_modrewrite', 'admincenter.php?site=modrewrite', 'page', 8),
 (9, 1, '{[de]}Datenbank{[en]}Database{[it]}Database', 'ac_database', 'admincenter.php?site=database', 'page', 9),
 (10, 1, '{[de]}Webspell-RM Update{[en]}Webspell-RM Update{[it]}Aggiornamento Webspell-RM', 'ac_update', 'admincenter.php?site=update', 'page', 10),
-(11, 1, '{[de]}Spracheditor{[en]}Language Editor{[it]}Editor di Linguaggi', 'ac_editlang', 'admincenter.php?site=editlang', 'page', 11),
+(11, 3, '{[de]}Registrierte Benutzer{[en]}Registered Users{[it]}Utenti Registrati', 'ac_users', 'admincenter.php?site=users', 'user', 1),
 (12, 2, '{[de]}Geblockte Inhalte{[en]}Blocked Content{[it]}Contenuti Bloccati', 'ac_spam_forum', 'admincenter.php?site=spam&amp;action=forum_spam', 'user', 1),
 (13, 2, '{[de]}Nutzer l&ouml;schen{[en]}Remove User{[it]}Banna Utente', 'ac_spam_user', 'admincenter.php?site=spam&amp;action=user', 'user', 2),
 (14, 2, '{[de]}Multi-Accounts{[en]}Multi-Accounts{[it]}Multi-Account', 'ac_spam_multi', 'admincenter.php?site=spam&amp;action=multi', 'user', 3),
 (15, 2, '{[de]}gebannte IPs{[en]}banned IPs{[it]}IP bannati', 'ac_spam_banned_ips', 'admincenter.php?site=banned_ips', 'user', 4),
-(16, 3, '{[de]}Registrierte Benutzer{[en]}Registered Users{[it]}Utenti Registrati', 'ac_users', 'admincenter.php?site=users', 'user', 1),
-(17, 5, '{[de]}Webseiten Navigation{[en]}Webside Navigation{[it]}Menu Navigazione Web', 'ac_webside_navigation', 'admincenter.php?site=webside_navigation', 'page', 1),
-(18, 5, '{[de]}Templates Installer{[en]}Templates Installer{[it]}Installazione Temi', 'ac_template_installer', 'admincenter.php?site=template_installer', 'page', 2),
-(19, 5, '{[de]}Templates - Style{[en]}Templates - Style{[it]}Templates Grafici', 'ac_templates', 'admincenter.php?site=settings_templates', 'page', 3),
-(20, 5, '{[de]}Head Elements{[en]}Head Elements{[it]}Elementi Head', 'ac_headelements', 'admincenter.php?site=settings_headelements', 'page', 4),
-(21, 5, '{[de]}Startseite{[en]}Start Page{[it]}Pagina Principale', 'ac_startpage', 'admincenter.php?site=settings_startpage', 'page', 5),
-(22, 5, '{[de]}Statische Seiten{[en]}Static Pages{[it]}Pagine Statiche', 'ac_static', 'admincenter.php?site=settings_static', 'page', 6),
-(23, 5, '{[de]}Impressum{[en]}Imprint{[it]}Impronta Editoriale', 'ac_imprint', 'admincenter.php?site=settings_imprint', 'page', 7),
-(24, 5, '{[de]}Datenschutz-Bestimmungen{[en]}Privacy Policy{[it]}Informativa sulla Privacy', 'ac_privacy_policy', 'admincenter.php?site=settings_privacy_policy', 'page', 8),
-(25, 6, '{[de]}Plugin Manager{[en]}Plugin Manager{[it]}Gestione Plugin', 'ac_plugin_manager', 'admincenter.php?site=plugin_manager', 'page', 1),
-(26, 6, '{[de]}Plugin Installer{[en]}Plugin Installer{[it]}Installazione Plugin', 'ac_plugin_installer', 'admincenter.php?site=plugin_installer', 'page', 2),
-(27, 6, '{[de]}Widgets sortieren{[en]}Sort widgets{[it]}Ordina i widget', 'ac_plugin_widgets', 'admincenter.php?site=plugin_widgets', 'page', 3),
-(28, 6, '{[de]}Modul & Widget Übersicht{[en]}Module & Widget Overview{[it]}Panoramica del modulo e del widget', 'ac_modul_widgets', 'admincenter.php?site=plugin_module', 'page', 4),
-(29, 7, '{[de]}Footer{[en]}Footer{[it]}Elementi Footer', 'footer', 'admincenter.php?site=admin_footer', 'page', 1)");
+(16, 5, '{[de]}Webseiten Navigation{[en]}Webside Navigation{[it]}Menu Navigazione Web', 'ac_webside_navigation', 'admincenter.php?site=webside_navigation', 'page', 1),
+(17, 5, '{[de]}Themes Installer{[en]}Themes Installer{[it]}Installazione Themes', 'ac_themes', 'admincenter.php?site=themes_installer', 'page', 2),
+(18, 5, '{[de]}Themes - Style{[en]}Themes - Style{[it]}Themes Grafici', 'ac_themes', 'admincenter.php?site=settings_themes', 'page', 3),
+(20, 5, '{[de]}Startseite{[en]}Start Page{[it]}Pagina Principale', 'ac_startpage', 'admincenter.php?site=settings_startpage', 'page', 5),
+(21, 5, '{[de]}Statische Seiten{[en]}Static Pages{[it]}Pagine Statiche', 'ac_static', 'admincenter.php?site=settings_static', 'page', 6),
+(22, 5, '{[de]}Impressum{[en]}Imprint{[it]}Impronta Editoriale', 'ac_imprint', 'admincenter.php?site=settings_imprint', 'page', 7),
+(23, 5, '{[de]}Datenschutz-Bestimmungen{[en]}Privacy Policy{[it]}Informativa sulla Privacy', 'ac_privacy_policy', 'admincenter.php?site=settings_privacy_policy', 'page', 8),
+(24, 6, '{[de]}Plugin & Widget Manager{[en]}Plugin & Widget Manager{[it]}Gestore di plugin e widget', 'ac_plugin_manager', 'admincenter.php?site=plugin_manager', 'page', 1),
+(25, 6, '{[de]}Plugin Installer{[en]}Plugin Installer{[it]}Installazione Plugin', 'ac_plugin_installer', 'admincenter.php?site=plugin_installer', 'page', 2),
+(26, 1, '{[de]}Spracheditor{[en]}Language Editor{[it]}Editor di Linguaggi', 'ac_editlang', 'admincenter.php?site=editlang', 'page', 11),
+(27, 7, '{[de]}Footer{[en]}Footer{[it]}Piè di pagina', 'footer', 'admincenter.php?site=admin_footer', 'page', 1)");
 
 ##############################################################################################################################
 ##############################################################################################################################
@@ -596,15 +593,15 @@ $transaction->addQuery("CREATE TABLE `" . PREFIX . "plugins_footer` (
   `widget_left` varchar(255) NOT NULL,
   `widget_center` varchar(255) NOT NULL,
   `widget_right` varchar(255) NOT NULL,
-  `widgetname_left` varchar(255) NOT NULL,
-  `widgetname_center` varchar(255) NOT NULL,
-  `widgetname_right` varchar(255) NOT NULL,
+  `widgetdatei_left` varchar(255) NOT NULL,
+  `widgetdatei_center` varchar(255) NOT NULL,
+  `widgetdatei_right` varchar(255) NOT NULL,
   PRIMARY KEY  (`footID`)
 ) AUTO_INCREMENT=2
   DEFAULT CHARSET=utf8mb4");
 
-$transaction->addQuery("INSERT INTO `" . PREFIX . "plugins_footer` (`footID`, `banner`, `about`, `name`, `strasse`, `email`, `telefon`, `since`, `linkname1`, `navilink1`, `linkname2`, `navilink2`, `linkname3`, `navilink3`, `linkname4`, `navilink4`, `linkname5`, `navilink5`, `linkname6`, `navilink6`, `linkname7`, `navilink7`, `linkname8`, `navilink8`, `linkname9`, `navilink9`, `linkname10`, `navilink10`, `social_text`, `social_link_name1`, `social_link1`, `social_link_name2`, `social_link2`, `social_link_name3`, `social_link3`, `copyright_link_name1`, `copyright_link1`, `copyright_link_name2`, `copyright_link2`, `copyright_link_name3`, `copyright_link3`, `copyright_link_name4`, `copyright_link4`, `copyright_link_name5`, `copyright_link5`, `widget_left`, `widget_center`, `widget_right`, `widgetname_left`, `widgetname_center`, `widgetname_right`) VALUES
-(1, '', 'Team Clanname ist eine 1999 gegr&#252;ndete deutsche E-Sport-Organisation, welche &#252;ber professionelle Spieler in unterschiedlichen Disziplinen verf&#252;gt...', 'Hans Mustermann', 'Musterhausen 11, Germany', 'mail@Clanname-esport.de', '(123) 456-7890', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Impressum', 'index.php?site=imprint', 'Datenschutz', 'index.php?site=privacy_policy', 'Kontakt', 'index.php?site=contact', 'Counter', 'index.php?site=counter', '', '', '', '', '', '', '', '')");
+$transaction->addQuery("INSERT INTO `" . PREFIX . "plugins_footer` (`footID`, `banner`, `about`, `name`, `strasse`, `email`, `telefon`, `since`, `linkname1`, `navilink1`, `linkname2`, `navilink2`, `linkname3`, `navilink3`, `linkname4`, `navilink4`, `linkname5`, `navilink5`, `linkname6`, `navilink6`, `linkname7`, `navilink7`, `linkname8`, `navilink8`, `linkname9`, `navilink9`, `linkname10`, `navilink10`, `social_text`, `social_link_name1`, `social_link1`, `social_link_name2`, `social_link2`, `social_link_name3`, `social_link3`, `copyright_link_name1`, `copyright_link1`, `copyright_link_name2`, `copyright_link2`, `copyright_link_name3`, `copyright_link3`, `copyright_link_name4`, `copyright_link4`, `copyright_link_name5`, `copyright_link5`, `widget_left`, `widget_center`, `widget_right`, `widgetdatei_left`, `widgetdatei_center`, `widgetdatei_right`) VALUES
+(1, '', 'Team Clanname ist eine 1999 gegr&uuml;ndete deutsche E-Sport-Organisation, welche &uuml;ber professionelle Spieler in unterschiedlichen Disziplinen verf&uuml;gt...', 'Hans Mustermann', 'Musterhausen 11, Germany', 'mail@Clanname-esport.de', '(123) 456-7890', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Impressum', 'index.php?site=imprint', 'Datenschutz', 'index.php?site=privacy_policy', 'Kontakt', 'index.php?site=contact', 'Counter', 'index.php?site=counter', '', '', 'blog', 'about_us', 'userlist', '', '', '')");
 
 $transaction->addQuery("DROP TABLE IF EXISTS `" . PREFIX . "plugins_footer_target`");
 $transaction->addQuery("CREATE TABLE `" . PREFIX . "plugins_footer_target` (
@@ -647,6 +644,37 @@ function update_rm_14($_database) {
 ##############################################################################################################################
 ##############################################################################################################################
 
+$transaction->addQuery("DROP TABLE IF EXISTS `" . PREFIX . "plugins_startpage_settings_widgets`");
+$transaction->addQuery("CREATE TABLE `" . PREFIX . "plugins_startpage_settings_widgets` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `position` varchar(255) NOT NULL,
+  `modulname` varchar(255) NOT NULL,
+  `themes_modulname` varchar(255) NOT NULL,
+  `widgetname` varchar(255) NOT NULL,
+  `widgetdatei` varchar(255) NOT NULL,
+  `activated` int(1) DEFAULT '1',
+  `sort` int(11) DEFAULT '1',
+PRIMARY KEY (`id`)
+) AUTO_INCREMENT=3
+  DEFAULT CHARSET=utf8mb4");
+
+$transaction->addQuery("INSERT INTO `" . PREFIX . "plugins_startpage_settings_widgets` (`id`, `position`, `modulname`, `themes_modulname`, `widgetname`, `widgetdatei`, `activated`, `sort`) VALUES
+(1, 'navigation_widget', 'navigation', 'default', 'Navigation', 'widget_navigation', 1, 1),
+(2, 'footer_widget', 'footer', 'default', 'Footer Easy', 'widget_footer_easy', 1, 2)");
+
+##############################################################################################################################
+##############################################################################################################################
+if ($transaction->successful()) {
+        return array('status' => 'success', 'message' => '<div class="list-group-item list-group-item-success">&nbsp;Install successful for Webspell RM Database: <i>plugins_startpage_settings_widgets</i> <i class="bi bi-check2"></i></div>');
+    } else {
+        return array('status' => 'fail', 'message' => '- Failed to install Webspell-RM<br/>' . $transaction->getError());
+    }
+}
+function update_rm_15($_database) {
+  $transaction = new Transaction($_database);
+##############################################################################################################################
+##############################################################################################################################
+
 global $adminname;
 global $adminmail;
 global $url;
@@ -666,7 +694,7 @@ $transaction->addQuery("CREATE TABLE `" . PREFIX . "settings` (
   `latesttopics` int(11) NOT NULL,
   `latesttopicchars` int(11) NOT NULL DEFAULT '0',
   `messages` int(11) NOT NULL DEFAULT '0',
-  `register_per_ip` int(1) NOT NULL DEFAULT '1',
+  `register_per_ip` int(1) NOT NULL DEFAULT 1,
   `sessionduration` int(3) NOT NULL,
   `closed` int(1) NOT NULL DEFAULT '0',
   `imprint` int(1) NOT NULL DEFAULT '0',
@@ -688,19 +716,21 @@ $transaction->addQuery("CREATE TABLE `" . PREFIX . "settings` (
   `date_format` varchar(255) NOT NULL DEFAULT 'd.m.Y',
   `time_format` varchar(255) NOT NULL DEFAULT 'H:i',
   `modRewrite` int(1) NOT NULL DEFAULT '0',
-  `startpage` varchar(255) NOT NULL DEFAULT '',  
+  `startpage` varchar(255) NOT NULL,
   `forum_double` int(1) NOT NULL DEFAULT '1',
   `profilelast` int(11) NOT NULL DEFAULT '10',
   `de_lang` int(1) DEFAULT '1',
   `en_lang` int(1) DEFAULT '1',
   `it_lang` int(1) DEFAULT '1',
   `birthday` int(11) NOT NULL DEFAULT '0',
+  `keywords` text NOT NULL,
+  `description` text NOT NULL,
   PRIMARY KEY (`settingID`)
 ) AUTO_INCREMENT=2
   DEFAULT CHARSET=utf8mb4");
 
-    $transaction->addQuery("INSERT IGNORE INTO `" . PREFIX . "settings` (`settingID`, `title`, `hpurl`, `clanname`, `clantag`, `adminname`, `adminemail`, `sball`, `topics`, `posts`, `latesttopics`, `latesttopicchars`, `messages`, `register_per_ip`, `sessionduration`, `closed`, `imprint`, `default_language`, `insertlinks`, `search_min_len`, `max_wrong_pw`, `captcha_math`, `captcha_bgcol`, `captcha_fontcol`, `captcha_type`, `captcha_noise`, `captcha_linenoise`, `bancheck`, `spam_check`, `detect_language`, `spammaxposts`, `spamapiblockerror`, `date_format`, `time_format`, `modRewrite`, `startpage`, `forum_double`, `profilelast`, `de_lang`, `en_lang`, `it_lang`, `birthday`) VALUES
-(1, 'Webspell-RM', '" . $url . "', 'Clan Name', 'MyClan', '" . $adminname . "', '" . $adminmail . "', 30, 20, 10, 10, 18, 20, 1, 0, 0, 1, 'de', 1, 3, 10, 2, '#FFFFFF', '#000000', 2, 100, 10, 1564938159, 0, 0, 0, 0, 'd.m.Y', 'H:i', 0, 'startpage', 1, 10, 1, 1, 1, 0)");
+    $transaction->addQuery("INSERT IGNORE INTO `" . PREFIX . "settings` (`settingID`, `title`, `hpurl`, `clanname`, `clantag`, `adminname`, `adminemail`, `sball`, `topics`, `posts`, `latesttopics`, `latesttopicchars`, `messages`, `register_per_ip`, `sessionduration`, `closed`, `imprint`, `default_language`, `insertlinks`, `search_min_len`, `max_wrong_pw`, `captcha_math`, `captcha_bgcol`, `captcha_fontcol`, `captcha_type`, `captcha_noise`, `captcha_linenoise`, `bancheck`, `spam_check`, `detect_language`, `spammaxposts`, `spamapiblockerror`, `date_format`, `time_format`, `modRewrite`, `startpage`, `forum_double`, `profilelast`, `de_lang`, `en_lang`, `it_lang`, `birthday`, `keywords`, `description`) VALUES
+(1, 'Webspell-RM', '" . $url . "', 'Clan Name', 'MyClan', '" . $adminname . "', '" . $adminmail . "', 30, 20, 10, 10, 18, 20, 1, 0, 0, 1, 'de', 1, 3, 10, 2, '#FFFFFF', '#000000', 2, 100, 10, 1564938159, 0, 0, 0, 0, 'd.m.Y', 'H:i', 0, 'startpage', 1, 10, 1, 1, 1, 0, 'Clandesign, Webspell, Webspell-RM, Wespellanpassungen, Webdesign, Tutorials, Downloads, Webspell-rm, rm, addon, plugin, Templates Webspell Addons, plungin, mods, Webspellanpassungen, Modifikationen und Anpassungen und mehr!', 'Kostenlose Homepage erstellen mit Webspell-RM CMS: Einfach, schnell & kostenlos! In wenigen Minuten mit der eigenen Website online gehen.')");
 
 ##############################################################################################################################
 ##############################################################################################################################
@@ -710,7 +740,7 @@ if ($transaction->successful()) {
         return array('status' => 'fail', 'message' => '- Failed to install Webspell-RM<br/>' . $transaction->getError());
     }
 }
-function update_rm_15($_database) {
+function update_rm_16($_database) {
   $transaction = new Transaction($_database);
 ##############################################################################################################################
 ##############################################################################################################################
@@ -770,7 +800,7 @@ $transaction->addQuery("CREATE TABLE `" . PREFIX . "settings_buttons` (
   DEFAULT CHARSET=utf8mb4");
 
 $transaction->addQuery("INSERT IGNORE INTO `" . PREFIX . "settings_buttons` (`buttonID`, `name`, `modulname`, `active`, `version`, `button1`, `button2`, `button3`, `button4`, `button5`, `button6`, `button7`, `button8`, `button9`, `button10`, `button11`, `button12`, `button13`, `button14`, `button15`, `button16`, `button17`, `button18`, `button19`, `button20`, `button21`, `button22`, `button23`, `button24`, `button25`, `button26`, `button27`, `button28`, `button29`, `button30`, `button31`, `button32`, `button33`, `button34`, `button35`, `button36`, `button37`, `button38`, `button39`, `button40`, `button41`, `button42`, `btn_border_radius`) VALUES
-(1, 'default', 'default', 1, '0.2', 'rgb(254,130,29)', 'rgb(196,89,1)', 'rgb(255,255,255)', 'rgb(254,130,29)', 'rgb(196,89,1)', 'rgb(108,117,125)', 'rgb(90,98,104)', 'rgb(255,255,255)', 'rgb(108,117,125)', 'rgb(84,91,98)', 'rgb(40,167,69)', 'rgb(33,136,56)', 'rgb(255,255,255)', 'rgb(40,167,69)', 'rgb(30,126,52)', 'rgb(220,53,69)', 'rgb(200,35,51)', 'rgb(255,255,255)', 'rgb(220,53,69)', 'rgb(189,33,48)', 'rgb(255,193,7)', 'rgb(224,168,0)', 'rgb(33,37,41)', 'rgb(255,193,7)', 'rgb(211,158,0)', 'rgb(23,162,184)', 'rgb(19,132,150)', 'rgb(255,255,255)', 'rgb(23,162,184)', 'rgb(17,122,139)', 'rgb(248,249,250)', 'rgb(226,230,234)', 'rgb(33,37,41)', 'rgb(248,249,250)', 'rgb(218,224,229)', 'rgb(52,58,64)', 'rgb(35,39,43)', 'rgb(255,255,255)', 'rgb(52,58,64)', 'rgb(29,33,36)', 'rgb(254,130,29)', 'rgb(196,89,1)', '0px')");
+(81, 'Default', 'default', 0, '0.3', 'rgb(254,130,29)', 'rgb(196,89,1)', 'rgb(255,255,255)', 'rgb(254,130,29)', 'rgb(196,89,1)', 'rgb(108,117,125)', 'rgb(90,98,104)', 'rgb(255,255,255)', 'rgb(108,117,125)', 'rgb(84,91,98)', 'rgb(40,167,69)', 'rgb(33,136,56)', 'rgb(255,255,255)', 'rgb(40,167,69)', 'rgb(30,126,52)', 'rgb(220,53,69)', 'rgb(200,35,51)', 'rgb(255,255,255)', 'rgb(220,53,69)', 'rgb(189,33,48)', 'rgb(255,193,7)', 'rgb(224,168,0)', 'rgb(33,37,41)', 'rgb(255,193,7)', 'rgb(211,158,0)', 'rgb(23,162,184)', 'rgb(19,132,150)', 'rgb(255,255,255)', 'rgb(23,162,184)', 'rgb(17,122,139)', 'rgb(248,249,250)', 'rgb(226,230,234)', 'rgb(33,37,41)', 'rgb(248,249,250)', 'rgb(218,224,229)', 'rgb(52,58,64)', 'rgb(35,39,43)', 'rgb(255,255,255)', 'rgb(52,58,64)', 'rgb(29,33,36)', 'rgb(254,130,29)', 'rgb(196,89,1)', '0px')");
 
 ##############################################################################################################################
 ##############################################################################################################################
@@ -780,36 +810,86 @@ if ($transaction->successful()) {
         return array('status' => 'fail', 'message' => '- Failed to install Webspell-RM<br/>' . $transaction->getError());
     }
 }
-function update_rm_16($_database) {
+function update_rm_17($_database) {
   $transaction = new Transaction($_database);
 ##############################################################################################################################
 ##############################################################################################################################
 
-$transaction->addQuery("DROP TABLE IF EXISTS `".PREFIX."settings_headelements`");
-$transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."settings_headelements` (
-  `headelementID` int(11) NOT NULL AUTO_INCREMENT,
-  `banner` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `name` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `site` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `modulname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `info` text NOT NULL,
-  `displayed` int(1) DEFAULT '0',
-PRIMARY KEY  (`headelementID`)
-) AUTO_INCREMENT=1
-  DEFAULT CHARSET=utf8mb4");
+$transaction->addQuery("DROP TABLE IF EXISTS `".PREFIX."settings_expansion`");
+$transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."settings_expansion` (
+  `themeID` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `modulname` varchar(100) NOT NULL,
+  `pfad` varchar(255) NOT NULL,
+  `version` varchar(11) NOT NULL,
+  `active` int(11) DEFAULT NULL,
+  `express_active` int(11) NOT NULL DEFAULT '0',
+  `nav1` varchar(255) NOT NULL,
+  `nav2` varchar(255) NOT NULL,
+  `nav3` varchar(255) NOT NULL,
+  `nav4` varchar(255) NOT NULL,
+  `nav5` varchar(255) NOT NULL,
+  `nav6` varchar(255) NOT NULL,
+  `nav7` varchar(255) NOT NULL,
+  `nav8` varchar(255) NOT NULL,
+  `nav9` varchar(255) NOT NULL,
+  `nav10` varchar(255) NOT NULL,
+  `nav11` varchar(255) NOT NULL,
+  `nav12` varchar(255) NOT NULL,
+  `nav_text_alignment` varchar(255) DEFAULT '0',
+  `body1` text NOT NULL,
+  `body2` varchar(255) NOT NULL,
+  `body3` varchar(255) NOT NULL,
+  `body4` varchar(255) NOT NULL,
+  `body5` varchar(255) NOT NULL,
+  `background_pic` varchar(255) DEFAULT '0',
+  `border_radius` varchar(255) DEFAULT '0',
+  `typo1` varchar(255) NOT NULL,
+  `typo2` varchar(255) NOT NULL,
+  `typo3` varchar(255) NOT NULL,
+  `typo4` varchar(255) NOT NULL,
+  `typo5` varchar(255) NOT NULL,
+  `typo6` varchar(255) NOT NULL,
+  `typo7` varchar(255) NOT NULL,
+  `typo8` varchar(255) NOT NULL,
+  `card1` varchar(255) NOT NULL,
+  `card2` varchar(255) NOT NULL,
+  `foot1` varchar(255) NOT NULL,
+  `foot2` varchar(255) NOT NULL,
+  `foot3` varchar(255) NOT NULL,
+  `foot4` varchar(255) NOT NULL,
+  `foot5` varchar(255) NOT NULL,
+  `foot6` varchar(255) NOT NULL,
+  `calendar1` varchar(255) NOT NULL,
+  `calendar2` varchar(255) NOT NULL,
+  `carousel1` varchar(255) NOT NULL,
+  `carousel2` varchar(255) NOT NULL,
+  `carousel3` varchar(255) NOT NULL,
+  `carousel4` varchar(255) NOT NULL,
+  `logo_pic` varchar(255) DEFAULT '0',
+  `logotext1` varchar(255) NOT NULL,
+  `logotext2` varchar(255) NOT NULL,
+  `reg_pic` varchar(255) NOT NULL,
+  `reg1` varchar(255) NOT NULL,
+  `reg2` varchar(255) NOT NULL,
+  `headlines` varchar(255) DEFAULT '0',
+  `sort` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`themeID`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;");
 
-$transaction->addQuery("INSERT IGNORE INTO `" . PREFIX . "settings_headelements` (`headelementID`, `banner`, `name`, `site`, `modulname`, `info`, `displayed`) VALUES
-(1, '', 'Startpage', '', '', '', 0)");
+$transaction->addQuery("INSERT INTO `" . PREFIX . "settings_expansion` (`themeID`, `name`, `modulname`, `pfad`, `version`, `active`, `express_active`, `nav1`, `nav2`, `nav3`, `nav4`, `nav5`, `nav6`, `nav7`, `nav8`, `nav9`, `nav10`, `nav11`, `nav12`, `nav_text_alignment`, `body1`, `body2`, `body3`, `body4`, `body5`, `background_pic`, `border_radius`, `typo1`, `typo2`, `typo3`, `typo4`, `typo5`, `typo6`, `typo7`, `typo8`, `card1`, `card2`, `foot1`, `foot2`, `foot3`, `foot4`, `foot5`, `foot6`, `calendar1`, `calendar2`, `carousel1`, `carousel2`, `carousel3`, `carousel4`, `logo_pic`, `logotext1`, `logotext2`, `reg_pic`, `reg1`, `reg2`, `headlines`, `sort`) VALUES
+(7, 'Default', 'default', 'default', '0.3', 1, 0, 'rgb(51,51,51)', '16px', 'rgb(221,221,221)', 'rgb(254,130,29)', 'rgb(254,130,29)', '2px', 'rgb(221,221,221)', 'rgb(196,89,1)', '#1bdf1b', 'rgb(51,51,51)', 'rgb(221,221,221)', 'rgb(101,100,100)', 'ms-auto', 'Roboto', '13px', 'rgb(255,255,255)', 'rgb(85,85,85)', 'rgb(236,236,236)', '', '0px', '', '', '', 'rgb(254,130,29)', '', '', '', 'rgb(196,89,1)', 'rgb(255,255,255)', 'rgb(221,221,221)', 'rgb(85,85,85)', 'rgb(255,255,255)', 'rgb(255,255,255)', 'rgb(181,179,179)', 'rgb(254,130,29)', 'rgb(255,255,255)', '', '', 'rgb(255,255,255)', 'rgb(254,130,29)', 'rgb(255,255,255)', 'rgb(254,130,29)', 'default_logo.png', '', '', 'default_login_bg.jpg', 'rgb(254,130,29)', 'rgb(255,255,255)', 'headlines_01.css', 1)");
+
 
 ##############################################################################################################################
 ##############################################################################################################################
 if ($transaction->successful()) {
-        return array('status' => 'success', 'message' => '<div class="list-group-item list-group-item-success">&nbsp;Install successful for Webspell RM Database: <i>settings_headelements</i> <i class="bi bi-check2"></i></div>');
+        return array('status' => 'success', 'message' => '<div class="list-group-item list-group-item-success">&nbsp;Install successful for Webspell RM Database: <i>settings_expansion</i> <i class="bi bi-check2"></i></div>');
     } else {
         return array('status' => 'fail', 'message' => '- Failed to install Webspell-RM<br/>' . $transaction->getError());
     }
 }
-function update_rm_17($_database) {
+function update_rm_18($_database) {
   $transaction = new Transaction($_database);
 ##############################################################################################################################
 ##############################################################################################################################
@@ -833,7 +913,7 @@ if ($transaction->successful()) {
         return array('status' => 'fail', 'message' => '- Failed to install Webspell-RM<br/>' . $transaction->getError());
     }
 }
-function update_rm_18($_database) {
+function update_rm_19($_database) {
   $transaction = new Transaction($_database);
 ##############################################################################################################################
 ##############################################################################################################################
@@ -893,62 +973,6 @@ if ($transaction->successful()) {
         return array('status' => 'fail', 'message' => '- Failed to install Webspell-RM<br/>' . $transaction->getError());
     }
 }
-function update_rm_19($_database) {
-  $transaction = new Transaction($_database);
-##############################################################################################################################
-##############################################################################################################################
-
-$transaction->addQuery("DROP TABLE IF EXISTS `" . PREFIX . "settings_module`");
-$transaction->addQuery("CREATE TABLE `" . PREFIX . "settings_module` (
-  `pluginID` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `modulname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `themes_modulname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `full_activated` int(1) DEFAULT 0,
-  `custom_activated` int(1) DEFAULT 0,
-  `via_navigation` int(1) DEFAULT 0,
-  `head_activated` int(1) DEFAULT 0,
-  `content_head_activated` int(1) DEFAULT 0,
-  `content_foot_activated` int(1) DEFAULT 0,
-  `head_section_activated` int(1) DEFAULT 0,
-  `foot_section_activated` int(1) DEFAULT 0,
-  `modul_display` int(1) DEFAULT 0,
-  `activate` int(1) DEFAULT 0,
-  `sidebar` varchar(255) DEFAULT 'activated',
-  `plugin_settings` int(1) DEFAULT 0,
-  `plugin_module` int(1) DEFAULT 0,
-  `plugin_widget` int(1) DEFAULT 0,
-  `widget1` int(1) DEFAULT 0,
-  `widget2` int(1) DEFAULT 0,
-  `widget3` int(1) DEFAULT 0,
-  PRIMARY KEY (`pluginID`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;");
-
-$transaction->addQuery("INSERT INTO `".PREFIX."settings_module` (`pluginID`, `name`, `modulname`, `themes_modulname`, `full_activated`, `custom_activated`, `via_navigation`, `head_activated`, `content_head_activated`, `content_foot_activated`, `head_section_activated`, `foot_section_activated`, `modul_display`, `activate`, `sidebar`, `plugin_settings`, `plugin_module`, `plugin_widget`, `widget1`, `widget2`, `widget3`) VALUES
-(1, 'Startpage', '', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 'activated', 0, 1, 0, 0, 0, 0),
-(2, '', 'startpage', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 1, 0, 0, 0, 0),
-(3, 'report', 'report', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 0, 0, 0, 0, 0),
-(4, 'My Profile', 'myprofile', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 0, 0, 0, 0, 0),
-(5, 'Error_404', 'error_404', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 0, 0, 0, 0, 0),
-(6, 'Static', 'static', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 0, 0, 0, 0, 0),
-(7, 'Imprint', 'imprint', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 0, 0, 0, 0, 0),
-(8, 'Privacy Policy', 'privacy_policy', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 0, 0, 0, 0, 0),
-(9, 'Contact', 'contact', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 0, 0, 0, 0, 0),
-(10, 'Register', 'register', 'default', 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 0, 0, 0, 0, 0),
-(11, 'Lost Password', 'lostpassword', 'default', 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 0, 0, 0, 0, 0),
-(12, 'Login', 'login', 'default', 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 0, 0, 0, 0, 0),
-(13, 'Profile', 'profile', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 0, 0, 0, 0, 0, 0),
-(14, 'Navigation', 'navigation', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 1, 0, 1, 1, 0, 0),
-(15, 'Footer', 'footer', 'default', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'activated', 1, 0, 1, 1, 1, 1)");
-
-##############################################################################################################################
-##############################################################################################################################
-if ($transaction->successful()) {
-        return array('status' => 'success', 'message' => '<div class="list-group-item list-group-item-success">&nbsp;Install successful for Webspell RM Database: <i>settings_module</i> <i class="bi bi-check2"></i></div>');
-    } else {
-        return array('status' => 'fail', 'message' => '- Failed to install Webspell-RM<br/>' . $transaction->getError());
-    }
-}
 function update_rm_20($_database) {
   $transaction = new Transaction($_database);
 ##############################################################################################################################
@@ -957,43 +981,41 @@ function update_rm_20($_database) {
 $transaction->addQuery("DROP TABLE IF EXISTS `".PREFIX."settings_plugins`");
 $transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."settings_plugins` (
   `pluginID` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `modulname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `modulname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `info` text NOT NULL,
   `admin_file` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `activate` int(1) NOT NULL DEFAULT 1,
-  `author` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `website` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `index_link` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `author` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `website` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `index_link` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `hiddenfiles` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `version` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `widgetname1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '',
-  `widgetname2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '',
-  `widgetname3` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '',
-  `widget_link1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '',
-  `widget_link2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '',
-  `widget_link3` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '',
-  `modul_display` int(11) NOT NULL DEFAULT 0,
+  `version` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status_display` int(1) NOT NULL DEFAULT 1,
+  `plugin_display` int(11) NOT NULL DEFAULT 1,
+  `widget_display` int(11) NOT NULL DEFAULT 1,
+  `delete_display` int(1) NOT NULL DEFAULT 1,
+  `sidebar` varchar(255) NOT NULL DEFAULT 'deactivated',
   PRIMARY KEY (`pluginID`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;");
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;");
 
-$transaction->addQuery("INSERT INTO `".PREFIX."settings_plugins` (`pluginID`, `name`, `modulname`, `info`, `admin_file`, `activate`, `author`, `website`, `index_link`, `hiddenfiles`, `version`, `path`, `widgetname1`, `widgetname2`, `widgetname3`, `widget_link1`, `widget_link2`, `widget_link3`, `modul_display`) VALUES
-(1, 'Startpage', '', '{[de]}STARTPAGE Hier kannst du die Einstellung f&#252;r deine Startseite vornehmen!!!{[it]}PAGINA INIZIALE Qui puoi effettuare le impostazioni per la tua home page!!!{[en]}START PAGE Here you can make the settings for your home page!!!', '', 1, '', '', '', '', '', '', '', '', '', '', '', '', 1),
-(2, '', 'startpage', '{[de]}STARTPAGE Hier kannst du die Einstellung f&#252;r deine Startseite vornehmen!!!{[it]}PAGINA INIZIALE Qui puoi effettuare le impostazioni per la tua home page!!!{[en]}START PAGE Here you can make the settings for your home page!!!', '', 1, '', '', '', '', '', '', '', '', '', '', '', '', 0),
-(3, 'Privacy Policy', 'privacy_policy', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'privacy_policy', '', '', '', '', '', '', '', '', '', 1),
-(4, 'Imprint', 'imprint', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'imprint', '', '', '', '', '', '', '', '', '', 1),
-(5, 'Static', 'static', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'static', '', '', '', '', '', '', '', '', '', 1),
-(6, 'Error_404', 'error_404', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'error_404', '', '', '', '', '', '', '', '', '', 1),
-(7, 'Profile', 'profile', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'profile', '', '', '', '', '', '', '', '', '', 1),
-(8, 'Login', 'login', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'login', '', '', '', '', '', '', '', '', '', 1),
-(9, 'Lost Password', 'lostpassword', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'lostpassword', '', '', '', '', '', '', '', '', '', 1),
-(10, 'Contact', 'contact', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'contact', '', '', '', '', '', '', '', '', '', 1),
-(11, 'Register', 'register', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'register', '', '', '', '', '', '', '', '', '', 1),
-(12, 'My Profile', 'myprofile', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'myprofile', '', '', '', '', '', '', '', '', '', 1),
-(13, 'Report', 'report', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'report', '', '', '', '', '', '', '', '', '', 1),
-(14, 'Navigation', 'navigation', '{[de]}Mit diesem Plugin k&#246;nnt ihr euch die Navigation anzeigen lassen.{[en]}With this plugin you can display the navigation.{[it]}Con questo plugin puoi visualizzare la navigazione.', '', 1, 'T-Seven', 'https://webspell-rm.de', '', '', '0.3', 'includes/plugins/navigation/', 'Navigation', '', '', 'widget_navigation', '', '', 1),
-(15, 'Footer', 'footer', '{[de]}Mit diesem Plugin k&#246;nnt ihr einen neuen Footer anzeigen lassen.{[en]}With this plugin you can have a new Footer displayed.{[it]}Con questo plugin puoi visualizzare un nuovo piè di pagina.', 'admin_footer', 1, 'T-Seven', 'https://webspell-rm.de', 'admin_footer', '', '0.1', 'includes/plugins/footer/', 'Default Footer Content', 'Easy Footer Content', 'Plugin_footer Content', 'widget_default_footer_content', 'widget_easyfooter_content', 'widget_plugin_footer_content', 1)");
+$transaction->addQuery("INSERT INTO `".PREFIX."settings_plugins` (`pluginID`, `name`, `modulname`, `info`, `admin_file`, `activate`, `author`, `website`, `index_link`, `hiddenfiles`, `version`, `path`, `status_display`, `plugin_display`, `widget_display`, `delete_display`, `sidebar`) VALUES
+(1, 'Startpage', 'startpage', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', '', '', '', '', 0, 0, 1, 0, 'full_activated'),
+(2, 'Privacy Policy', 'privacy_policy', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'privacy_policy', '', '', '', 0, 0, 1, 0, 'deactivated'),
+(3, 'Imprint', 'imprint', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'imprint', '', '', '', 0, 0, 1, 0, 'deactivated'),
+(4, 'Static', 'static', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'static', '', '', '', 1, 0, 1, 0, 'deactivated'),
+(5, 'Error_404', 'error_404', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'error_404', '', '', '', 1, 0, 1, 0, 'deactivated'),
+(6, 'Profile', 'profile', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'profile', '', '', '', 1, 0, 1, 0, 'deactivated'),
+(7, 'Login', 'login', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'login', '', '', '', 1, 0, 1, 0, 'deactivated'),
+(8, 'Lost Password', 'lostpassword', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'lostpassword', '', '', '', 1, 0, 1, 0, 'deactivated'),
+(9, 'Contact', 'contact', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'contact', '', '', '', 1, 0, 1, 0, 'deactivated'),
+(10, 'Register', 'register', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'register', '', '', '', 1, 0, 1, 0, 'deactivated'),
+(11, 'My Profile', 'myprofile', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'myprofile', '', '', '', 1, 0, 1, 0, 'deactivated'),
+(12, 'Report', 'report', '{[de]}Kein Plugin. Bestandteil vom System!!!{[en]}No plugin. Part of the system!!!{[it]}Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'report', '', '', '', 1, 0, 1, 0, 'deactivated'),
+(13, 'Navigation', 'navigation', '{[de]}Mit diesem Plugin könnt ihr euch die Navigation anzeigen lassen.{[en]}With this plugin you can display navigation.{[it]}Con questo plugin puoi visualizzare la Barra di navigazione predefinita.', '', 1, 'T-Seven', 'https://webspell-rm.de', '', '', '0.3', 'includes/plugins/navigation/', 1, 1, 0, 0, 'deactivated'),
+(14, 'Footer', 'footer', '{[de]}Mit diesem Plugin könnt ihr einen neuen Footer anzeigen lassen.{[en]}With this plugin you can have a new Footer displayed.{[it]}Con questo plugin puoi visualizzare un nuovo piè di pagina.', 'admin_footer', 1, 'T-Seven', 'https://webspell-rm.de', '', '', '0.1', 'includes/plugins/footer/', 1, 1, 0, 0, 'deactivated')");
+
 
 ##############################################################################################################################
 ##############################################################################################################################
@@ -1004,6 +1026,69 @@ if ($transaction->successful()) {
     }
 }
 function update_rm_21($_database) {
+  $transaction = new Transaction($_database);
+##############################################################################################################################
+##############################################################################################################################
+
+$transaction->addQuery("DROP TABLE IF EXISTS `".PREFIX."settings_plugins_widget`");
+$transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."settings_plugins_widget` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `modulname` varchar(100) NOT NULL,
+  `widgetname` varchar(255) NOT NULL,
+  `widgetdatei` varchar(255) NOT NULL,
+  `area` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;");
+
+$transaction->addQuery("INSERT INTO `".PREFIX."settings_plugins_widget` (`id`, `modulname`, `widgetname`, `widgetdatei`, `area`) VALUES
+(1, 'navigation', 'Navigation', 'widget_navigation', 2),
+(2, 'footer', 'Footer Easy', 'widget_footer_easy', 6),
+(3, 'footer', 'Footer Default', 'widget_footer_default', 6),
+(4, 'footer', 'Footer Plugin', 'widget_footer_plugin', 6),
+(5, 'footer', 'Footer Box', 'widget_footer_box', 6)");
+
+##############################################################################################################################
+##############################################################################################################################
+if ($transaction->successful()) {
+        return array('status' => 'success', 'message' => '<div class="list-group-item list-group-item-success">&nbsp;Install successful for Webspell RM Database: <i>settings_plugins_widget</i> <i class="bi bi-check2"></i></div>');
+    } else {
+        return array('status' => 'fail', 'message' => '- Failed to install Webspell-RM<br/>' . $transaction->getError());
+    }
+}
+function update_rm_22($_database) {
+  $transaction = new Transaction($_database);
+##############################################################################################################################
+##############################################################################################################################
+
+$transaction->addQuery("DROP TABLE IF EXISTS `".PREFIX."settings_plugins_widget_settings`");
+$transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."settings_plugins_widget_settings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `side` varchar(255) NOT NULL,
+  `position` varchar(255) NOT NULL,
+  `modulname` varchar(100) NOT NULL,
+  `themes_modulname` varchar(255) NOT NULL,
+  `widgetname` varchar(255) NOT NULL,
+  `widgetdatei` varchar(255) NOT NULL,
+  `activated` int(1) DEFAULT '1',
+  `sort` int(11) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;");
+
+$transaction->addQuery("INSERT INTO `".PREFIX."settings_plugins_widget_settings` (`id`, `side`, `position`, `modulname`, `themes_modulname`, `widgetname`, `widgetdatei`, `activated`, `sort`) VALUES
+(1, '', 'navigation_widget', 'navigation', 'default', 'Navigation', 'widget_navigation', 1, 0),
+(2, '', 'footer_widget', 'footer', 'default', 'Footer Easy', 'widget_footer_easy', 1, 0)");
+
+
+
+##############################################################################################################################
+##############################################################################################################################
+if ($transaction->successful()) {
+        return array('status' => 'success', 'message' => '<div class="list-group-item list-group-item-success">&nbsp;Install successful for Webspell RM Database: <i>settings_plugins_widget_settings</i> <i class="bi bi-check2"></i></div>');
+    } else {
+        return array('status' => 'fail', 'message' => '- Failed to install Webspell-RM<br/>' . $transaction->getError());
+    }
+}
+function update_rm_23($_database) {
   $transaction = new Transaction($_database);
 ##############################################################################################################################
 ##############################################################################################################################
@@ -1028,7 +1113,7 @@ if ($transaction->successful()) {
         return array('status' => 'fail', 'message' => '- Failed to install Webspell-RM<br/>' . $transaction->getError());
     }
 }
-function update_rm_22($_database) {
+function update_rm_24($_database) {
   $transaction = new Transaction($_database);
 ##############################################################################################################################
 ############################################################################################################################## 
@@ -1051,7 +1136,7 @@ if ($transaction->successful()) {
         return array('status' => 'fail', 'message' => '- Failed to install Webspell-RM<br/>' . $transaction->getError());
     }
 }
-function update_rm_23($_database) {
+function update_rm_25($_database) {
   $transaction = new Transaction($_database);
 ##############################################################################################################################
 ##############################################################################################################################
@@ -1076,7 +1161,7 @@ $transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."settings_social_me
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;");
 
 $transaction->addQuery("INSERT INTO `".PREFIX."settings_social_media` (`socialID`, `twitch`, `facebook`, `twitter`, `youtube`, `rss`, `vine`, `flickr`, `linkedin`, `instagram`, `since`, `gametracker`, `discord`, `steam`) VALUES
-(1, 'https://www.twitch.tv/pulsradiocom', 'https://www.facebook.com/WebspellRM', 'https://twitter.com/webspell_rm', 'https://www.youtube.com/channel/UCE5yTn9ljzSnC_oMp9Jnckg', '-', '-', '-', '-', '-', '2024', '85.14.228.228:28960', 'https://www.discord.gg/kErxPxb', '-')");
+(1, 'https://www.twitch.tv/pulsradiocom', 'https://www.facebook.com/WebspellRM', 'https://twitter.com/webspell_rm', 'https://www.youtube.com/channel/UCE5yTn9ljzSnC_oMp9Jnckg', '-', '-', '-', '-', '-', '2025', '85.14.228.228:28960', 'https://www.discord.gg/kErxPxb', '-')");
 
 ##############################################################################################################################
 ##############################################################################################################################
@@ -1086,7 +1171,7 @@ if ($transaction->successful()) {
         return array('status' => 'fail', 'message' => '- Failed to install Webspell-RM<br/>' . $transaction->getError());
     }
 }
-function update_rm_24($_database) {
+function update_rm_26($_database) {
   $transaction = new Transaction($_database);
 ##############################################################################################################################
 ##############################################################################################################################
@@ -1102,7 +1187,7 @@ $transaction->addQuery("CREATE TABLE `" . PREFIX . "settings_startpage` (
 ) AUTO_INCREMENT=2
   DEFAULT CHARSET=utf8mb4");
 
-$transaction->addQuery("INSERT INTO `".PREFIX."settings_startpage` (`pageID`, `title`, `startpage_text`, `date`, `displayed`) VALUES (1, '{[de]}Willkommen zu Webspell | RM{[en]}Welcome to Webspell | RM{[it]}Benvenuti su Webspell | RM', '<!-- Page Content -->\r\n<div class=\"container\"><!-- Jumbotron Header -->\r\n<h1>Webspell RM!</h1>\r\n\r\n<p>{[de]}</p>\r\n\r\n<p><strong><u>Was ist Webspell RM?</u></strong><br />\r\n<br />\r\nWebspell RM ist ein Clan &amp; Gamer CMS (<em>Content Management System</em>). Es basiert auf PHP, MySQL und der letzten webSPELL.org GitHub Version (4.3.0). Webspell RM l&auml;uft unter der General Public License. Siehe auch <a href=\"http://wiki.webspell-rm.de/index.php?site=static&amp;staticID=4\" target=\"_blank\">Lizenzvereinbarung</a>.</p>\r\n\r\n<p style=\"text-align:center\"><a class=\"btn btn-info\" href=\"http://demo.webspell-rm.de/\" rel=\"noopener\" role=\"button\" target=\"_blank\"><strong><u>WEBSPELL RM DEMO</u></strong></a> <a class=\"btn btn-success\" href=\"https://webspell-rm.de/index.php?site=forum\" rel=\"noopener\" role=\"button\" target=\"_blank\"><strong><u>WEBSPELL RM SUPPORT</u></strong></a></p>\r\n\r\n<p><strong><u>Was bietet Webspell | RM?</u></strong><br />\r\n<br />\r\nWebspell RM basiert auf Bootstrap und ist einfach anzupassen via Dashboard. Theoretisch sind alle Bootstrap Templates verwendbar. Als Editor wir der CKEditor verwendet. Das CMS ist Multi-Language f&auml;hig und liefert von Haus aus viele Sprachen mit. Das beliebte reCAPTCHA wurde als Spam Schutz integriert. Alle Plugins sind via Webspell RM Installer einfach und problemlos zu installieren.</p>\r\n<!-- Page Features -->\r\n\r\n<div class=\"row text-center\">\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/173.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Webside</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"#\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top\" src=\"https://www.webspell-rm.de//includes/plugins/pic_update/images/170.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Dashboard</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/171.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Layout</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=settings_templates\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/172.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Plugin-Installer</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=plugin_installer\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n<!-- zweite Reihe -->\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/174.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Theme-Installer</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=template_installer\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/175.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Updater</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=update\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/176.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Startpage</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=settings_startpage\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/177.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Webspell-RM</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"https://www.webspell-rm.de/forum.html\" target=\"_blank\">Support</a> <a class=\"btn btn-primary\" href=\"https://www.webspell-rm.de/wiki.html\" target=\"_blank\">WIKI</a></div>\r\n</div>\r\n</div>\r\n</div>\r\n<!-- /.row --></div>\r\n<!-- /.container -->\r\n\r\n<p>{[en]}</p>\r\n\r\n<p><strong><u>What is Webspell RM?</u></strong><br />\r\n<br />\r\nWebspell RM is a Clan &amp; Gamer CMS (Content Management System). It is based on PHP, MySQL and the latest webSPELL.org GitHub version (4.3.0). Webspell RM runs under the General Public License. See also license agreement <a href=\"http://wiki.webspell-rm.de/index.php?site=static&amp;staticID=4\" target=\"_blank\">license agreement</a>.</p>\r\n\r\n<p style=\"text-align:center\"><a class=\"btn btn-info\" href=\"http://demo.webspell-rm.de/\" rel=\"noopener\" role=\"button\" target=\"_blank\"><strong><u>WEBSPELL RM DEMO</u></strong></a> <a class=\"btn btn-success\" href=\"https://webspell-rm.de/index.php?site=forum\" rel=\"noopener\" role=\"button\" target=\"_blank\"><strong><u>WEBSPELL RM SUPPORT</u></strong></a></p>\r\n\r\n<p><strong><u>What does Webspell | RM offer?</u></strong><br />\r\n<br />\r\nWebspell RM is based on bootstrap and it is easy to customize via dashboard. Theoretically, all bootstrap templates can be used. As editor we use the CKEditor. The CMS is multi-language capable and comes with many native languages. The popular reCAPTCHA was integrated as spam protection. All plugins are easy to install via Webspell RM Installer.</p>\r\n<!-- Page Features -->\r\n\r\n<div class=\"row text-center\">\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/173.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Webside</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"#\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top\" src=\"https://www.webspell-rm.de//includes/plugins/pic_update/images/170.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Dashboard</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/171.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Layout</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=settings_templates\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/172.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Plugin-Installer</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=plugin_installer\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n<!-- zweite Reihe -->\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/174.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Theme-Installer</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=template_installer\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/175.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Updater</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=update\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/176.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Startpage</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=settings_startpage\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/177.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Webspell-RM</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"https://www.webspell-rm.de/forum.html\" target=\"_blank\">Support</a> <a class=\"btn btn-primary\" href=\"https://www.webspell-rm.de/wiki.html\" target=\"_blank\">WIKI</a></div>\r\n</div>\r\n</div>\r\n</div>\r\n<!-- /.row --></div>\r\n<!-- /.container -->\r\n\r\n<p>{[it]}</p>\r\n\r\n<p><strong><u>Che cosa &egrave; Webspell RM? </u> </strong><br />\r\n<br />\r\nWebspell RM &egrave; un Clan Gamer CMS (Content Management System). Basato su PHP, MySQL ultima versione di webSPELL.org GitHub (4.3.0). Webspell RM funziona con la General Public License. Vedi anche il contratto di licenza <a href=\"http://wiki.webspell-rm.de/index.php?site=static&amp;staticID=4\" target=\"_blank\"> contratto di licenza </a>.</p>\r\n\r\n<p style=\"text-align:center\"><a class=\"btn btn-info\" href=\"http://demo.webspell-rm.de/\" rel=\"noopener\" role=\"button\" target=\"_blank\"><strong><u>DEMO WEBSPELL RM </u> </strong> </a> <a class=\"btn btn-success\" href=\"https://webspell-rm.de/index. php? site = forum \" rel=\" noopener \" role=\" button \" target=\" _ blank \"> <strong> <u> SUPPORTO RM WEBSPELL </u> </strong> </a></p>\r\n\r\n<p><strong><u>Cosa fa Webspell RM? </u> </strong><br />\r\n<br />\r\nWebspell RM &egrave; basato su bootstrap ed &egrave; facile da personalizzare tramite dashboard. Teoricamente, possono essere utilizzati tutti i modelli di bootstrap. Come editor usiamo CKEditor. Il CMS &egrave; multilingue e viene fornito con molte lingue native. Il popolare reCAPTCHA &egrave; stato integrato come protezione antispam. Tutti i plugin sono facili da installare tramite Webspell RM Installer.</p>\r\n<!-- Page Features -->\r\n\r\n<div class=\"row text-center\">\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/173.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Sito Web</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"#\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top\" src=\"https://www.webspell-rm.de//includes/plugins/pic_update/images/170.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Dashboard</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/171.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Layout</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=settings_templates\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/172.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Plugin-Installer</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=plugin_installer\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n<!-- zweite Reihe -->\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/174.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Theme-Installer</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=template_installer\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/175.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Updater</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=update\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/176.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Startpage</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=settings_startpage\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/177.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Webspell-RM</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"https://www.webspell-rm.de/forum.html\" target=\"_blank\">Support</a> <a class=\"btn btn-primary\" href=\"https://www.webspell-rm.de/wiki.html\" target=\"_blank\">WIKI</a></div>\r\n</div>\r\n</div>\r\n</div>\r\n<!-- /.row --></div>\r\n<!-- /.container -->\r\n\r\n', 1616526018, 1)");
+$transaction->addQuery("INSERT INTO `".PREFIX."settings_startpage` (`pageID`, `title`, `startpage_text`, `date`, `displayed`) VALUES (1, '{[de]}Willkommen zu Webspell | RM{[en]}Welcome to Webspell | RM{[it]}Benvenuti su Webspell | RM', '<!-- Page Content -->\r\n<div class=\"container\"><!-- Jumbotron Header -->\r\n<h1>Webspell RM!</h1>\r\n\r\n<p>{[de]}</p>\r\n\r\n<p><strong><u>Was ist Webspell RM?</u></strong><br />\r\n<br />\r\nWebspell RM ist ein Clan &amp; Gamer CMS (<em>Content Management System</em>). Es basiert auf PHP, MySQL und der letzten webSPELL.org GitHub Version (4.3.0). Webspell RM l&auml;uft unter der General Public License. Siehe auch <a href=\"http://wiki.webspell-rm.de/index.php?site=static&amp;staticID=4\" target=\"_blank\">Lizenzvereinbarung</a>.</p>\r\n\r\n<p style=\"text-align:center\"><a class=\"btn btn-info\" href=\"http://demo.webspell-rm.de/\" rel=\"noopener\" role=\"button\" target=\"_blank\"><strong><u>WEBSPELL RM DEMO</u></strong></a> <a class=\"btn btn-success\" href=\"https://webspell-rm.de/index.php?site=forum\" rel=\"noopener\" role=\"button\" target=\"_blank\"><strong><u>WEBSPELL RM SUPPORT</u></strong></a></p>\r\n\r\n<p><strong><u>Was bietet Webspell | RM?</u></strong><br />\r\n<br />\r\nWebspell RM basiert auf Bootstrap und ist einfach anzupassen via Dashboard. Theoretisch sind alle Bootstrap Templates verwendbar. Als Editor wir der CKEditor verwendet. Das CMS ist Multi-Language f&auml;hig und liefert von Haus aus viele Sprachen mit. Das beliebte reCAPTCHA wurde als Spam Schutz integriert. Alle Plugins sind via Webspell RM Installer einfach und problemlos zu installieren.</p>\r\n<!-- Page Features -->\r\n\r\n<div class=\"row text-center\">\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/173.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Webside</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"#\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top\" src=\"https://www.webspell-rm.de//includes/plugins/pic_update/images/170.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Dashboard</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/171.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Layout</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=settings_templates\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/172.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Plugin-Installer</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=plugin_installer\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n<!-- zweite Reihe -->\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/174.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Theme-Installer</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=template_installer\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/175.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Updater</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=update\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/176.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Startpage</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=settings_startpage\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/177.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Webspell-RM</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"https://www.webspell-rm.de/forum.html\" target=\"_blank\">Support</a> <a class=\"btn btn-primary\" href=\"https://www.webspell-rm.de/wiki.html\" target=\"_blank\">WIKI</a></div>\r\n</div>\r\n</div>\r\n</div>\r\n<!-- /.row --></div>\r\n<!-- /.container -->\r\n\r\n<p>{[en]}</p>\r\n\r\n<p><strong><u>What is Webspell RM?</u></strong><br />\r\n<br />\r\nWebspell RM is a Clan &amp; Gamer CMS (Content Management System). It is based on PHP, MySQL and the latest webSPELL.org GitHub version (4.3.0). Webspell RM runs under the General Public License. See also license agreement <a href=\"http://wiki.webspell-rm.de/index.php?site=static&amp;staticID=4\" target=\"_blank\">license agreement</a>.</p>\r\n\r\n<p style=\"text-align:center\"><a class=\"btn btn-info\" href=\"http://demo.webspell-rm.de/\" rel=\"noopener\" role=\"button\" target=\"_blank\"><strong><u>WEBSPELL RM DEMO</u></strong></a> <a class=\"btn btn-success\" href=\"https://webspell-rm.de/index.php?site=forum\" rel=\"noopener\" role=\"button\" target=\"_blank\"><strong><u>WEBSPELL RM SUPPORT</u></strong></a></p>\r\n\r\n<p><strong><u>What does Webspell | RM offer?</u></strong><br />\r\n<br />\r\nWebspell RM is based on bootstrap and it is easy to customize via dashboard. Theoretically, all bootstrap templates can be used. As editor we use the CKEditor. The CMS is multi-language capable and comes with many native languages. The popular reCAPTCHA was integrated as spam protection. All plugins are easy to install via Webspell RM Installer.</p>\r\n<!-- Page Features -->\r\n\r\n<div class=\"row text-center\">\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/173.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Webside</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"#\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top\" src=\"https://www.webspell-rm.de//includes/plugins/pic_update/images/170.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Dashboard</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/171.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Layout</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=settings_templates\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/172.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Plugin-Installer</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=plugin_installer\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n<!-- zweite Reihe -->\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/174.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Theme-Installer</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=template_installer\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/175.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Updater</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=update\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/176.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Startpage</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=settings_startpage\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/177.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Webspell-RM</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"https://www.webspell-rm.de/forum.html\" target=\"_blank\">Support</a> <a class=\"btn btn-primary\" href=\"https://www.webspell-rm.de/wiki.html\" target=\"_blank\">WIKI</a></div>\r\n</div>\r\n</div>\r\n</div>\r\n</div>\r\n<!-- /.row --></div><!-- /.container -->\r\n\r\n<p>{[it]}</p>\r\n\r\n<p><strong><u>Che cosa &egrave; Webspell RM? </u> </strong><br />\r\n<br />\r\nWebspell RM &egrave; un Clan Gamer CMS (Content Management System). Basato su PHP, MySQL ultima versione di webSPELL.org GitHub (4.3.0). Webspell RM funziona con la General Public License. Vedi anche il contratto di licenza <a href=\"http://wiki.webspell-rm.de/index.php?site=static&amp;staticID=4\" target=\"_blank\"> contratto di licenza </a>.</p>\r\n\r\n<p style=\"text-align:center\"><a class=\"btn btn-info\" href=\"http://demo.webspell-rm.de/\" rel=\"noopener\" role=\"button\" target=\"_blank\"><strong><u>DEMO WEBSPELL RM </u> </strong> </a> <a class=\"btn btn-success\" href=\"https://webspell-rm.de/index. php? site = forum \" rel=\" noopener \" role=\" button \" target=\" _ blank \"> <strong> <u> SUPPORTO RM WEBSPELL </u> </strong> </a></p>\r\n\r\n<p><strong><u>Cosa fa Webspell RM? </u> </strong><br />\r\n<br />\r\nWebspell RM &egrave; basato su bootstrap ed &egrave; facile da personalizzare tramite dashboard. Teoricamente, possono essere utilizzati tutti i modelli di bootstrap. Come editor usiamo CKEditor. Il CMS &egrave; multilingue e viene fornito con molte lingue native. Il popolare reCAPTCHA &egrave; stato integrato come protezione antispam. Tutti i plugin sono facili da installare tramite Webspell RM Installer.</p>\r\n<!-- Page Features -->\r\n\r\n<div class=\"row text-center\">\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/173.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Sito Web</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"#\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top\" src=\"https://www.webspell-rm.de//includes/plugins/pic_update/images/170.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Dashboard</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/171.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Layout</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=settings_templates\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/172.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Plugin-Installer</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=plugin_installer\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n<!-- zweite Reihe -->\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/174.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Theme-Installer</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=template_installer\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/175.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Updater</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=update\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/176.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Startpage</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"/admin/admincenter.php?site=settings_startpage\" target=\"_blank\">Find Out More!</a></div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col mb-4\">\r\n<div class=\"card h-100\" style=\"width:15rem\"><img alt=\"\" class=\"card-img-top img-fluid\" src=\"https://www.webspell-rm.de/includes/plugins/pic_update/images/177.jpg\" />\r\n<div class=\"card-body\">\r\n<h4>Webspell-RM</h4>\r\n\r\n</div>\r\n\r\n<div class=\"card-footer\"><a class=\"btn btn-primary\" href=\"https://www.webspell-rm.de/forum.html\" target=\"_blank\">Support</a> <a class=\"btn btn-primary\" href=\"https://www.webspell-rm.de/wiki.html\" target=\"_blank\">WIKI</a></div>\r\n</div>\r\n</div>\r\n</div>\r\n</div>\r\n<!-- /.row --></div><!-- /.container -->', 1616526018, '1')");
 
 ##############################################################################################################################
 ##############################################################################################################################
@@ -1112,7 +1197,7 @@ if ($transaction->successful()) {
         return array('status' => 'fail', 'message' => '- Failed to install Webspell-RM<br/>' . $transaction->getError());
     }
 }
-function update_rm_25($_database) {
+function update_rm_27($_database) {
   $transaction = new Transaction($_database);
 ##############################################################################################################################
 ##############################################################################################################################
@@ -1136,7 +1221,7 @@ if ($transaction->successful()) {
         return array('status' => 'fail', 'message' => '- Failed to install Webspell-RM<br/>' . $transaction->getError());
     }
 }
-function update_rm_26($_database) {
+function update_rm_28($_database) {
   $transaction = new Transaction($_database);
 ##############################################################################################################################
 ##############################################################################################################################
@@ -1146,72 +1231,15 @@ $transaction->addQuery("CREATE TABLE `" . PREFIX . "settings_themes` (
   `themeID` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `modulname` varchar(100) NOT NULL,
-  `pfad` varchar(255) DEFAULT '''0''',
-  `version` varchar(11) NOT NULL,
+  `pfad` varchar(255) DEFAULT '0',
+  `version` varchar(11) DEFAULT NULL,
   `active` int(11) DEFAULT NULL,
-  `express_active` int(11) NOT NULL DEFAULT 0,
-  `nav1` varchar(255) NOT NULL DEFAULT '',
-  `nav2` varchar(255) NOT NULL DEFAULT '',
-  `nav3` varchar(255) NOT NULL DEFAULT '',
-  `nav4` varchar(255) NOT NULL DEFAULT '',
-  `nav5` varchar(255) NOT NULL DEFAULT '',
-  `nav6` varchar(255) NOT NULL DEFAULT '',
-  `nav7` varchar(255) NOT NULL DEFAULT '',
-  `nav8` varchar(255) NOT NULL DEFAULT '',
-  `nav9` varchar(255) NOT NULL DEFAULT '',
-  `nav10` varchar(255) NOT NULL DEFAULT '',
-  `nav11` varchar(255) NOT NULL DEFAULT '',
-  `nav12` varchar(255) NOT NULL DEFAULT '',
-  `nav_text_alignment` varchar(255) DEFAULT '0',
-  `body1` text NOT NULL,
-  `body2` varchar(255) NOT NULL DEFAULT '',
-  `body3` varchar(255) NOT NULL DEFAULT '',
-  `body4` varchar(255) NOT NULL DEFAULT '',
-  `body5` varchar(255) NOT NULL DEFAULT '',
-  `background_pic` varchar(255) DEFAULT '0',
-  `border_radius` varchar(255) DEFAULT '0',
-  `typo1` varchar(255) NOT NULL DEFAULT '',
-  `typo2` varchar(255) NOT NULL DEFAULT '',
-  `typo3` varchar(255) NOT NULL DEFAULT '',
-  `typo4` varchar(255) NOT NULL DEFAULT '',
-  `typo5` varchar(255) NOT NULL DEFAULT '',
-  `typo6` varchar(255) NOT NULL DEFAULT '',
-  `typo7` varchar(255) NOT NULL DEFAULT '',
-  `typo8` varchar(255) NOT NULL DEFAULT '',
-  `card1` varchar(255) NOT NULL DEFAULT '',
-  `card2` varchar(255) NOT NULL DEFAULT '',
-  `foot1` varchar(255) NOT NULL DEFAULT '',
-  `foot2` varchar(255) NOT NULL DEFAULT '',
-  `foot3` varchar(255) NOT NULL DEFAULT '',
-  `foot4` varchar(255) NOT NULL DEFAULT '',
-  `foot5` varchar(255) NOT NULL DEFAULT '',
-  `foot6` varchar(255) NOT NULL DEFAULT '',
-  `calendar1` varchar(255) NOT NULL DEFAULT '',
-  `calendar2` varchar(255) NOT NULL DEFAULT '',
-  `carousel1` varchar(255) NOT NULL DEFAULT '',
-  `carousel2` varchar(255) NOT NULL DEFAULT '',
-  `carousel3` varchar(255) NOT NULL DEFAULT '',
-  `carousel4` varchar(255) NOT NULL DEFAULT '',
-  `logo_pic` varchar(255) DEFAULT '0',
-  `logotext1` varchar(255) NOT NULL DEFAULT '',
-  `logotext2` varchar(255) NOT NULL DEFAULT '',
-  `reg_pic` varchar(255) NOT NULL DEFAULT '',
-  `reg1` varchar(255) NOT NULL DEFAULT '',
-  `reg2` varchar(255) NOT NULL DEFAULT '',
-  `headlines` varchar(255) DEFAULT '0',
-  `agency` int(1) NOT NULL DEFAULT 0,
-  `agency_nav` int(1) NOT NULL DEFAULT 3,
-  `sticky` int(1) NOT NULL DEFAULT 0,
-  `carousel` int(1) NOT NULL DEFAULT 0,
-  `underscore` int(1) NOT NULL DEFAULT 0,
-  `sort` int(11) NOT NULL DEFAULT '0',
 PRIMARY KEY  (`themeID`)
-) AUTO_INCREMENT=2
-  DEFAULT CHARSET=utf8mb4");
+) AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4");
 
 
-$transaction->addQuery("INSERT IGNORE INTO `" . PREFIX . "settings_themes` (`themeID`, `name`, `modulname`, `pfad`, `version`, `active`, `express_active`, `nav1`, `nav2`, `nav3`, `nav4`, `nav5`, `nav6`, `nav7`, `nav8`, `nav9`, `nav10`, `nav11`, `nav12`, `nav_text_alignment`, `body1`, `body2`, `body3`, `body4`, `body5`, `background_pic`, `border_radius`, `typo1`, `typo2`, `typo3`, `typo4`, `typo5`, `typo6`, `typo7`, `typo8`, `card1`, `card2`, `foot1`, `foot2`, `foot3`, `foot4`, `foot5`, `foot6`, `calendar1`, `calendar2`, `carousel1`, `carousel2`, `carousel3`, `carousel4`, `logo_pic`, `logotext1`, `logotext2`, `reg_pic`, `reg1`, `reg2`, `headlines`, `agency`, `agency_nav`, `sticky`, `carousel`, `underscore`, `sort`) VALUES
-(1, 'Default', 'default', 'default', '0.2', 1, 0, 'rgb(51,51,51)', '16px', 'rgb(221,221,221)', 'rgb(254,130,29)', 'rgb(254,130,29)', '2px', 'rgb(221,221,221)', 'rgb(196,89,1)', '', 'rgb(51,51,51)', 'rgb(221,221,221)', 'rgb(101,100,100)', 'ms-auto', 'Roboto', '13px', 'rgb(255,255,255)', 'rgb(85,85,85)', 'rgb(236,236,236)', '', '0px', '', '', '', 'rgb(254,130,29)', '', '', '', 'rgb(196,89,1)', 'rgb(255,255,255)', 'rgb(221,221,221)', 'rgb(51,51,51)', '', '', '', '', '', '', '', 'rgb(255,255,255)', 'rgb(254,130,29)', 'rgb(255,255,255)', 'rgb(254,130,29)', 'logo.png', '', '', 'login_bg.png', 'rgb(254,130,29)', 'rgb(255,255,255)', 'headlines_01.css', 0, 3, 0, 0, 0, 1)");
+$transaction->addQuery("INSERT IGNORE INTO `" . PREFIX . "settings_themes` (`themeID`, `name`, `modulname`, `pfad`, `version`, `active`) VALUES
+(1, 'Default', 'default', 'default', '0.3', 1)");
 
 ##############################################################################################################################
 ##############################################################################################################################
@@ -1221,7 +1249,7 @@ if ($transaction->successful()) {
         return array('status' => 'fail', 'message' => '- Failed to install Webspell-RM<br/>' . $transaction->getError());
     }
 }
-function update_rm_27($_database) {
+function update_rm_29($_database) {
   $transaction = new Transaction($_database);
 ##############################################################################################################################
 ##############################################################################################################################
@@ -1256,7 +1284,7 @@ if ($transaction->successful()) {
         return array('status' => 'fail', 'message' => '- Failed to install Webspell-RM<br/>' . $transaction->getError());
     }
 }
-function update_rm_28($_database) {
+function update_rm_30($_database) {
   $transaction = new Transaction($_database);
 ##############################################################################################################################
 ##############################################################################################################################
@@ -1277,7 +1305,7 @@ if ($transaction->successful()) {
         return array('status' => 'fail', 'message' => '- Failed to install Webspell-RM<br/>' . $transaction->getError());
     }
 }
-function update_rm_29($_database) {
+function update_rm_31($_database) {
   $transaction = new Transaction($_database);
 ##############################################################################################################################
 ##############################################################################################################################
@@ -1294,29 +1322,29 @@ $transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."user` (
   `userID` int(11) NOT NULL AUTO_INCREMENT,
   `registerdate` int(14) NOT NULL DEFAULT '0',
   `lastlogin` int(14) NOT NULL DEFAULT '0',
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `password_hash` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `password_pepper` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password_hash` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password_pepper` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_hide` int(1) NOT NULL DEFAULT '1',
   `email_change` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_activate` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `firstname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `lastname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `firstname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lastname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `gender` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'select_gender',
-  `town` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `birthday` date NOT NULL,
+  `town` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `birthday` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `facebook` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `twitter` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `twitch` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `steam` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `instagram` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `youtube` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `discord` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `usertext` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `userpic` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `discord` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `usertext` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `userpic` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `homepage` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `about` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `pmgot` int(11) NOT NULL DEFAULT '0',
@@ -1324,8 +1352,8 @@ $transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."user` (
   `visits` int(11) NOT NULL DEFAULT '0',
   `banned` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ban_reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `topics` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '|',
+  `ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `topics` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `articles` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `demos` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `files` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1342,13 +1370,12 @@ $transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."user` (
   `videos` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `games` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `projectlist` text NOT NULL,
-  `profile_visibility` varchar(255) NOT NULL DEFAULT '1',
   PRIMARY KEY (`userID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;");
 
 
-$transaction->addQuery("INSERT INTO `".PREFIX."user` (`userID`, `registerdate`, `lastlogin`, `password`, `password_hash`, `password_pepper`, `nickname`, `email`, `email_hide`, `email_change`, `email_activate`, `firstname`, `lastname`, `gender`, `town`, `birthday`, `facebook`, `twitter`, `twitch`, `steam`, `instagram`, `youtube`, `discord`, `avatar`, `usertext`, `userpic`, `homepage`, `about`, `pmgot`, `pmsent`, `visits`, `banned`, `ban_reason`, `ip`, `topics`, `articles`, `demos`, `files`, `gallery_pictures`, `special_rank`, `mailonpm`, `userdescription`, `activated`, `language`, `date_format`, `time_format`, `newsletter`, `links`, `videos`, `games`, `projectlist`, `profile_visibility`) VALUES
-(1, '".time()."', '".time()."', '', '".$adminhash."', '".$new_pepper."', '".$adminname."', '".$adminmail."', 1, '', '', '', '', 'select_gender', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, NULL, '', '', '|', '', '', '', '', 0, 0, '', '1', '', 'd.m.Y', 'H:i', 1, '', '', '', '', 1)");
+$transaction->addQuery("INSERT INTO `".PREFIX."user` (`userID`, `registerdate`, `lastlogin`, `password`, `password_hash`, `password_pepper`, `nickname`, `email`, `email_hide`, `email_change`, `email_activate`, `firstname`, `lastname`, `gender`, `town`, `birthday`, `facebook`, `twitter`, `twitch`, `steam`, `instagram`, `youtube`, `discord`, `avatar`, `usertext`, `userpic`, `homepage`, `about`, `pmgot`, `pmsent`, `visits`, `banned`, `ban_reason`, `ip`, `topics`, `articles`, `demos`, `files`, `gallery_pictures`, `special_rank`, `mailonpm`, `userdescription`, `activated`, `language`, `date_format`, `time_format`, `newsletter`, `links`, `videos`, `games`, `projectlist`) VALUES
+(1, '".time()."', '".time()."', '', '".$adminhash."', '".$new_pepper."', '".$adminname."', '".$adminmail."', 1, '', '', '', '', 'select_gender', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, NULL, '', '', '|', '', '', '', '', 0, 0, '', '1', '', 'd.m.Y', 'H:i', 1, '', '', '', '')");
 
 $transaction->addQuery("DROP TABLE IF EXISTS `".PREFIX."user_groups`");
 $transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."user_groups` (
@@ -1417,7 +1444,7 @@ if ($transaction->successful()) {
         return array('status' => 'fail', 'message' => '- Failed to install Webspell-RM<br/>' . $transaction->getError());
     }
 }
-function update_rm_30($_database) {
+function update_rm_32($_database) {
   $transaction = new Transaction($_database);
 ##############################################################################################################################
 ##############################################################################################################################
@@ -1448,14 +1475,14 @@ if ($transaction->successful()) {
         return array('status' => 'fail', 'message' => '- Failed to install Webspell-RM<br/>' . $transaction->getError());
     }
 }
-function update_rm_31($_database) {
+function update_rm_33($_database) {
   $transaction = new Transaction($_database);
 ##############################################################################################################################
 ##############################################################################################################################
  if ($transaction->successful()) {
-      return array('status' => 'success', 'message' => '&nbsp;Webspell-RM Installation Ver.: <span class="badge bg-success">2.1.6</span> / <b>Last Stand:</b> <span class="badge bg-success">04.12.2024</span><br>');
+      return array('status' => 'success', 'message' => '&nbsp;Webspell-RM Installation Ver.: <span class="badge bg-success">2.1.6</span> / <b>Last Stand:</b> <span class="badge bg-success">23.03.2025</span><br>');
   } else {
-      return array('status' => 'fail', 'message' => '-   Webspell-RM Installation Ver.: <b>2.1.6 / <b>Last Stand:</b> 04.12.2024<br/>' . $transaction->getError());
+      return array('status' => 'fail', 'message' => '-   Webspell-RM Installation Ver.: <b>2.1.6 / <b>Last Stand:</b> 23.03.2025<br/>' . $transaction->getError());
   }
 
 }

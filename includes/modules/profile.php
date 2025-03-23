@@ -692,7 +692,7 @@ else {
             $res =
                 safe_query(
                     "SELECT
-                        TIMESTAMPDIFF(YEAR, birthday, NOW()) AS age
+                        TIMESTAMPDIFF(YEAR, birthday, NOW()) AS `age`
                     FROM
                         " . PREFIX . "user
                     WHERE
