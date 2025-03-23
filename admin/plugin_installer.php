@@ -99,14 +99,48 @@ if (!$getnew = $plugin) {
 
   if (isset($_GET['deinstall']) == 'plugin') {
     $dir = $_GET['dir'];
+
+    // Inizio Pulitura di widget  e plugin dal database
+    $dir = $_GET['dir'];
+    $modulname = trim($dir, '/');
+    // Recupera il plugin dal database
+    $plugin_name_query = safe_query("SELECT modulname FROM " . PREFIX . "settings_plugins WHERE modulname = '" . $modulname . "'");
+
+    if (mysqli_num_rows($plugin_name_query) > 0) {
+      $plugin_name = mysqli_fetch_assoc($plugin_name_query)['modulname'];
+
+      echo '<div class="alert alert-info"><strong><i class="bi bi-trash3"></i> ' . $_language->module['delete_plugin'] . ':</strong> ' . htmlspecialchars($plugin_name, ENT_QUOTES, 'UTF-8') . '</div>';
+
+      // 1️ Remove widgets from the general table
+      $delete_widgets = safe_query("DELETE FROM `" . PREFIX . "settings_plugins_widget` WHERE `modulname` = '$plugin_name'");
+
+      // 2 Find and clean tables `PREFIX.plugins_*_settings_widgets`
+      $tables_query = safe_query("SHOW TABLES LIKE '" . PREFIX . "plugins\_%\_settings_widgets'");
+      while ($table = mysqli_fetch_array($tables_query)) {
+        $table_name = $table[0];
+
+        // Check if the table has a `modulname` field
+        $check_column = safe_query("SHOW COLUMNS FROM `$table_name` LIKE 'modulname'");
+        if (mysqli_num_rows($check_column) > 0) {
+          // Remove the corresponding row
+          safe_query("DELETE FROM `$table_name` WHERE `modulname` = '$plugin_name'");
+        }
+      }
+    }
+
+    // 3 Remove the plugin from the main table
+    $delete_plugin = safe_query("DELETE FROM `" . PREFIX . "settings_plugins` WHERE `modulname` = '$plugin_name'");
+
+    // Fine Pulitura di widget  e plugin dal database
+
     $name = str_replace("/", "", $dir);
     require_once('../includes/plugins' . $dir . 'uninstall.php');
     recursiveRemoveDirectory('../includes/plugins' . $dir);
 
     // Se il parametro redirect=true è presente, dopo la disinstallazione fa il redirect a plugin_manager
     if (isset($_GET['redirect']) && $_GET['redirect'] == 'true') {
-    echo '<script>setTimeout(function(){ window.location.href = "admincenter.php?site=plugin_manager"; }, 0);</script>';
-    exit;
+      echo '<script>setTimeout(function(){ window.location.href = "admincenter.php?site=plugin_manager"; }, 0);</script>';
+      exit;
     }
 
     header('Location: ?site=plugin_installer');
@@ -272,12 +306,13 @@ if (!$getnew = $plugin) {
           }
 
           if (
-            @$row[ 'modulname' ] == 'footer'
-            || @$row[ 'modulname' ] == 'navigation') {
+            @$row['modulname'] == 'footer'
+            || @$row['modulname'] == 'navigation'
+          ) {
 
 
             $output .= '';
-          } else { 
+          } else {
 
             $output .= ' 
               <!-- Button trigger modal -->
@@ -304,9 +339,7 @@ if (!$getnew = $plugin) {
                       </div>
                   </div>
               </div>';
-
           }
-          
         } else {
 
           if ($result['item' . $plug]['req'] == $version) {
