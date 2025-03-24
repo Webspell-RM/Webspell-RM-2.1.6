@@ -23,7 +23,7 @@ $language_array = array(
   'content_up1'                         => 'Content Center über Main Content Area <i class="bi bi-arrow-bar-up"></i>',
   'content_up'                          => 'Content Center über Main Content Area <i class="bi bi-arrow-bar-up"></i>',
   'deactivate'                          => 'Plugin deaktivieren',
-  'delete_plugin'                       => 'Plugin löschen',
+  'delete_plugin'                       => 'Plugin deinstallieren',
   'delete'                              => 'Löschen',
   'description'                         => 'Beschreibung',
   'edit'                                => 'Einstellung ändern',
