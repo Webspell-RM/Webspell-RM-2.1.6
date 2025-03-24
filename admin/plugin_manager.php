@@ -1158,7 +1158,7 @@ if (!empty(@$db['active'] == 1) !== false) {
         $hash_2 = $CAPCLASS->getHash();
 
         echo '<div class="card">
-        <div class="card-header"><i class="bi bi-puzzle" style="font-size: 1rem;"></i> 
+        <div class="card-header"><i class="bi bi-puzzle"></i> 
             ' . $_language->module['plugin_manager'] . '
         </div>
         <nav aria-label="breadcrumb">
@@ -1775,7 +1775,7 @@ if (!empty(@$db['active'] == 1) !== false) {
         $hash = $CAPCLASS->getHash();
 
         echo '<div class="card">
-        <div class="card-header"><i class="bi bi-puzzle" style="font-size: 1rem;"></i> 
+        <div class="card-header"><i class="bi bi-puzzle"></i> 
             ' . $_language->module['plugin_manager'] . '
         </div>
         <nav aria-label="breadcrumb">
@@ -1972,7 +1972,7 @@ if (!empty(@$db['active'] == 1) !== false) {
         $hash = $CAPCLASS->getHash();
 
         echo '<div class="card">
-        <div class="card-header"><i class="bi bi-puzzle" style="font-size: 1rem;"></i> 
+        <div class="card-header"><i class="bi bi-puzzle"></i> 
             ' . $_language->module['plugin_manager'] . '
         </div>
             
@@ -2060,7 +2060,7 @@ if (!empty(@$db['active'] == 1) !== false) {
         $hash = $CAPCLASS->getHash();
 
         echo '<div class="card">
-        <div class="card-header"><i class="bi bi-puzzle" style="font-size: 1rem;"></i> 
+        <div class="card-header"><i class="bi bi-puzzle"></i> 
             ' . $_language->module['plugin_manager'] . '
         </div>
             
@@ -2166,7 +2166,7 @@ if (!empty(@$db['active'] == 1) !== false) {
 
 
                     echo '<div class="card">
-        <div class="card-header"><i class="bi bi-puzzle" style="font-size: 1rem;"></i> 
+        <div class="card-header"><i class="bi bi-puzzle"></i> 
             ' . $_language->module['plugin_manager'] . '
         </div>
             
@@ -2267,7 +2267,7 @@ if (!empty(@$db['active'] == 1) !== false) {
 </div>';
                     return false;
                     echo '</div></div>';
-                } else {
+} else {
                     echo '<div class="card">
         <div class="card-header"><i class="bi bi-puzzle"></i> 
             ' . $_language->module['plugin_manager'] . '
