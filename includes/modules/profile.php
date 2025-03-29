@@ -225,7 +225,7 @@ if ($pq['profile_visibility'] == '0' && $userID != $id) {
 
         echo '</div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">' . $_language->module['close'] . '</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> ' . $_language->module['close'] . '</button>
                   </div>
                 </div>
               </div>
@@ -324,7 +324,7 @@ if ($pq['profile_visibility'] == '0' && $userID != $id) {
 
         echo '</div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">' . $_language->module['close'] . '</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> ' . $_language->module['close'] . '</button>
                   </div>
                 </div>
               </div>
@@ -424,7 +424,7 @@ if ($pq['profile_visibility'] == '0' && $userID != $id) {
         }
         echo '</div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">' . $_language->module['close'] . '</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> ' . $_language->module['close'] . '</button>
                   </div>
                 </div>
               </div>
@@ -822,9 +822,9 @@ if ($pq['profile_visibility'] == '0' && $userID != $id) {
                 foreach ($array as $id) {
                     if (!empty($id)) {
                         if ($n > 1) {
-                            $games .= '<img id="icon" style="width: 100%; max-width: 150px;" class="img-fluid" src="../includes/plugins/games_pic/images/' . $id . '.png" alt="">';
+                            $games .= '<img id="icon" style="width: 100%; max-width: 150px;" class="img-fluid" src="../includes/plugins/squads/images/games/' . $id . '.png" alt="">';
                         } else {
-                            $games .= '<img id="icon" style="width: 100%; max-width: 150px;" class="img-fluid" src="../includes/plugins/games_pic/images/' . $id . '.png" alt="">';
+                            $games .= '<img id="icon" style="width: 100%; max-width: 150px;" class="img-fluid" src="../includes/plugins/squads/images/games/' . $id . '.png" alt="">';
                         }
                         $n++;
                     }
