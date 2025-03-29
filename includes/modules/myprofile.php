@@ -727,8 +727,8 @@ if (!$userID) {
                     );
             }
 
-            $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='games_pic'"));
-            if (@$dx['modulname'] != 'games_pic') {
+            $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='squads'"));
+            if (@$dx['modulname'] != 'squads') {
                 $games = '';
             } else {
                 $games = '';
