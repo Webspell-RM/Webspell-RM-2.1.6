@@ -103,6 +103,12 @@ if(isset($_GET[ 'delete' ])) {
             if (file_exists($filepath . 'background_bg.png')) {
                 unlink($filepath . 'background_bg.png');
             }
+			if (file_exists($filepath . 'background_bg.avif')) {
+                unlink($filepath . 'background_bg.avif');
+            }
+			if (file_exists($filepath . 'background_bg.webp')) {
+                unlink($filepath . 'background_bg.webp');
+            }
             redirect("admincenter.php?site=settings_themes", "", 0);
         } else {
             redirect("admincenter.php?site=settings_themes", "", 0);
@@ -321,7 +327,7 @@ if(isset($_GET[ 'delete' ])) {
 
         if ($upload->hasFile()) {
             if ($upload->hasError() === false) {
-                $mime_types = array('image/jpeg','image/png','image/gif');
+                $mime_types = array('image/jpeg','image/png','image/avif','image/webp','image/gif');
                 if ($upload->supportedMimeType($mime_types)) {
                     $imageInformation =  getimagesize($upload->getTempFile());
 
@@ -333,6 +339,12 @@ if(isset($_GET[ 'delete' ])) {
                                     break;
                                 case 3:
                                     $endung = '.png';
+                                    break;
+								case 18:
+                                    $endung = '.webp';
+                                    break;
+                                case 19:
+                                    $endung = '.avif';
                                     break;
                                 default:
                                     $endung = '.jpg';
@@ -348,6 +360,12 @@ if(isset($_GET[ 'delete' ])) {
                             }
                             if (file_exists($filepath . $modulname."_logo" . '.png')) {
                                 unlink($filepath . $modulname."_logo" . '.png');
+                            }
+							if (file_exists($filepath . $modulname."_logo" . '.avif')) {
+                                unlink($filepath . $modulname."_logo" . '.avif');
+                            }
+							if (file_exists($filepath . $modulname."_logo" . '.webp')) {
+                                unlink($filepath . $modulname."_logo" . '.webp');
                             }
 
                             if ($upload->saveAs($filepath.$file)) {
@@ -378,7 +396,7 @@ if(isset($_GET[ 'delete' ])) {
         $modulname = $dx[ 'modulname' ];
         if ($upload->hasFile()) {
             if ($upload->hasError() === false) {
-                $mime_types = array('image/jpeg','image/png','image/gif');
+                $mime_types = array('image/jpeg','image/png','image/avif','image/webp','image/gif');
                 if ($upload->supportedMimeType($mime_types)) {
                     $imageInformation =  getimagesize($upload->getTempFile());
 
@@ -390,6 +408,12 @@ if(isset($_GET[ 'delete' ])) {
                                     break;
                                 case 3:
                                     $endung = '.png';
+                                    break;
+								case 18:
+                                    $endung = '.webp';
+                                    break;
+                                case 19:
+                                    $endung = '.avif';
                                     break;
                                 default:
                                     $endung = '.jpg';
@@ -405,6 +429,12 @@ if(isset($_GET[ 'delete' ])) {
                             }
                             if (file_exists($filepath . $modulname.'_login_bg.png')) {
                                 unlink($filepath . $modulname.'_login_bg.png');
+                            }
+							if (file_exists($filepath . $modulname.'_login_bg.avif')) {
+                                unlink($filepath . $modulname.'_login_bg.avif');
+                            }
+							if (file_exists($filepath . $modulname.'_login_bg.webp')) {
+                                unlink($filepath . $modulname.'_login_bg.webp');
                             }
 
                             if ($upload->saveAs($filepath.$file)) {
@@ -435,7 +465,7 @@ if(isset($_GET[ 'delete' ])) {
         $modulname = $dx[ 'modulname' ];
         if ($upload->hasFile()) {
             if ($upload->hasError() === false) {
-                $mime_types = array('image/jpeg','image/png','image/gif');
+                $mime_types = array('image/jpeg','image/png','image/avif','image/webp','image/gif');
                 if ($upload->supportedMimeType($mime_types)) {
                     $imageInformation =  getimagesize($upload->getTempFile());
 
@@ -447,6 +477,12 @@ if(isset($_GET[ 'delete' ])) {
                                     break;
                                 case 3:
                                     $endung = '.png';
+                                    break;
+								case 18:
+                                    $endung = '.webp';
+                                    break;
+                                case 19:
+                                    $endung = '.avif';
                                     break;
                                 default:
                                     $endung = '.jpg';
@@ -462,6 +498,12 @@ if(isset($_GET[ 'delete' ])) {
                             }
                             if (file_exists($filepath . $modulname.'_background_bg.png')) {
                                 unlink($filepath . $modulname.'_background_bg.png');
+                            }
+							if (file_exists($filepath . $modulname.'_background_bg.avif')) {
+                                unlink($filepath . $modulname.'_background_bg.avif');
+                            }
+							if (file_exists($filepath . $modulname.'_background_bg.webp')) {
+                                unlink($filepath . $modulname.'_background_bg.webp');
                             }
 
                             if ($upload->saveAs($filepath.$file)) {
@@ -494,7 +536,7 @@ if(isset($_GET[ 'delete' ])) {
 
         if ($upload->hasFile()) {
             if ($upload->hasError() === false) {
-                $mime_types = array('image/jpeg','image/png','image/gif');
+                $mime_types = array('image/jpeg','image/png','image/avif','image/webp','image/gif');
                 if ($upload->supportedMimeType($mime_types)) {
                     $imageInformation =  getimagesize($upload->getTempFile());
 
@@ -506,6 +548,12 @@ if(isset($_GET[ 'delete' ])) {
                                     break;
                                 case 3:
                                     $endung = '.png';
+                                    break;
+								case 18:
+                                    $endung = '.webp';
+                                    break;
+                                case 19:
+                                    $endung = '.avif';
                                     break;
                                 default:
                                     $endung = '.jpg';
@@ -521,6 +569,12 @@ if(isset($_GET[ 'delete' ])) {
                             }
                             if (file_exists($filepath . $modulname . '.png')) {
                                 unlink($filepath . $modulname . '.png');
+                            }
+							if (file_exists($filepath . $modulname . '.avif')) {
+                                unlink($filepath . $modulname . '.avif');
+                            }
+							if (file_exists($filepath . $modulname . '.webp')) {
+                                unlink($filepath . $modulname . '.webp');
                             }
 
                             if ($upload->saveAs($filepath.$file)) {
@@ -551,7 +605,7 @@ if(isset($_GET[ 'delete' ])) {
 
         if ($upload->hasFile()) {
             if ($upload->hasError() === false) {
-                $mime_types = array('image/jpeg','image/png','image/gif');
+                $mime_types = array('image/jpeg','image/png','image/avif','image/webp','image/gif');
                 if ($upload->supportedMimeType($mime_types)) {
                     $imageInformation =  getimagesize($upload->getTempFile());
 
@@ -563,6 +617,12 @@ if(isset($_GET[ 'delete' ])) {
                                     break;
                                 case 3:
                                     $endung = '.png';
+                                    break;
+								case 18:
+                                    $endung = '.webp';
+                                    break;
+                                case 19:
+                                    $endung = '.avif';
                                     break;
                                 default:
                                     $endung = '.jpg';
@@ -578,6 +638,12 @@ if(isset($_GET[ 'delete' ])) {
                             }
                             if (file_exists($filepath . $modulname . '.png')) {
                                 unlink($filepath . $modulname . '.png');
+                            }
+							if (file_exists($filepath . $modulname . '.avif')) {
+                                unlink($filepath . $modulname . '.avif');
+                            }
+							if (file_exists($filepath . $modulname . '.webp')) {
+                                unlink($filepath . $modulname . '.webp');
                             }
 
                             if ($upload->saveAs($filepath.$file)) {
@@ -623,12 +689,16 @@ if ($action == "edit") {
             $themepic='<img style="height: 100px" src="../includes/expansion/'.$ds['pfad'].'/images/'.$ds['modulname'].'.png" alt="">';
         } elseif(file_exists('../includes/expansion/'.$ds['pfad'].'/images/'.$ds['modulname'].'.gif')){
             $themepic='<img style="height: 100px" src="../includes/expansion/'.$ds['pfad'].'/images/'.$ds['modulname'].'.gif" alt="">';
+		} elseif(file_exists('../includes/expansion/'.$ds['pfad'].'/images/'.$ds['modulname'].'.avif')){
+            $themepic='<img style="height: 100px" src="../includes/expansion/'.$ds['pfad'].'/images/'.$ds['modulname'].'.avif" alt="">';
+		} elseif(file_exists('../includes/expansion/'.$ds['pfad'].'/images/'.$ds['modulname'].'.webp')){
+            $themepic='<img style="height: 100px" src="../includes/expansion/'.$ds['pfad'].'/images/'.$ds['modulname'].'.webp" alt="">';
         } else{
            $themepic='<img style="height: 100px" src="../images/no-image.jpg" alt="">';
         }
 
 echo'<div class="card">
-        <div class="card-header">
+        <div class="card-header"><i class="bi bi-palette"></i> 
             '.$_language->module['themes'].'
         </div>
 
@@ -694,7 +764,7 @@ echo'<form class="form-horizontal" method="post" action="admincenter.php?site=se
 
   <!-- ====================================================== -->
 
-    <div class="card-header">
+    <div class="card-header"><i class="bi bi-palette"></i> 
         '.$_language->module['themes_design'].'
     </div>
 
@@ -1063,7 +1133,7 @@ echo'
     <div class="col-md-12"><span class="text-muted small"><em>
       <input class="btn btn-info" name="background_pic" type="file" size="40" /></em></span> 
        <!-- Button trigger modal -->
-    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="admincenter.php?site=settings_themes&amp;delete_pic=true&amp;themeID='.$ds['themeID'].'&amp;captcha_hash='.$hash.'">
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="admincenter.php?site=settings_themes&amp;delete_pic=true&amp;themeID='.$ds['themeID'].'&amp;captcha_hash='.$hash.'"><i class="bi bi-trash3"></i> 
     ' . $_language->module['delete_background_pic'] . '
     </button><br> <small>(max. 1000x500)</small>
     <!-- Button trigger modal END-->
@@ -1079,8 +1149,8 @@ echo'
       <div class="modal-body"><p>' . $_language->module['really_delete_background_pic'].'</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">'.$_language->module['close'].'</button>
-        <a class="btn btn-danger btn-ok">' . $_language->module['delete_background_pic'] . '</a>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> '.$_language->module['close'].'</button>
+        <a class="btn btn-danger btn-ok"><i class="bi bi-trash3"></i> ' . $_language->module['delete_background_pic'] . '</a>
       </div>
     </div>
   </div>
@@ -2231,7 +2301,7 @@ echo'
     <div class="col-md-offset-0 col-md-12">
     <input type="hidden" name="captcha_hash" value="'.$hash.'" /><input type="hidden" name="themeID" value="'.$themeID.'" />
     <input type="hidden" name="logo_pic" value="' . $ds[ 'logo_pic' ] . '" />
-    <button class="btn btn-warning" type="submit" name="saveedit"  />'.$_language->module['edit_themes'].'</button>
+    <button class="btn btn-warning" type="submit" name="saveedit"  /><i class="bi bi-save"></i> '.$_language->module['edit_themes'].'</button>
     <!--<button class="btn btn-success" type="submit" name="saveedit" formaction="admincenter.php?site=settings_themes">'.$_language->module['edit_themes_back'].'</button>-->
     </div>
   </div>
@@ -2294,7 +2364,7 @@ if (isset($_GET[ 'action' ])) {
 
 
 echo'<div class="card">
-        <div class="card-header">
+        <div class="card-header"><i class="bi bi-palette"></i> 
             '.$_language->module['themes'].'
         </div>
 <nav aria-label="breadcrumb">
@@ -2340,6 +2410,12 @@ echo'<div class="card">
                 } elseif (file_exists("../includes/expansion/".getinput($db['pfad'])."/images/".getinput($db['modulname']).".png")) {
                     $bannerpic = ".png";
                     $pic_info = $db[ 'modulname' ];
+				} elseif (file_exists("../includes/expansion/".getinput($db['pfad'])."/images/".getinput($db['modulname']).".avif")) {
+                    $bannerpic = ".avif";
+                    $pic_info = $db[ 'modulname' ];
+				} elseif (file_exists("../includes/expansion/".getinput($db['pfad'])."/images/".getinput($db['modulname']).".webp")) {
+                    $bannerpic = ".webp";
+                    $pic_info = $db[ 'modulname' ];
                 } else {
                     $bannerpic = ".jpg";
                     $pic_info = "../../../../images/no-image";
@@ -2375,7 +2451,7 @@ echo'<div class="card">
 
         $db[ 'active' ] == 1 ? $button = '' :
             $button = '<input type="hidden" name="captcha_hash" value="'.$hash.'" /><input type="hidden" name="themeID" value="'.$db['themeID'].'" />
-    <button class="btn btn-success" type="submit" name="addedit"  />'.$_language->module['themes_active'].'</button>';    
+    <button class="btn btn-success" type="submit" name="addedit"  /><i class="bi bi-toggle-on"></i> '.$_language->module['themes_active'].'</button>';    
             
 
        echo'<td style="width: 15%">';
@@ -2401,13 +2477,13 @@ echo'<div class="card">
 </form>
 </td>
 <td style="width: 15%">
- <a href="admincenter.php?site=settings_themes&amp;action=edit&amp;themeID='.$db['themeID'].'" class="btn btn-warning" type="button">' . $_language->module[ 'themes_edit' ] . '</a>';
+ <a href="admincenter.php?site=settings_themes&amp;action=edit&amp;themeID='.$db['themeID'].'" class="btn btn-warning" type="button"><i class="bi bi-paint-bucket"></i> ' . $_language->module[ 'themes_edit' ] . '</a>';
 
 # Themplate default kann man nicht löschen!
 if (@$db[ 'modulname' ] != 'default') {
                     
 echo' <!-- Button trigger modal -->
-    <button type="button" class="btn btn-danger" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_16' ]. ' " data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="admincenter.php?site=settings_themes&amp;delete=true&themeID='.$db['themeID'].'&name='.$db['name'].'&pfad='.$db['pfad'].'&modulname='.$db['modulname'].'&amp;captcha_hash='.$hash.'">
+    <button type="button" class="btn btn-danger" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_16' ]. ' " data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="admincenter.php?site=settings_themes&amp;delete=true&themeID='.$db['themeID'].'&name='.$db['name'].'&pfad='.$db['pfad'].'&modulname='.$db['modulname'].'&amp;captcha_hash='.$hash.'"><i class="bi bi-trash3"></i> 
     ' . $_language->module['delete'] . '
     </button></th>';echo'
     <!-- Button trigger modal END-->  ';
@@ -2427,8 +2503,8 @@ echo' <!-- Button trigger modal -->
                              <p>' . $_language->module['really_delete'] . '</p>
                           </div>
                           <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">'.$_language->module['close'].'</button>
-                              <a class="btn btn-danger btn-ok">' . $_language->module['delete'] . '</a>
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> '.$_language->module['close'].'</button>
+                              <a class="btn btn-danger btn-ok"><i class="bi bi-trash3"></i> ' . $_language->module['delete'] . '</a>
                           </div>
                       </div>
                   </div>
